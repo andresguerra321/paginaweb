@@ -1659,24 +1659,38 @@
         var navAnchors = document.querySelectorAll('.nav-links a');
         
         function activateSection(targetId) {
+            // Treat logo/hero clicks as going to the 'Sobre Mí' combined tab
+            if (targetId === '#page-top' || targetId === '#hero' || targetId === '') {
+                targetId = '#about';
+            }
+
             var found = false;
             allSections.forEach(function(section) {
-                if ('#' + section.getAttribute('id') === targetId || (targetId === '#page-top' && section.getAttribute('id') === 'hero')) {
+                var sectionId = '#' + section.getAttribute('id');
+                
+                // If target is #about, show BOTH #hero and #about
+                if (targetId === '#about' && (sectionId === '#hero' || sectionId === '#about')) {
                     section.style.display = 'block';
                     found = true;
-                    // Trigger scroll event to ensure animations (anime.js/intersectionObserver) run
-                    setTimeout(function() { window.dispatchEvent(new Event('scroll')); }, 50);
+                } else if (sectionId === targetId) {
+                    section.style.display = 'block';
+                    found = true;
                 } else {
                     section.style.display = 'none';
                 }
             });
             
-            if (!found && document.getElementById('hero')) {
-                targetId = '#hero';
-                document.getElementById('hero').style.display = 'block';
+            if (!found) {
+                // Fallback
+                targetId = '#about';
+                if(document.getElementById('hero')) document.getElementById('hero').style.display = 'block';
+                if(document.getElementById('about')) document.getElementById('about').style.display = 'block';
             }
             
             window.scrollTo(0, 0);
+            
+            // Trigger scroll event to ensure animations (anime.js/intersectionObserver) run
+            setTimeout(function() { window.dispatchEvent(new Event('scroll')); }, 50);
             
             navAnchors.forEach(function(a) {
                 a.classList.remove('active');
@@ -1687,7 +1701,7 @@
             
             // Update URL without jumping
             if (history.pushState) {
-                history.pushState(null, null, targetId === '#hero' ? ' ' : targetId);
+                history.pushState(null, null, targetId === '#about' ? ' ' : targetId);
             }
         }
         
