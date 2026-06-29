@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --bg-dark: #f8fafc;
   --bg-darker: #f1f5f9;
   --bg-card: rgba(255, 255, 255, 0.85);
@@ -60,7 +60,7 @@ h1, h2, h3, h4, h5, h6, .masthead-heading {
 header.masthead {
   position: relative;
   background-image: none;
-  background: linear-gradient(135deg, rgba(248, 250, 252, 0.6) 0%, rgba(241, 245, 249, 0.8) 100%), url('../assets/img/header-bg.jpg');
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.6) 0%, rgba(241, 245, 249, 0.8) 100%), url('../img/header-bg.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -266,3 +266,4 @@ footer a {
   color: var(--accent-primary);
   text-decoration: underline;
 }
+
