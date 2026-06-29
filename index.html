@@ -428,6 +428,7 @@
         min-height: 260px;
         line-height: 1.8;
         color: var(--text-dim);
+        overflow-x: auto;
     }
 
     .console-body .comment { color: var(--text-muted); }
@@ -1199,7 +1200,7 @@
                 <div class="about-label reveal">
                     <span>02 // OVERVIEW</span>
                     SOBRE<br>MÍ
-                    <div class="about-image-container reveal reveal-delay-1" style="margin-top: 3rem; max-width: 364px; aspect-ratio: 1 / 1; border-radius: 50%; overflow: hidden; border: 2px solid var(--border-hover); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8);">
+                    <div class="about-image-container reveal reveal-delay-1" style="margin-top: 3rem; width: 100%; max-width: 364px; margin-left: auto; margin-right: auto; aspect-ratio: 1 / 1; border-radius: 50%; overflow: hidden; border: 2px solid var(--border-hover); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8);">
                         <img src="img/sobremi.jpg" alt="Andrés Felipe Guerra" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.05);">
                     </div>
                 </div>
@@ -1763,7 +1764,7 @@
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
                         toAnimate.push(entry.target);
-                        observer.unobserve(entry.target);
+                        // observer.unobserve(entry.target);
                     }
                 });
                 if (toAnimate.length > 0) {
@@ -1790,7 +1791,7 @@
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
                     targets.push(entry.target);
-                    projectObserver.unobserve(entry.target);
+                    // projectObserver.unobserve(entry.target);
                 }
             });
             if (targets.length > 0) {
@@ -1820,7 +1821,7 @@
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
                     targets.push(entry.target);
-                    statObserver.unobserve(entry.target);
+                    // statObserver.unobserve(entry.target);
                 }
             });
             if (targets.length > 0) {
@@ -1845,7 +1846,7 @@
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
                     targets.push(entry.target);
-                    compObserver.unobserve(entry.target);
+                    // compObserver.unobserve(entry.target);
                 }
             });
             if (targets.length > 0) {
@@ -1882,7 +1883,7 @@
                         easing: 'easeInOutQuart',
                     });
                     entry.target.classList.add('animated');
-                    skillObserver.unobserve(entry.target);
+                    // skillObserver.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.3 });
@@ -1912,7 +1913,7 @@
                             duration: 1500,
                             easing: 'easeInOutQuart'
                         });
-                        tlObserver.unobserve(entry.target);
+                        // tlObserver.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1 });
@@ -1950,7 +1951,7 @@
                                 delay: anime.stagger(100)
                             }, '-=300');
 
-                        contactObserver.unobserve(entry.target);
+                        // contactObserver.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.2 });
