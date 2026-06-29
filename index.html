@@ -1654,26 +1654,57 @@
             }
         });
 
-        /* Active link based on scroll position */
-        var sections = document.querySelectorAll('section[id]');
+        /* SPA Tab Behavior: Show only active section */
+        var allSections = document.querySelectorAll('section[id], header#hero');
         var navAnchors = document.querySelectorAll('.nav-links a');
-
-        window.addEventListener('scroll', function() {
-            var scrollPos = window.scrollY + 200;
-            sections.forEach(function(section) {
-                var top = section.offsetTop;
-                var height = section.offsetHeight;
-                var id = section.getAttribute('id');
-                if (scrollPos >= top && scrollPos < top + height) {
-                    navAnchors.forEach(function(a) {
-                        a.classList.remove('active');
-                        if (a.getAttribute('href') === '#' + id) {
-                            a.classList.add('active');
-                        }
-                    });
+        
+        function activateSection(targetId) {
+            var found = false;
+            allSections.forEach(function(section) {
+                if ('#' + section.getAttribute('id') === targetId || (targetId === '#page-top' && section.getAttribute('id') === 'hero')) {
+                    section.style.display = 'block';
+                    found = true;
+                    // Trigger scroll event to ensure animations (anime.js/intersectionObserver) run
+                    setTimeout(function() { window.dispatchEvent(new Event('scroll')); }, 50);
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+            
+            if (!found && document.getElementById('hero')) {
+                targetId = '#hero';
+                document.getElementById('hero').style.display = 'block';
+            }
+            
+            window.scrollTo(0, 0);
+            
+            navAnchors.forEach(function(a) {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === targetId) {
+                    a.classList.add('active');
+                }
+            });
+            
+            // Update URL without jumping
+            if (history.pushState) {
+                history.pushState(null, null, targetId === '#hero' ? ' ' : targetId);
+            }
+        }
+        
+        // Listen to ALL internal links to switch tabs
+        document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+            a.addEventListener('click', function(e) {
+                var href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    activateSection(href);
                 }
             });
         });
+        
+        // Initialize
+        var currentHash = window.location.hash || '#hero';
+        activateSection(currentHash);
 
 
         /* --------------------------------------------------------
