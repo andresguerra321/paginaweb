@@ -14,7 +14,7 @@
 `Building technology solutions that solve real problems.`
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-0D0D0D?style=for-the-badge&logo=vercel&logoColor=3B82F6)](https://github.com/andresguerra321/paginaweb)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/public-profile/settings/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BOFAlsXv3QR%2B87oTZEc%2BdMA%3D%3D)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/andr%C3%A9s-felipe-guerra-correa-556333267/)
 [![Fiverr](https://img.shields.io/badge/Fiverr-1DBF73?style=for-the-badge&logo=fiverr&logoColor=white)](https://es.fiverr.com/s/dDvmP03)
 
 </div>
