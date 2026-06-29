@@ -1672,9 +1672,13 @@
                 // If target is #about, show BOTH #hero and #about
                 if (targetId === '#about' && (sectionId === '#hero' || sectionId === '#about')) {
                     section.style.display = 'block';
+                    section.querySelectorAll('[data-animated="true"]').forEach(function(el) { el.removeAttribute('data-animated'); });
+                    if (section.hasAttribute('data-animated')) section.removeAttribute('data-animated');
                     found = true;
                 } else if (sectionId === targetId) {
                     section.style.display = 'block';
+                    section.querySelectorAll('[data-animated="true"]').forEach(function(el) { el.removeAttribute('data-animated'); });
+                    if (section.hasAttribute('data-animated')) section.removeAttribute('data-animated');
                     found = true;
                 } else {
                     section.style.display = 'none';
@@ -1762,7 +1766,8 @@
             var observer = new IntersectionObserver(function(entries) {
                 var toAnimate = [];
                 entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
+                    if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
+                        entry.target.setAttribute('data-animated', 'true');
                         toAnimate.push(entry.target);
                         // observer.unobserve(entry.target);
                     }
@@ -1789,7 +1794,8 @@
         var projectObserver = new IntersectionObserver(function(entries) {
             var targets = [];
             entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
+                    entry.target.setAttribute('data-animated', 'true');
                     targets.push(entry.target);
                     // projectObserver.unobserve(entry.target);
                 }
@@ -1819,7 +1825,8 @@
         var statObserver = new IntersectionObserver(function(entries) {
             var targets = [];
             entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
+                    entry.target.setAttribute('data-animated', 'true');
                     targets.push(entry.target);
                     // statObserver.unobserve(entry.target);
                 }
@@ -1844,7 +1851,8 @@
         var compObserver = new IntersectionObserver(function(entries) {
             var targets = [];
             entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
+                    entry.target.setAttribute('data-animated', 'true');
                     targets.push(entry.target);
                     // compObserver.unobserve(entry.target);
                 }
@@ -1874,7 +1882,8 @@
 
         var skillObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
+                    entry.target.setAttribute('data-animated', 'true');
                     var targetWidth = entry.target.getAttribute('data-width');
                     anime({
                         targets: entry.target,
@@ -1905,7 +1914,8 @@
 
             var tlObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
+                    if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
+                        entry.target.setAttribute('data-animated', 'true');
                         /* Animate the green line drawing down */
                         anime({
                             targets: animatedLine,
@@ -1929,7 +1939,8 @@
         if (contactTitle) {
             var contactObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
+                    if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
+                        entry.target.setAttribute('data-animated', 'true');
                         anime.timeline({ easing: 'easeOutExpo' })
                             .add({
                                 targets: '.contact-title',
