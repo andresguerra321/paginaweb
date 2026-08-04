@@ -108,6 +108,12 @@
           <span class="section-tag">Demostración en Vivo</span>
           <h2 class="section-title">Experiencia Conversacional en Real Time</h2>
           <p class="section-subtitle">Mira cómo el bot responde de forma fluida a las solicitudes de los clientes en formato vertical 9:16.</p>
+          <div style="margin-top: 2rem;">
+            <button id="openDemoBtn" class="btn btn-primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Ver Video Demo
+            </button>
+          </div>
         </div>
 
         <div class="horizontal-gallery-wrapper">
@@ -117,23 +123,7 @@
               <img src="img/images/1.png" alt="Demo Chat 1" class="gallery-image">
             </div>
 
-            <!-- Demo Video -->
-            <div class="gallery-item video-item">
-              <div class="phone-mockup-wrapper">
-                <div class="phone-speaker-notch"></div>
-              <video controls muted playsinline class="hero-video-player" id="heroVideo">
-                <source src="img/demo-video.mp4" type="video/mp4">
-                Tu navegador no soporta la reproducción de video.
-              </video>
 
-              <!-- Fallback si aún no hay video -->
-              <div class="video-empty-state" id="videoFallback">
-                <div class="play-button-circle"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
-                <span class="state-title">Video Demo (1080x1920)</span>
-                <span class="state-subtitle">Alojar archivo en <code>img/demo-video.mp4</code></span>
-              </div>
-            </div>
-          </div>
 
             <!-- Placeholder 2 -->
             <div class="gallery-item placeholder-item">
@@ -393,6 +383,27 @@
   <div class="lightbox" id="lightbox">
     <div class="lightbox-close" id="lightboxClose">&times;</div>
     <img src="" alt="Zoomed Image" class="lightbox-img" id="lightboxImg">
+  </div>
+
+  <!-- ===== DEMO VIDEO MODAL ===== -->
+  <div class="video-modal" id="demoVideoModal">
+    <div class="video-modal-close" id="demoVideoClose">&times;</div>
+    <div class="video-modal-content">
+      <div class="phone-mockup-wrapper">
+        <div class="phone-speaker-notch"></div>
+        <video controls playsinline class="hero-video-player" id="modalHeroVideo">
+          <source src="img/demo-video.mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de video.
+        </video>
+        
+        <!-- Fallback si aún no hay video -->
+        <div class="video-empty-state" id="modalVideoFallback">
+          <div class="play-button-circle"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
+          <span class="state-title">Video Demo (1080x1920)</span>
+          <span class="state-subtitle">Alojar archivo en <code>img/demo-video.mp4</code></span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="main.js"></script>

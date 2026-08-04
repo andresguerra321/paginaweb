@@ -176,8 +176,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===== ROTATING SLIDESHOW (GALLERY) =====
+  const gallery = document.querySelector('.horizontal-gallery');
   const slides = document.querySelectorAll('.horizontal-gallery .gallery-item');
-  if (slides.length > 0) {
+  if (slides.length > 0 && gallery) {
     let currentSlideIndex = 0;
     let slideTimeout = null;
 
@@ -185,38 +186,61 @@ document.addEventListener('DOMContentLoaded', () => {
       slides[currentSlideIndex].classList.remove('active');
       currentSlideIndex = (currentSlideIndex + 1) % slides.length;
       slides[currentSlideIndex].classList.add('active');
+      
+      // Move the flex container horizontally
+      gallery.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+      
       handleCurrentSlide();
     }
 
     function handleCurrentSlide() {
       clearTimeout(slideTimeout);
-      const currentSlide = slides[currentSlideIndex];
-      const video = currentSlide.querySelector('video');
-
-      if (video) {
-        // Muted is required for autoplay to work seamlessly in most modern browsers
-        video.muted = true;
-        video.currentTime = 0;
-        
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(error => {
-            console.log("Auto-play prevented", error);
-            // Fallback: if video fails to play, wait 3 seconds then skip
-            slideTimeout = setTimeout(nextSlide, 3000);
-          });
-        }
-        
-        video.onended = () => {
-          nextSlide();
-        };
-      } else {
-        // It's an image placeholder, rotate every 1.5 seconds
-        slideTimeout = setTimeout(nextSlide, 1500);
-      }
+      // It's always an image placeholder now, rotate every 7 seconds
+      slideTimeout = setTimeout(nextSlide, 7000);
     }
 
     // Initialize the slideshow
     handleCurrentSlide();
+  }
+
+  // ===== DEMO VIDEO MODAL =====
+  const openDemoBtn = document.getElementById('openDemoBtn');
+  const demoVideoModal = document.getElementById('demoVideoModal');
+  const demoVideoClose = document.getElementById('demoVideoClose');
+  const modalHeroVideo = document.getElementById('modalHeroVideo');
+
+  if (openDemoBtn && demoVideoModal && modalHeroVideo) {
+    openDemoBtn.addEventListener('click', () => {
+      demoVideoModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      modalHeroVideo.currentTime = 0;
+      // Play with sound if possible since it was user-initiated
+      modalHeroVideo.muted = false;
+      modalHeroVideo.play().catch(e => {
+        // Fallback to muted if browser strictly blocks it
+        modalHeroVideo.muted = true;
+        modalHeroVideo.play();
+      });
+    });
+
+    const closeVideoModal = () => {
+      demoVideoModal.classList.remove('active');
+      document.body.style.overflow = '';
+      modalHeroVideo.pause();
+    };
+
+    demoVideoClose.addEventListener('click', closeVideoModal);
+    
+    demoVideoModal.addEventListener('click', (e) => {
+      if (e.target === demoVideoModal) {
+        closeVideoModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && demoVideoModal.classList.contains('active')) {
+        closeVideoModal();
+      }
+    });
   }
 })
