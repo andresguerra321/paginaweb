@@ -174,4 +174,49 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   }
+
+  // ===== ROTATING SLIDESHOW (GALLERY) =====
+  const slides = document.querySelectorAll('.horizontal-gallery .gallery-item');
+  if (slides.length > 0) {
+    let currentSlideIndex = 0;
+    let slideTimeout = null;
+
+    function nextSlide() {
+      slides[currentSlideIndex].classList.remove('active');
+      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+      slides[currentSlideIndex].classList.add('active');
+      handleCurrentSlide();
+    }
+
+    function handleCurrentSlide() {
+      clearTimeout(slideTimeout);
+      const currentSlide = slides[currentSlideIndex];
+      const video = currentSlide.querySelector('video');
+
+      if (video) {
+        // Muted is required for autoplay to work seamlessly in most modern browsers
+        video.muted = true;
+        video.currentTime = 0;
+        
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log("Auto-play prevented", error);
+            // Fallback: if video fails to play, wait 3 seconds then skip
+            slideTimeout = setTimeout(nextSlide, 3000);
+          });
+        }
+        
+        video.onended = () => {
+          nextSlide();
+        };
+      } else {
+        // It's an image placeholder, rotate every 1.5 seconds
+        slideTimeout = setTimeout(nextSlide, 1500);
+      }
+    }
+
+    // Initialize the slideshow
+    handleCurrentSlide();
+  }
 })

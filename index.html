@@ -43,22 +43,22 @@
        ============================================================ */
     :root {
         --bg-base: #050505;
-        --bg-card: rgba(18, 18, 18, 0.6);
-        --bg-card-hover: rgba(24, 24, 24, 0.8);
+        --bg-card: rgba(255, 255, 255, 0.02);
+        --bg-card-hover: rgba(255, 255, 255, 0.04);
         --primary: #3B82F6;
         --primary-dim: rgba(59, 130, 246, 0.15);
-        --primary-glow: rgba(59, 130, 246, 0.3);
+        --primary-glow: rgba(59, 130, 246, 0.4);
         --secondary: #333333;
-        --text: #F2F2F2;
-        --text-dim: #A1A1AA;
-        --text-muted: #666666;
-        --border: rgba(255, 255, 255, 0.06);
-        --border-hover: rgba(59, 130, 246, 0.3);
+        --text: #F8FAFC;
+        --text-dim: #94A3B8;
+        --text-muted: #475569;
+        --border: rgba(255, 255, 255, 0.08);
+        --border-hover: rgba(255, 255, 255, 0.2);
         --font-hero: 'Inter', system-ui, -apple-system, sans-serif;
         --font-body: 'Inter', sans-serif;
         --font-mono: 'Courier New', 'Consolas', monospace;
         --radius-sm: 12px;
-        --radius-md: 16px;
+        --radius-md: 12px;
         --gap: clamp(1rem, 3vw, 2rem);
         --section-padding: clamp(4rem, 10vh, 8rem);
         --container-width: min(90%, 1200px);
@@ -82,31 +82,51 @@
         display: none; /* Chrome, Safari, Opera */
     }
 
+    /* ============================================================
+       GLASSMORPHISM BACKGROUND (COLOR GRADIENTS)
+       ============================================================ */
     body {
         font-family: var(--font-body);
         font-weight: 400;
         color: var(--text);
         background-color: var(--bg-base);
+        background-image: linear-gradient(to bottom right, #020617, #0f172a);
+        background-attachment: fixed;
         line-height: 1.6;
         overflow-x: hidden;
     }
 
-    /* ============================================================
-       DOT MATRIX BACKGROUND PATTERN
-       ============================================================ */
-    body::before {
+    body::before, body::after {
         content: '';
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
-        background-size: 24px 24px;
+        width: 50vw;
+        height: 50vw;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.6;
         pointer-events: none;
         z-index: 0;
+        animation: floatBg 20s ease-in-out infinite alternate;
     }
 
+    body::before {
+        background: rgba(139, 92, 246, 0.25); /* Deep Purple */
+        top: -10%;
+        left: -10%;
+    }
+
+    body::after {
+        background: rgba(56, 189, 248, 0.2); /* Sky Blue */
+        bottom: -10%;
+        right: -10%;
+        animation-delay: -10s;
+    }
+
+    @keyframes floatBg {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(15%, 15%) scale(1.1); }
+        100% { transform: translate(-5%, -10%) scale(0.95); }
+    }
 
     /* ============================================================
        TYPOGRAPHY
@@ -403,8 +423,11 @@
     /* Console / Terminal animation */
     .console {
         background: var(--bg-card);
-        border: 1px solid var(--border);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: none;
         border-radius: var(--radius-md);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         overflow: hidden;
         font-family: var(--font-mono);
         font-size: 0.8rem;
@@ -519,9 +542,13 @@
 
     .stat-card {
         padding: 1.5rem;
-        border: 1px solid var(--border);
+        background: var(--bg-card);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: none;
         border-radius: var(--radius-sm);
-        transition: border-color var(--transition);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        transition: box-shadow var(--transition);
     }
 
     .stat-card:hover {
@@ -568,12 +595,15 @@
     .project-card {
         position: relative;
         background: var(--bg-card);
-        border: 1px solid var(--border);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: none;
         border-radius: var(--radius-sm);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        transition: border-color var(--transition);
+        transition: box-shadow var(--transition);
     }
 
     .project-image-placeholder {
@@ -771,10 +801,14 @@
 
     .competency {
         padding: 2.5rem;
-        border: 1px solid var(--border);
+        background: var(--bg-card);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: none;
         border-radius: var(--radius-sm);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         margin-bottom: 1rem;
-        transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+        transition: background var(--transition), box-shadow var(--transition);
     }
 
     .competency:hover {
