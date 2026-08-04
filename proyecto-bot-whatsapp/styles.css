@@ -35,6 +35,12 @@
   padding: 0;
 }
 
+html {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
 body.dark-theme {
   background-color: var(--bg-dark);
   color: var(--text-main);
@@ -43,6 +49,8 @@ body.dark-theme {
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* ===== SCROLL ANIMATIONS ===== */
@@ -875,6 +883,19 @@ input:checked + .slider:before { transform: translateX(24px); }
     text-align: center;
   }
 
+  .glow-emerald {
+    width: 280px;
+    height: 280px;
+    left: 0;
+    top: -50px;
+  }
+
+  .glow-indigo {
+    width: 280px;
+    height: 280px;
+    right: 0;
+  }
+
   .hero-title { font-size: 2.4rem; }
   .hero-subtitle { margin: 0 auto 32px; }
   .hero-actions { justify-content: center; }
@@ -891,10 +912,12 @@ input:checked + .slider:before { transform: translateX(24px); }
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 30px; /* Espacio para barra de desplazamiento */
-    margin: 30px -24px 0; /* Negativo para que el scroll cubra toda la pantalla horizontalmente */
-    padding-left: 24px;
-    padding-right: 24px;
+    margin: 30px 0 0;
+    padding-left: 0;
+    padding-right: 0;
     gap: 20px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .pricing-grid::-webkit-scrollbar {
