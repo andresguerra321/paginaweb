@@ -405,7 +405,7 @@ body.dark-theme {
 }
 
 .swipe-hint-container {
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 8px;
   background: rgba(16, 185, 129, 0.12);
@@ -416,7 +416,6 @@ body.dark-theme {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: 600;
-  margin-bottom: 20px;
   box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
 }
 
@@ -935,6 +934,11 @@ input:checked + .slider:before { transform: translateX(24px); }
   
   .cta-box-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; padding: 24px; }
   .cta-info-col { align-items: center; text-align: center; }
+
+  .mobile-swipe-hint {
+    display: inline-flex !important;
+    margin: 15px auto 25px;
+  }
 
   /* Carrusel Horizontal de Planes para Móviles */
   .pricing-grid {
