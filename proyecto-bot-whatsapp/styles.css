@@ -404,6 +404,30 @@ body.dark-theme {
   margin-top: 36px;
 }
 
+.swipe-hint-container {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 8px 18px;
+  border-radius: 20px;
+  color: var(--emerald-primary);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+.swipe-arrow-animated {
+  animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
 
 
 /* Smartphone Vertical Video Frame */
@@ -913,21 +937,48 @@ input:checked + .slider:before { transform: translateX(24px); }
   .cta-box-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; padding: 24px; }
   .cta-info-col { align-items: center; text-align: center; }
 
-  /* Grilla Vertical de Planes para Móviles (1 Columna Responsive Sin Desplazamiento Horizontal) */
+  .mobile-swipe-hint {
+    display: inline-flex !important;
+    margin-top: 18px;
+    margin-bottom: 5px;
+  }
+
+  /* Carrusel Horizontal Suave & Aislado para Móviles */
   .pricing-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin-top: 30px;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+    padding-bottom: 20px;
+    margin: 24px 0 0;
+    gap: 16px;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .pricing-grid::-webkit-scrollbar {
+    height: 4px;
+  }
+  .pricing-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+  .pricing-grid::-webkit-scrollbar-thumb {
+    background: var(--emerald-primary);
+    border-radius: 10px;
   }
 
   .pricing-card {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
+    flex: 0 0 85% !important;
+    width: 85% !important;
+    min-width: 270px !important;
+    max-width: 340px !important;
+    scroll-snap-align: center;
     box-sizing: border-box;
   }
 }
