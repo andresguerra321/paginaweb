@@ -568,7 +568,7 @@
     .project-image-placeholder {
         width: 100%;
         aspect-ratio: 16 / 9;
-        background: var(--bg-card-hover);
+        background: transparent;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -576,6 +576,11 @@
         font-family: var(--font-mono);
         font-size: 0.85rem;
         border-bottom: 1px solid var(--border);
+        overflow: hidden;
+    }
+
+    .project-image-placeholder img {
+        mix-blend-mode: screen;
     }
 
     .project-card::before {

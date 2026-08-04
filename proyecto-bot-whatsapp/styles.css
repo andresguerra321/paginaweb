@@ -536,12 +536,15 @@ body.dark-theme {
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--border-glass);
+  background: transparent;
 }
 
 .showcase-img {
   width: 100%;
   height: auto;
   display: block;
+  mix-blend-mode: screen;
+  border-radius: var(--radius-md);
   transition: var(--transition-smooth);
 }
 
@@ -691,12 +694,15 @@ input:checked + .slider:before { transform: translateX(24px); }
   overflow: hidden;
   margin-bottom: 20px;
   border: 1px solid var(--border-glass);
+  background: transparent;
 }
 
 .plan-card-img {
   width: 100%;
   height: auto;
   display: block;
+  mix-blend-mode: screen;
+  border-radius: var(--radius-md);
 }
 
 .pricing-card.featured {
