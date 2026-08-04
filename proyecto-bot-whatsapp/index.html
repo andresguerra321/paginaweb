@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bot de WhatsApp con IA — Caso de Estudio & SAAS | Andrés Correa</title>
+  <meta name="description" content="Sistema inteligente de automatización de citas y atención al cliente 24/7 por WhatsApp con IA (LLaMA 3.1) y transcripción de voz con Whisper.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../css/transition.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+</head>
+<body class="dark-theme">
+
+  <!-- Glow Background Accents -->
+  <div class="glow-bg glow-emerald" aria-hidden="true"></div>
+  <div class="glow-bg glow-indigo" aria-hidden="true"></div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span>Volver al Portafolio</span>
+      </a>
+      <div class="brand-tag">
+        <span class="pulse-dot"></span>
+        <span class="brand-text">Caso de Estudio • Producto SAAS</span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ===== HERO SECTION (FULL IMAGE BACKGROUND ON DESKTOP / ADAPTIVE ON MOBILE) ===== -->
+    <section class="hero-full-banner">
+      <div class="hero-banner-overlay"></div>
+      <div class="container hero-full-container">
+        <div class="hero-left-content">
+          <div class="tech-stack-pills">
+            <span class="pill">Node.js</span>
+            <span class="pill">Baileys API</span>
+            <span class="pill">Groq LLaMA 3.1</span>
+            <span class="pill">Whisper AI</span>
+            <span class="pill">MongoDB</span>
+          </div>
+          
+          <h1 class="hero-title">
+            Asistente Virtual de WhatsApp <br>
+            <span class="gradient-text">& Agendamiento IA 24/7</span>
+          </h1>
+          
+          <p class="hero-subtitle">
+            Automatización comercial para agendar citas en tiempo real, transcribir audios de voz y transferir a un asesor humano cuando se requiere.
+          </p>
+
+          <div class="hero-actions">
+            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20el%20proyecto%20del%20Bot%20de%20WhatsApp%20en%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20una%20demostraci%C3%B3n" target="_blank" rel="noopener" class="btn btn-emerald">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span>Solicitar Demo en Vivo</span>
+            </a>
+            <a href="#planes" class="btn btn-glass">
+              <span>Ver Tabla de Planes</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            </a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <span class="metric-value">100%</span>
+              <span class="metric-label">Citas Automáticas</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-value">&lt; 2s</span>
+              <span class="metric-label">Respuesta Inmediata</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-value">24/7</span>
+              <span class="metric-label">Disponibilidad</span>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+
+    <!-- ===== DEDICATED VIDEO DEMO SECTION ===== -->
+    <section class="video-demo-section" id="video-demo">
+      <div class="container">
+        <div class="section-header center">
+          <span class="section-tag">Demostración en Vivo</span>
+          <h2 class="section-title">Experiencia Conversacional en Real Time</h2>
+          <p class="section-subtitle">Mira cómo el bot responde de forma fluida a las solicitudes de los clientes en formato vertical 9:16.</p>
+        </div>
+
+        <div class="video-phone-wrapper">
+          <div class="phone-mockup-wrapper">
+            <div class="phone-speaker-notch"></div>
+            <div class="phone-screen-container">
+              <video controls autoplay loop muted playsinline class="hero-video-player" id="heroVideo">
+                <source src="img/demo-video.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de video.
+              </video>
+
+              <!-- Fallback si aún no hay video -->
+              <div class="video-empty-state" id="videoFallback">
+                <div class="play-button-circle">▶</div>
+                <span class="state-title">Video Demo (1080x1920)</span>
+                <span class="state-subtitle">Alojar archivo en <code>img/demo-video.mp4</code></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROBLEMA VS SOLUCIÓN ===== -->
+    <section class="showcase-section">
+      <div class="container">
+        <div class="section-header center">
+          <span class="section-tag">El Caso de Negocio</span>
+          <h2 class="section-title">Del Problema a la Solución</h2>
+          <p class="section-subtitle">Transformación del flujo de atención de clientes.</p>
+        </div>
+
+        <div class="showcase-grid">
+          <div class="glass-card showcase-card">
+            <span class="card-tag red">❌ El Problema</span>
+            <div class="showcase-img-wrapper">
+              <img src="img/01_el_problema.png" alt="El Problema: Demora en respuestas" class="showcase-img">
+            </div>
+          </div>
+
+          <div class="glass-card showcase-card highlighted">
+            <span class="card-tag green">✅ La Solución</span>
+            <div class="showcase-img-wrapper">
+              <img src="img/02_la_solucion.png" alt="La Solución: Atención 24/7 con IA" class="showcase-img">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURES SECTION ===== -->
+    <section class="features-section">
+      <div class="container">
+        <div class="section-header center">
+          <span class="section-tag">Capacidades Técnicas</span>
+          <h2 class="section-title">Arquitectura Resiliente</h2>
+          <p class="section-subtitle">Enrutamiento inteligente diseñado para evitar bloqueos ante mensajes fuera de contexto.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="glass-card feature-card">
+            <div class="feature-icon emerald">🎙️</div>
+            <h3>Transcripción con IA (Whisper)</h3>
+            <p>Procesa notas de voz instantáneamente a texto para continuar el flujo de agendamiento sin interrupción.</p>
+          </div>
+
+          <div class="glass-card feature-card">
+            <div class="feature-icon indigo">👤</div>
+            <h3>Modo Asesor Humano</h3>
+            <p>Pausa automática del bot al detectar solicitudes de atención personalizada y alerta directa al administrador.</p>
+          </div>
+
+          <div class="glass-card feature-card">
+            <div class="feature-icon purple">🔒</div>
+            <h3>Aislamiento por Cliente</h3>
+            <p>Garantía de privacidad en MongoDB donde cada número telefónico accede únicamente a sus datos de cita.</p>
+          </div>
+
+          <div class="glass-card feature-card">
+            <div class="feature-icon cyan">📊</div>
+            <h3>Panel de Control Rápido</h3>
+            <p>Comando administrativo directo (opción <code>4</code>) para listar citas pendientes del día en tiempo real.</p>
+          </div>
+
+          <div class="glass-card feature-card">
+            <div class="feature-icon amber">🛡️</div>
+            <h3>Filtro Anti-Spam & Emojis</h3>
+            <p>Protección contra ráfagas de mensajes y descarte de reacciones para evitar duplicados en pantalla.</p>
+          </div>
+
+          <div class="glass-card feature-card">
+            <div class="feature-icon rose">⚡</div>
+            <h3>Auto-Recuperación de Sesión</h3>
+            <p>Persistencia transparente en Baileys que restablece la conexión ante reinicios del servidor.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRICING & PLAN COMPARISON ===== -->
+    <section class="pricing-section" id="planes">
+      <div class="container">
+        <div class="section-header center">
+          <span class="section-tag">Planes Comerciales</span>
+          <h2 class="section-title">Elige el plan ideal para tu negocio</h2>
+          
+          <!-- Currency Toggle -->
+          <div class="currency-toggle-wrapper">
+            <span class="currency-label" id="labelCOP">COP (Pesos Colombianos)</span>
+            <label class="switch">
+              <input type="checkbox" id="currencyToggle">
+              <span class="slider round"></span>
+            </label>
+            <span class="currency-label muted" id="labelUSD">USD (Dólares)</span>
+          </div>
+        </div>
+
+        <!-- Pricing Cards Grid with Detailed Features Comparison -->
+        <div class="pricing-grid">
+          <!-- Plan Starter -->
+          <div class="glass-card pricing-card">
+            <div class="plan-img-wrapper">
+              <img src="img/03_plan_starter.png" alt="Plan Starter" class="plan-card-img">
+            </div>
+            <div class="plan-price">
+              <span class="price-amount" data-cop="$120.000" data-usd="$29">$120.000</span>
+              <span class="price-period">/ mes</span>
+            </div>
+
+            <div class="plan-feature-list">
+              <h4>¿Qué incluye el Plan Starter?</h4>
+              <ul>
+                <li><span class="check-icon">✔️</span> Escaneo QR (Conexión Baileys Web)</li>
+                <li><span class="check-icon">✔️</span> Menú interactivo numerado (1..4)</li>
+                <li><span class="check-icon">✔️</span> IA Básica para Preguntas Frecuentes</li>
+                <li><span class="check-icon">✔️</span> Aislamiento de datos en MongoDB</li>
+                <li><span class="check-icon">✔️</span> Soporte vía chat 5/7</li>
+                <li class="disabled"><span class="cross-icon">❌</span> Transcripción de audios (Whisper AI)</li>
+                <li class="disabled"><span class="cross-icon">❌</span> Agendamiento automático de citas</li>
+                <li class="disabled"><span class="cross-icon">❌</span> Modo Asesor Humano (Auto-pausa)</li>
+                <li class="disabled"><span class="cross-icon">❌</span> Notificaciones de citas al dueño</li>
+              </ul>
+            </div>
+
+            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20me%20interesa%20el%20Plan%20Starter%20del%20Bot%20de%20WhatsApp" target="_blank" rel="noopener" class="btn btn-outline full-width">Solicitar Plan Starter</a>
+          </div>
+
+          <!-- Plan Profesional (Featured) -->
+          <div class="glass-card pricing-card featured">
+            <div class="featured-tag">⭐ MÁS POPULAR</div>
+            <div class="plan-img-wrapper">
+              <img src="img/04_plan_profesional.png" alt="Plan Profesional" class="plan-card-img">
+            </div>
+            <div class="plan-price">
+              <span class="price-amount" data-cop="$240.000" data-usd="$59">$240.000</span>
+              <span class="price-period">/ mes</span>
+            </div>
+
+            <div class="plan-feature-list">
+              <h4>¿Qué incluye el Plan Profesional?</h4>
+              <ul>
+                <li><span class="check-icon">✔️</span> Escaneo QR (Conexión Baileys Web)</li>
+                <li><span class="check-icon">✔️</span> <strong>100% Agendamiento Automático</strong></li>
+                <li><span class="check-icon">✔️</span> <strong>Transcripción de Audios (Whisper AI)</strong></li>
+                <li><span class="check-icon">✔️</span> <strong>Modo Asesor Humano (Auto-pausa)</strong></li>
+                <li><span class="check-icon">✔️</span> <strong>Panel de Agenda en Vivo (Opción 4)</strong></li>
+                <li><span class="check-icon">✔️</span> IA Avanzada (Groq + LLaMA 3.1)</li>
+                <li><span class="check-icon">✔️</span> Notificación instantánea de citas al dueño</li>
+                <li><span class="check-icon">✔️</span> Filtros Anti-Spam y Silenciador de Reacciones</li>
+                <li><span class="check-icon">✔️</span> Soporte Prioritario 7/7</li>
+              </ul>
+            </div>
+
+            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20quiero%20el%20Plan%20Profesional%20del%20Bot%20de%20WhatsApp" target="_blank" rel="noopener" class="btn btn-emerald full-width">Obtener Plan Profesional</a>
+          </div>
+
+          <!-- Plan Enterprise -->
+          <div class="glass-card pricing-card">
+            <div class="plan-img-wrapper">
+              <img src="img/05_plan_enterprise.png" alt="Plan Enterprise" class="plan-card-img">
+            </div>
+            <div class="plan-price">
+              <span class="price-amount" data-cop="$500.000+" data-usd="$129+">$500.000+</span>
+              <span class="price-period">/ mes</span>
+            </div>
+
+            <div class="plan-feature-list">
+              <h4>¿Qué incluye el Plan Enterprise?</h4>
+              <ul>
+                <li><span class="check-icon">✔️</span> <strong>API Oficial de Meta Cloud API</strong></li>
+                <li><span class="check-icon">✔️</span> <strong>Cero riesgo de bloqueo (100% Oficial)</strong></li>
+                <li><span class="check-icon">✔️</span> Botones & Listas Nativas de WhatsApp</li>
+                <li><span class="check-icon">✔️</span> Agendamiento + Sincronización CRM</li>
+                <li><span class="check-icon">✔️</span> Integración Google Calendar & Webhooks</li>
+                <li><span class="check-icon">✔️</span> Transcripción de audios + Multimodal</li>
+                <li><span class="check-icon">✔️</span> Enrutamiento Multi-Agente & Asesores</li>
+                <li><span class="check-icon">✔️</span> Soporte 24/7 con SLA Garantizado</li>
+              </ul>
+            </div>
+
+            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20requiero%20informaci%C3%B3n%20sobre%20el%20Plan%20Enterprise" target="_blank" rel="noopener" class="btn btn-outline full-width">Cotizar Enterprise</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FINAL CTA SECTION ===== -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="glass-panel cta-box-grid">
+          <div class="cta-img-col">
+            <img src="img/06_cta.png" alt="Transforma la atención comercial de tu negocio" class="cta-banner-img">
+          </div>
+          <div class="cta-info-col">
+            <h2>Empieza hoy mismo</h2>
+            <p class="cta-highlight-pill">⚡ Despliegue listo en menos de 24 horas</p>
+            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20quiero%20implementar%20el%20Bot%20de%20WhatsApp%20en%20mi%20negocio" target="_blank" rel="noopener" class="btn btn-emerald btn-lg">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span>Agendar Demo en Vivo</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>© 2026 Andrés Correa | Tech Studio & Automatización. Todos los derechos reservados.</p>
+      <div class="footer-links">
+        <a href="../">Portafolio Principal</a>
+        <a href="https://github.com/andresguerra321" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <!-- Page Transition (Anime.js) -->
+  <script src="../js/transition.js"></script>
+</body>
+</html>

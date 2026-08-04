@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Proyecto | Andrés Felipe Guerra</title>
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/transition.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <style>
+        :root {
+            --bg-base: #050505;
+            --bg-card: rgba(18, 18, 18, 0.6);
+            --bg-card-hover: rgba(24, 24, 24, 0.8);
+            --primary: #3B82F6;
+            --primary-dim: rgba(59, 130, 246, 0.15);
+            --primary-glow: rgba(59, 130, 246, 0.3);
+            --secondary: #333333;
+            --text: #F2F2F2;
+            --text-dim: #A1A1AA;
+            --border: rgba(255, 255, 255, 0.06);
+            --font-hero: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'Courier New', 'Consolas', monospace;
+            --radius-md: 16px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-base);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .navbar {
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .back-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: color var(--transition);
+        }
+        .back-link:hover { color: var(--primary); }
+        .container {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 5%;
+        }
+        .project-image-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            margin-bottom: 3rem;
+            background: var(--bg-card);
+        }
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .project-header {
+            margin-bottom: 2rem;
+        }
+        .project-title {
+            font-family: var(--font-hero);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+        .project-description {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--primary-dim);
+            border-radius: 8px;
+            color: var(--primary);
+            background: var(--primary-dim);
+            text-transform: uppercase;
+        }
+        .actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-family: var(--font-hero);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all var(--transition);
+            cursor: pointer;
+        }
+        .btn-whatsapp {
+            background: #25D366;
+            color: #050505;
+            border: 2px solid #25D366;
+        }
+        .btn-whatsapp:hover {
+            background: transparent;
+            color: #25D366;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--secondary);
+        }
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="back-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Volver al Portafolio
+        </a>
+    </nav>
+
+    <div class="container" id="project-container">
+        <!-- Content will be injected by JavaScript -->
+    </div>
+
+    <script>
+        const proyectosData = {
+            'delivery-bot': {
+                title: 'DeliveryBot',
+                image: 'img/1.jpg',
+                description: 'Terminal de pedidos automatizada integrando Telegram y n8n para gestión de entregas en tiempo real. Procesamiento de +500 pedidos/mes con latencia <2s.',
+                tags: ['Node.js', 'n8n', 'Telegram', 'Google Sheets'],
+                repo: 'https://github.com/andresguerra321/delivery_bot_n8n'
+            },
+            'whatsapp-bot': {
+                title: 'WhatsApp Bot IA',
+                image: 'img/2.jpg',
+                description: 'Asistente conversacional con memoria, personalidad de agente de ventas, desplegado en Hugging Face.',
+                tags: ['Baileys', 'Groq AI', 'LLaMA', 'Docker', 'Express'],
+                repo: 'https://github.com/andresguerra321/Bot-de-Whatsapp-plantilla-'
+            },
+            'guardian': {
+                title: 'GUARDIAN',
+                image: 'img/3.jpg',
+                description: 'Sistema de seguridad predictiva para transporte terrestre con Computer Vision e IA colaborativa. Arquitectura de 3 agentes: Centinela (visión), Oráculo (riesgo), Copiloto (conversacional).',
+                tags: ['Python', 'FiftyOne', 'Gemini AI', 'Computer Vision'],
+                repo: 'https://github.com/andresguerra321/GUARDIAN'
+            },
+            'banco-acme': {
+                title: 'Banco ACME',
+                image: 'img/4.jpg',
+                description: 'Plataforma financiera simulada con arquitectura de bases de datos resiliente y transacciones seguras.',
+                tags: ['Node.js', 'MySQL', 'JavaScript'],
+                repo: 'https://github.com/andresguerra321/BANCO-ACME-'
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const projectId = params.get('id');
+        const project = proyectosData[projectId];
+
+        const container = document.getElementById('project-container');
+
+        if (project) {
+            const waText = encodeURIComponent(`Hola Andrés, me gustaría saber más información sobre el proyecto ${project.title} que vi en tu portafolio.`);
+            const waLink = `https://wa.me/573185602203?text=${waText}`;
+            
+            let tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+            
+            container.innerHTML = `
+                <div class="project-image-container">
+                    <img src="${project.image}" alt="${project.title}" class="project-image">
+                </div>
+                <div class="project-header">
+                    <h1 class="project-title">${project.title}</h1>
+                    <div class="tags">
+                        ${tagsHtml}
+                    </div>
+                    <p class="project-description">${project.description}</p>
+                </div>
+                <div class="actions">
+                    <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                        Contactar por WhatsApp para más información
+                    </a>
+                </div>
+            `;
+        } else {
+            container.innerHTML = `
+                <div class="project-header">
+                    <h1 class="project-title">Proyecto no encontrado</h1>
+                    <p class="project-description">El proyecto que buscas no existe o fue movido.</p>
+                </div>
+                <a href="index.html" class="btn btn-outline">Volver al inicio</a>
+            `;
+        }
+    </script>
+    <!-- Page Transition (Anime.js) -->
+    <script src="js/transition.js"></script>
+</body>
+</html>
