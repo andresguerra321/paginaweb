@@ -36,9 +36,9 @@
 }
 
 html {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
 }
 
 body.dark-theme {
@@ -46,11 +46,11 @@ body.dark-theme {
   color: var(--text-main);
   font-family: var(--font-sans);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   position: relative;
   min-height: 100vh;
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
 }
 
 /* ===== SCROLL ANIMATIONS ===== */
@@ -404,29 +404,7 @@ body.dark-theme {
   margin-top: 36px;
 }
 
-.swipe-hint-container {
-  display: none;
-  align-items: center;
-  gap: 8px;
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  padding: 8px 18px;
-  border-radius: 20px;
-  color: var(--emerald-primary);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
-}
 
-.swipe-arrow-animated {
-  animation: arrowBounce 1.5s ease-in-out infinite;
-}
-
-@keyframes arrowBounce {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(6px); }
-}
 
 /* Smartphone Vertical Video Frame */
 .phone-mockup-wrapper {
@@ -935,45 +913,22 @@ input:checked + .slider:before { transform: translateX(24px); }
   .cta-box-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; padding: 24px; }
   .cta-info-col { align-items: center; text-align: center; }
 
-  .mobile-swipe-hint {
-    display: inline-flex !important;
-    margin-top: 20px;
-    margin-bottom: 5px;
-  }
-
-  /* Carrusel Horizontal de Planes para Móviles */
+  /* Grilla Vertical de Planes para Móviles (1 Columna Responsive Sin Desplazamiento Horizontal) */
   .pricing-grid {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 30px; /* Espacio para barra de desplazamiento */
-    margin: 30px 0 0;
-    padding-left: 0;
-    padding-right: 0;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 30px;
     width: 100%;
     max-width: 100%;
-  }
-
-  .pricing-grid::-webkit-scrollbar {
-    height: 6px;
-  }
-  .pricing-grid::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-  }
-  .pricing-grid::-webkit-scrollbar-thumb {
-    background: var(--emerald-primary);
-    border-radius: 10px;
+    overflow: hidden;
   }
 
   .pricing-card {
-    flex: 0 0 88%; /* Ocupa casi toda la pantalla para ver el borde del siguiente plan */
-    min-width: 280px;
-    max-width: 380px;
-    scroll-snap-align: center;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 }
 
