@@ -57,13 +57,22 @@ body.dark-theme {
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-on-scroll.revealed {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Staggered Reveal Delays */
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.40s; }
+.reveal-delay-6 { transition-delay: 0.48s; }
 
 /* Section Glow Highlight upon click navigation */
 .section-glow-effect {
@@ -713,6 +722,121 @@ input:checked + .slider:before { transform: translateX(24px); }
   display: flex;
   flex-direction: column;
   padding: 24px;
+  overflow: visible;
+}
+
+/* ===== PROMO BANNER ===== */
+.promo-banner {
+  margin-top: 24px;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(234, 179, 8, 0.08) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: promoPulse 3s ease-in-out infinite;
+}
+
+.promo-banner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(16, 185, 129, 0.06) 50%, transparent 60%);
+  animation: promoShine 4s linear infinite;
+}
+
+@keyframes promoShine {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+@keyframes promoPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.1); }
+  50% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.25); }
+}
+
+.promo-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--emerald-primary), #eab308);
+  color: #000;
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 5px 16px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.promo-text {
+  font-size: 1.05rem;
+  color: var(--text-main);
+  position: relative;
+  line-height: 1.5;
+}
+
+.promo-timer-hint {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: #eab308;
+  font-weight: 600;
+  position: relative;
+}
+
+/* ===== DISCOUNT BADGE ===== */
+.discount-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 5px 12px;
+  border-radius: 10px;
+  z-index: 3;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+  animation: badgeBounce 2s ease-in-out infinite;
+}
+
+@keyframes badgeBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* ===== PRICE ORIGINAL (STRIKETHROUGH) ===== */
+.price-original {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-decoration: line-through;
+  text-decoration-color: #ef4444;
+  text-decoration-thickness: 2px;
+  opacity: 0.7;
+  margin-bottom: 2px;
+}
+
+.price-amount.discounted {
+  color: var(--emerald-primary);
+  text-shadow: 0 0 20px var(--emerald-glow);
+}
+
+.discount-note {
+  display: inline-block;
+  font-size: 0.72rem;
+  color: #eab308;
+  font-weight: 600;
+  background: rgba(234, 179, 8, 0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-left: 4px;
+  vertical-align: middle;
 }
 
 .plan-img-wrapper {
@@ -896,12 +1020,12 @@ input:checked + .slider:before { transform: translateX(24px); }
 
 /* ===== RESPONSIVE DISPOSITIVOS MÓVILES Y TABLETS ===== */
 
+/* Tablet landscape and below */
 @media (max-width: 992px) {
-  /* En móviles/tablets restauramos el comportamiento orgánico */
   .hero-full-banner {
-    background-position: right bottom; /* El teléfono se ubica abajo a la derecha */
-    align-items: flex-start; /* Subimos el contenido de texto para no tapar el celular */
-    padding: 40px 0 300px; /* Damos mucho espacio debajo para que se vea el celular de fondo */
+    background-position: right bottom;
+    align-items: flex-start;
+    padding: 40px 0 300px;
     min-height: 800px;
   }
 
@@ -943,56 +1067,311 @@ input:checked + .slider:before { transform: translateX(24px); }
     margin-bottom: 5px;
   }
 
-  /* Carrusel Horizontal Suave & Aislado para Móviles */
+  /* ===== PRICING MOBILE FIX =====
+   * Cards stack vertically on mobile — no horizontal carousel.
+   * This fixes the bug where users couldn't scroll down the page
+   * because touch-action:pan-x and overflow-y:hidden hijacked scroll.
+   */
   .pricing-grid {
     display: flex !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x;
-    overscroll-behavior-x: contain;
-    padding-bottom: 20px;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 24px;
     margin: 24px 0 0;
-    gap: 16px;
+    padding-bottom: 20px;
     width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  .pricing-grid::-webkit-scrollbar {
-    height: 4px;
-  }
-  .pricing-grid::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-  }
-  .pricing-grid::-webkit-scrollbar-thumb {
-    background: var(--emerald-primary);
-    border-radius: 10px;
   }
 
   .pricing-card {
-    flex: 0 0 85% !important;
-    width: 85% !important;
-    min-width: 270px !important;
-    max-width: 340px !important;
-    scroll-snap-align: center;
-    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 420px !important;
+    min-width: unset !important;
+    flex: none !important;
   }
+
+  .promo-banner {
+    padding: 16px 20px;
+  }
+
+  .promo-text {
+    font-size: 0.95rem;
+  }
+
+  .section-title { font-size: 2rem; }
 }
 
+/* Mobile portrait */
 @media (max-width: 600px) {
   .hero-full-banner {
-    padding: 30px 0 280px; /* Espacio para el celular en pantallas muy pequeñas */
-    background-position: 80% 100%; /* Ajuste horizontal sutil para celulares */
+    padding: 30px 0 280px;
+    background-position: 80% 100%;
+    min-height: auto;
   }
-  .hero-title { font-size: 2rem; }
-  .section-title { font-size: 1.8rem; }
+  .hero-title { font-size: 1.8rem; }
+  .section-title { font-size: 1.6rem; }
+  .section-subtitle { font-size: 0.95rem; }
   .btn { width: 100%; }
   .hero-actions { flex-direction: column; width: 100%; }
   .glass-card, .hero-left-content { padding: 20px; }
   .container { padding: 0 16px; }
   .phone-mockup-wrapper { height: 500px; max-width: 280px; }
+  
+  /* Make showcase cards larger on mobile */
+  .showcase-card { 
+    padding: 16px 0;
+  }
+  .card-tag {
+    margin-left: 20px;
+  }
+  .showcase-img-wrapper {
+    width: 100%;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  .showcase-img {
+    border-radius: 0;
+  }
+  
+  .mobile-swipe-hint { display: none !important; }
+
+  .pricing-card {
+    max-width: 100% !important;
+  }
+
+  .price-amount {
+    font-size: 2rem;
+  }
+
+  .price-original {
+    font-size: 1.1rem;
+  }
+
+  .discount-badge {
+    font-size: 0.78rem;
+    padding: 4px 10px;
+  }
+
+  .promo-banner {
+    padding: 14px 16px;
+    margin-top: 18px;
+  }
+
+  .promo-badge {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+
+  .promo-text {
+    font-size: 0.88rem;
+  }
+
+  .cta-info-col h2 {
+    font-size: 1.6rem;
+  }
+
+  .cta-highlight-pill {
+    font-size: 0.88rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .footer-links a {
+    margin-left: 0;
+    margin: 0 10px;
+  }
+
+  .tech-stack-pills {
+    justify-content: center;
+  }
+
+  .currency-toggle-wrapper {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .currency-label {
+    font-size: 0.82rem;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .hero-title { font-size: 1.5rem; }
+  .hero-left-content { padding: 16px; }
+  .metric-value { font-size: 1.2rem; }
+  .metric-label { font-size: 0.68rem; }
+  .price-amount { font-size: 1.7rem; }
+  .plan-feature-list ul { font-size: 0.82rem; }
+}
+
+/* Tablet portrait specific refinements */
+@media (min-width: 601px) and (max-width: 992px) {
+  .pricing-card {
+    max-width: 480px !important;
+  }
+
+  .showcase-grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .section-title {
+    font-size: 2.8rem;
+  }
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .promo-banner::before {
+    animation: none;
+  }
+
+  .promo-banner {
+    animation: none;
+  }
+
+  .discount-badge {
+    animation: none;
+  }
+
+  .swipe-arrow-animated {
+    animation: none;
+  }
+
+  .pulse-dot {
+    animation: none;
+  }
+
+  .glass-card:hover {
+    transform: none;
+  }
+}
+
+/* ===== ZOOM HINT OVERLAY ===== */
+.zoom-wrapper {
+  position: relative;
+  display: block;
+}
+
+.zoom-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border: 1px solid rgba(255,255,255,0.15);
+  z-index: 10;
+}
+
+@media (max-width: 992px) {
+  .zoom-hint { opacity: 1; }
+}
+
+.zoom-wrapper:hover .zoom-hint {
+  opacity: 1;
+}
+
+.showcase-img {
+  cursor: zoom-in;
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox-img {
+  max-width: 95vw;
+  max-height: 95vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.9);
+  transform: scale(0.9);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: zoom-out;
+}
+
+.lightbox.active .lightbox-img {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  color: white;
+  font-size: 32px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.1);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, transform 0.3s;
+  z-index: 10000;
+}
+
+.lightbox-close:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.1);
 }

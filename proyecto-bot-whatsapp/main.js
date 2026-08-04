@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== CURRENCY TOGGLE (COP / USD) =====
   const currencyToggle = document.getElementById('currencyToggle')
   const priceAmounts = document.querySelectorAll('.price-amount')
+  const priceOriginals = document.querySelectorAll('.price-original')
   const labelCOP = document.getElementById('labelCOP')
   const labelUSD = document.getElementById('labelUSD')
 
@@ -17,7 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
         labelUSD.classList.add('muted')
       }
 
+      // Update discounted prices
       priceAmounts.forEach(el => {
+        const cop = el.getAttribute('data-cop')
+        const usd = el.getAttribute('data-usd')
+        el.textContent = isUSD ? usd : cop
+      })
+
+      // Update original (strikethrough) prices
+      priceOriginals.forEach(el => {
         const cop = el.getAttribute('data-cop')
         const usd = el.getAttribute('data-usd')
         el.textContent = isUSD ? usd : cop
@@ -79,15 +88,28 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // ===== SCROLL REVEAL ANIMATION (INTERSECTION OBSERVER) =====
-  const revealElements = document.querySelectorAll('.glass-card, .section-header, .pricing-card, .showcase-card')
+  // Collect all revealable elements
+  const revealElements = document.querySelectorAll('.glass-card, .section-header, .pricing-card, .showcase-card, .promo-banner')
   
   revealElements.forEach(el => {
     el.classList.add('reveal-on-scroll')
   })
 
+  // Apply staggered delays to grouped elements
+  function applyStaggeredDelays(selector) {
+    const elements = document.querySelectorAll(selector)
+    elements.forEach((el, index) => {
+      const delayClass = `reveal-delay-${Math.min(index + 1, 6)}`
+      el.classList.add(delayClass)
+    })
+  }
+
+  applyStaggeredDelays('.feature-card')
+  applyStaggeredDelays('.pricing-card')
+
   const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.08,
+    rootMargin: '0px 0px -30px 0px'
   }
 
   const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -100,4 +122,56 @@ document.addEventListener('DOMContentLoaded', () => {
   }, observerOptions)
 
   revealElements.forEach(el => revealObserver.observe(el))
+
+  // ===== HIDE VIDEO FALLBACK IF VIDEO LOADS =====
+  const heroVideo = document.getElementById('heroVideo')
+  const videoFallback = document.getElementById('videoFallback')
+
+  if (heroVideo && videoFallback) {
+    heroVideo.addEventListener('loadeddata', () => {
+      videoFallback.style.display = 'none'
+    })
+
+    // If the video already loaded before the listener was attached
+    if (heroVideo.readyState >= 2) {
+      videoFallback.style.display = 'none'
+    }
+  }
+
+  // ===== LIGHTBOX =====
+  const lightbox = document.getElementById('lightbox')
+  const lightboxImg = document.getElementById('lightboxImg')
+  const lightboxClose = document.getElementById('lightboxClose')
+  const zoomableImages = document.querySelectorAll('.showcase-img, .plan-card-img')
+
+  if (lightbox && lightboxImg) {
+    zoomableImages.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src
+        lightbox.classList.add('active')
+        // Prevent background scrolling when lightbox is open
+        document.body.style.overflow = 'hidden'
+      })
+    })
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('active')
+      document.body.style.overflow = ''
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox)
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox()
+      }
+    })
+
+    // Add escape key listener to close lightbox
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        closeLightbox()
+      }
+    })
+  }
 })

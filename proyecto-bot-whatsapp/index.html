@@ -145,15 +145,17 @@
         <div class="showcase-grid">
           <div class="glass-card showcase-card">
             <span class="card-tag red">❌ El Problema</span>
-            <div class="showcase-img-wrapper">
+            <div class="showcase-img-wrapper zoom-wrapper">
               <img src="img/01_el_problema.png" alt="El Problema: Demora en respuestas" class="showcase-img">
+              <div class="zoom-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar</div>
             </div>
           </div>
 
           <div class="glass-card showcase-card highlighted">
             <span class="card-tag green">✅ La Solución</span>
-            <div class="showcase-img-wrapper">
+            <div class="showcase-img-wrapper zoom-wrapper">
               <img src="img/02_la_solucion.png" alt="La Solución: Atención 24/7 con IA" class="showcase-img">
+              <div class="zoom-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar</div>
             </div>
           </div>
         </div>
@@ -216,6 +218,13 @@
           <span class="section-tag">Planes Comerciales</span>
           <h2 class="section-title">Elige el plan ideal para tu negocio</h2>
           
+          <!-- Promo Banner -->
+          <div class="promo-banner">
+            <div class="promo-badge">🔥 OFERTA DE LANZAMIENTO</div>
+            <p class="promo-text"><strong>40% de descuento</strong> durante los primeros <strong>3 meses</strong> en todos los planes</p>
+            <div class="promo-timer-hint">⏳ Oferta por tiempo limitado</div>
+          </div>
+
           <!-- Currency Toggle -->
           <div class="currency-toggle-wrapper">
             <span class="currency-label" id="labelCOP">COP (Pesos Colombianos)</span>
@@ -241,9 +250,11 @@
               <img src="img/03_plan_starter.png" alt="Plan Starter" class="plan-card-img">
             </div>
             <div class="plan-price">
-              <span class="price-amount" data-cop="$120.000" data-usd="$29">$120.000</span>
-              <span class="price-period">/ mes</span>
+              <span class="price-original" data-cop="$120.000" data-usd="$29">$120.000</span>
+              <span class="price-amount discounted" data-cop="$72.000" data-usd="$17">$72.000</span>
+              <span class="price-period">/ mes <span class="discount-note">primeros 3 meses</span></span>
             </div>
+            <div class="discount-badge">-40%</div>
 
             <div class="plan-feature-list">
               <h4>¿Qué incluye el Plan Starter?</h4>
@@ -270,9 +281,11 @@
               <img src="img/04_plan_profesional.png" alt="Plan Profesional" class="plan-card-img">
             </div>
             <div class="plan-price">
-              <span class="price-amount" data-cop="$240.000" data-usd="$59">$240.000</span>
-              <span class="price-period">/ mes</span>
+              <span class="price-original" data-cop="$240.000" data-usd="$59">$240.000</span>
+              <span class="price-amount discounted" data-cop="$144.000" data-usd="$35">$144.000</span>
+              <span class="price-period">/ mes <span class="discount-note">primeros 3 meses</span></span>
             </div>
+            <div class="discount-badge">-40%</div>
 
             <div class="plan-feature-list">
               <h4>¿Qué incluye el Plan Profesional?</h4>
@@ -298,9 +311,11 @@
               <img src="img/05_plan_enterprise.png" alt="Plan Enterprise" class="plan-card-img">
             </div>
             <div class="plan-price">
-              <span class="price-amount" data-cop="$500.000+" data-usd="$129+">$500.000+</span>
-              <span class="price-period">/ mes</span>
+              <span class="price-original" data-cop="$500.000+" data-usd="$129+">$500.000+</span>
+              <span class="price-amount discounted" data-cop="$300.000+" data-usd="$77+">$300.000+</span>
+              <span class="price-period">/ mes <span class="discount-note">primeros 3 meses</span></span>
             </div>
+            <div class="discount-badge">-40%</div>
 
             <div class="plan-feature-list">
               <h4>¿Qué incluye el Plan Enterprise?</h4>
@@ -352,6 +367,12 @@
       </div>
     </div>
   </footer>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightboxClose">&times;</div>
+    <img src="" alt="Zoomed Image" class="lightbox-img" id="lightboxImg">
+  </div>
 
   <script src="main.js"></script>
   <!-- Page Transition (Anime.js) -->
