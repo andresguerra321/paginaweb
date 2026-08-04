@@ -937,7 +937,8 @@ input:checked + .slider:before { transform: translateX(24px); }
 
   .mobile-swipe-hint {
     display: inline-flex !important;
-    margin: 15px auto 25px;
+    margin-top: 20px;
+    margin-bottom: 5px;
   }
 
   /* Carrusel Horizontal de Planes para Móviles */
