@@ -2,10 +2,12 @@
     'use strict';
 
     function createLoaderHTML() {
+        // If overlay already exists in the page (pre-rendered in HTML for performance),
+        // reuse it instead of creating a new one.
         if (document.getElementById('page-transition-overlay')) return;
         const loaderDiv = document.createElement('div');
         loaderDiv.id = 'page-transition-overlay';
-        loaderDiv.className = 'page-transition-overlay hidden';
+        loaderDiv.className = 'page-transition-overlay';
         loaderDiv.innerHTML = `
             <div class="minimal-progress-bar" id="minimal-bar"></div>
             <div class="minimal-loader-content" id="minimal-content">
@@ -15,14 +17,26 @@
         document.body.prepend(loaderDiv);
     }
 
+    function revealMainContent() {
+        var mainEl = document.querySelector('main.perf-hidden');
+        if (mainEl) {
+            mainEl.classList.remove('perf-hidden');
+            mainEl.classList.add('perf-reveal');
+        }
+    }
+
     function runEntranceAnimation() {
         createLoaderHTML();
         const overlay = document.getElementById('page-transition-overlay');
         const bar = document.getElementById('minimal-bar');
         const content = document.getElementById('minimal-content');
 
-        if (!overlay) return;
+        if (!overlay) {
+            revealMainContent();
+            return;
+        }
 
+        // Ensure overlay is visible (it may already be visible if pre-rendered)
         overlay.classList.remove('hidden');
         overlay.style.opacity = '1';
         overlay.style.visibility = 'visible';
@@ -31,6 +45,8 @@
         if (typeof anime !== 'undefined') {
             const tl = anime.timeline({
                 complete: function() {
+                    // Reveal main content before fading out overlay
+                    revealMainContent();
                     anime({
                         targets: overlay,
                         opacity: [1, 0],
@@ -59,6 +75,7 @@
         } else {
             if (bar) bar.style.width = '100%';
             setTimeout(function() {
+                revealMainContent();
                 overlay.style.opacity = '0';
                 setTimeout(function() {
                     overlay.classList.add('hidden');

@@ -57,24 +57,22 @@ body.dark-theme {
 body.dark-theme::before {
   content: '';
   position: fixed;
-  top: -5%;
-  left: -5%;
-  width: 110%;
-  height: 110%;
-  background-image: 
-    radial-gradient(circle at 50% 10%, rgba(5, 71, 42, 0.25) 0%, transparent 60%),
-    url('img/hero-bg.png');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  filter: blur(40px);
-  opacity: 0.85; /* Slight opacity reduction to blend with the charcoal base */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Pure CSS gradients that simulate the blurred hero-bg.png ambient glow
+     without any runtime filter:blur() — zero GPU cost */
+  background:
+    radial-gradient(ellipse at 50% 5%, rgba(5, 71, 42, 0.28) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 20% 60%, rgba(15, 23, 42, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(5, 40, 28, 0.12) 0%, transparent 45%);
+  opacity: 0.85;
   z-index: -1;
   pointer-events: none;
-  
-  /* Hardware Acceleration (GPU Layer Isolation) */
+  /* GPU layer promotion without will-change overhead */
   transform: translate3d(0, 0, 0);
-  will-change: transform;
   backface-visibility: hidden;
 }
 
@@ -83,7 +81,6 @@ body.dark-theme::before {
   opacity: 0;
   transform: translate3d(0, 30px, 0);
   transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
 }
 
 .reveal-on-scroll.revealed {
@@ -149,7 +146,6 @@ body.dark-theme::before {
   padding: 32px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
-  will-change: transform;
 }
 
 .glass-card::after {
@@ -1034,6 +1030,86 @@ body.dark-theme::before {
 
 .footer-links a:hover {
   color: var(--emerald-primary);
+}
+
+/* ===== MOBILE PERFORMANCE: DEFERRED RENDERING ===== */
+/* content-visibility: auto lets the browser skip rendering off-screen sections
+   until the user scrolls near them. Saves layout/paint work on initial load. */
+.showcase-section,
+.features-section,
+.pricing-section,
+.cta-section,
+.footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+/* ===== MOBILE PERFORMANCE: BACKDROP-FILTER REMOVAL ===== */
+/* backdrop-filter: blur() forces GPU recomposition on every scroll frame.
+   On mobile GPUs this causes severe jank. We replace with opaque solid
+   backgrounds that visually simulate the glassmorphism effect. */
+@media (max-width: 992px) {
+  .navbar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(7, 10, 16, 0.97);
+  }
+
+  .hero-left-content {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(15, 23, 42, 0.93);
+  }
+
+  .glass-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(12, 20, 36, 0.88);
+  }
+
+  .glass-card:hover {
+    background: rgba(18, 28, 48, 0.92);
+  }
+
+  .glass-panel {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(12, 20, 36, 0.88);
+  }
+
+  .linear-glass-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(12, 20, 36, 0.90);
+  }
+
+  .linear-glass-card:hover {
+    background: rgba(18, 28, 48, 0.93);
+  }
+
+  .featured-glass {
+    background: rgba(10, 35, 28, 0.88);
+  }
+
+  .featured-glass:hover {
+    background: rgba(14, 42, 34, 0.92);
+  }
+
+  .lightbox {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .video-modal {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .zoom-hint {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.80);
+  }
 }
 
 /* ===== RESPONSIVE DISPOSITIVOS MÓVILES Y TABLETS ===== */
