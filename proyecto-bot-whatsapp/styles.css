@@ -238,7 +238,7 @@ body.dark-theme::before {
 .hero-full-banner {
   position: relative;
   min-height: 680px;
-  background-image: url('img/hero.png');
+  background-image: url('img/og-preview.jpg');
   background-size: cover;
   /* Por defecto en móvil: centrado o centro derecha */
   background-position: center right; 
