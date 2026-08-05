@@ -195,8 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleCurrentSlide() {
       clearTimeout(slideTimeout);
-      // It's always an image placeholder now, rotate every 7 seconds
-      slideTimeout = setTimeout(nextSlide, 7000);
+      // Rotates every 5.5 seconds
+      slideTimeout = setTimeout(nextSlide, 5500);
     }
 
     // Initialize the slideshow

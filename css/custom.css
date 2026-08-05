@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --bg-dark: #f8fafc;
   --bg-darker: #f1f5f9;
   --bg-card: rgba(255, 255, 255, 0.85);
@@ -36,6 +36,8 @@ h1, h2, h3, h4, h5, h6, .masthead-heading {
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 #mainNav .navbar-brand img {
   filter: brightness(0); /* Hace el logo oscuro para que contraste en fondo claro */
@@ -94,7 +96,7 @@ header.masthead .masthead-heading {
 }
 .btn-primary:hover {
   background: linear-gradient(135deg, #4f46e5, #0891b2);
-  transform: translateY(-2px);
+  transform: translate3d(0, -2px, 0);
   box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
 }
 
@@ -111,7 +113,7 @@ header.masthead .masthead-heading {
   transition: transform 0.3s ease;
 }
 #services .col-md-4:hover .fa-stack {
-  transform: translateY(-10px);
+  transform: translate3d(0, -10px, 0);
 }
 #services .fa-circle.text-primary {
   color: rgba(99, 102, 241, 0.1) !important;
@@ -130,12 +132,13 @@ header.masthead .masthead-heading {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .portfolio-item:hover {
-  transform: translateY(-5px);
+  transform: translate3d(0, -5px, 0);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 .portfolio-item .portfolio-link .portfolio-hover {
   background: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(4px);
+  transform: translate3d(0, 0, 0);
 }
 .portfolio-item .portfolio-link .portfolio-hover i {
   color: var(--accent-primary);

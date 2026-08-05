@@ -44,6 +44,12 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
         <span>Volver al Portafolio</span>
       </a>
+
+      <!-- Logo o Título simple (opcional) -->
+      <div class="brand-tag">
+        <div class="pulse-dot"></div>
+        Bot WhatsApp Pro
+      </div>
     </div>
   </nav>
 
@@ -224,126 +230,112 @@
 
     <!-- ===== PRICING & PLAN COMPARISON ===== -->
     <section class="pricing-section" id="planes">
-      <div class="container">
-        <div class="section-header center">
-          <span class="section-tag">Planes Comerciales</span>
-          <h2 class="section-title">Elige el plan ideal para tu negocio</h2>
-          
-          <!-- Promo Banner -->
-          <div class="promo-banner">
-            <div class="promo-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg> OFERTA DE LANZAMIENTO</div>
-            <p class="promo-text"><strong>40% de descuento</strong> durante los primeros <strong>3 meses</strong> en todos los planes</p>
-            <div class="promo-timer-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Oferta por tiempo limitado</div>
-          </div>
-
-          <!-- Currency Toggle -->
-          <div class="currency-toggle-wrapper">
-            <span class="currency-label" id="labelCOP">COP (Pesos Colombianos)</span>
-            <label class="switch">
-              <input type="checkbox" id="currencyToggle">
-              <span class="slider round"></span>
-            </label>
-            <span class="currency-label muted" id="labelUSD">USD (Dólares)</span>
-          </div>
-
-          <!-- Indicador de desplazamiento en móviles -->
-          <div class="swipe-hint-container mobile-swipe-hint">
-            <span>Desliza para ver más planes</span>
-            <svg class="swipe-arrow-animated" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </div>
+      <div class="pricing-bg-effects">
+        <div class="noise-overlay"></div>
+        <div class="wave-glow emerald"></div>
+        <div class="wave-glow teal"></div>
+      </div>
+      <div class="container pricing-container">
+        
+        <div class="pricing-header">
+          <h2 class="pricing-headline">EMPIEZA A RECUPERAR TUS CLIENTES HOY.</h2>
+          <p class="pricing-subheadline">Ideal para negocios que inician su automatización.</p>
         </div>
 
-        <!-- Pricing Cards Grid with Detailed Features Comparison -->
-        <div class="pricing-grid">
+        <div class="pricing-grid-glass">
           <!-- Plan Starter -->
-          <div class="glass-card pricing-card">
-            <div class="plan-img-wrapper">
-              <img src="img/03_plan_starter.png" alt="Plan Starter" class="plan-card-img">
-            </div>
-            <div class="plan-price">
-              <span class="price-original" data-cop="$120.000" data-usd="$29">$120.000</span>
-              <span class="price-amount discounted" data-cop="$72.000" data-usd="$17">$72.000</span>
-              <span class="price-period">/ mes <span class="discount-note">primeros 3 meses</span></span>
-            </div>
-            <div class="discount-badge">-40%</div>
-
-            <div class="plan-feature-list">
-              <h4>¿Qué incluye el Plan Starter?</h4>
-              <ul>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Escaneo QR (Conexión Baileys Web)</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Menú interactivo numerado (1..4)</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> IA Básica para Preguntas Frecuentes</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Aislamiento de datos en MongoDB</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Soporte vía chat 5/7</li>
-                <li class="disabled"><span class="cross-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span> Transcripción de audios (Whisper AI)</li>
-                <li class="disabled"><span class="cross-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span> Agendamiento automático de citas</li>
-                <li class="disabled"><span class="cross-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span> Modo Asesor Humano (Auto-pausa)</li>
-                <li class="disabled"><span class="cross-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span> Notificaciones de citas al dueño</li>
-              </ul>
+          <div class="linear-glass-card pricing-card">
+            <h3 class="plan-title">Starter</h3>
+            <p class="plan-desc">Ideal para negocios que inician su automatización.</p>
+            
+            <div class="plan-price-ui">
+              <div class="price-original-wrapper">
+                <span class="price-original" data-cop="$120.000" data-usd="$29">$120.000</span>
+                <span class="discount-badge">OFERTA</span>
+              </div>
+              <div class="price-main-row">
+                <span class="price-value discounted price-amount" data-cop="$72.000" data-usd="$17">$72.000</span>
+                <span class="price-period">/ MES</span>
+              </div>
             </div>
 
+            <ul class="plan-results-list">
+              <li>Escaneo QR (Conexión Baileys Web)</li>
+              <li>Menú interactivo numerado (1..4)</li>
+              <li>IA Básica para Preguntas Frecuentes</li>
+              <li>Aislamiento de datos en MongoDB</li>
+              <li>Soporte vía chat 5/7</li>
+              <li class="disabled">Transcripción de audios (Whisper AI)</li>
+              <li class="disabled">Agendamiento automático de citas</li>
+              <li class="disabled">Modo Asesor Humano (Auto-pausa)</li>
+              <li class="disabled">Notificaciones de citas al dueño</li>
+            </ul>
+            
             <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20me%20interesa%20el%20Plan%20Starter%20del%20Bot%20de%20WhatsApp" target="_blank" rel="noopener" class="btn btn-outline full-width">Solicitar Plan Starter</a>
           </div>
 
           <!-- Plan Profesional (Featured) -->
-          <div class="glass-card pricing-card featured">
-            <div class="featured-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> MÁS POPULAR</div>
-            <div class="plan-img-wrapper">
-              <img src="img/04_plan_profesional.png" alt="Plan Profesional" class="plan-card-img">
-            </div>
-            <div class="plan-price">
-              <span class="price-original" data-cop="$240.000" data-usd="$59">$240.000</span>
-              <span class="price-amount discounted" data-cop="$144.000" data-usd="$35">$144.000</span>
-              <span class="price-period">/ mes <span class="discount-note">primeros 3 meses</span></span>
-            </div>
-            <div class="discount-badge">-40%</div>
-
-            <div class="plan-feature-list">
-              <h4>¿Qué incluye el Plan Profesional?</h4>
-              <ul>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Escaneo QR (Conexión Baileys Web)</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> <strong>100% Agendamiento Automático</strong></li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> <strong>Transcripción de Audios (Whisper AI)</strong></li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> <strong>Modo Asesor Humano (Auto-pausa)</strong></li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> <strong>Panel de Agenda en Vivo (Opción 4)</strong></li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> IA Avanzada (Groq + LLaMA 3.1)</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Notificación instantánea de citas al dueño</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Filtros Anti-Spam y Silenciador de Reacciones</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Soporte Prioritario 7/7</li>
-              </ul>
+          <div class="linear-glass-card pricing-card featured-glass">
+            <div class="featured-tag">MÁS POPULAR</div>
+            <h3 class="plan-title">Profesional</h3>
+            <p class="plan-desc">Automatización total con IA avanzada y agendamiento.</p>
+            
+            <div class="plan-price-ui">
+              <div class="price-original-wrapper">
+                <span class="price-original" data-cop="$240.000" data-usd="$59">$240.000</span>
+                <span class="discount-badge">OFERTA</span>
+              </div>
+              <div class="price-main-row">
+                <span class="price-value discounted price-amount" data-cop="$144.000" data-usd="$35">$144.000</span>
+                <span class="price-period">/ MES</span>
+              </div>
             </div>
 
+            <ul class="plan-results-list">
+              <li>Escaneo QR (Conexión Baileys Web)</li>
+              <li><strong>100% Agendamiento Automático</strong></li>
+              <li><strong>Transcripción de Audios (Whisper AI)</strong></li>
+              <li><strong>Modo Asesor Humano (Auto-pausa)</strong></li>
+              <li><strong>Panel de Agenda en Vivo (Opción 4)</strong></li>
+              <li>IA Avanzada (Groq + LLaMA 3.1)</li>
+              <li>Notificación instantánea de citas al dueño</li>
+              <li>Filtros Anti-Spam y Silenciador de Reacciones</li>
+              <li>Soporte Prioritario 7/7</li>
+            </ul>
+            
             <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20quiero%20el%20Plan%20Profesional%20del%20Bot%20de%20WhatsApp" target="_blank" rel="noopener" class="btn btn-emerald full-width">Obtener Plan Profesional</a>
           </div>
 
           <!-- Plan Enterprise -->
-          <div class="glass-card pricing-card">
-            <div class="plan-img-wrapper">
-              <img src="img/05_plan_enterprise.png" alt="Plan Enterprise" class="plan-card-img">
-            </div>
-            <div class="plan-price">
-              <span class="price-original" data-cop="$500.000+" data-usd="$129+">$500.000+</span>
-              <span class="price-amount discounted" data-cop="$300.000+" data-usd="$77+">$300.000+</span>
-              <span class="price-period">/ mes <span class="discount-note">primeros 3 meses</span></span>
-            </div>
-            <div class="discount-badge">-40%</div>
-
-            <div class="plan-feature-list">
-              <h4>¿Qué incluye el Plan Enterprise?</h4>
-              <ul>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> <strong>API Oficial de Meta Cloud API</strong></li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> <strong>Cero riesgo de bloqueo (100% Oficial)</strong></li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Botones & Listas Nativas de WhatsApp</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Agendamiento + Sincronización CRM</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Integración Google Calendar & Webhooks</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Transcripción de audios + Multimodal</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Enrutamiento Multi-Agente & Asesores</li>
-                <li><span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg></span> Soporte 24/7 con SLA Garantizado</li>
-              </ul>
+          <div class="linear-glass-card pricing-card">
+            <h3 class="plan-title">Enterprise</h3>
+            <p class="plan-desc">Solución oficial de Meta Cloud API con integración CRM.</p>
+            
+            <div class="plan-price-ui">
+              <div class="price-original-wrapper">
+                <span class="price-original" data-cop="$500.000+" data-usd="$129+">$500.000+</span>
+                <span class="discount-badge">OFERTA</span>
+              </div>
+              <div class="price-main-row">
+                <span class="price-value discounted price-amount" data-cop="$300.000+" data-usd="$77+">$300.000+</span>
+                <span class="price-period">/ MES</span>
+              </div>
             </div>
 
+            <ul class="plan-results-list">
+              <li><strong>API Oficial de Meta Cloud API</strong></li>
+              <li><strong>Cero riesgo de bloqueo (100% Oficial)</strong></li>
+              <li>Botones & Listas Nativas de WhatsApp</li>
+              <li>Agendamiento + Sincronización CRM</li>
+              <li>Integración Google Calendar & Webhooks</li>
+              <li>Transcripción de audios + Multimodal</li>
+              <li>Enrutamiento Multi-Agente & Asesores</li>
+              <li>Soporte 24/7 con SLA Garantizado</li>
+            </ul>
+            
             <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20requiero%20informaci%C3%B3n%20sobre%20el%20Plan%20Enterprise" target="_blank" rel="noopener" class="btn btn-outline full-width">Cotizar Enterprise</a>
           </div>
+
         </div>
       </div>
     </section>
