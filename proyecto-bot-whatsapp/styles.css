@@ -63,7 +63,7 @@ body.dark-theme::before {
   height: 110%;
   background-image: 
     radial-gradient(circle at 50% 10%, rgba(5, 71, 42, 0.25) 0%, transparent 60%),
-    url('img/og-preview.jpg');
+    url('img/hero.png');
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -237,7 +237,7 @@ body.dark-theme::before {
 .hero-full-banner {
   position: relative;
   min-height: 680px;
-  background-image: url('img/hero.png');
+  background-image: url('img/og-preview.jpg');
   background-size: cover;
   /* Por defecto en móvil: centrado o centro derecha */
   background-position: center right; 
