@@ -184,28 +184,52 @@
         const proyectosData = {
             'delivery-bot': {
                 title: 'DeliveryBot',
-                image: 'img/1.png',
+                image: `
+                  <picture>
+                    <source srcset="img/1-1200.avif 1200w, img/1-800.avif 800w" type="image/avif">
+                    <source srcset="img/1-1200.webp 1200w, img/1-800.webp 800w" type="image/webp">
+                    <img src="img/1-1200.png" alt="DeliveryBot Project" class="project-img" loading="lazy">
+                  </picture>
+                `,
                 description: 'Terminal de pedidos automatizada integrando Telegram y n8n para gestión de entregas en tiempo real. Procesamiento de +500 pedidos/mes con latencia <2s.',
                 tags: ['Node.js', 'n8n', 'Telegram', 'Google Sheets'],
                 repo: 'https://github.com/andresguerra321/delivery_bot_n8n'
             },
             'whatsapp-bot': {
                 title: 'WhatsApp Bot IA',
-                image: 'img/2.png',
+                image: `
+                  <picture>
+                    <source srcset="img/2-1200.avif 1200w, img/2-800.avif 800w" type="image/avif">
+                    <source srcset="img/2-1200.webp 1200w, img/2-800.webp 800w" type="image/webp">
+                    <img src="img/2-1200.png" alt="WhatsApp Bot IA Project" class="project-img" loading="lazy">
+                  </picture>
+                `,
                 description: 'Asistente conversacional con memoria, personalidad de agente de ventas, compatible con arquitecturas Cloud y Serverless (como Vercel).',
                 tags: ['Baileys', 'Groq AI', 'LLaMA', 'Serverless', 'Vercel'],
                 repo: 'https://github.com/andresguerra321/Bot-de-Whatsapp-plantilla-'
             },
             'guardian': {
                 title: 'GUARDIAN Security',
-                image: 'img/3.png',
+                image: `
+                  <picture>
+                    <source srcset="img/3-1200.avif 1200w, img/3-800.avif 800w" type="image/avif">
+                    <source srcset="img/3-1200.webp 1200w, img/3-800.webp 800w" type="image/webp">
+                    <img src="img/3-1200.png" alt="GUARDIAN Project" class="project-img" loading="lazy">
+                  </picture>
+                `,
                 description: 'Sistema de seguridad predictiva para transporte terrestre con Computer Vision e IA colaborativa. Arquitectura de 3 agentes: Centinela (visión), Oráculo (riesgo), Copiloto (conversacional).',
                 tags: ['Python', 'FiftyOne', 'Gemini AI', 'Computer Vision'],
                 repo: 'https://github.com/andresguerra321/GUARDIAN'
             },
             'banco-acme': {
                 title: 'Banco ACME',
-                image: 'img/4.png',
+                image: `
+                  <picture>
+                    <source srcset="img/4-1200.avif 1200w, img/4-800.avif 800w" type="image/avif">
+                    <source srcset="img/4-1200.webp 1200w, img/4-800.webp 800w" type="image/webp">
+                    <img src="img/4-1200.png" alt="Banco ACME Project" class="project-img" loading="lazy">
+                  </picture>
+                `,
                 description: 'Plataforma financiera simulada con arquitectura de bases de datos resiliente y transacciones seguras.',
                 tags: ['Node.js', 'MySQL', 'JavaScript'],
                 repo: 'https://github.com/andresguerra321/BANCO-ACME-'
@@ -225,8 +249,8 @@
             let tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
             
             container.innerHTML = `
-                <div class="project-image-container">
-                    <img src="${project.image}" alt="${project.title}" class="project-image">
+                <div class="project-image-container" id="projectImage">
+                    ${project.image}
                 </div>
                 <div class="project-header">
                     <h1 class="project-title">${project.title}</h1>

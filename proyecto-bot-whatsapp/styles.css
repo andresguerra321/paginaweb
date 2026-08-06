@@ -238,7 +238,9 @@ body.dark-theme::before {
 .hero-full-banner {
   position: relative;
   min-height: 680px;
-  background-image: url('img/og-preview.jpg');
+  background-image: url('img/hero.png');
+  background-image: -webkit-image-set(url('img/hero.avif') type('image/avif'), url('img/hero.webp') type('image/webp'), url('img/hero.png') type('image/png'));
+  background-image: image-set(url('img/hero.avif') type('image/avif'), url('img/hero.webp') type('image/webp'), url('img/hero.png') type('image/png'));
   background-size: cover;
   /* Por defecto en móvil: centrado o centro derecha */
   background-position: center right; 
