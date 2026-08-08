@@ -165,15 +165,46 @@
             border-color: var(--primary);
             color: var(--primary);
         }
+        .lang-switcher {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3px 4px;
+            gap: 2px;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .lang-btn:hover { color: var(--text); }
+        .lang-btn.active {
+            background: var(--primary);
+            color: #FFFFFF;
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="index.html" class="back-link">
+        <a href="index.html" class="back-link" id="backLink">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-            Volver al Portafolio
+            <span id="backLinkText">Volver al Portafolio</span>
         </a>
+        <div class="lang-switcher">
+            <button type="button" class="lang-btn active" id="langBtnES">ES</button>
+            <button type="button" class="lang-btn" id="langBtnEN">EN</button>
+        </div>
     </nav>
 
     <div class="container" id="project-container">
@@ -191,7 +222,10 @@
                     <img src="img/1-1200.png" alt="DeliveryBot Project" class="project-img" loading="lazy">
                   </picture>
                 `,
-                description: 'Terminal de pedidos automatizada integrando Telegram y n8n para gestión de entregas en tiempo real. Procesamiento de +500 pedidos/mes con latencia <2s.',
+                description: {
+                    es: 'Terminal de pedidos automatizada integrando Telegram y n8n para gestión de entregas en tiempo real. Procesamiento de +500 pedidos/mes con latencia <2s.',
+                    en: 'Automated order terminal integrating Telegram and n8n for real-time delivery management. Processing +500 orders/month with <2s latency.'
+                },
                 tags: ['Node.js', 'n8n', 'Telegram', 'Google Sheets'],
                 repo: 'https://github.com/andresguerra321/delivery_bot_n8n'
             },
@@ -204,7 +238,10 @@
                     <img src="img/2-1200.png" alt="WhatsApp Bot IA Project" class="project-img" loading="lazy">
                   </picture>
                 `,
-                description: 'Asistente conversacional con memoria, personalidad de agente de ventas, compatible con arquitecturas Cloud y Serverless (como Vercel).',
+                description: {
+                    es: 'Asistente conversacional con memoria, personalidad de agente de ventas, compatible con arquitecturas Cloud y Serverless (como Vercel).',
+                    en: 'Conversational assistant with memory, sales agent personality, compatible with Cloud and Serverless architectures (like Vercel).'
+                },
                 tags: ['Baileys', 'Groq AI', 'LLaMA', 'Serverless', 'Vercel'],
                 repo: 'https://github.com/andresguerra321/Bot-de-Whatsapp-plantilla-'
             },
@@ -217,7 +254,10 @@
                     <img src="img/3-1200.png" alt="GUARDIAN Project" class="project-img" loading="lazy">
                   </picture>
                 `,
-                description: 'Sistema de seguridad predictiva para transporte terrestre con Computer Vision e IA colaborativa. Arquitectura de 3 agentes: Centinela (visión), Oráculo (riesgo), Copiloto (conversacional).',
+                description: {
+                    es: 'Sistema de seguridad predictiva para transporte terrestre con Computer Vision e IA colaborativa. Arquitectura de 3 agentes: Centinela (visión), Oráculo (riesgo), Copiloto (conversacional).',
+                    en: 'Predictive security system for road transport with Computer Vision and collaborative AI. 3-agent architecture: Sentinel (vision), Oracle (risk), Copilot (conversational).'
+                },
                 tags: ['Python', 'FiftyOne', 'Gemini AI', 'Computer Vision'],
                 repo: 'https://github.com/andresguerra321/GUARDIAN'
             },
@@ -230,51 +270,102 @@
                     <img src="img/4-1200.png" alt="Banco ACME Project" class="project-img" loading="lazy">
                   </picture>
                 `,
-                description: 'Plataforma financiera simulada con arquitectura de bases de datos resiliente y transacciones seguras.',
+                description: {
+                    es: 'Plataforma financiera simulada con arquitectura de bases de datos resiliente y transacciones seguras.',
+                    en: 'Simulated financial platform with resilient database architecture and secure transactions.'
+                },
                 tags: ['Node.js', 'MySQL', 'JavaScript'],
                 repo: 'https://github.com/andresguerra321/BANCO-ACME-'
+            },
+            'luau-task-engine': {
+                title: 'Luau Async Task Engine',
+                image: `
+                  <div style="width: 100%; height: 100%; padding: 2rem; background: linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.95) 100%); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: 0.9rem; color: #a5b4fc; border: 1px solid var(--border-hover); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <div style="display: flex; gap: 8px; margin-bottom: 1.2rem;">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
+                        <span style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+                        <span style="font-size: 0.8rem; color: var(--text-dim); margin-left: 0.8rem;">task_engine.luau — Luau Strict Typing &amp; Event Loop</span>
+                    </div>
+                    <div style="color: #60a5fa; font-weight: 600;">-- Luau High-Performance Async Task Engine &amp; Scheduler</div>
+                    <div style="color: #f472b6; margin-top: 0.5rem;"><span style="color: #f472b6;">export type</span> TaskConfig = { id: <span style="color: #38bdf8;">string</span>, priority: <span style="color: #38bdf8;">number</span>, retries: <span style="color: #38bdf8;">number</span> }</div>
+                    <div style="color: #e2e8f0; margin-top: 0.3rem;"><span style="color: #f472b6;">local</span> TaskEngine = {}</div>
+                    <div style="color: #e2e8f0;"><span style="color: #f472b6;">function</span> TaskEngine.<span style="color: #818cf8;">dispatch</span>(config: TaskConfig): <span style="color: #38bdf8;">boolean</span></div>
+                    <div style="color: #64748b; margin-top: 0.8rem;">-- Micro-tasking con corutinas nativas y evaluación de tipos en tiempo de compilación sin dependencias externas.</div>
+                  </div>
+                `,
+                description: {
+                    es: 'Motor de gestión de tareas asíncronas y eventos concurrentes desarrollado en Luau con tipado estricto (Strict Typing). Diseñado para estructuración modular de scripts, procesamiento de datos inmutables y ejecución con latencia sub-milisegundo.',
+                    en: 'Asynchronous task management and concurrent event engine written in Luau with Strict Typing. Designed for modular script structuring, immutable data processing, and sub-millisecond execution latency.'
+                },
+                tags: ['Luau', 'Lua', 'Async Engine', 'Strict Typing', 'Coroutines', 'Performance'],
+                repo: 'https://github.com/andresguerra321'
             }
         };
 
-        const params = new URLSearchParams(window.location.search);
-        const projectId = params.get('id');
-        const project = proyectosData[projectId];
+        function renderProject() {
+            const lang = localStorage.getItem('portfolio_lang') || 'es';
+            const params = new URLSearchParams(window.location.search);
+            const projectId = params.get('id');
+            const project = proyectosData[projectId];
+            const container = document.getElementById('project-container');
 
-        const container = document.getElementById('project-container');
-
-        if (project) {
-            const waText = encodeURIComponent(`Hola Andrés, me gustaría saber más información sobre el proyecto ${project.title} que vi en tu portafolio.`);
-            const waLink = `https://wa.me/573185602203?text=${waText}`;
-            
-            let tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
-            
-            container.innerHTML = `
-                <div class="project-image-container" id="projectImage">
-                    ${project.image}
-                </div>
-                <div class="project-header">
-                    <h1 class="project-title">${project.title}</h1>
-                    <div class="tags">
-                        ${tagsHtml}
+            if (project) {
+                const desc = typeof project.description === 'object' ? (project.description[lang] || project.description.es) : project.description;
+                const waText = lang === 'en'
+                    ? encodeURIComponent(`Hello Andrés, I would like to get more information about the project ${project.title} that I saw on your portfolio.`)
+                    : encodeURIComponent(`Hola Andrés, me gustaría saber más información sobre el proyecto ${project.title} que vi en tu portafolio.`);
+                const waLink = `https://wa.me/573185602203?text=${waText}`;
+                const btnText = lang === 'en' ? 'Contact on WhatsApp for more details' : 'Contactar por WhatsApp para más información';
+                let tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                
+                container.innerHTML = `
+                    <div class="project-image-container" id="projectImage">
+                        ${project.image}
                     </div>
-                    <p class="project-description">${project.description}</p>
-                </div>
-                <div class="actions">
-                    <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                        Contactar por WhatsApp para más información
-                    </a>
-                </div>
-            `;
-        } else {
-            container.innerHTML = `
-                <div class="project-header">
-                    <h1 class="project-title">Proyecto no encontrado</h1>
-                    <p class="project-description">El proyecto que buscas no existe o fue movido.</p>
-                </div>
-                <a href="index.html" class="btn btn-outline">Volver al inicio</a>
-            `;
+                    <div class="project-header">
+                        <h1 class="project-title">${project.title}</h1>
+                        <div class="tags">
+                            ${tagsHtml}
+                        </div>
+                        <p class="project-description">${desc}</p>
+                    </div>
+                    <div class="actions">
+                        <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                            ${btnText}
+                        </a>
+                    </div>
+                `;
+            } else {
+                const titleNotFound = lang === 'en' ? 'Project Not Found' : 'Proyecto no encontrado';
+                const descNotFound = lang === 'en' ? 'The project you are looking for does not exist or was moved.' : 'El proyecto que buscas no existe o fue movido.';
+                const btnBack = lang === 'en' ? 'Back to home' : 'Volver al inicio';
+                container.innerHTML = `
+                    <div class="project-header">
+                        <h1 class="project-title">${titleNotFound}</h1>
+                        <p class="project-description">${descNotFound}</p>
+                    </div>
+                    <a href="index.html" class="btn btn-outline">${btnBack}</a>
+                `;
+            }
         }
+
+        window.addEventListener('languageChanged', renderProject);
+        renderProject();
+    </script>
+    <!-- i18n Engine Script -->
+    <script src="js/i18n.js"></script>
+    <script>
+        function updateBackLink() {
+            const lang = localStorage.getItem('portfolio_lang') || 'es';
+            const backTxt = document.getElementById('backLinkText');
+            if (backTxt) {
+                backTxt.textContent = lang === 'en' ? 'Back to Portfolio' : 'Volver al Portafolio';
+            }
+        }
+        window.addEventListener('languageChanged', updateBackLink);
+        updateBackLink();
     </script>
     <!-- Page Transition (Anime.js) -->
     <script src="js/transition.js"></script>

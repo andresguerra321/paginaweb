@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AG — Andrés Felipe Guerra | Fullstack Developer & AI Automation</title>
     <meta name="google-site-verification" content="BNRFofBQimHdGDmoyyJ09i_iwHrJmTdC5EGA7rcmW6I" />
-    <meta name="description" content="Portafolio de Andrés Felipe Guerra — Desarrollador Fullstack & AI Automation con enfoque en Arquitectura de Ciberseguridad. Node.js, Next.js, n8n, Python, React, MySQL.">
+    <meta name="description" content="Portafolio de Andrés Felipe Guerra — Desarrollador Fullstack & AI Automation con experiencia en Lua, Luau, Node.js, Python, React, n8n y Ciberseguridad.">
     <meta name="author" content="Andrés Felipe Guerra">
     <meta property="og:title" content="AG — Fullstack Developer & AI Automation">
     <meta property="og:description" content="Building secure & automated ecosystems. Portafolio profesional de Andrés Felipe Guerra.">
@@ -1202,9 +1202,150 @@
         opacity: 1;
         pointer-events: all;
     }
+
+    /* ============================================================
+       i18n LANGUAGE SWITCHER & MODAL STYLES
+       ============================================================ */
+    .lang-switcher {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 3px 4px;
+        gap: 2px;
+        margin-left: 1rem;
+    }
+
+    .lang-btn {
+        background: transparent;
+        border: none;
+        color: var(--text-dim);
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all var(--transition);
+    }
+
+    .lang-btn:hover {
+        color: var(--text);
+    }
+
+    .lang-btn.active {
+        background: var(--primary);
+        color: #FFFFFF;
+        box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    /* Initial Language Choice Modal */
+    .lang-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(5, 5, 5, 0.88);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+        padding: 1.5rem;
+    }
+
+    .lang-modal-backdrop.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .lang-modal-card {
+        background: rgba(15, 15, 15, 0.95);
+        border: 1px solid var(--border-hover);
+        border-radius: var(--radius-md);
+        padding: 2.5rem 2rem;
+        max-width: 440px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+        transform: translateY(20px);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .lang-modal-backdrop.active .lang-modal-card {
+        transform: translateY(0);
+    }
+
+    .lang-modal-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .lang-modal-title {
+        font-family: var(--font-hero);
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #FFFFFF;
+        margin-bottom: 0.5rem;
+    }
+
+    .lang-modal-sub {
+        font-size: 0.85rem;
+        color: var(--text-dim);
+        margin-bottom: 2rem;
+        line-height: 1.5;
+    }
+
+    .lang-modal-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .lang-modal-btn {
+        flex: 1;
+        padding: 0.9rem 1.2rem;
+        font-family: var(--font-hero);
+        font-weight: 700;
+        font-size: 0.9rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border-hover);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        cursor: pointer;
+        transition: all var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .lang-modal-btn:hover {
+        border-color: var(--primary);
+        background: var(--primary-dim);
+        color: var(--primary);
+        box-shadow: 0 0 20px var(--primary-glow);
+    }
     </style>
 </head>
 <body id="page-top">
+
+    <!-- Language Initial Choice Modal -->
+    <div class="lang-modal-backdrop" id="langModal">
+        <div class="lang-modal-card">
+            <span class="lang-modal-icon">🌐</span>
+            <h3 class="lang-modal-title" data-i18n="modal_title">Selecciona tu idioma / Select Language</h3>
+            <p class="lang-modal-sub" data-i18n="modal_sub">Escoge el idioma preferido para navegar el portafolio.</p>
+            <div class="lang-modal-actions">
+                <button type="button" class="lang-modal-btn" id="modalBtnES" data-i18n="modal_es">🇪🇸 Español</button>
+                <button type="button" class="lang-modal-btn" id="modalBtnEN" data-i18n="modal_en">🇺🇸 English</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Mobile Nav Overlay -->
     <div class="nav-overlay" id="navOverlay"></div>
@@ -1216,17 +1357,23 @@
         <div class="container">
             <a href="#page-top" class="nav-logo interactive">A<span>G</span></a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#about" class="interactive">Sobre Mí</a></li>
-                <li><a href="#projects" class="interactive">Proyectos</a></li>
-                <li><a href="#skills" class="interactive">Habilidades</a></li>
-                <li><a href="#timeline" class="interactive">Trayectoria</a></li>
-                <li><a href="#contact" class="interactive">Contacto</a></li>
+                <li><a href="#about" class="interactive" data-i18n="nav_about">Sobre Mí</a></li>
+                <li><a href="#projects" class="interactive" data-i18n="nav_projects">Proyectos</a></li>
+                <li><a href="#skills" class="interactive" data-i18n="nav_skills">Habilidades</a></li>
+                <li><a href="#timeline" class="interactive" data-i18n="nav_timeline">Trayectoria</a></li>
+                <li><a href="#contact" class="interactive" data-i18n="nav_contact">Contacto</a></li>
             </ul>
-            <button class="nav-toggle interactive" id="navToggle" aria-label="Abrir menú de navegación">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <div style="display: flex; align-items: center; gap: 0.8rem;">
+                <div class="lang-switcher">
+                    <button type="button" class="lang-btn active interactive" id="langBtnES" aria-label="Español">ES</button>
+                    <button type="button" class="lang-btn interactive" id="langBtnEN" aria-label="English">EN</button>
+                </div>
+                <button class="nav-toggle interactive" id="navToggle" aria-label="Abrir menú de navegación">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -1240,12 +1387,12 @@
                     <h1 class="hero-title" id="heroTitle">
                         <span class="word-break" data-word="FULLSTACK">FULLSTACK</span><span class="word-break" data-word="DEVELOPER">DEVELOPER</span>
                     </h1>
-                    <p class="hero-subtitle reveal" id="heroSubtitle">
-                        &gt; Building secure &amp; automated ecosystems.
+                    <p class="hero-subtitle reveal" id="heroSubtitle" data-i18n="hero_subtitle">
+                        &gt; Fullstack Dev, AI Automation &amp; Scripting (Lua / Luau / Node.js / Python)
                     </p>
                     <div class="hero-cta reveal" id="heroCta">
-                        <a href="#projects" class="btn btn-primary interactive">VER PROYECTOS</a>
-                        <a href="#contact" class="btn btn-outline interactive">CONTACTO</a>
+                        <a href="#projects" class="btn btn-primary interactive" data-i18n="hero_btn_projects">VER PROYECTOS</a>
+                        <a href="#contact" class="btn btn-outline interactive" data-i18n="hero_btn_contact">CONTACTO</a>
                     </div>
                 </div>
                 <div class="console reveal" id="heroConsole">
@@ -1270,34 +1417,42 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-label reveal">
-                    <span>02 // OVERVIEW</span>
-                    SOBRE<br>MÍ
-                    <div class="about-image-container reveal reveal-delay-1" style="margin-top: 3rem; width: 100%; max-width: 364px; margin-left: auto; margin-right: auto; aspect-ratio: 1 / 1; border-radius: 50%; overflow: hidden; border: 2px solid var(--border-hover); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8);">
-                        <img src="img/sobremi.jpg" alt="Andrés Felipe Guerra" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.05);">
+                    <span data-i18n="about_label_sub">02 // OVERVIEW</span>
+                    <span data-i18n="about_label_title">SOBRE<br>MÍ</span>
+                    
+                    <!-- Small Profile Banner Badge (Left Column) -->
+                    <div class="about-profile-card reveal reveal-delay-1" style="margin-top: 2rem; padding: 0.9rem 1.1rem; background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border-hover); border-radius: var(--radius-md); display: flex; align-items: center; gap: 0.9rem; box-shadow: 0 10px 30px rgba(0,0,0,0.4); width: 100%; max-width: 260px;">
+                        <div style="width: 58px; height: 58px; min-width: 58px; border-radius: 50%; overflow: hidden; border: 2px solid var(--primary); box-shadow: 0 0 14px rgba(59, 130, 246, 0.4);">
+                            <img src="img/sobremi.jpg" alt="Andrés Felipe Guerra" style="width: 100%; height: 100%; object-fit: cover; filter: contrast(1.05); display: block;">
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-family: var(--font-hero); font-weight: 700; font-size: 0.9rem; color: #FFFFFF; line-height: 1.2;">Andrés Guerra</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--primary); margin-top: 3px; font-weight: 500;" data-i18n="about_badge_role">Experto en Automatización</span>
+                        </div>
                     </div>
                 </div>
                 <div class="about-content">
-                    <p class="about-text reveal">
-                        Soy <strong>Andrés Felipe Guerra</strong>, desarrollador fullstack especializado en automatización inteligente e integración de IA. Mi enfoque está en diseñar y construir soluciones tecnológicas que resuelvan problemas reales, desde APIs y arquitecturas backend hasta aplicaciones web, agentes conversacionales y sistemas basados en inteligencia artificial.
+                    <p class="about-text reveal" data-i18n="about_p1">
+                        Soy <strong>Andrés Felipe Guerra</strong>, desarrollador fullstack con experiencia en <strong>Lua &amp; Luau</strong>, automatización inteligente e integración de IA. Mi enfoque está en diseñar y construir soluciones tecnológicas de alto rendimiento, desde scripts y motores de ejecución ligera hasta arquitecturas backend, bots y plataformas web.
                     </p>
-                    <p class="about-text reveal reveal-delay-1" style="margin-top: 1rem;">
+                    <p class="about-text reveal reveal-delay-1" style="margin-top: 1rem;" data-i18n="about_p2">
                         Formado en <strong>Campuslands</strong> bajo metodologías Scrum/Agile, he participado en proyectos que abarcan automatización empresarial con n8n, bots de WhatsApp impulsados por IA, plataformas web fullstack y sistemas de seguridad predictiva con Computer Vision. Como desarrollador freelance, he trabajado en la optimización de procesos y la creación de productos digitales para clientes internacionales.
                     </p>
-                    <p class="about-text reveal reveal-delay-2" style="margin-top: 1rem;">
+                    <p class="about-text reveal reveal-delay-2" style="margin-top: 1rem;" data-i18n="about_p3">
                         Actualmente continúo fortaleciendo mis habilidades en desarrollo de software, automatización y arquitectura de sistemas, con un interés creciente en la ciberseguridad y las tecnologías de inteligencia artificial aplicadas a entornos reales.
                     </p>
                     <div class="about-stats">
                         <div class="stat-card reveal reveal-delay-1">
-                            <h4>Automatización</h4>
-                            <p>Flujos inteligentes con n8n, bots y APIs conectadas.</p>
+                            <h4 data-i18n="stat_auto_title">Automatización</h4>
+                            <p data-i18n="stat_auto_desc">Flujos inteligentes con n8n, bots y APIs conectadas.</p>
                         </div>
                         <div class="stat-card reveal reveal-delay-2">
-                            <h4>Fullstack Dev</h4>
-                            <p>Node.js, React, Python, MySQL — extremo a extremo.</p>
+                            <h4 data-i18n="stat_fullstack_title">Fullstack Dev</h4>
+                            <p data-i18n="stat_fullstack_desc">Node.js, React, Python, MySQL — extremo a extremo.</p>
                         </div>
                         <div class="stat-card reveal reveal-delay-3">
-                            <h4>Metodologías Ágiles</h4>
-                            <p>Scrum, sprints, entregas iterativas y mejora continua.</p>
+                            <h4 data-i18n="stat_agile_title">Metodologías Ágiles</h4>
+                            <p data-i18n="stat_agile_desc">Scrum, sprints, entregas iterativas y mejora continua.</p>
                         </div>
                     </div>
                 </div>
@@ -1311,8 +1466,8 @@
     <section id="projects">
         <div class="container">
             <div class="projects-header reveal">
-                <span class="section-label">03 // PROYECTOS DESPLEGADOS</span>
-                <h2>Proyectos</h2>
+                <span class="section-label" data-i18n="projects_label">03 // PROYECTOS DESPLEGADOS</span>
+                <h2 data-i18n="projects_title">Proyectos</h2>
             </div>
             <div class="projects-grid">
                 <!-- Project 1: DeliveryBot -->
@@ -1328,8 +1483,8 @@
                         <span class="project-number">001</span>
                         <div class="project-info">
                             <h3>DeliveryBot</h3>
-                            <p>Terminal de pedidos automatizada integrando Telegram y n8n para gestión de entregas en tiempo real. <strong>Procesamiento de +500 pedidos/mes con latencia &lt;2s.</strong></p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=delivery-bot" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;">Ver Más ↗</a></div>
+                            <p data-i18n="proj_delivery_desc">Terminal de pedidos automatizada integrando Telegram y n8n para gestión de entregas en tiempo real. <strong>Procesamiento de +500 pedidos/mes con latencia &lt;2s.</strong></p>
+                            <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=delivery-bot" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Más ↗</a></div>
                             <div class="project-tags">
                                 <span class="project-tag">Node.js</span>
                                 <span class="project-tag">n8n</span>
@@ -1353,8 +1508,8 @@
                         <span class="project-number">002</span>
                         <div class="project-info">
                             <h3>WhatsApp Bot IA</h3>
-                            <p>Asistente conversacional con memoria, personalidad de agente de ventas, compatible con arquitecturas Cloud y Serverless (como Vercel).</p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto-bot-whatsapp/index.html" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;">Ver Más ↗</a></div>
+                            <p data-i18n="proj_whatsapp_desc">Asistente conversacional con memoria, personalidad de agente de ventas, compatible con arquitecturas Cloud y Serverless (como Vercel).</p>
+                            <div style="margin-top: 1.2rem;"><a href="proyecto-bot-whatsapp/index.html" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Más ↗</a></div>
                             <div class="project-tags">
                                 <span class="project-tag">Baileys</span>
                                 <span class="project-tag">Groq AI</span>
@@ -1379,8 +1534,8 @@
                         <span class="project-number">003</span>
                         <div class="project-info">
                             <h3>GUARDIAN</h3>
-                            <p>Sistema de seguridad predictiva para transporte terrestre con Computer Vision e IA colaborativa. Arquitectura de 3 agentes: Centinela (visión), Oráculo (riesgo), Copiloto (conversacional).</p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=guardian" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;">Ver Más ↗</a></div>
+                            <p data-i18n="proj_guardian_desc">Sistema de seguridad predictiva para transporte terrestre con Computer Vision e IA colaborativa. Arquitectura de 3 agentes: Centinela (visión), Oráculo (riesgo), Copiloto (conversacional).</p>
+                            <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=guardian" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Más ↗</a></div>
                             <div class="project-tags">
                                 <span class="project-tag">Python</span>
                                 <span class="project-tag">FiftyOne</span>
@@ -1404,12 +1559,45 @@
                         <span class="project-number">004</span>
                         <div class="project-info">
                             <h3>Banco ACME</h3>
-                            <p>Plataforma financiera simulada con arquitectura de bases de datos resiliente y transacciones seguras.</p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=banco-acme" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;">Ver Más ↗</a></div>
+                            <p data-i18n="proj_banco_desc">Plataforma financiera simulada con arquitectura de bases de datos resiliente y transacciones seguras.</p>
+                            <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=banco-acme" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Más ↗</a></div>
                             <div class="project-tags">
                                 <span class="project-tag">Node.js</span>
                                 <span class="project-tag">MySQL</span>
                                 <span class="project-tag">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Luau Async Task Engine -->
+                <div class="project-card reveal reveal-delay-1 interactive">
+                    <div class="project-image-placeholder" style="padding: 0; background: #070a12; display: flex; flex-direction: column; justify-content: center; align-items: center; border-bottom: 1px solid var(--border); overflow: hidden; position: relative;">
+                        <div style="width: 100%; height: 100%; padding: 1.5rem; background: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(139,92,246,0.18) 100%); display: flex; flex-direction: column; justify-content: center; font-family: var(--font-mono); font-size: 0.8rem; color: #a5b4fc;">
+                            <div style="display: flex; gap: 6px; margin-bottom: 0.8rem;">
+                                <span style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
+                                <span style="width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
+                                <span style="width: 10px; height: 10px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+                                <span style="font-size: 0.7rem; color: var(--text-dim); margin-left: 0.5rem;">task_scheduler.luau</span>
+                            </div>
+                            <div style="color: #60a5fa; font-weight: 600;">-- Luau High-Performance Async Task Engine</div>
+                            <div style="color: #e2e8f0; margin-top: 0.3rem;"><span style="color: #f472b6;">export type</span> Task&lt;T&gt; = { id: <span style="color: #38bdf8;">string</span>, payload: T, priority: <span style="color: #38bdf8;">number</span> }</div>
+                            <div style="color: #e2e8f0;"><span style="color: #f472b6;">local function</span> <span style="color: #818cf8;">executeAsync</span>(task: Task&lt;any&gt;): <span style="color: #38bdf8;">boolean</span></div>
+                            <div style="color: #475569; margin-top: 0.3rem;">-- Latencia sub-milisegundo &amp; micro-hilos orientados a eventos</div>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-number">005</span>
+                        <div class="project-info">
+                            <h3 data-i18n="proj_luau_title">Luau Async Task Engine</h3>
+                            <p data-i18n="proj_luau_desc">Motor de gestión de tareas asíncronas y eventos concurrentes en Luau con tipado estricto (Strict Typing). Estructuras de datos inmutables y ejecución de alta velocidad.</p>
+                            <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=luau-task-engine" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Más ↗</a></div>
+                            <div class="project-tags">
+                                <span class="project-tag">Luau</span>
+                                <span class="project-tag">Lua</span>
+                                <span class="project-tag">Async Engine</span>
+                                <span class="project-tag">Strict Typing</span>
+                                <span class="project-tag">Performance</span>
                             </div>
                         </div>
                     </div>
@@ -1423,14 +1611,23 @@
          ============================================================ -->
     <section id="skills">
         <div class="container">
-            <span class="section-label reveal">04 // ARQUITECTURA Y LÓGICA</span>
+            <span class="section-label reveal" data-i18n="skills_label">04 // ARQUITECTURA Y LÓGICA</span>
             <div class="skills-grid">
                 <!-- Skills Bars -->
                 <div class="skills-bars reveal">
-                    <h3>Stack Técnico</h3>
+                    <h3 data-i18n="skills_title">Stack Técnico</h3>
 
                     <div class="skill-category">
-                        <h4>// Backend & APIs</h4>
+                        <h4 data-i18n="cat_scripting">// Scripting &amp; Lenguajes</h4>
+                        <div class="skill-item">
+                            <div class="skill-item-header">
+                                <span>Lua / Luau (Strict Typing &amp; Task Engines)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4 data-i18n="cat_backend">// Backend &amp; APIs</h4>
                         <div class="skill-item">
                             <div class="skill-item-header">
                                 <span>Node.js / Python</span>
@@ -1449,7 +1646,7 @@
                     </div>
 
                     <div class="skill-category">
-                        <h4>// Frameworks</h4>
+                        <h4 data-i18n="cat_frameworks">// Frameworks</h4>
                         <div class="skill-item">
                             <div class="skill-item-header">
                                 <span>Express / FastAPI</span>
@@ -1463,7 +1660,7 @@
                     </div>
 
                     <div class="skill-category">
-                        <h4>// Frontend</h4>
+                        <h4 data-i18n="cat_frontend">// Frontend</h4>
                         <div class="skill-item">
                             <div class="skill-item-header">
                                 <span>HTML / CSS / JS</span>
@@ -1472,15 +1669,15 @@
                     </div>
 
                     <div class="skill-category">
-                        <h4>// Automatización</h4>
+                        <h4 data-i18n="cat_automation">// Automatización</h4>
                         <div class="skill-item">
                             <div class="skill-item-header">
-                                <span>n8n / Workflows</span>
+                                <span data-i18n="skill_auto_n8n">n8n / Workflows</span>
                             </div>
                         </div>
                         <div class="skill-item">
                             <div class="skill-item-header">
-                                <span>Integración de IA</span>
+                                <span data-i18n="skill_auto_ai">Integración de IA</span>
                             </div>
                         </div>
                     </div>
@@ -1488,21 +1685,21 @@
 
                 <!-- Core Competencies -->
                 <div class="competencies reveal reveal-delay-2">
-                    <h3>Core Competencies</h3>
+                    <h3 data-i18n="core_comp_title">Core Competencies</h3>
 
                     <div class="competency">
-                        <h4>Ingeniería de Flujos</h4>
-                        <p>Convierto procesos manuales en sistemas automatizados eficientes. Cada flujo de trabajo está diseñado para minimizar la intervención humana y maximizar la productividad.</p>
+                        <h4 data-i18n="comp_flow_title">Ingeniería de Flujos</h4>
+                        <p data-i18n="comp_flow_desc">Convierto procesos manuales en sistemas automatizados eficientes. Cada flujo de trabajo está diseñado para minimizar la intervención humana y maximizar la productividad.</p>
                     </div>
 
                     <div class="competency">
-                        <h4>Visión Integral</h4>
-                        <p>Desarrollo desde la arquitectura de bases de datos hasta la interfaz de usuario. Comprendo cómo cada capa del stack se conecta para crear soluciones cohesivas.</p>
+                        <h4 data-i18n="comp_vision_title">Visión Integral</h4>
+                        <p data-i18n="comp_vision_desc">Desarrollo desde la arquitectura de bases de datos hasta la interfaz de usuario. Comprendo cómo cada capa del stack se conecta para crear soluciones cohesivas.</p>
                     </div>
 
                     <div class="competency">
-                        <h4>Seguridad y Escalabilidad</h4>
-                        <p>Código pensado para el futuro. Implemento principios de seguridad desde el diseño y arquitecturas que soportan crecimiento sin reestructuración.</p>
+                        <h4 data-i18n="comp_sec_title">Seguridad y Escalabilidad</h4>
+                        <p data-i18n="comp_sec_desc">Código pensado para el futuro. Implemento principios de seguridad desde el diseño y arquitecturas que soportan crecimiento sin reestructuración.</p>
                     </div>
                 </div>
             </div>
@@ -1514,26 +1711,26 @@
          ============================================================ -->
     <section id="timeline">
         <div class="container">
-            <span class="section-label reveal">05 // TRAYECTORIA</span>
-            <h2 class="reveal" style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 3rem;">Commit History</h2>
+            <span class="section-label reveal" data-i18n="timeline_label">05 // TRAYECTORIA</span>
+            <h2 class="reveal" style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 3rem;" data-i18n="timeline_title">Commit History</h2>
 
             <div class="timeline-container">
                 <div class="timeline-item reveal">
                     <div class="timeline-date">2025</div>
-                    <h3>Fundación Colegio UIS</h3>
-                    <p>Bachiller Académico. Desarrollo de habilidades analíticas, trabajo en equipo y primer acercamiento estructurado a la resolución de problemas lógicos y tecnológicos.</p>
+                    <h3 data-i18n="item1_title">Fundación Colegio UIS</h3>
+                    <p data-i18n="item1_desc">Bachiller Académico. Desarrollo de habilidades analíticas, trabajo en equipo y primer acercamiento estructurado a la resolución de problemas lógicos y tecnológicos.</p>
                 </div>
 
                 <div class="timeline-item reveal reveal-delay-1">
                     <div class="timeline-date">PRESENTE</div>
-                    <h3>Campuslands — Técnico Laboral en Software</h3>
-                    <p>Formación técnica intensiva en desarrollo de software con metodologías Scrum/Agile. Proyectos reales, sprints, y entrega continua.</p>
+                    <h3 data-i18n="item2_title">Campuslands — Técnico Laboral en Software</h3>
+                    <p data-i18n="item2_desc">Formación técnica intensiva en desarrollo de software con metodologías Scrum/Agile. Proyectos reales, sprints, y entrega continua.</p>
                 </div>
 
                 <div class="timeline-item future reveal reveal-delay-2">
                     <div class="timeline-date">PRESENTE</div>
-                    <h3>Arquitectura de Ciberseguridad</h3>
-                    <p>Google Cybersecurity Certificate en curso. Enfoque en auditoría, arquitectura defensiva y diseño de sistemas resilientes.</p>
+                    <h3 data-i18n="item3_title">Arquitectura de Ciberseguridad</h3>
+                    <p data-i18n="item3_desc">Google Cybersecurity Certificate en curso. Enfoque en auditoría, arquitectura defensiva y diseño de sistemas resilientes.</p>
                     <span class="timeline-badge">IN_PROGRESS</span>
                 </div>
             </div>
@@ -1545,10 +1742,14 @@
          ============================================================ -->
     <section id="tech">
         <div class="container">
-            <span class="section-label reveal" style="text-align: center; display: block;">06 // DATA STREAM</span>
+            <span class="section-label reveal" style="text-align: center; display: block;" data-i18n="tech_label">06 // DATA STREAM</span>
         </div>
         <div class="marquee-wrapper">
             <div class="marquee-track" id="marqueeTrack">
+                <span class="marquee-item interactive">Lua</span>
+                <span class="marquee-separator">◆</span>
+                <span class="marquee-item interactive">Luau</span>
+                <span class="marquee-separator">◆</span>
                 <span class="marquee-item interactive">Node.js</span>
                 <span class="marquee-separator">◆</span>
                 <span class="marquee-item interactive">Next.js</span>
@@ -1570,6 +1771,10 @@
                 <span class="marquee-item interactive">AI</span>
                 <span class="marquee-separator">◆</span>
                 <!-- Duplicate for seamless loop -->
+                <span class="marquee-item interactive">Lua</span>
+                <span class="marquee-separator">◆</span>
+                <span class="marquee-item interactive">Luau</span>
+                <span class="marquee-separator">◆</span>
                 <span class="marquee-item interactive">Node.js</span>
                 <span class="marquee-separator">◆</span>
                 <span class="marquee-item interactive">Next.js</span>
@@ -1600,7 +1805,7 @@
     <section id="contact">
         <div class="container">
             <div class="contact-wrapper">
-                <span class="section-label reveal">07 // CONTACTO</span>
+                <span class="section-label reveal" data-i18n="contact_label">07 // CONTACTO</span>
                 <h2 class="contact-title reveal reveal-delay-1">INICIAR<br><span>CONEXIÓN</span></h2>
                 <p class="contact-sub reveal reveal-delay-2">
                     Disponible para proyectos freelance y roles técnicos.<br>
@@ -2142,6 +2347,8 @@
     })();
     </script>
 
+    <!-- i18n Engine Script -->
+    <script src="js/i18n.js"></script>
     <!-- Page Transition (Anime.js) -->
     <script src="js/transition.js"></script>
 </body>

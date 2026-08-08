@@ -54,6 +54,34 @@
   <style>
     main.perf-hidden { opacity: 0; pointer-events: none; }
     main.perf-reveal { opacity: 1; pointer-events: auto; transition: opacity 0.35s ease; }
+
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 3px 4px;
+      gap: 2px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .lang-btn:hover { color: #FFFFFF; }
+    .lang-btn.active {
+      background: #10B981;
+      color: #FFFFFF;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+    }
   </style>
 </head>
 <body class="dark-theme">
@@ -71,13 +99,19 @@
     <div class="nav-container">
       <a href="../" class="back-link">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        <span>Volver al Portafolio</span>
+        <span data-i18n="wa_nav_back">Volver al Portafolio</span>
       </a>
 
-      <!-- Logo o Título simple (opcional) -->
-      <div class="brand-tag">
-        <div class="pulse-dot"></div>
-        Bot WhatsApp Pro
+      <!-- Logo & Language Switcher -->
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div class="brand-tag">
+          <div class="pulse-dot"></div>
+          Bot WhatsApp Pro
+        </div>
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" id="langBtnES">ES</button>
+          <button type="button" class="lang-btn" id="langBtnEN">EN</button>
+        </div>
       </div>
     </div>
   </nav>
@@ -96,22 +130,22 @@
             <span class="pill">MongoDB</span>
           </div>
           
-          <h1 class="hero-title">
+          <h1 class="hero-title" data-i18n="wa_hero_title">
             Asistente Virtual de WhatsApp <br>
-            <span class="gradient-text">& Agendamiento IA 24/7</span>
+            <span class="gradient-text">&amp; Agendamiento IA 24/7</span>
           </h1>
           
-          <p class="hero-subtitle">
+          <p class="hero-subtitle" data-i18n="wa_hero_sub">
             Automatización comercial para agendar citas en tiempo real, transcribir audios de voz y transferir a un asesor humano cuando se requiere.
           </p>
 
           <div class="hero-actions">
             <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20el%20proyecto%20del%20Bot%20de%20WhatsApp%20en%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20una%20demostraci%C3%B3n" target="_blank" rel="noopener" class="btn btn-emerald">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-              <span>Solicitar Demo en Vivo</span>
+              <span data-i18n="wa_btn_demo">Solicitar Demo en Vivo</span>
             </a>
             <a href="#planes" class="btn btn-glass">
-              <span>Ver Tabla de Planes</span>
+              <span data-i18n="wa_btn_plans">Ver Tabla de Planes</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
             </a>
           </div>
@@ -119,15 +153,15 @@
           <div class="hero-metrics">
             <div class="metric-card">
               <span class="metric-value">100%</span>
-              <span class="metric-label">Citas Automáticas</span>
+              <span class="metric-label" data-i18n="wa_m1_label">Citas Automáticas</span>
             </div>
             <div class="metric-card">
               <span class="metric-value">&lt; 2s</span>
-              <span class="metric-label">Respuesta Inmediata</span>
+              <span class="metric-label" data-i18n="wa_m2_label">Respuesta Inmediata</span>
             </div>
             <div class="metric-card">
               <span class="metric-value">24/7</span>
-              <span class="metric-label">Disponibilidad</span>
+              <span class="metric-label" data-i18n="wa_m3_label">Disponibilidad</span>
             </div>
           </div>
         </div>
@@ -140,13 +174,13 @@
     <section class="video-demo-section" id="video-demo">
       <div class="container">
         <div class="section-header center">
-          <span class="section-tag">Demostración en Vivo</span>
-          <h2 class="section-title">Experiencia Conversacional en Real Time</h2>
-          <p class="section-subtitle">Mira cómo el bot responde de forma fluida a las solicitudes de los clientes en formato vertical 9:16.</p>
+          <span class="section-tag" data-i18n="wa_demo_tag">Demostración en Vivo</span>
+          <h2 class="section-title" data-i18n="wa_demo_title">Experiencia Conversacional en Real Time</h2>
+          <p class="section-subtitle" data-i18n="wa_demo_sub">Mira cómo el bot responde de forma fluida a las solicitudes de los clientes en formato vertical 9:16.</p>
           <div style="margin-top: 2rem;">
             <button id="openDemoBtn" class="btn btn-primary">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-              Ver Video Demo
+              <span data-i18n="wa_demo_btn">Ver Video Demo</span>
             </button>
           </div>
         </div>
@@ -199,9 +233,9 @@
     <section class="showcase-section">
       <div class="container">
         <div class="section-header center">
-          <span class="section-tag">El Caso de Negocio</span>
-          <h2 class="section-title">Del Problema a la Solución</h2>
-          <p class="section-subtitle">Transformación del flujo de atención de clientes.</p>
+          <span class="section-tag" data-i18n="wa_case_tag">El Caso de Negocio</span>
+          <h2 class="section-title" data-i18n="wa_case_title">Del Problema a la Solución</h2>
+          <p class="section-subtitle" data-i18n="wa_case_sub">Transformación del flujo de atención de clientes.</p>
         </div>
 
         <div class="showcase-grid">
@@ -236,46 +270,46 @@
     <section class="features-section">
       <div class="container">
         <div class="section-header center">
-          <span class="section-tag">Capacidades Técnicas</span>
-          <h2 class="section-title">Arquitectura Resiliente</h2>
-          <p class="section-subtitle">Enrutamiento inteligente diseñado para evitar bloqueos ante mensajes fuera de contexto.</p>
+          <span class="section-tag" data-i18n="wa_arch_tag">Capacidades Técnicas</span>
+          <h2 class="section-title" data-i18n="wa_arch_title">Arquitectura Resiliente</h2>
+          <p class="section-subtitle" data-i18n="wa_arch_sub">Enrutamiento inteligente diseñado para evitar bloqueos ante mensajes fuera de contexto.</p>
         </div>
 
         <div class="features-grid">
           <div class="glass-card feature-card">
             <div class="feature-icon emerald"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg></div>
-            <h3>Transcripción con IA (Whisper)</h3>
-            <p>Procesa notas de voz instantáneamente a texto para continuar el flujo de agendamiento sin interrupción.</p>
+            <h3 data-i18n="wa_feat1_t">Transcripción con IA (Whisper)</h3>
+            <p data-i18n="wa_feat1_d">Procesa notas de voz instantáneamente a texto para continuar el flujo de agendamiento sin interrupción.</p>
           </div>
 
           <div class="glass-card feature-card">
             <div class="feature-icon indigo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
-            <h3>Modo Asesor Humano</h3>
-            <p>Pausa automática del bot al detectar solicitudes de atención personalizada y alerta directa al administrador.</p>
+            <h3 data-i18n="wa_feat2_t">Modo Asesor Humano</h3>
+            <p data-i18n="wa_feat2_d">Pausa automática del bot al detectar solicitudes de atención personalizada y alerta directa al administrador.</p>
           </div>
 
           <div class="glass-card feature-card">
             <div class="feature-icon purple"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
-            <h3>Aislamiento por Cliente</h3>
-            <p>Garantía de privacidad en MongoDB donde cada número telefónico accede únicamente a sus datos de cita.</p>
+            <h3 data-i18n="wa_feat3_t">Aislamiento por Cliente</h3>
+            <p data-i18n="wa_feat3_d">Garantía de privacidad en MongoDB donde cada número telefónico accede únicamente a sus datos de cita.</p>
           </div>
 
           <div class="glass-card feature-card">
             <div class="feature-icon cyan"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></div>
-            <h3>Panel de Control Rápido</h3>
-            <p>Comando administrativo directo (opción <code>4</code>) para listar citas pendientes del día en tiempo real.</p>
+            <h3 data-i18n="wa_feat4_t">Panel de Control Rápido</h3>
+            <p data-i18n="wa_feat4_d">Comando administrativo directo (opción <code>4</code>) para listar citas pendientes del día en tiempo real.</p>
           </div>
 
           <div class="glass-card feature-card">
             <div class="feature-icon amber"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
-            <h3>Filtro Anti-Spam & Emojis</h3>
-            <p>Protección contra ráfagas de mensajes y descarte de reacciones para evitar duplicados en pantalla.</p>
+            <h3 data-i18n="wa_feat5_t">Filtro Anti-Spam &amp; Emojis</h3>
+            <p data-i18n="wa_feat5_d">Protección contra ráfagas de mensajes y descarte de reacciones para evitar duplicados en pantalla.</p>
           </div>
 
           <div class="glass-card feature-card">
             <div class="feature-icon rose"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"></path><path d="M3 11v-1a4 4 0 0 1 4-4h14"></path><path d="M7 22l-4-4 4-4"></path><path d="M21 13v1a4 4 0 0 1-4 4H3"></path></svg></div>
-            <h3>Auto-Recuperación de Sesión</h3>
-            <p>Persistencia transparente en Baileys que restablece la conexión ante reinicios del servidor.</p>
+            <h3 data-i18n="wa_feat6_t">Auto-Recuperación de Sesión</h3>
+            <p data-i18n="wa_feat6_d">Persistencia transparente en Baileys que restablece la conexión ante reinicios del servidor.</p>
           </div>
         </div>
       </div>
@@ -291,24 +325,24 @@
       <div class="container pricing-container">
         
         <div class="pricing-header">
-          <h2 class="pricing-headline">EMPIEZA A RECUPERAR TUS CLIENTES HOY.</h2>
-          <p class="pricing-subheadline">Ideal para negocios que inician su automatización.</p>
+          <h2 class="pricing-headline" data-i18n="wa_pricing_h">EMPIEZA A RECUPERAR TUS CLIENTES HOY.</h2>
+          <p class="pricing-subheadline" data-i18n="wa_pricing_s">Ideal para negocios que inician su automatización.</p>
         </div>
 
         <div class="pricing-grid-glass">
           <!-- Plan Starter -->
           <div class="linear-glass-card pricing-card">
             <h3 class="plan-title">Starter</h3>
-            <p class="plan-desc">Ideal para negocios que inician su automatización.</p>
+            <p class="plan-desc" data-i18n="wa_pricing_s">Ideal para negocios que inician su automatización.</p>
             
             <div class="plan-price-ui">
               <div class="price-original-wrapper">
                 <span class="price-original" data-cop="$120.000" data-usd="$29">$120.000</span>
-                <span class="discount-badge">OFERTA</span>
+                <span class="discount-badge" data-i18n="wa_badge_offer">OFERTA</span>
               </div>
               <div class="price-main-row">
                 <span class="price-value discounted price-amount" data-cop="$72.000" data-usd="$17">$72.000</span>
-                <span class="price-period">/ MES</span>
+                <span class="price-period" data-i18n="wa_period">/ MES</span>
               </div>
             </div>
 
@@ -324,7 +358,7 @@
               <li class="disabled">Notificaciones de citas al dueño</li>
             </ul>
             
-            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20me%20interesa%20el%20Plan%20Starter%20del%20Bot%20de%20WhatsApp" target="_blank" rel="noopener" class="btn btn-outline full-width">Solicitar Plan Starter</a>
+            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20me%20interesa%20el%20Plan%20Starter%20del%20Bot%20de%20WhatsApp" target="_blank" rel="noopener" class="btn btn-outline full-width" data-i18n="wa_starter_btn">Solicitar Plan Starter</a>
           </div>
 
           <!-- Plan Profesional (Featured) -->
@@ -336,11 +370,11 @@
             <div class="plan-price-ui">
               <div class="price-original-wrapper">
                 <span class="price-original" data-cop="$240.000" data-usd="$59">$240.000</span>
-                <span class="discount-badge">OFERTA</span>
+                <span class="discount-badge" data-i18n="wa_badge_offer">OFERTA</span>
               </div>
               <div class="price-main-row">
                 <span class="price-value discounted price-amount" data-cop="$144.000" data-usd="$35">$144.000</span>
-                <span class="price-period">/ MES</span>
+                <span class="price-period" data-i18n="wa_period">/ MES</span>
               </div>
             </div>
 
@@ -363,7 +397,7 @@
               <li class="disabled">Pagos Directos en el Chat (Stripe/Wompi)</li>
             </ul>
             
-            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20quiero%20el%20Plan%20Profesional%20del%20Bot%20de%20WhatsApp" target="_blank" rel="noopener" class="btn btn-emerald full-width">Obtener Plan Profesional</a>
+            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20quiero%20el%20Plan%20Profesional%20del%20Bot%20de%20WhatsApp" target="_blank" rel="noopener" class="btn btn-emerald full-width" data-i18n="wa_pro_btn">Obtener Plan Profesional</a>
           </div>
 
           <!-- Plan Enterprise -->
@@ -374,11 +408,11 @@
             <div class="plan-price-ui">
               <div class="price-original-wrapper">
                 <span class="price-original" data-cop="$500.000+" data-usd="$129+">$500.000+</span>
-                <span class="discount-badge">OFERTA</span>
+                <span class="discount-badge" data-i18n="wa_badge_offer">OFERTA</span>
               </div>
               <div class="price-main-row">
                 <span class="price-value discounted price-amount" data-cop="$300.000+" data-usd="$77+">$300.000+</span>
-                <span class="price-period">/ MES</span>
+                <span class="price-period" data-i18n="wa_period">/ MES</span>
               </div>
             </div>
 
@@ -396,7 +430,7 @@
               <li><strong>Pagos Directos en el Chat (Stripe/Wompi)</strong></li>
             </ul>
             
-            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20requiero%20informaci%C3%B3n%20sobre%20el%20Plan%20Enterprise" target="_blank" rel="noopener" class="btn btn-outline full-width">Cotizar Enterprise</a>
+            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20requiero%20informaci%C3%B3n%20sobre%20el%20Plan%20Enterprise" target="_blank" rel="noopener" class="btn btn-outline full-width" data-i18n="wa_ent_btn">Cotizar Enterprise</a>
           </div>
 
         </div>
@@ -415,11 +449,11 @@
             </picture>
           </div>
           <div class="cta-info-col">
-            <h2>Empieza hoy mismo</h2>
-            <p class="cta-highlight-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Despliegue listo en menos de 24 horas</p>
+            <h2 data-i18n="wa_cta_h">Empieza hoy mismo</h2>
+            <p class="cta-highlight-pill" data-i18n="wa_cta_sub"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Despliegue listo en menos de 24 horas</p>
             <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20quiero%20implementar%20el%20Bot%20de%20WhatsApp%20en%20mi%20negocio" target="_blank" rel="noopener" class="btn btn-emerald btn-lg">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-              <span>Agendar Demo en Vivo</span>
+              <span data-i18n="wa_cta_btn">Agendar Demo en Vivo</span>
             </a>
           </div>
         </div>
@@ -430,9 +464,9 @@
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="container footer-content">
-      <p>© 2026 Andrés Correa | Tech Studio & Automatización. Todos los derechos reservados.</p>
+      <p data-i18n="wa_footer_rights">© 2026 Andrés Correa | Tech Studio &amp; Automatización. Todos los derechos reservados.</p>
       <div class="footer-links">
-        <a href="../">Portafolio Principal</a>
+        <a href="../" data-i18n="wa_footer_main">Portafolio Principal</a>
         <a href="https://github.com/andresguerra321" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
@@ -466,6 +500,8 @@
   </div>
 
   <script src="main.js"></script>
+  <!-- i18n Engine Script -->
+  <script src="../js/i18n.js"></script>
   <!-- Page Transition (Anime.js) -->
   <script src="../js/transition.js"></script>
 </body>
