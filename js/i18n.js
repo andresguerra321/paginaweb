@@ -14,7 +14,8 @@
             nav_timeline: 'Trayectoria',
             nav_contact: 'Contacto',
             
-            hero_subtitle: '> Fullstack Dev, AI Automation & Scripting (Lua / Luau / Node.js / Python)',
+            hero_title: '<span class="word-break" data-word="FULLSTACK">FULLSTACK</span><span class="word-break" data-word="DEVELOPER">DEVELOPER</span>',
+            hero_subtitle: '> Fullstack Dev, AI Automation &amp; Scripting (Lua / Luau / Node.js / Python)',
             hero_btn_projects: 'VER PROYECTOS',
             hero_btn_contact: 'CONTACTO',
 
@@ -36,6 +37,12 @@
             projects_title: 'Proyectos',
             project_btn_view: 'Ver Más ↗',
 
+            proj_1_title: 'DeliveryBot',
+            proj_2_title: 'WhatsApp Bot IA',
+            proj_3_title: 'GUARDIAN',
+            proj_4_title: 'Banco ACME',
+            proj_5_title: 'Luau Async Task Engine',
+
             proj_delivery_desc: 'Terminal de pedidos automatizada integrando Telegram y n8n para gestión de entregas en tiempo real. <strong>Procesamiento de +500 pedidos/mes con latencia &lt;2s.</strong>',
             proj_whatsapp_desc: 'Asistente conversacional con memoria, personalidad de agente de ventas, compatible con arquitecturas Cloud y Serverless (como Vercel).',
             proj_guardian_desc: 'Sistema de seguridad predictiva para transporte terrestre con Computer Vision e IA colaborativa. Arquitectura de 3 agentes: Centinela (visión), Oráculo (riesgo), Copiloto (conversacional).',
@@ -44,8 +51,8 @@
 
             skills_label: '04 // ARQUITECTURA Y LÓGICA',
             skills_title: 'Stack Técnico',
-            cat_scripting: '// Scripting & Lenguajes',
-            cat_backend: '// Backend & APIs',
+            cat_scripting: '// Scripting &amp; Lenguajes',
+            cat_backend: '// Backend &amp; APIs',
             cat_frameworks: '// Frameworks',
             cat_frontend: '// Frontend',
             cat_automation: '// Automatización',
@@ -62,6 +69,8 @@
 
             timeline_label: '05 // TRAYECTORIA',
             timeline_title: 'Commit History',
+            timeline_date_present: 'PRESENTE',
+            timeline_badge_progress: 'IN_PROGRESS',
             item1_title: 'Fundación Colegio UIS',
             item1_desc: 'Bachiller Académico. Desarrollo de habilidades analíticas, trabajo en equipo y primer acercamiento estructurado a la resolución de problemas lógicos y tecnológicos.',
             item2_title: 'Campuslands — Técnico Laboral en Software',
@@ -72,12 +81,14 @@
             tech_label: '06 // DATA STREAM',
 
             contact_label: '07 // CONTACTO',
-            contact_title: '¿TIENES UN PROYECTO?',
-            contact_sub: 'Inicia una conversación o solicita una cotización para tu próxima automatización.',
+            contact_heading: 'INICIAR<br><span>CONEXIÓN</span>',
+            contact_sub: 'Disponible para proyectos freelance y roles técnicos.<br>Hablemos de tu próxima idea.',
             contact_name_ph: 'Tu nombre',
             contact_email_ph: 'Tu email',
             contact_msg_ph: 'Cuéntame sobre tu proyecto...',
             contact_btn_send: 'ENVIAR MENSAJE',
+
+            footer_rights: '© 2026 Andrés Felipe Guerra — Diseñado con código puro.',
 
             modal_title: 'Selecciona tu idioma / Select Language',
             modal_sub: 'Escoge el idioma preferido para navegar el portafolio.',
@@ -122,9 +133,55 @@
             wa_pricing_s: 'Ideal para negocios que inician su automatización.',
             wa_badge_offer: 'OFERTA',
             wa_period: '/ MES',
+
+            // Starter Plan Items
+            wa_s_1: 'Escaneo QR (Conexión Baileys Web)',
+            wa_s_2: 'Menú interactivo numerado (1..4)',
+            wa_s_3: 'IA Básica para Preguntas Frecuentes',
+            wa_s_4: 'Aislamiento de datos en MongoDB',
+            wa_s_5: 'Soporte vía chat 5/7',
+            wa_s_6: 'Transcripción de audios (Whisper AI)',
+            wa_s_7: 'Agendamiento automático de citas',
+            wa_s_8: 'Modo Asesor Humano (Auto-pausa)',
+            wa_s_9: 'Notificaciones de citas al dueño',
             wa_starter_btn: 'Solicitar Plan Starter',
+
+            // Pro Plan Items
+            wa_p_tag: 'MÁS POPULAR',
+            wa_p_desc: 'Automatización total con IA avanzada y agendamiento.',
+            wa_p_1: 'Escaneo QR (Conexión Baileys Web)',
+            wa_p_2: '<strong>100% Agendamiento Automático</strong>',
+            wa_p_3: '<strong>Transcripción de Audios (Whisper AI)</strong>',
+            wa_p_4: '<strong>Modo Asesor Humano (Auto-pausa)</strong>',
+            wa_p_5: '<strong>Panel de Agenda en Vivo (Opción 4)</strong>',
+            wa_p_6: 'IA Avanzada (Groq + LLaMA 3.1)',
+            wa_p_7: 'Notificación instantánea de citas al dueño',
+            wa_p_8: 'Filtros Anti-Spam y Silenciador de Reacciones',
+            wa_p_9: 'Soporte Prioritario 7/7',
+            wa_p_10: 'API Oficial de Meta Cloud API',
+            wa_p_11: 'Botones &amp; Listas Nativas de WhatsApp',
+            wa_p_12: 'Sincronización CRM &amp; Webhooks',
+            wa_p_13: 'Enrutamiento Multi-Agente',
+            wa_p_14: 'Entrenamiento de IA con PDFs de tu Empresa',
+            wa_p_15: 'Campañas de Marketing Masivo (Ads)',
+            wa_p_16: 'Pagos Directos en el Chat (Stripe/Wompi)',
             wa_pro_btn: 'Obtener Plan Profesional',
+
+            // Enterprise Plan Items
+            wa_e_desc: 'Solución oficial de Meta Cloud API con integración CRM.',
+            wa_e_1: '<strong>API Oficial de Meta Cloud API</strong>',
+            wa_e_2: '<strong>Cero riesgo de bloqueo (100% Oficial)</strong>',
+            wa_e_3: 'Botones &amp; Listas Nativas de WhatsApp',
+            wa_e_4: 'Agendamiento + Sincronización CRM',
+            wa_e_5: 'Integración Google Calendar &amp; Webhooks',
+            wa_e_6: 'Transcripción de audios + Multimodal',
+            wa_e_7: 'Enrutamiento Multi-Agente &amp; Asesores',
+            wa_e_8: 'Soporte 24/7 con SLA Garantizado',
+            wa_e_9: '<strong>Entrenamiento de IA con PDFs de tu Empresa</strong>',
+            wa_e_10: '<strong>Campañas de Marketing Masivo (Ads)</strong>',
+            wa_e_11: '<strong>Pagos Directos en el Chat (Stripe/Wompi)</strong>',
             wa_ent_btn: 'Cotizar Enterprise',
+
             wa_cta_h: 'Empieza hoy mismo',
             wa_cta_sub: 'Despliegue listo en menos de 24 horas',
             wa_cta_btn: 'Agendar Demo en Vivo',
@@ -138,7 +195,8 @@
             nav_timeline: 'Experience',
             nav_contact: 'Contact',
 
-            hero_subtitle: '> Fullstack Dev, AI Automation & Scripting (Lua / Luau / Node.js / Python)',
+            hero_title: '<span class="word-break" data-word="FULLSTACK">FULLSTACK</span><span class="word-break" data-word="DEVELOPER">DEVELOPER</span>',
+            hero_subtitle: '> Fullstack Dev, AI Automation &amp; Scripting (Lua / Luau / Node.js / Python)',
             hero_btn_projects: 'VIEW PROJECTS',
             hero_btn_contact: 'GET IN TOUCH',
 
@@ -160,16 +218,22 @@
             projects_title: 'Projects',
             project_btn_view: 'View More ↗',
 
+            proj_1_title: 'DeliveryBot',
+            proj_2_title: 'WhatsApp Bot AI',
+            proj_3_title: 'GUARDIAN',
+            proj_4_title: 'ACME Bank',
+            proj_5_title: 'Luau Async Task Engine',
+
             proj_delivery_desc: 'Automated order terminal integrating Telegram and n8n for real-time delivery management. <strong>Processing +500 orders/month with &lt;2s latency.</strong>',
             proj_whatsapp_desc: 'Conversational assistant with memory, sales agent personality, compatible with Cloud and Serverless architectures (like Vercel).',
             proj_guardian_desc: 'Predictive security system for road transport with Computer Vision and collaborative AI. 3-agent architecture: Sentinel (vision), Oracle (risk), Copilot (conversational).',
             proj_banco_desc: 'Simulated financial platform with resilient database architecture and secure transactions.',
             proj_luau_desc: 'Asynchronous task management and concurrent event engine in Luau with Strict Typing. Immutable data structures and high-speed execution.',
 
-            skills_label: '04 // ARCHITECTURE & LOGIC',
+            skills_label: '04 // ARCHITECTURE &amp; LOGIC',
             skills_title: 'Technical Stack',
-            cat_scripting: '// Scripting & Languages',
-            cat_backend: '// Backend & APIs',
+            cat_scripting: '// Scripting &amp; Languages',
+            cat_backend: '// Backend &amp; APIs',
             cat_frameworks: '// Frameworks',
             cat_frontend: '// Frontend',
             cat_automation: '// Automation',
@@ -181,11 +245,13 @@
             comp_flow_desc: 'I transform manual processes into efficient automated systems. Every workflow is engineered to minimize human intervention and maximize productivity.',
             comp_vision_title: 'Full Spectrum Vision',
             comp_vision_desc: 'I develop from database architecture all the way to user interface. I understand how each stack layer connects to build cohesive solutions.',
-            comp_sec_title: 'Security & Scalability',
+            comp_sec_title: 'Security &amp; Scalability',
             comp_sec_desc: 'Future-proof code. I implement security-by-design principles and architectures built to handle growth without restructuring.',
 
             timeline_label: '05 // EXPERIENCE',
             timeline_title: 'Commit History',
+            timeline_date_present: 'PRESENT',
+            timeline_badge_progress: 'IN_PROGRESS',
             item1_title: 'Fundación Colegio UIS',
             item1_desc: 'Academic High School Diploma. Development of analytical skills, teamwork, and structured problem-solving in tech.',
             item2_title: 'Campuslands — Software Technician',
@@ -196,12 +262,14 @@
             tech_label: '06 // DATA STREAM',
 
             contact_label: '07 // CONTACT',
-            contact_title: 'HAVE A PROJECT?',
-            contact_sub: 'Start a conversation or request a quote for your next automation project.',
+            contact_heading: 'START<br><span>CONNECTION</span>',
+            contact_sub: 'Available for freelance projects and technical roles.<br>Let\'s talk about your next idea.',
             contact_name_ph: 'Your name',
             contact_email_ph: 'Your email',
             contact_msg_ph: 'Tell me about your project...',
             contact_btn_send: 'SEND MESSAGE',
+
+            footer_rights: '© 2026 Andrés Felipe Guerra — Crafted with pure code.',
 
             modal_title: 'Selecciona tu idioma / Select Language',
             modal_sub: 'Choose your preferred language to explore the portfolio.',
@@ -246,9 +314,55 @@
             wa_pricing_s: 'Ideal for businesses starting their automation journey.',
             wa_badge_offer: 'OFFER',
             wa_period: '/ MO',
+
+            // Starter Plan Items
+            wa_s_1: 'QR Scan (Baileys Web Connection)',
+            wa_s_2: 'Numbered interactive menu (1..4)',
+            wa_s_3: 'Basic AI for FAQ Handling',
+            wa_s_4: 'MongoDB Data Isolation',
+            wa_s_5: 'Chat Support 5/7',
+            wa_s_6: 'Audio Transcription (Whisper AI)',
+            wa_s_7: 'Automated Appointment Booking',
+            wa_s_8: 'Human Advisor Mode (Auto-pause)',
+            wa_s_9: 'Owner Appointment Notifications',
             wa_starter_btn: 'Request Starter Plan',
+
+            // Pro Plan Items
+            wa_p_tag: 'MOST POPULAR',
+            wa_p_desc: 'Full automation with advanced AI &amp; scheduling.',
+            wa_p_1: 'QR Scan (Baileys Web Connection)',
+            wa_p_2: '<strong>100% Automated Scheduling</strong>',
+            wa_p_3: '<strong>Audio Transcription (Whisper AI)</strong>',
+            wa_p_4: '<strong>Human Advisor Mode (Auto-pause)</strong>',
+            wa_p_5: '<strong>Live Schedule Panel (Option 4)</strong>',
+            wa_p_6: 'Advanced AI (Groq + LLaMA 3.1)',
+            wa_p_7: 'Instant Owner Booking Alerts',
+            wa_p_8: 'Anti-Spam &amp; Reaction Silencer',
+            wa_p_9: 'Priority Support 7/7',
+            wa_p_10: 'Official Meta Cloud API',
+            wa_p_11: 'Native WhatsApp Buttons &amp; Lists',
+            wa_p_12: 'CRM Sync &amp; Webhooks',
+            wa_p_13: 'Multi-Agent Routing',
+            wa_p_14: 'AI Training with Company PDFs',
+            wa_p_15: 'Mass Marketing Campaigns (Ads)',
+            wa_p_16: 'In-Chat Direct Payments (Stripe/Wompi)',
             wa_pro_btn: 'Get Professional Plan',
+
+            // Enterprise Plan Items
+            wa_e_desc: 'Official Meta Cloud API solution with CRM integration.',
+            wa_e_1: '<strong>Official Meta Cloud API</strong>',
+            wa_e_2: '<strong>Zero Ban Risk (100% Official)</strong>',
+            wa_e_3: 'Native WhatsApp Buttons &amp; Lists',
+            wa_e_4: 'Booking + CRM Synchronization',
+            wa_e_5: 'Google Calendar &amp; Webhooks Integration',
+            wa_e_6: 'Audio Transcription + Multimodal',
+            wa_e_7: 'Multi-Agent &amp; Advisor Routing',
+            wa_e_8: '24/7 Support with Guaranteed SLA',
+            wa_e_9: '<strong>AI Training with Company PDFs</strong>',
+            wa_e_10: '<strong>Mass Marketing Campaigns (Ads)</strong>',
+            wa_e_11: '<strong>In-Chat Direct Payments (Stripe/Wompi)</strong>',
             wa_ent_btn: 'Request Enterprise Quote',
+
             wa_cta_h: 'Get started today',
             wa_cta_sub: 'Deployment ready in under 24 hours',
             wa_cta_btn: 'Schedule Live Demo',
@@ -282,6 +396,22 @@
                 el.placeholder = dict[key];
             }
         });
+
+        // Update prices USD / COP if on landing page
+        const priceAmounts = document.querySelectorAll('.price-amount');
+        const priceOriginals = document.querySelectorAll('.price-original');
+        if (priceAmounts.length > 0) {
+            priceAmounts.forEach(el => {
+                const cop = el.getAttribute('data-cop');
+                const usd = el.getAttribute('data-usd');
+                if (cop && usd) el.textContent = lang === 'en' ? usd : cop;
+            });
+            priceOriginals.forEach(el => {
+                const cop = el.getAttribute('data-cop');
+                const usd = el.getAttribute('data-usd');
+                if (cop && usd) el.textContent = lang === 'en' ? usd : cop;
+            });
+        }
 
         // Update active class on switcher buttons
         const btnES = document.getElementById('langBtnES');
