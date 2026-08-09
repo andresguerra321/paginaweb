@@ -2,11 +2,6 @@
   "name": "paginaweb",
   "compatibility_date": "2026-08-08",
   "assets": {
-    "directory": ".",
-    "exclude": [
-      ".git/**/*",
-      "node_modules/**/*",
-      "*.zip"
-    ]
+    "directory": "."
   }
 }
