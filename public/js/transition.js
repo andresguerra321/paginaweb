@@ -36,17 +36,24 @@
             return;
         }
 
-        // Ensure overlay is visible (it may already be visible if pre-rendered)
+        // Ensure overlay is visible
         overlay.classList.remove('hidden');
         overlay.style.opacity = '1';
         overlay.style.visibility = 'visible';
         if (bar) bar.style.width = '0%';
 
-        if (typeof anime !== 'undefined') {
-            const tl = anime.timeline({
-                complete: function() {
-                    // Reveal main content before fading out overlay
-                    revealMainContent();
+        let isFinished = false;
+
+        function finishLoading() {
+            if (isFinished) return;
+            isFinished = true;
+            
+            if (bar) bar.style.width = '100%';
+            
+            setTimeout(function() {
+                revealMainContent();
+                
+                if (typeof anime !== 'undefined') {
                     anime({
                         targets: overlay,
                         opacity: [1, 0],
@@ -56,31 +63,71 @@
                             overlay.classList.add('hidden');
                         }
                     });
+                } else {
+                    overlay.style.opacity = '0';
+                    setTimeout(function() {
+                        overlay.classList.add('hidden');
+                    }, 350);
                 }
-            });
+            }, 300); // Pequeño retraso para que se vea el 100% de la barra
+        }
 
-            tl.add({
+        // Animación inicial del logo
+        if (typeof anime !== 'undefined' && content) {
+            anime({
                 targets: content,
                 opacity: [0.3, 1],
                 scale: [0.95, 1],
                 duration: 400,
                 easing: 'easeOutQuad'
-            }).add({
-                targets: bar,
-                width: ['0%', '100%'],
-                duration: 650,
-                easing: 'easeInOutCubic'
-            }, '-=300');
+            });
+        }
 
+        // Tracking de assets (imágenes y videos)
+        const assets = Array.from(document.querySelectorAll('img, video'));
+        let totalAssets = assets.length;
+        let loadedCount = 0;
+
+        function updateProgress() {
+            loadedCount++;
+            if (bar) {
+                const percentage = Math.min((loadedCount / totalAssets) * 100, 100);
+                bar.style.width = percentage + '%';
+            }
+            if (loadedCount >= totalAssets) {
+                finishLoading();
+            }
+        }
+
+        if (totalAssets === 0) {
+            finishLoading();
         } else {
-            if (bar) bar.style.width = '100%';
-            setTimeout(function() {
-                revealMainContent();
-                overlay.style.opacity = '0';
-                setTimeout(function() {
-                    overlay.classList.add('hidden');
-                }, 350);
-            }, 700);
+            assets.forEach(function(asset) {
+                if (asset.tagName.toLowerCase() === 'img') {
+                    if (asset.complete) {
+                        updateProgress();
+                    } else {
+                        asset.addEventListener('load', updateProgress, { once: true });
+                        asset.addEventListener('error', updateProgress, { once: true });
+                    }
+                } else if (asset.tagName.toLowerCase() === 'video') {
+                    if (asset.readyState >= 3) {
+                        updateProgress();
+                    } else {
+                        asset.addEventListener('canplay', updateProgress, { once: true });
+                        asset.addEventListener('error', updateProgress, { once: true });
+                    }
+                }
+            });
+        }
+
+        // Seguros de tiempo y carga completa
+        setTimeout(finishLoading, 8000); // 8 segundos de tiempo máximo
+        
+        if (document.readyState === 'complete') {
+            finishLoading();
+        } else {
+            window.addEventListener('load', finishLoading, { once: true });
         }
     }
 
