@@ -186,6 +186,8 @@
         </div>
 
         <div class="horizontal-gallery-wrapper">
+          <button class="gallery-nav prev-slide" id="galleryPrevBtn" aria-label="Anterior">&#10094;</button>
+          <button class="gallery-nav next-slide" id="galleryNextBtn" aria-label="Siguiente">&#10095;</button>
           <div class="horizontal-gallery">
             <!-- Placeholder 1 -->
             <div class="gallery-item placeholder-item active">
@@ -484,18 +486,12 @@
     <div class="video-modal-content">
       <div class="phone-mockup-wrapper">
         <div class="phone-speaker-notch"></div>
-        <video controls playsinline class="hero-video-player" id="modalHeroVideo">
-          <source src="img/demo-video.mp4" type="video/mp4">
+        <video controls playsinline class="hero-video-player" id="modalHeroVideo" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false;">
+          <source src="../video/0811(1).mp4" type="video/mp4">
           Tu navegador no soporta la reproducción de video.
         </video>
-        
-        <!-- Fallback si aún no hay video -->
-        <div class="video-empty-state" id="modalVideoFallback">
-          <div class="play-button-circle"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
-          <span class="state-title">Video Demo (1080x1920)</span>
-          <span class="state-subtitle">Alojar archivo en <code>img/demo-video.mp4</code></span>
-        </div>
       </div>
+      <p class="video-demo-desc" data-i18n="wa_demo_desc">Esta es una demostración del flujo principal del bot atendiendo a un cliente en tiempo real.</p>
     </div>
   </div>
 

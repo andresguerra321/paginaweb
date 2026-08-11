@@ -181,17 +181,35 @@ document.addEventListener('DOMContentLoaded', () => {
   if (slides.length > 0 && gallery) {
     let currentSlideIndex = 0;
     let slideTimeout = null;
+    const prevBtn = document.getElementById('galleryPrevBtn');
+    const nextBtn = document.getElementById('galleryNextBtn');
 
-    function nextSlide() {
+    function goToSlide(index) {
       slides[currentSlideIndex].classList.remove('active');
-      currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-      slides[currentSlideIndex].classList.add('active');
+      currentSlideIndex = index;
       
-      // Move the flex container horizontally
+      if (currentSlideIndex >= slides.length) {
+        currentSlideIndex = 0;
+      } else if (currentSlideIndex < 0) {
+        currentSlideIndex = slides.length - 1;
+      }
+      
+      slides[currentSlideIndex].classList.add('active');
       gallery.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
       
       handleCurrentSlide();
     }
+
+    function nextSlide() {
+      goToSlide(currentSlideIndex + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentSlideIndex - 1);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
 
     function handleCurrentSlide() {
       clearTimeout(slideTimeout);
