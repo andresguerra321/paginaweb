@@ -43,7 +43,7 @@
             proj_4_title: 'Banco ACME',
             proj_5_title: 'Luau Async Task Engine',
 
-            proj_delivery_desc: 'Terminal de pedidos automatizada integrando Telegram y n8n para gestión de entregas en tiempo real. <strong>Procesamiento de +500 pedidos/mes con latencia &lt;2s.</strong>',
+            proj_delivery_desc: 'Terminal de pedidos automatizada integrando WhatsApp y n8n para gestión de entregas en tiempo real. <strong>Procesamiento de +500 pedidos/mes con latencia &lt;2s.</strong>',
             proj_whatsapp_desc: 'Asistente conversacional con memoria, personalidad de agente de ventas, compatible con arquitecturas Cloud y Serverless (como Vercel).',
             proj_guardian_desc: 'Sistema de seguridad predictiva para transporte terrestre con Computer Vision e IA colaborativa. Arquitectura de 3 agentes: Centinela (visión), Oráculo (riesgo), Copiloto (conversacional).',
             proj_banco_desc: 'Plataforma financiera simulada con arquitectura de bases de datos resiliente y transacciones seguras.',
@@ -229,7 +229,7 @@
             
             db_p1_h: 'BÁSICO',
             db_p1_s: 'Para negocios que inician.',
-            db_p1_price: '99.000',
+            db_p1_price: '149.000',
             db_p1_1: 'Catálogo Digital Interactivo',
             db_p1_2: 'Recepción de Pedidos Ilimitada',
             db_p1_3: 'Actualización Manual de Stock',
@@ -237,7 +237,7 @@
 
             db_p2_h: 'PROFESIONAL',
             db_p2_s: 'Automatización total del flujo.',
-            db_p2_price: '179.000',
+            db_p2_price: '299.000',
             db_p2_1: '<strong>Control de Inventario en Vivo</strong>',
             db_p2_2: '<strong>Motor de Ventas Sugeridas (Upsell)</strong>',
             db_p2_3: 'Panel Administrativo en Tiempo Real',
@@ -245,7 +245,7 @@
 
             db_p3_h: 'MULTI-SUCURSAL',
             db_p3_s: 'Para cadenas y alto volumen.',
-            db_p3_price: '349.000',
+            db_p3_price: '549.000',
             db_p3_1: '<strong>Gestión de Múltiples Sedes</strong>',
             db_p3_2: 'Integración con Impresoras de Cocina',
             db_p3_3: 'Analítica Avanzada y Exportación',
@@ -292,7 +292,7 @@
             proj_4_title: 'ACME Bank',
             proj_5_title: 'Luau Async Task Engine',
 
-            proj_delivery_desc: 'Automated order terminal integrating Telegram and n8n for real-time delivery management. <strong>Processing +500 orders/month with &lt;2s latency.</strong>',
+            proj_delivery_desc: 'Automated order terminal integrating WhatsApp and n8n for real-time delivery management. <strong>Processing +500 orders/month with &lt;2s latency.</strong>',
             proj_whatsapp_desc: 'Conversational assistant with memory, sales agent personality, compatible with Cloud and Serverless architectures (like Vercel).',
             proj_guardian_desc: 'Predictive security system for road transport with Computer Vision and collaborative AI. 3-agent architecture: Sentinel (vision), Oracle (risk), Copilot (conversational).',
             proj_banco_desc: 'Simulated financial platform with resilient database architecture and secure transactions.',
@@ -478,7 +478,7 @@
             
             db_p1_h: 'STARTER',
             db_p1_s: 'For new businesses.',
-            db_p1_price: '25',
+            db_p1_price: '39',
             db_p1_1: 'Interactive Digital Catalog',
             db_p1_2: 'Unlimited Order Reception',
             db_p1_3: 'Manual Stock Update',
@@ -486,7 +486,7 @@
 
             db_p2_h: 'PROFESSIONAL',
             db_p2_s: 'Full flow automation.',
-            db_p2_price: '45',
+            db_p2_price: '79',
             db_p2_1: '<strong>Live Inventory Control</strong>',
             db_p2_2: '<strong>Suggested Sales Engine (Upsell)</strong>',
             db_p2_3: 'Real-Time Admin Dashboard',
@@ -494,7 +494,7 @@
 
             db_p3_h: 'MULTI-BRANCH',
             db_p3_s: 'For chains and high volume.',
-            db_p3_price: '85',
+            db_p3_price: '149',
             db_p3_1: '<strong>Multi-Branch Management</strong>',
             db_p3_2: 'Kitchen Printer Integration',
             db_p3_3: 'Advanced Analytics &amp; Export',
