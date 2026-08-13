@@ -201,10 +201,10 @@
             db_btn_contact: 'Solicitar Demo',
             db_btn_github: 'Ver Planes',
             
-            db_m1: 'Pedidos Perdidos',
-            db_m2: 'Aumento de Ventas',
-            db_m3: 'Ahorro Operativo',
-            db_m4: 'Control',
+            db_m1: 'Precisión de Pedidos',
+            db_m2: 'Conversión de Ventas',
+            db_m3: 'Reducción de Costos',
+            db_m4: 'Disponibilidad Continua',
             db_m4_val: 'Total',
 
             db_feat_tag: 'Beneficios del Sistema',
@@ -450,10 +450,10 @@
             db_btn_contact: 'Request Demo',
             db_btn_github: 'View Pricing',
             
-            db_m1: 'Lost Orders',
-            db_m2: 'Sales Increase',
-            db_m3: 'Operations Saved',
-            db_m4: 'Control',
+            db_m1: 'Order Accuracy',
+            db_m2: 'Sales Conversion',
+            db_m3: 'Cost Reduction',
+            db_m4: 'Uptime Availability',
             db_m4_val: 'Total',
 
             db_feat_tag: 'System Benefits',
