@@ -5,3 +5,5 @@ node_modules/**
 *.zip
 *.py
 startbootstrap-agency-gh-pages.zip
+
+startbootstrap-agency-gh-pages/

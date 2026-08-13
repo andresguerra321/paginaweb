@@ -187,7 +187,74 @@
             wa_cta_sub: 'Despliegue listo en menos de 24 horas',
             wa_cta_btn: 'Agendar Demo en Vivo',
             wa_footer_rights: '© 2026 Andrés Correa | Tech Studio &amp; Automatización. Todos los derechos reservados.',
-            wa_footer_main: 'Portafolio Principal'
+            wa_footer_main: 'Portafolio Principal',
+
+            // Tab Switcher
+            tab_servicios: 'WhatsApp Bot',
+            tab_productos: 'DeliveryBot',
+
+            // DeliveryBot Translations
+            db_badge: 'Sistema de Pedidos Automatizado',
+            db_hero_title_1: 'DeliveryBot',
+            db_hero_title_2: 'Para Restaurantes',
+            db_hero_sub: 'Plataforma inteligente de recepción de pedidos. Elimina los errores humanos, agiliza la cocina y aumenta las ventas con un motor desarrollado en Node.js.',
+            db_btn_contact: 'Solicitar Demo',
+            db_btn_github: 'Ver Planes',
+            
+            db_m1: 'Pedidos Perdidos',
+            db_m2: 'Aumento de Ventas',
+            db_m3: 'Ahorro Operativo',
+            db_m4: 'Control',
+            db_m4_val: 'Total',
+
+            db_feat_tag: 'Beneficios del Sistema',
+            db_feat_title: 'Multiplica la <span class="delivery-gradient-text">Eficiencia</span>',
+            db_feat_sub: 'Cada función está diseñada para vender más y operar mejor, sin fricción para tus clientes.',
+            db_f1_t: 'Flujo de Compra Sin Fricción',
+            db_f1_d: 'Catálogo digital intuitivo, carrito de compras integrado y proceso de checkout optimizado para cerrar ventas rápido.',
+            db_f2_t: 'Control de Inventario en Vivo',
+            db_f2_d: 'El bot verifica la disponibilidad en tiempo real. Si algo se agota, se oculta automáticamente del menú.',
+            db_f3_t: 'Motor de Ventas Sugeridas',
+            db_f3_d: 'Aumenta tu ticket promedio. El sistema sugiere bebidas o acompañamientos inteligentemente antes de pagar.',
+            db_f4_t: 'Tiempos de Entrega Precisos',
+            db_f4_d: 'Calcula dinámicamente la demora basándose en cuántos pedidos hay en la cola de tu cocina.',
+            db_f5_t: 'Métricas de Negocio',
+            db_f5_d: 'Recibe un corte de caja automático: producto estrella, hora pico, ingresos totales y patrones de demanda.',
+            db_f6_t: 'Soporte Continuo Automático',
+            db_f6_d: 'Manejo inteligente de errores. El cliente nunca se queda sin respuesta, garantizando una experiencia premium.',
+
+            db_pricing_tag: 'Inversión Inteligente',
+            db_pricing_title: 'Planes a la <span class="delivery-gradient-text">Medida</span>',
+            db_pricing_sub: 'Ahorra miles en comisiones de apps de terceros. Paga solo por lo que necesitas.',
+            
+            db_p1_h: 'BÁSICO',
+            db_p1_s: 'Para negocios que inician.',
+            db_p1_price: '99.000',
+            db_p1_1: 'Catálogo Digital Interactivo',
+            db_p1_2: 'Recepción de Pedidos Ilimitada',
+            db_p1_3: 'Actualización Manual de Stock',
+            db_p1_btn: 'Empezar Básico',
+
+            db_p2_h: 'PROFESIONAL',
+            db_p2_s: 'Automatización total del flujo.',
+            db_p2_price: '179.000',
+            db_p2_1: '<strong>Control de Inventario en Vivo</strong>',
+            db_p2_2: '<strong>Motor de Ventas Sugeridas (Upsell)</strong>',
+            db_p2_3: 'Panel Administrativo en Tiempo Real',
+            db_p2_btn: 'Obtener Pro',
+
+            db_p3_h: 'MULTI-SUCURSAL',
+            db_p3_s: 'Para cadenas y alto volumen.',
+            db_p3_price: '349.000',
+            db_p3_1: '<strong>Gestión de Múltiples Sedes</strong>',
+            db_p3_2: 'Integración con Impresoras de Cocina',
+            db_p3_3: 'Analítica Avanzada y Exportación',
+            db_p3_btn: 'Cotizar Multi-Sede',
+
+            db_cta_h: '¿Listo para modernizar tu <span class="delivery-gradient-text">restaurante</span>?',
+            db_cta_sub: 'Empieza a recibir pedidos en automático hoy mismo. Cero comisiones por venta.',
+            db_cta_btn: 'Agendar Instalación',
+            db_cta_github: 'Ver Demo'
         },
         en: {
             nav_about: 'About Me',
@@ -369,7 +436,74 @@
             wa_cta_sub: 'Deployment ready in under 24 hours',
             wa_cta_btn: 'Schedule Live Demo',
             wa_footer_rights: '© 2026 Andrés Correa | Tech Studio &amp; Automation. All rights reserved.',
-            wa_footer_main: 'Main Portfolio'
+            wa_footer_main: 'Main Portfolio',
+
+            // Tab Switcher
+            tab_servicios: 'WhatsApp Bot',
+            tab_productos: 'DeliveryBot',
+
+            // DeliveryBot Translations
+            db_badge: 'Automated Ordering System',
+            db_hero_title_1: 'DeliveryBot',
+            db_hero_title_2: 'For Restaurants',
+            db_hero_sub: 'Smart order management platform. Eliminate human errors, speed up your kitchen, and increase sales with a robust Node.js engine.',
+            db_btn_contact: 'Request Demo',
+            db_btn_github: 'View Pricing',
+            
+            db_m1: 'Lost Orders',
+            db_m2: 'Sales Increase',
+            db_m3: 'Operations Saved',
+            db_m4: 'Control',
+            db_m4_val: 'Total',
+
+            db_feat_tag: 'System Benefits',
+            db_feat_title: 'Multiply Your <span class="delivery-gradient-text">Efficiency</span>',
+            db_feat_sub: 'Every feature is designed to sell more and operate better, with zero friction for your customers.',
+            db_f1_t: 'Frictionless Purchase Flow',
+            db_f1_d: 'Intuitive digital catalog, integrated shopping cart, and optimized checkout to close sales fast.',
+            db_f2_t: 'Live Inventory Control',
+            db_f2_d: 'The bot checks availability in real-time. If something runs out, it\'s automatically hidden from the menu.',
+            db_f3_t: 'Suggested Sales Engine',
+            db_f3_d: 'Increase your average ticket. The system intelligently suggests drinks or sides before checkout.',
+            db_f4_t: 'Accurate Delivery Times',
+            db_f4_d: 'Dynamically calculates wait times based on how many orders are currently in your kitchen\'s queue.',
+            db_f5_t: 'Business Metrics',
+            db_f5_d: 'Receive an automatic daily summary: star product, peak hours, total revenue, and demand patterns.',
+            db_f6_t: 'Automatic Continuous Support',
+            db_f6_d: 'Smart error handling. The customer is never left without an answer, guaranteeing a premium experience.',
+
+            db_pricing_tag: 'Smart Investment',
+            db_pricing_title: 'Tailored <span class="delivery-gradient-text">Plans</span>',
+            db_pricing_sub: 'Save thousands on third-party app commissions. Pay only for what you need.',
+            
+            db_p1_h: 'STARTER',
+            db_p1_s: 'For new businesses.',
+            db_p1_price: '25',
+            db_p1_1: 'Interactive Digital Catalog',
+            db_p1_2: 'Unlimited Order Reception',
+            db_p1_3: 'Manual Stock Update',
+            db_p1_btn: 'Start Basic',
+
+            db_p2_h: 'PROFESSIONAL',
+            db_p2_s: 'Full flow automation.',
+            db_p2_price: '45',
+            db_p2_1: '<strong>Live Inventory Control</strong>',
+            db_p2_2: '<strong>Suggested Sales Engine (Upsell)</strong>',
+            db_p2_3: 'Real-Time Admin Dashboard',
+            db_p2_btn: 'Get Pro',
+
+            db_p3_h: 'MULTI-BRANCH',
+            db_p3_s: 'For chains and high volume.',
+            db_p3_price: '85',
+            db_p3_1: '<strong>Multi-Branch Management</strong>',
+            db_p3_2: 'Kitchen Printer Integration',
+            db_p3_3: 'Advanced Analytics &amp; Export',
+            db_p3_btn: 'Quote Multi-Branch',
+
+            db_cta_h: 'Ready to modernize your <span class="delivery-gradient-text">restaurant</span>?',
+            db_cta_sub: 'Start receiving automated orders today. Zero commissions per sale.',
+            db_cta_btn: 'Schedule Installation',
+            db_cta_github: 'View Demo'
         }
     };
 

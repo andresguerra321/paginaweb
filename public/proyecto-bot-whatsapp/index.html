@@ -10,7 +10,7 @@
   <!-- Open Graph / Social Media Link Preview -->
   <meta property="og:title" content="Bot de WhatsApp con IA & Agendamiento 24/7 | Andrés Felipe Guerra">
   <meta property="og:description" content="Sistema inteligente de automatización de citas y atención al cliente 24/7 por WhatsApp con IA (LLaMA 3.1) y transcripción de voz con Whisper.">
-  <meta property="og:image" content="https://paginaweb.andres-felipe-gueco.workers.dev/proyecto-bot-whatsapp/img/hero.png">
+  <meta property="og:image" content="https://paginaweb.andres-felipe-gueco.workers.dev/proyecto-bot-whatsapp/img/whatsapp/hero.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Bot de WhatsApp con IA & Agendamiento 24/7 | Andrés Felipe Guerra">
   <meta name="twitter:description" content="Sistema inteligente de automatización de citas y atención al cliente 24/7 por WhatsApp con IA (LLaMA 3.1) y transcripción de voz con Whisper.">
-  <meta name="twitter:image" content="https://paginaweb.andres-felipe-gueco.workers.dev/proyecto-bot-whatsapp/img/hero.png">
+  <meta name="twitter:image" content="https://paginaweb.andres-felipe-gueco.workers.dev/proyecto-bot-whatsapp/img/whatsapp/hero.png">
   
   <!-- Structured Data for SEO (Sitelinks & Rich Results) -->
   <script type="application/ld+json">
@@ -116,7 +116,24 @@
     </div>
   </nav>
 
+  <!-- ===== PRODUCT TABS BAR ===== -->
+  <div class="product-tabs-bar" id="productTabsBar">
+    <div class="product-tabs">
+      <a href="index.html" class="product-tab tab-servicios active" id="tabServicios">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span data-i18n="tab_servicios">WhatsApp Bot</span>
+      </a>
+      <a href="deliverybot.html" class="product-tab tab-productos" id="tabProductos">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <span data-i18n="tab_productos">DeliveryBot</span>
+      </a>
+    </div>
+  </div>
+
   <main class="perf-hidden">
+    <div class="tab-content-host">
+      <!-- ===== TAB 1: WHATSAPP BOT (SERVICIOS) ===== -->
+      <div class="tab-content-wrapper active" id="contentServicios">
     <!-- ===== HERO SECTION (FULL IMAGE BACKGROUND ON DESKTOP / ADAPTIVE ON MOBILE) ===== -->
     <section class="hero-full-banner">
       <div class="hero-banner-overlay"></div>
@@ -192,9 +209,9 @@
             <!-- Placeholder 1 -->
             <div class="gallery-item placeholder-item active">
               <picture>
-                <source srcset="img/images/1-1200.avif 1200w, img/images/1-800.avif 800w" type="image/avif">
-                <source srcset="img/images/1-1200.webp 1200w, img/images/1-800.webp 800w" type="image/webp">
-                <img src="img/images/1-1200.png" alt="Demo Chat 1" class="gallery-image" loading="lazy">
+                <source srcset="img/whatsapp/images/1-1200.avif 1200w, img/whatsapp/images/1-800.avif 800w" type="image/avif">
+                <source srcset="img/whatsapp/images/1-1200.webp 1200w, img/whatsapp/images/1-800.webp 800w" type="image/webp">
+                <img src="img/whatsapp/images/1-1200.png" alt="Demo Chat 1" class="gallery-image" loading="lazy">
               </picture>
             </div>
 
@@ -203,27 +220,27 @@
             <!-- Placeholder 2 -->
             <div class="gallery-item placeholder-item">
               <picture>
-                <source srcset="img/images/2-1200.avif 1200w, img/images/2-800.avif 800w" type="image/avif">
-                <source srcset="img/images/2-1200.webp 1200w, img/images/2-800.webp 800w" type="image/webp">
-                <img src="img/images/2-1200.png" alt="Demo Chat 2" class="gallery-image" loading="lazy">
+                <source srcset="img/whatsapp/images/2-1200.avif 1200w, img/whatsapp/images/2-800.avif 800w" type="image/avif">
+                <source srcset="img/whatsapp/images/2-1200.webp 1200w, img/whatsapp/images/2-800.webp 800w" type="image/webp">
+                <img src="img/whatsapp/images/2-1200.png" alt="Demo Chat 2" class="gallery-image" loading="lazy">
               </picture>
             </div>
             
             <!-- Placeholder 3 -->
             <div class="gallery-item placeholder-item">
               <picture>
-                <source srcset="img/images/3-1200.avif 1200w, img/images/3-800.avif 800w" type="image/avif">
-                <source srcset="img/images/3-1200.webp 1200w, img/images/3-800.webp 800w" type="image/webp">
-                <img src="img/images/3-1200.png" alt="Demo Chat 3" class="gallery-image" loading="lazy">
+                <source srcset="img/whatsapp/images/3-1200.avif 1200w, img/whatsapp/images/3-800.avif 800w" type="image/avif">
+                <source srcset="img/whatsapp/images/3-1200.webp 1200w, img/whatsapp/images/3-800.webp 800w" type="image/webp">
+                <img src="img/whatsapp/images/3-1200.png" alt="Demo Chat 3" class="gallery-image" loading="lazy">
               </picture>
             </div>
 
             <!-- Placeholder 4 -->
             <div class="gallery-item placeholder-item">
               <picture>
-                <source srcset="img/images/4-1200.avif 1200w, img/images/4-800.avif 800w" type="image/avif">
-                <source srcset="img/images/4-1200.webp 1200w, img/images/4-800.webp 800w" type="image/webp">
-                <img src="img/images/4-1200.png" alt="Demo Chat 4" class="gallery-image" loading="lazy">
+                <source srcset="img/whatsapp/images/4-1200.avif 1200w, img/whatsapp/images/4-800.avif 800w" type="image/avif">
+                <source srcset="img/whatsapp/images/4-1200.webp 1200w, img/whatsapp/images/4-800.webp 800w" type="image/webp">
+                <img src="img/whatsapp/images/4-1200.png" alt="Demo Chat 4" class="gallery-image" loading="lazy">
               </picture>
             </div>
           </div>
@@ -245,9 +262,9 @@
             <span class="card-tag red"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> El Problema</span>
             <div class="showcase-img-wrapper zoom-wrapper">
               <picture>
-                <source srcset="img/01_el_problema-1200.avif 1200w, img/01_el_problema-800.avif 800w" type="image/avif">
-                <source srcset="img/01_el_problema-1200.webp 1200w, img/01_el_problema-800.webp 800w" type="image/webp">
-                <img src="img/01_el_problema-1200.png" alt="El Problema: Demora en respuestas" class="showcase-img" loading="lazy">
+                <source srcset="img/whatsapp/01_el_problema-1200.avif 1200w, img/whatsapp/01_el_problema-800.avif 800w" type="image/avif">
+                <source srcset="img/whatsapp/01_el_problema-1200.webp 1200w, img/whatsapp/01_el_problema-800.webp 800w" type="image/webp">
+                <img src="img/whatsapp/01_el_problema-1200.png" alt="El Problema: Demora en respuestas" class="showcase-img" loading="lazy">
               </picture>
               <div class="zoom-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar</div>
             </div>
@@ -257,9 +274,9 @@
             <span class="card-tag green"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"></polyline></svg> La Solución</span>
             <div class="showcase-img-wrapper zoom-wrapper">
               <picture>
-                <source srcset="img/02_la_solucion-1200.avif 1200w, img/02_la_solucion-800.avif 800w" type="image/avif">
-                <source srcset="img/02_la_solucion-1200.webp 1200w, img/02_la_solucion-800.webp 800w" type="image/webp">
-                <img src="img/02_la_solucion-1200.png" alt="La Solución: Atención 24/7 con IA" class="showcase-img" loading="lazy">
+                <source srcset="img/whatsapp/02_la_solucion-1200.avif 1200w, img/whatsapp/02_la_solucion-800.avif 800w" type="image/avif">
+                <source srcset="img/whatsapp/02_la_solucion-1200.webp 1200w, img/whatsapp/02_la_solucion-800.webp 800w" type="image/webp">
+                <img src="img/whatsapp/02_la_solucion-1200.png" alt="La Solución: Atención 24/7 con IA" class="showcase-img" loading="lazy">
               </picture>
               <div class="zoom-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg> Ampliar</div>
             </div>
@@ -445,9 +462,9 @@
         <div class="glass-panel cta-box-grid">
           <div class="cta-img-col">
             <picture>
-              <source srcset="img/06_cta-1200.avif 1200w, img/06_cta-800.avif 800w" type="image/avif">
-              <source srcset="img/06_cta-1200.webp 1200w, img/06_cta-800.webp 800w" type="image/webp">
-              <img src="img/06_cta-1200.png" alt="Transforma la atención comercial de tu negocio" class="cta-banner-img" loading="lazy">
+              <source srcset="img/whatsapp/06_cta-1200.avif 1200w, img/whatsapp/06_cta-800.avif 800w" type="image/avif">
+              <source srcset="img/whatsapp/06_cta-1200.webp 1200w, img/whatsapp/06_cta-800.webp 800w" type="image/webp">
+              <img src="img/whatsapp/06_cta-1200.png" alt="Transforma la atención comercial de tu negocio" class="cta-banner-img" loading="lazy">
             </picture>
           </div>
           <div class="cta-info-col">
@@ -461,6 +478,10 @@
         </div>
       </div>
     </section>
+      </div><!-- /contentServicios -->
+
+
+    </div><!-- /tab-content-host -->
   </main>
 
   <!-- ===== FOOTER ===== -->
@@ -486,7 +507,7 @@
     <div class="video-modal-content">
       <div class="phone-mockup-wrapper">
         <div class="phone-speaker-notch"></div>
-        <video controls playsinline class="hero-video-player" id="modalHeroVideo" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false;">
+        <video preload="none" controls playsinline class="hero-video-player" id="modalHeroVideo" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false;">
           <source src="../video/0811(1).mp4" type="video/mp4">
           Tu navegador no soporta la reproducción de video.
         </video>
@@ -502,3 +523,4 @@
   <script src="../js/transition.js"></script>
 </body>
 </html>
+

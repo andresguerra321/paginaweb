@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeliveryBot — Sistema de Automatización Gastronómica | Andrés Felipe Guerra</title>
+  <meta name="description" content="Sistema inteligente de automatización de pedidos, control de inventario en tiempo real e integraciones para cocina.">
+  <meta name="author" content="Andrés Felipe Guerra">
+  
+  <!-- Open Graph / Social Media Link Preview -->
+  <meta property="og:title" content="DeliveryBot & Automatización Gastronómica | Andrés Felipe Guerra">
+  <meta property="og:description" content="Sistema inteligente de automatización de pedidos, control de inventario en tiempo real e integraciones para cocina.">
+  <meta property="og:image" content="https://paginaweb.andres-felipe-gueco.workers.dev/proyecto-bot-whatsapp/img/delivery/deliverybot-hero.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://paginaweb.andres-felipe-gueco.workers.dev/proyecto-bot-whatsapp/deliverybot.html">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bot de WhatsApp con IA & Agendamiento 24/7 | Andrés Felipe Guerra">
+  <meta name="twitter:description" content="Sistema inteligente de automatización de citas y atención al cliente 24/7 por WhatsApp con IA (LLaMA 3.1) y transcripción de voz con Whisper.">
+  <meta name="twitter:image" content="https://paginaweb.andres-felipe-gueco.workers.dev/proyecto-bot-whatsapp/img/whatsapp/hero.png">
+  
+  <!-- Structured Data for SEO (Sitelinks & Rich Results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Bot de WhatsApp con IA",
+    "operatingSystem": "Web, WhatsApp",
+    "applicationCategory": "BusinessApplication",
+    "offers": {
+      "@type": "AggregateOffer",
+      "lowPrice": "72000",
+      "highPrice": "300000",
+      "priceCurrency": "COP"
+    },
+    "description": "Automatización comercial para agendar citas en tiempo real, transcribir audios de voz y transferir a un asesor humano."
+  }
+  </script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../css/transition.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+  <!-- Critical: Inline loading screen styles so overlay renders before anything else -->
+  <style>
+    main.perf-hidden { opacity: 0; pointer-events: none; }
+    main.perf-reveal { opacity: 1; pointer-events: auto; transition: opacity 0.35s ease; }
+
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 3px 4px;
+      gap: 2px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .lang-btn:hover { color: #FFFFFF; }
+    .lang-btn.active {
+      background: #10B981;
+      color: #FFFFFF;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+    }
+  </style>
+</head>
+<body class="dark-theme">
+
+  <!-- Inline Loading Overlay: renders instantly before any CSS/images load -->
+  <div id="page-transition-overlay" class="page-transition-overlay">
+    <div class="minimal-progress-bar" id="minimal-bar"></div>
+    <div class="minimal-loader-content" id="minimal-content">
+      <div class="minimal-loader-logo">AG<span>.</span></div>
+    </div>
+  </div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span data-i18n="wa_nav_back">Volver al Portafolio</span>
+      </a>
+
+      <!-- Logo & Language Switcher -->
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div class="brand-tag">
+          <div class="pulse-dot"></div>
+          Bot WhatsApp Pro
+        </div>
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" id="langBtnES">ES</button>
+          <button type="button" class="lang-btn" id="langBtnEN">EN</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== PRODUCT TABS BAR ===== -->
+  <div class="product-tabs-bar" id="productTabsBar">
+    <div class="product-tabs">
+      <a href="index.html" class="product-tab tab-servicios" id="tabServicios">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span data-i18n="tab_servicios">WhatsApp Bot</span>
+      </a>
+      <a href="deliverybot.html" class="product-tab tab-productos active" id="tabProductos">
+        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <span data-i18n="tab_productos">DeliveryBot</span>
+      </a>
+    </div>
+  </div>
+
+  <main class="perf-hidden">
+    <div class="tab-content-host">
+      <!-- ===== TAB 2: DELIVERYBOT (PRODUCTOS) ===== -->
+      <div class="tab-content-wrapper active" id="contentProductos">
+
+        <!-- DELIVERY HERO (FULL BACKGROUND IMAGE) -->
+        <section class="delivery-hero-full-banner">
+          <div class="delivery-hero-overlay"></div>
+          <div class="container delivery-hero-full-container">
+            <div class="delivery-hero-left-content">
+              <div class="delivery-badge">
+                <div class="delivery-badge-dot"></div>
+                <span data-i18n="db_badge">Sistema de Pedidos Automatizado</span>
+              </div>
+
+              <h1 class="delivery-hero-title">
+                <span data-i18n="db_hero_title_1">DeliveryBot</span><br>
+                <span class="delivery-gradient-text" data-i18n="db_hero_title_2">Cafetería Inteligente</span>
+              </h1>
+
+              <p class="delivery-hero-subtitle" data-i18n="db_hero_sub">
+                Sistema de automatización de pedidos institucionales usando Telegram + n8n + Google Sheets. Cero pedidos perdidos, reducción del 40% en tiempos de espera.
+              </p>
+
+              <div class="delivery-pills">
+                <span class="delivery-pill">Node.js</span>
+                <span class="delivery-pill">Telegram Bot API</span>
+                <span class="delivery-pill">MongoDB</span>
+                <span class="delivery-pill">Panel Admin</span>
+                <span class="delivery-pill">Reportes Automáticos</span>
+              </div>
+
+              <div class="delivery-hero-actions">
+                <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20me%20interesa%20el%20DeliveryBot%20para%20mi%20cafeter%C3%ADa" target="_blank" rel="noopener" class="btn btn-delivery">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                  <span data-i18n="db_btn_contact">Solicitar Demo</span>
+                </a>
+                <a href="#delivery-pricing" class="btn btn-delivery-outline">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="6" y2="15"/><line x1="10" y1="15" x2="18" y2="15"/></svg>
+                  <span data-i18n="db_btn_github">Ver Planes</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DELIVERY METRICS -->
+        <section class="delivery-hero" style="padding-top: 0;">
+          <div class="container">
+            <div class="delivery-metrics">
+              <div class="delivery-metric-card">
+                <div class="delivery-metric-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <span class="delivery-metric-value">0</span>
+                <span class="delivery-metric-label" data-i18n="db_m1">Pedidos Perdidos</span>
+              </div>
+              <div class="delivery-metric-card">
+                <div class="delivery-metric-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <span class="delivery-metric-value">-40%</span>
+                <span class="delivery-metric-label" data-i18n="db_m2">Tiempo de Espera</span>
+              </div>
+              <div class="delivery-metric-card">
+                <div class="delivery-metric-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <span class="delivery-metric-value">~$0</span>
+                <span class="delivery-metric-label" data-i18n="db_m3">Costo de Infra</span>
+              </div>
+              <div class="delivery-metric-card">
+                <div class="delivery-metric-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <span class="delivery-metric-value" data-i18n="db_m4_val">Total</span>
+                <span class="delivery-metric-label" data-i18n="db_m4">Transparencia</span>
+              </div>
+            </div>
+          </div>
+        <!-- TIMELINE (COMO FUNCIONA) - Start Bootstrap Inspired -->
+        <section class="delivery-timeline-section">
+          <div class="container">
+            <div class="section-header center reveal-on-scroll">
+              <span class="delivery-section-tag" data-i18n="db_timeline_tag">Proceso de Automatización</span>
+              <h2 class="section-title" data-i18n="db_timeline_title">¿Cómo Funciona <span class="delivery-gradient-text">DeliveryBot?</span></h2>
+              <p class="section-subtitle" data-i18n="db_timeline_sub">Un flujo perfectamente engranado desde que el cliente escribe hasta que la orden llega a cocina.</p>
+            </div>
+            
+            <ul class="timeline">
+              <li class="reveal-on-scroll">
+                <div class="timeline-image">
+                  <div class="timeline-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>Paso 1</h4>
+                    <h4 class="subheading">Recepción Inmediata</h4>
+                  </div>
+                  <div class="timeline-body"><p class="text-muted">El cliente inicia el chat en Telegram o WhatsApp. El bot responde en milisegundos con un menú digital e interactivo, ahorrando tiempo de espera.</p></div>
+                </div>
+              </li>
+              <li class="timeline-inverted reveal-on-scroll">
+                <div class="timeline-image">
+                  <div class="timeline-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>Paso 2</h4>
+                    <h4 class="subheading">Carrito Inteligente</h4>
+                  </div>
+                  <div class="timeline-body"><p class="text-muted">FSM Router procesa la orden, valida el stock en tiempo real y ofrece ventas cruzadas (Upselling) antes del checkout.</p></div>
+                </div>
+              </li>
+              <li class="reveal-on-scroll">
+                <div class="timeline-image">
+                  <div class="timeline-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>Paso 3</h4>
+                    <h4 class="subheading">Sincronización en la Nube</h4>
+                  </div>
+                  <div class="timeline-body"><p class="text-muted">La orden se inyecta automáticamente en Google Sheets y en tu base de datos MongoDB. Cero errores manuales.</p></div>
+                </div>
+              </li>
+              <li class="timeline-inverted reveal-on-scroll">
+                <div class="timeline-image">
+                  <div class="timeline-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>Paso 4</h4>
+                    <h4 class="subheading">Cocina & Entrega</h4>
+                  </div>
+                  <div class="timeline-body"><p class="text-muted">Tu equipo recibe la comanda limpia en una pantalla o ticketera. El cliente es notificado con el ETA Dinámico.</p></div>
+                </div>
+              </li>
+              <li class="timeline-inverted reveal-on-scroll">
+                <div class="timeline-image timeline-final">
+                  <h4><br>¡Flujo<br>Completo!</h4>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- PORTFOLIO GRID (FEATURES) - Start Bootstrap Inspired -->
+        <section class="delivery-portfolio-section bg-light" id="portfolio">
+          <div class="container">
+            <div class="section-header center reveal-on-scroll">
+              <span class="delivery-section-tag" data-i18n="db_feat_tag">Capacidades del Motor</span>
+              <h2 class="section-title" data-i18n="db_feat_title">Funcionalidades <span class="delivery-gradient-text">Avanzadas</span></h2>
+              <p class="section-subtitle" data-i18n="db_feat_sub">Cada componente del motor está diseñado para maximizar la eficiencia operativa de la cafetería.</p>
+            </div>
+
+            <div class="row delivery-portfolio-grid">
+              <!-- Feature 1 -->
+              <div class="col-lg-4 col-sm-6 mb-4 reveal-on-scroll">
+                <div class="portfolio-item glass-card">
+                  <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
+                    <div class="portfolio-hover">
+                      <div class="portfolio-hover-content"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="portfolio-icon-wrapper cyan">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                  </a>
+                  <div class="portfolio-caption">
+                    <div class="portfolio-caption-heading" data-i18n="db_f1_t">FSM Router</div>
+                    <div class="portfolio-caption-subheading text-muted" data-i18n="db_f1_d">Máquina de Estados Finitos que gestiona el flujo de cada usuario.</div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Feature 2 -->
+              <div class="col-lg-4 col-sm-6 mb-4 reveal-on-scroll">
+                <div class="portfolio-item glass-card">
+                  <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">
+                    <div class="portfolio-hover">
+                      <div class="portfolio-hover-content"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="portfolio-icon-wrapper sky">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    </div>
+                  </a>
+                  <div class="portfolio-caption">
+                    <div class="portfolio-caption-heading" data-i18n="db_f2_t">Validador de Stock</div>
+                    <div class="portfolio-caption-subheading text-muted" data-i18n="db_f2_d">Verificación de disponibilidad en tiempo real.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Feature 3 -->
+              <div class="col-lg-4 col-sm-6 mb-4 reveal-on-scroll">
+                <div class="portfolio-item glass-card">
+                  <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">
+                    <div class="portfolio-hover">
+                      <div class="portfolio-hover-content"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="portfolio-icon-wrapper teal">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    </div>
+                  </a>
+                  <div class="portfolio-caption">
+                    <div class="portfolio-caption-heading" data-i18n="db_f3_t">Cross-Selling Engine</div>
+                    <div class="portfolio-caption-subheading text-muted" data-i18n="db_f3_d">Motor de recomendaciones de productos complementarios.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Feature 4 -->
+              <div class="col-lg-4 col-sm-6 mb-4 reveal-on-scroll">
+                <div class="portfolio-item glass-card">
+                  <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal4">
+                    <div class="portfolio-hover">
+                      <div class="portfolio-hover-content"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="portfolio-icon-wrapper amber">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                  </a>
+                  <div class="portfolio-caption">
+                    <div class="portfolio-caption-heading" data-i18n="db_f4_t">ETA Dinámico</div>
+                    <div class="portfolio-caption-subheading text-muted" data-i18n="db_f4_d">Cálculo de tiempos de entrega en base a la cola activa.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Feature 5 -->
+              <div class="col-lg-4 col-sm-6 mb-4 reveal-on-scroll">
+                <div class="portfolio-item glass-card">
+                  <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal5">
+                    <div class="portfolio-hover">
+                      <div class="portfolio-hover-content"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="portfolio-icon-wrapper violet">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </div>
+                  </a>
+                  <div class="portfolio-caption">
+                    <div class="portfolio-caption-heading" data-i18n="db_f5_t">Reportes Automáticos</div>
+                    <div class="portfolio-caption-subheading text-muted" data-i18n="db_f5_d">Generación diaria de reportes de ventas y desempeño.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Feature 6 -->
+              <div class="col-lg-4 col-sm-6 mb-4 reveal-on-scroll">
+                <div class="portfolio-item glass-card">
+                  <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">
+                    <div class="portfolio-hover">
+                      <div class="portfolio-hover-content"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="portfolio-icon-wrapper rose">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                  </a>
+                  <div class="portfolio-caption">
+                    <div class="portfolio-caption-heading" data-i18n="db_f6_t">Manejador de Errores</div>
+                    <div class="portfolio-caption-subheading text-muted" data-i18n="db_f6_d">Flujo dedicado que atrapa fallos imprevistos de forma elegante.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DELIVERY PRICING -->
+        <section class="pricing-section" id="delivery-pricing">
+          <div class="container">
+            <div class="section-header center reveal-on-scroll">
+              <span class="section-tag delivery-section-tag" data-i18n="db_pricing_tag">Inversión Inteligente</span>
+              <h2 class="section-title" data-i18n="db_pricing_title">Planes a la <span class="delivery-gradient-text">Medida</span></h2>
+              <p class="section-subtitle" data-i18n="db_pricing_sub">Ahorra miles en comisiones de apps de terceros. Paga solo por lo que necesitas.</p>
+            </div>
+
+            <div class="pricing-grid">
+              <!-- Starter Plan -->
+              <div class="pricing-card glass-card reveal-on-scroll" style="--card-border: rgba(6, 182, 212, 0.2);">
+                <div class="plan-header">
+                  <h3 data-i18n="db_p1_h">BÁSICO</h3>
+                  <p class="plan-desc" data-i18n="db_p1_s">Para negocios que inician.</p>
+                </div>
+                <div class="plan-price">
+                  <span class="currency">COP</span>
+                  <span class="price-amount" data-cop="99.000" data-usd="25" data-i18n="db_p1_price">99.000</span>
+                  <span class="period" data-i18n="wa_period">/ MES</span>
+                </div>
+                <ul class="plan-features">
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p1_1">Catálogo Digital Interactivo</span></li>
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p1_2">Recepción de Pedidos Ilimitada</span></li>
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p1_3">Actualización Manual de Stock</span></li>
+                </ul>
+                <a href="https://wa.me/573185602203?text=Hola,%20me%20interesa%20el%20Plan%20Básico%20de%20DeliveryBot" target="_blank" rel="noopener" class="btn btn-outline" style="--btn-color: var(--delivery-primary);" data-i18n="db_p1_btn">Empezar Básico</a>
+              </div>
+
+              <!-- Pro Plan -->
+              <div class="pricing-card glass-card popular reveal-on-scroll" style="--card-border: var(--delivery-primary);">
+                <div class="popular-badge" style="background: var(--delivery-primary);" data-i18n="wa_p_tag">MÁS POPULAR</div>
+                <div class="plan-header">
+                  <h3 data-i18n="db_p2_h" style="color: var(--delivery-primary);">PROFESIONAL</h3>
+                  <p class="plan-desc" data-i18n="db_p2_s">Automatización total del flujo.</p>
+                </div>
+                <div class="plan-price">
+                  <span class="currency">COP</span>
+                  <span class="price-amount" data-cop="179.000" data-usd="45" data-i18n="db_p2_price">179.000</span>
+                  <span class="period" data-i18n="wa_period">/ MES</span>
+                </div>
+                <ul class="plan-features">
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p1_1">Catálogo Digital Interactivo</span></li>
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p1_2">Recepción de Pedidos Ilimitada</span></li>
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p2_1"><strong>Control de Inventario en Vivo</strong></span></li>
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p2_2"><strong>Motor de Ventas Sugeridas (Upsell)</strong></span></li>
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p2_3">Panel Administrativo en Tiempo Real</span></li>
+                </ul>
+                <a href="https://wa.me/573185602203?text=Hola,%20me%20interesa%20el%20Plan%20Profesional%20de%20DeliveryBot" target="_blank" rel="noopener" class="btn btn-primary" style="background: var(--delivery-primary);" data-i18n="db_p2_btn">Obtener Pro</a>
+              </div>
+
+              <!-- Multi-Branch Plan -->
+              <div class="pricing-card glass-card reveal-on-scroll" style="--card-border: rgba(6, 182, 212, 0.2);">
+                <div class="plan-header">
+                  <h3 data-i18n="db_p3_h">MULTI-SUCURSAL</h3>
+                  <p class="plan-desc" data-i18n="db_p3_s">Para cadenas y alto volumen.</p>
+                </div>
+                <div class="plan-price">
+                  <span class="currency">COP</span>
+                  <span class="price-amount" data-cop="349.000" data-usd="85" data-i18n="db_p3_price">349.000</span>
+                  <span class="period" data-i18n="wa_period">/ MES</span>
+                </div>
+                <ul class="plan-features">
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p2_1"><strong>Control de Inventario en Vivo</strong></span></li>
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p2_3">Panel Administrativo en Tiempo Real</span></li>
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p3_1"><strong>Gestión de Múltiples Sedes</strong></span></li>
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p3_2">Integración con Impresoras de Cocina</span></li>
+                  <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--delivery-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg><span data-i18n="db_p3_3">Analítica Avanzada y Exportación</span></li>
+                </ul>
+                <a href="https://wa.me/573185602203?text=Hola,%20quisiera%20cotizar%20DeliveryBot%20para%20Múltiples%20Sucursales" target="_blank" rel="noopener" class="btn btn-outline" style="--btn-color: var(--delivery-primary);" data-i18n="db_p3_btn">Cotizar Multi-Sede</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DELIVERY CTA -->
+        <section class="delivery-cta-section">
+          <div class="container">
+            <div class="delivery-cta-box">
+              <h2 data-i18n="db_cta_h">¿Necesitas un sistema de pedidos <span class="delivery-gradient-text">automatizado</span>?</h2>
+              <p data-i18n="db_cta_sub">Despliega DeliveryBot en tu cafetería institucional con costo de infraestructura cercano a $0.</p>
+              <div class="delivery-cta-actions">
+                <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20me%20interesa%20implementar%20DeliveryBot" target="_blank" rel="noopener" class="btn btn-delivery">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                  <span data-i18n="db_cta_btn">Solicitar Implementación</span>
+                </a>
+                <a href="#delivery-pricing" class="btn btn-delivery-outline">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="6" y2="15"/><line x1="10" y1="15" x2="18" y2="15"/></svg>
+                  <span data-i18n="db_cta_github">Ver Planes</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /contentProductos -->
+    </div><!-- /tab-content-host -->
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p data-i18n="wa_footer_rights">© 2026 Andrés Correa | Tech Studio &amp; Automatización. Todos los derechos reservados.</p>
+      <div class="footer-links">
+        <a href="../" data-i18n="wa_footer_main">Portafolio Principal</a>
+        <a href="https://github.com/andresguerra321" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightboxClose">&times;</div>
+    <img src="" alt="Zoomed Image" class="lightbox-img" id="lightboxImg">
+  </div>
+
+  <!-- ===== DEMO VIDEO MODAL ===== -->
+  <div class="video-modal" id="demoVideoModal">
+    <div class="video-modal-close" id="demoVideoClose">&times;</div>
+    <div class="video-modal-content">
+      <div class="phone-mockup-wrapper">
+        <div class="phone-speaker-notch"></div>
+        <video preload="none" controls playsinline class="hero-video-player" id="modalHeroVideo" controlsList="nodownload nofullscreen noremoteplayback" disablePictureInPicture oncontextmenu="return false;">
+          <source src="../video/0811(1).mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de video.
+        </video>
+      </div>
+      <p class="video-demo-desc" data-i18n="wa_demo_desc">Esta es una demostración del flujo principal del bot atendiendo a un cliente en tiempo real.</p>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <!-- i18n Engine Script -->
+  <script src="../js/i18n.js"></script>
+  <!-- Page Transition (Anime.js) -->
+  <script src="../js/transition.js"></script>
+</body>
+</html>
+
