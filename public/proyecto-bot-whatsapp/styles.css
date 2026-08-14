@@ -2374,7 +2374,41 @@ body.dark-theme::before {
   }
 
   .delivery-metrics {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 14px;
+    padding: 40px 0;
+    position: relative;
+  }
+
+  .delivery-metrics::-webkit-scrollbar {
+    display: none;
+  }
+
+  .delivery-metrics .delivery-metric-card {
+    min-width: 200px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  /* Fade hint on right edge to indicate scrollable content */
+  .delivery-hero .container {
+    position: relative;
+  }
+
+  .delivery-hero .container::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to left, rgba(3, 5, 10, 0.9), transparent);
+    pointer-events: none;
+    z-index: 2;
   }
 
   .delivery-arch-grid {
@@ -2436,12 +2470,13 @@ body.dark-theme::before {
 
 @media (max-width: 600px) {
   .delivery-metrics {
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 10px;
+    padding: 30px 0;
   }
 
-  .delivery-metric-card {
-    padding: 20px 16px;
+  .delivery-metrics .delivery-metric-card {
+    min-width: 170px;
+    padding: 16px 12px;
   }
 
   .delivery-metric-value {
@@ -2449,7 +2484,7 @@ body.dark-theme::before {
   }
 
   .delivery-hero-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .delivery-features-grid {
@@ -2462,7 +2497,11 @@ body.dark-theme::before {
   }
 
   .delivery-cta-box {
-    padding: 32px 16px;
+    padding: 24px 16px;
+  }
+
+  .delivery-arch-card, .delivery-feature-card {
+    padding: 24px 16px;
   }
 
   .delivery-cta-box h2 {
@@ -2472,11 +2511,11 @@ body.dark-theme::before {
 
 @media (max-width: 380px) {
   .delivery-hero-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .delivery-metric-value {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 }
 

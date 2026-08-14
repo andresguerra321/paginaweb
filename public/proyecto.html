@@ -245,22 +245,6 @@
                 tags: ['Baileys', 'Groq AI', 'LLaMA', 'Serverless', 'Vercel'],
                 repo: 'https://github.com/andresguerra321/Bot-de-Whatsapp-plantilla-'
             },
-            'guardian': {
-                title: 'GUARDIAN Security',
-                image: `
-                  <picture>
-                    <source srcset="img/3-1200.avif 1200w, img/3-800.avif 800w" type="image/avif">
-                    <source srcset="img/3-1200.webp 1200w, img/3-800.webp 800w" type="image/webp">
-                    <img src="img/3-1200.png" alt="GUARDIAN Project" class="project-img" loading="lazy">
-                  </picture>
-                `,
-                description: {
-                    es: 'Sistema de seguridad predictiva para transporte terrestre con Computer Vision e IA colaborativa. Arquitectura de 3 agentes: Centinela (visión), Oráculo (riesgo), Copiloto (conversacional).',
-                    en: 'Predictive security system for road transport with Computer Vision and collaborative AI. 3-agent architecture: Sentinel (vision), Oracle (risk), Copilot (conversational).'
-                },
-                tags: ['Python', 'FiftyOne', 'Gemini AI', 'Computer Vision'],
-                repo: 'https://github.com/andresguerra321/GUARDIAN'
-            },
             'banco-acme': {
                 title: 'Banco ACME',
                 image: `
@@ -307,6 +291,12 @@
             const lang = localStorage.getItem('portfolio_lang') || 'es';
             const params = new URLSearchParams(window.location.search);
             const projectId = params.get('id');
+            
+            if (projectId === 'guardian') {
+                window.location.href = 'proyecto-guardian/guardian.html';
+                return;
+            }
+            
             const project = proyectosData[projectId];
             const container = document.getElementById('project-container');
 

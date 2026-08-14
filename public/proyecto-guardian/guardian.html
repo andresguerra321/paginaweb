@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUARDIAN — Sistema de Seguridad Predictiva | Andrés Felipe Guerra</title>
+  <meta name="description" content="Arquitectura de seguridad predictiva con 3 agentes de IA (Visión, Riesgo, Conversacional) para flotas de transporte terrestre.">
+  <meta name="author" content="Andrés Felipe Guerra">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="GUARDIAN & Seguridad Predictiva | Andrés Felipe Guerra">
+  <meta property="og:description" content="Arquitectura de seguridad predictiva con 3 agentes de IA para flotas de transporte terrestre.">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../css/transition.css">
+  
+  <!-- AI Libraries (MediaPipe, TF.js, COCO-SSD) loaded deferred at bottom of body
+       to prevent page freeze on initial load -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    main.perf-hidden { opacity: 0; pointer-events: none; }
+    main.perf-reveal { opacity: 1; pointer-events: auto; transition: opacity 0.35s ease; }
+    
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 3px 4px;
+      gap: 2px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .lang-btn:hover { color: #FFFFFF; }
+    .lang-btn.active {
+      background: #FFFFFF;
+      color: #0F172A;
+    }
+  </style>
+</head>
+<body class="dark-theme">
+
+  <!-- PAGE TRANSITION OVERLAY -->
+  <div class="page-transition" id="page-transition">
+      <div class="transition-logo">AG</div>
+      <div class="transition-text" data-i18n="loading_project">Cargando Proyecto</div>
+  </div>
+
+  <nav class="top-nav">
+    <div class="nav-left">
+      <a href="../index.html" class="back-btn page-transition-link">
+        <i class="fas fa-arrow-left"></i> <span data-i18n="guardian_back_btn">Volver al Portafolio</span>
+      </a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" id="langBtnES" data-lang="es">ES</button>
+        <button class="lang-btn" id="langBtnEN" data-lang="en">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="perf-hidden" id="main-content">
+    
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-content reveal-on-scroll">
+        <div class="badge" data-i18n="guardian_badge">SaaS / Infraestructura IA</div>
+        <h1 class="hero-title">
+          <span class="gradient-text">GUARDIAN</span>
+        </h1>
+        <p class="hero-desc" data-i18n="guardian_hero_desc">
+          Arquitectura de seguridad predictiva para transporte terrestre que previene accidentes antes de que ocurran. 
+          Combina Visión Computacional en el borde con LLMs conversacionales en la nube para crear una experiencia de "Copiloto Virtual" autónomo.
+        </p>
+        <div class="tags-container">
+          <span class="tech-tag"><i class="fab fa-python"></i> Python (FastAPI)</span>
+          <span class="tech-tag"><i class="fas fa-brain"></i> MediaPipe</span>
+          <span class="tech-tag"><i class="fas fa-database"></i> FiftyOne</span>
+          <span class="tech-tag"><i class="fas fa-robot"></i> Gemini AI</span>
+        </div>
+      </div>
+      <div class="hero-visual reveal-on-scroll reveal-delay-2">
+        <img src="../img/3-1200.png" alt="Guardian Dashboard">
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE SECTION -->
+    <section class="features-section">
+      <div class="section-header reveal-on-scroll">
+        <h2 class="section-title" data-i18n="guardian_arch_title">Arquitectura de 3 Agentes</h2>
+        <p class="section-subtitle" data-i18n="guardian_arch_desc">El sistema opera distribuyendo la carga cognitiva en 3 agentes especializados para garantizar baja latencia y alta precisión.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal-on-scroll reveal-delay-1">
+          <div class="feature-icon-wrapper" style="color: #00f3ff;">👁️</div>
+          <h3 class="feature-title" data-i18n="guardian_agent_centinela">Agente Centinela</h3>
+          <p class="feature-desc" data-i18n="guardian_centinela_desc">Procesamiento Edge en cabina. Usa MediaPipe y TF.js para trackear 468 puntos faciales a +30FPS detectando somnolencia (EAR/Yawn) y distracción sin depender de conexión a internet.</p>
+        </div>
+        
+        <div class="feature-card reveal-on-scroll reveal-delay-2">
+          <div class="feature-icon-wrapper" style="color: #ffb700;">🔮</div>
+          <h3 class="feature-title" data-i18n="guardian_agent_oraculo">Agente Oráculo</h3>
+          <p class="feature-desc" data-i18n="guardian_oraculo_desc">Motor de riesgos en la nube. Ingiere telemetría en tiempo real, condiciones climáticas y datos de ruta para calcular la probabilidad de accidente y coordinar las alertas críticas.</p>
+        </div>
+
+        <div class="feature-card reveal-on-scroll reveal-delay-3">
+          <div class="feature-icon-wrapper" style="color: #b537f2;">🤖</div>
+          <h3 class="feature-title" data-i18n="guardian_agent_copiloto">Agente Copiloto</h3>
+          <p class="feature-desc" data-i18n="guardian_copiloto_desc">Asistente conversacional (Gemini Pro) que habla con el conductor vía síntesis de voz, manteniéndolo despierto, alertando peligros y actuando como un acompañante virtual empático.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPACITIES & IMPACT SECTION -->
+    <section class="features-section" style="padding-top: 0;">
+      <div class="section-header reveal-on-scroll">
+        <h2 class="section-title" data-i18n="guardian_impact_title">Capacidades & Impacto Operativo</h2>
+        <p class="section-subtitle" data-i18n="guardian_impact_desc">GUARDIAN no es solo una dashcam, es un ecosistema IoT completo diseñado para flotas de transporte pesado, logística y transporte de pasajeros.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal-on-scroll reveal-delay-1">
+          <div class="feature-icon-wrapper" style="color: #00f3ff;">🛡️</div>
+          <h3 class="feature-title" data-i18n="guardian_cap_1_title">Prevención Proactiva</h3>
+          <p class="feature-desc" data-i18n="guardian_cap_1_desc">A diferencia de los sistemas reactivos, GUARDIAN detecta los microsueños antes de que los ojos se cierren por completo (analizando patrones de parpadeo y bostezos mediante EAR/MAR), permitiendo alertar al conductor con segundos de anticipación vitales.</p>
+        </div>
+        
+        <div class="feature-card reveal-on-scroll reveal-delay-2">
+          <div class="feature-icon-wrapper" style="color: #ffb700;">📡</div>
+          <h3 class="feature-title" data-i18n="guardian_cap_2_title">IoT & Telemetría Segura</h3>
+          <p class="feature-desc" data-i18n="guardian_cap_2_desc">Integración mediante protocolos MQTT y WebSockets encriptados. Si el vehículo pierde conexión en carretera, el Agente Centinela (Edge) sigue operando 100% offline y sincroniza los eventos de riesgo cuando recupera la señal.</p>
+        </div>
+
+        <div class="feature-card reveal-on-scroll reveal-delay-3">
+          <div class="feature-icon-wrapper" style="color: #b537f2;">📊</div>
+          <h3 class="feature-title" data-i18n="guardian_cap_3_title">Dashboard para Flotas</h3>
+          <p class="feature-desc" data-i18n="guardian_cap_3_desc">Los administradores visualizan en tiempo real el nivel de fatiga de todos los conductores, reciben alertas críticas y pueden comunicarse bidireccionalmente gracias al módulo de administración centralizado.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE DEMO SECTION (GUARDIAN LITE) -->
+    <section class="demo-section" id="demo-section">
+      <div class="section-header reveal-on-scroll" style="margin-bottom: 2rem;">
+        <h2 class="section-title" data-i18n="guardian_demo_title">Prueba en Vivo: GUARDIAN Lite</h2>
+        <p class="section-subtitle" style="max-width: 800px;" data-i18n="guardian_demo_desc">
+          Activa tu cámara para probar el <b>Agente Centinela</b> en tiempo real. Todo el procesamiento de IA ocurre privadamente en tu navegador.
+          El simulador de carretera inyectará alertas de ruta aleatorias para demostrar la integración del Copiloto.
+        </p>
+      </div>
+
+      <!-- MOBILE WARNING MODAL -->
+      <div id="mobile-warning-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: var(--bg-dark); border: 1px solid var(--border-light); padding: 30px; border-radius: 20px; max-width: 400px; text-align: center;">
+          <div style="font-size: 3rem; margin-bottom: 15px;">⚠️</div>
+          <h3 data-i18n="guardian_perf_title" style="color: #fff; font-family: var(--font-heading); margin-bottom: 15px;">Aviso de Rendimiento</h3>
+          <p data-i18n="guardian_perf_desc" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;">Esta demo interactiva ejecuta modelos de Visión Computacional complejos en tiempo real. Para evitar calentamiento en tu dispositivo y tener una experiencia fluida, te recomendamos abrirla en un computador de escritorio.</p>
+          <div style="display: flex; gap: 10px; justify-content: center;">
+            <button id="btn-cancel-demo" class="btn-outline" style="padding: 10px 20px;"><span data-i18n="guardian_perf_cancel">Cancelar</span></button>
+            <button id="btn-force-demo" class="btn-primary" style="padding: 10px 20px;"><span data-i18n="guardian_perf_force">Ejecutar igual</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEMO LAUNCHER -->
+      <div class="demo-launcher-screen reveal-on-scroll reveal-delay-1" id="demo-launcher">
+        <div class="demo-launcher-content">
+          <div class="launcher-icon" style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+          <h3 data-i18n="launcher_title" style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 1rem;">Simulador Interactivo de IA</h3>
+          <p data-i18n="launcher_desc" style="color: var(--text-muted); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">Esta demo cargará modelos de TensorFlow.js en tu navegador para procesar tu cámara web en tiempo real. No se enviarán imágenes a ningún servidor.</p>
+          <button class="btn-primary" id="btn-launch-demo" style="font-size: 1rem; padding: 0.8rem 2rem; border-radius: 30px;">
+            <i class="fas fa-play"></i> <span data-i18n="launcher_btn" style="margin-left: 8px;">Ejecutar Demo GUARDIAN</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- DEMO LOADING SCREEN -->
+      <style>
+        @keyframes spin-guardian {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .demo-loading-screen {
+          display: none;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          height: 60vh;
+          text-align: center;
+          background: transparent;
+        }
+        .guardian-spinner {
+          width: 50px;
+          height: 50px;
+          border: 4px solid rgba(255, 255, 255, 0.1);
+          border-top: 4px solid #00f3ff;
+          border-radius: 50%;
+          animation: spin-guardian 1s linear infinite;
+          margin-bottom: 25px;
+        }
+      </style>
+      <div class="demo-loading-screen" id="demo-loading-screen">
+        <div class="guardian-spinner"></div>
+        <h3 data-i18n="guardian_loading_title" style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 10px; color: #fff;" id="loading-text-title">Inicializando GUARDIAN...</h3>
+        <p data-i18n="guardian_loading_desc" style="color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;" id="loading-text-desc">Cargando motor de inferencia</p>
+      </div>
+
+      <div class="dashboard-wrapper" id="dashboard-wrapper" style="display: none;">
+          <!-- Ambient BG -->
+          <div class="ambient-cyber-bg"></div>
+          <div class="cyber-grid-overlay"></div>
+
+          <!-- Float Notifications Container -->
+          <div id="notification-container" class="notification-container"></div>
+
+          <!-- Fullscreen Drowsiness Warning -->
+          <div id="fullscreen-warning" class="fullscreen-warning">
+              <div class="warning-content">
+                  <span class="warning-icon-pulse">⚠️</span>
+                  <h1 data-i18n="guardian_alert_title">¡ALERTA DE FATIGA!</h1>
+                  <p data-i18n="guardian_alert_desc">Microsueño detectado. Por favor oríllese y descanse inmediatamente.</p>
+                  <button id="btn-dismiss-warning" class="btn-dismiss" data-i18n="guardian_alert_btn">RECONOCER Y DESCARTAR</button>
+              </div>
+          </div>
+
+          <!-- Status Bar -->
+          <header class="status-bar" id="status-bar">
+              <div class="status-bar-inner">
+                  <div class="status-left">
+                      <div class="logo">
+                          <div class="logo-shield-wrap">
+                              <div class="logo-glow-ring"></div>
+                              <span class="logo-icon">🛡️</span>
+                          </div>
+                          <span class="logo-text">GUARDIAN <span class="logo-lite">LITE</span></span>
+                      </div>
+                      <div class="status-badge" id="status-badge">
+                          <div class="status-dot"></div>
+                          <span class="status-label" data-i18n="guardian_status_waiting">ESPERANDO CAMARA</span>
+                      </div>
+                  </div>
+
+                  <div class="status-center">
+                      <div class="status-metric">
+                          <span class="metric-label">EAR</span>
+                          <span class="metric-value" id="header-ear-value">0.000</span>
+                      </div>
+                      <div class="status-divider"></div>
+                      <div class="status-metric">
+                          <span class="metric-label">YAWN</span>
+                          <span class="metric-value" id="header-yawn-value">0.000</span>
+                      </div>
+                      <div class="status-divider"></div>
+                      <div class="status-metric">
+                          <span class="metric-label">PITCH</span>
+                          <span class="metric-value" id="header-pitch-value">0.0°</span>
+                      </div>
+                      <div class="status-divider"></div>
+                      <div class="status-metric">
+                          <span class="metric-label">YAW</span>
+                          <span class="metric-value" id="header-yaw-value">1.00</span>
+                      </div>
+                  </div>
+
+                  <div class="status-right">
+                      <div class="connection-indicator">
+                          <div class="conn-dot"></div>
+                          <span class="conn-label">Iniciando...</span>
+                      </div>
+                      <div class="time-display" id="time-display">00:00:00</div>
+                  </div>
+              </div>
+          </header>
+
+          <!-- Dashboard Grid -->
+          <main class="dashboard">
+              
+              <!-- Left Column: Camera & Gauges -->
+              <div class="panel">
+                  <div class="panel-header">
+                      <h2>
+                          <div class="panel-icon-wrap"><span class="panel-icon">🎥</span></div>
+                          Centinela Edge Vision
+                      </h2>
+                      <div class="camera-controls">
+                          <button id="btn-toggle-mesh" class="btn-icon" title="Toggle AI Mesh">👁️</button>
+                          <button id="btn-toggle-camera" class="btn-icon btn-primary" title="Start/Stop Camera">
+                              <span id="camera-btn-icon">▶️</span>
+                          </button>
+                      </div>
+                  </div>
+                  
+                  <div class="camera-container">
+                      <div class="hud-corner hud-corner-tl"></div>
+                      <div class="hud-corner hud-corner-tr"></div>
+                      <div class="hud-corner hud-corner-bl"></div>
+                      <div class="hud-corner hud-corner-br"></div>
+                      <div class="hud-laser-scan"></div>
+                      
+                      <div id="camera-placeholder" class="camera-placeholder">
+                          <div class="placeholder-content">
+                              <div class="placeholder-icon-wrap">
+                                  <div class="placeholder-ring"></div>
+                                  <span class="placeholder-icon">📷</span>
+                              </div>
+                              <h3 data-i18n="guardian_demo_placeholder_title">Cámara Inactiva</h3>
+                              <p data-i18n="guardian_demo_placeholder_desc">Presione 'Play' en la esquina superior derecha para iniciar</p>
+                          </div>
+                      </div>
+
+                      <div id="drowsy-flash" class="drowsy-flash"></div>
+                      <video id="video" playsinline></video>
+                      <canvas id="overlay-canvas"></canvas>
+                  </div>
+
+                  <!-- Gauges -->
+                  <div class="gauges-row">
+                      <div class="gauge" id="gauge-ear">
+                          <div class="gauge-header">
+                              <span class="gauge-label">EYE APERTURE</span>
+                              <span class="gauge-value" id="gauge-ear-value">0.000</span>
+                          </div>
+                          <div class="gauge-bar">
+                              <div class="gauge-threshold" style="left: 60%"></div>
+                              <div class="gauge-fill" id="gauge-ear-fill" style="width: 0%"></div>
+                          </div>
+                      </div>
+                      <div class="gauge" id="gauge-yawn">
+                          <div class="gauge-header">
+                              <span class="gauge-label">YAWN RATIO</span>
+                              <span class="gauge-value" id="gauge-yawn-value">0.000</span>
+                          </div>
+                          <div class="gauge-bar">
+                              <div class="gauge-threshold" style="left: 75%"></div>
+                              <div class="gauge-fill gauge-fill-yawn" id="gauge-yawn-fill" style="width: 0%"></div>
+                          </div>
+                      </div>
+                      <div class="gauge" id="gauge-pitch">
+                          <div class="gauge-header">
+                              <span class="gauge-label">HEAD PITCH</span>
+                              <span class="gauge-value" id="gauge-pitch-value">0.0°</span>
+                          </div>
+                          <div class="gauge-bar">
+                              <div class="gauge-threshold" style="left: 65%"></div>
+                              <div class="gauge-fill gauge-fill-pitch" id="gauge-pitch-fill" style="width: 0%"></div>
+                          </div>
+                      </div>
+                      <div class="gauge" id="gauge-yaw">
+                          <div class="gauge-header">
+                              <span class="gauge-label">HEAD YAW</span>
+                              <span class="gauge-value" id="gauge-yaw-value">1.00</span>
+                          </div>
+                          <div class="gauge-bar">
+                              <div class="gauge-threshold" style="left: 20%"></div>
+                              <div class="gauge-threshold" style="left: 80%"></div>
+                              <div class="gauge-fill gauge-fill-yaw" id="gauge-yaw-fill" style="width: 50%; margin-left: 25%;"></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Right Column: Alerts & Copilot -->
+              <div class="panel">
+                  <div class="panel-header">
+                      <h2>
+                          <div class="panel-icon-wrap" style="background: rgba(255,0,85,0.1); border-color: rgba(255,0,85,0.2);">
+                              <span class="panel-icon">🚨</span>
+                          </div>
+                          Incident Log
+                      </h2>
+                      <div class="alert-counter">
+                          <span id="alert-count">0</span> Events
+                      </div>
+                  </div>
+
+                  <div class="alert-feed" id="alert-feed">
+                      <div class="alert-empty" id="alert-empty">
+                          <span class="empty-icon">📭</span>
+                          <p>Esperando eventos de telemetría...</p>
+                      </div>
+                  </div>
+
+                  <!-- Copilot Agent Section -->
+                  <div class="copilot-section">
+                      <div class="copilot-header">
+                          <div class="copilot-avatar-wrap">
+                              <div class="copilot-avatar-glow"></div>
+                              <span class="copilot-avatar">🤖</span>
+                          </div>
+                          <span class="copilot-name">Copilot AI</span>
+                          <span class="copilot-status" id="copilot-status">Idle</span>
+                      </div>
+                      <div class="copilot-message" id="copilot-message">
+                          <p>Sistema GUARDIAN iniciado. Listo para monitorear.</p>
+                      </div>
+                  </div>
+
+                  <!-- Session Stats -->
+                  <div class="session-stats">
+                      <div class="stat-card">
+                          <span class="stat-icon" style="color: #3b82f6;">⏱️</span>
+                          <div class="stat-info">
+                              <span class="stat-value" id="stat-session-time">00:00</span>
+                              <span class="stat-label">Session</span>
+                          </div>
+                      </div>
+                      <div class="stat-card">
+                          <span class="stat-icon" style="color: #00ff9d;">🎯</span>
+                          <div class="stat-info">
+                              <span class="stat-value" id="stat-attention-score">100%</span>
+                              <span class="stat-label">Attention</span>
+                          </div>
+                      </div>
+                      <div class="stat-card">
+                          <span class="stat-icon" style="color: #ffb700;">😴</span>
+                          <div class="stat-info">
+                              <span class="stat-value" id="stat-drowsy-events">0</span>
+                              <span class="stat-label">Fatigue</span>
+                          </div>
+                      </div>
+                      <div class="stat-card">
+                          <span class="stat-icon" style="color: #ff0055;">⚠️</span>
+                          <div class="stat-info">
+                              <span class="stat-value" id="stat-road-alerts">0</span>
+                              <span class="stat-label">Road Dangers</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </main>
+      </div>
+    </section>
+
+    <!-- FOOTER CTA -->
+    <section class="project-cta-section reveal-on-scroll">
+      <h3 data-i18n="guardian_cta_title">¿Interesado en implementar GUARDIAN?</h3>
+      <p style="color: var(--text-muted); margin-top: 1rem;" data-i18n="guardian_cta_desc">
+        La plataforma completa incluye dashboard gerencial, base de datos en nube y analítica avanzada.
+      </p>
+      <div class="cta-buttons">
+
+        <a href="https://wa.me/573046208573?text=Hola,%20me%20gustaría%20hablar%20sobre%20implementar%20el%20sistema%20GUARDIAN" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: var(--emerald-primary); color: white; border: none;">
+          <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> <span data-i18n="btn_whatsapp">Contactar por WhatsApp</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="../js/i18n.js"></script>
+  
+  <script>
+    // Reveal animations script
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('main-content').classList.remove('perf-hidden');
+      document.getElementById('main-content').classList.add('perf-reveal');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+    });
+  </script>
+
+  <!-- AI Libraries: loaded deferred to avoid blocking page render -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd" crossorigin="anonymous" defer></script>
+
+  <!-- GUARDIAN Lite Demo Scripts -->
+  <script src="js/drowsiness.js" defer></script>
+  <script src="js/object_detection.js" defer></script>
+  <script src="js/alerts.js" defer></script>
+  <script src="js/road_simulator.js" defer></script>
+  <script src="js/app.js" defer></script>
+
+</body>
+</html>
