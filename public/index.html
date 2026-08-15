@@ -49,14 +49,34 @@
     <link rel="stylesheet" href="css/transition.css">
     <!-- anime.js — lightweight animation library (~17KB) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" defer></script>
-    <!-- Google Analytics (Placeholder) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- Google tag (gtag.js) - Google Consent Mode v2 -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+
+      // Initialize default consent according to GDPR / DMA Consent Mode v2
+      var savedConsent = localStorage.getItem('cookie_consent');
+      if (savedConsent === 'granted') {
+        gtag('consent', 'default', {
+          'ad_storage': 'granted',
+          'ad_user_data': 'granted',
+          'ad_personalization': 'granted',
+          'analytics_storage': 'granted'
+        });
+      } else {
+        gtag('consent', 'default', {
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': 'denied'
+        });
+      }
+
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
+      gtag('config', 'G-XG8HJTJMQY');
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG8HJTJMQY"></script>
+    <script src="js/consent-banner.js" defer></script>
     
     <style>
     /* ============================================================
@@ -2577,13 +2597,13 @@
                         <span class="project-number">001</span>
                         <div class="project-info">
                             <h3 data-i18n="proj_3_title">GUARDIAN</h3>
-                            <p data-i18n="proj_guardian_desc">Sistema de seguridad predictiva para transporte terrestre con Computer Vision e IA colaborativa. Arquitectura de 3 agentes: Centinela (visión), Oráculo (riesgo), Copiloto (conversacional).</p>
+                            <p data-i18n="proj_guardian_desc">Sistema de seguridad predictiva para transporte terrestre con Visión Artificial Edge y arquitectura de 3 agentes: Centinela (MediaPipe/TF.js), Oráculo (Python/FiftyOne) y Copiloto (Gemini AI).</p>
                             <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=guardian" class="btn btn-outline" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Investigación ↗</a></div>
                             <div class="project-tags">
-                                <span class="project-tag">Python</span>
-                                <span class="project-tag">FiftyOne</span>
+                                <span class="project-tag">Python & FiftyOne</span>
+                                <span class="project-tag">MediaPipe / TF.js</span>
                                 <span class="project-tag">Gemini AI</span>
-                                <span class="project-tag">Computer Vision</span>
+                                <span class="project-tag">Edge Vision</span>
                             </div>
                         </div>
                     </div>
@@ -2796,12 +2816,12 @@
                     <div class="timeline-item-header">
                         <span class="timeline-date" data-i18n="item1_date">2024</span>
                     </div>
-                    <h3 data-i18n="item1_title">Lanzamiento de Motores Transaccionales & Core Bancario</h3>
-                    <p data-i18n="item1_desc">Desarrollo y puesta en marcha de motores transaccionales con consistencia ACID, control de concurrencia estricto y prevención de race conditions para operaciones financieras críticas en Node.js, Python y Luau.</p>
+                    <h3 data-i18n="item1_title">Desarrollo de Motores Transaccionales & Prototipo Core Bancario</h3>
+                    <p data-i18n="item1_desc">Diseño y prototipado de motores transaccionales con consistencia ACID, control estricto de concurrencia y prevención de race conditions para operaciones financieras simuladas (Banco ACME) en Node.js, MySQL y Luau.</p>
                     <div class="timeline-tags">
-                        <span class="timeline-tag" data-i18n="item1_tag1">Sistemas Transaccionales</span>
+                        <span class="timeline-tag" data-i18n="item1_tag1">Motores Transaccionales</span>
                         <span class="timeline-tag" data-i18n="item1_tag2">Consistencia ACID</span>
-                        <span class="timeline-tag" data-i18n="item1_tag3">Node.js & Luau</span>
+                        <span class="timeline-tag" data-i18n="item1_tag3">Node.js & MySQL</span>
                     </div>
                 </div>
 
@@ -2810,12 +2830,12 @@
                     <div class="timeline-item-header">
                         <span class="timeline-date" data-i18n="item2_date">2025</span>
                     </div>
-                    <h3 data-i18n="item2_title">Despliegue de GUARDIAN: Visión Artificial en Tiempo Real</h3>
-                    <p data-i18n="item2_desc">Lanzamiento del sistema de telemetría y seguridad vial con análisis de somnolencia e inferencia de modelos en el edge del navegador usando TensorFlow.js y Python, con cero latencia y privacidad local garantizada.</p>
+                    <h3 data-i18n="item2_title">I+D & Despliegue de GUARDIAN: Visión Artificial Edge</h3>
+                    <p data-i18n="item2_desc">Arquitectura híbrida de seguridad predictiva para flotas: inferencia de visión artificial en el edge (MediaPipe/TensorFlow.js) para detección biométrica a +30 FPS, backend en Python, curación de datasets con FiftyOne y copiloto conversacional con Gemini AI.</p>
                     <div class="timeline-tags">
-                        <span class="timeline-tag" data-i18n="item2_tag1">Computer Vision</span>
-                        <span class="timeline-tag" data-i18n="item2_tag2">Inferencia Edge</span>
-                        <span class="timeline-tag" data-i18n="item2_tag3">TensorFlow.js & Python</span>
+                        <span class="timeline-tag" data-i18n="item2_tag1">Edge Computer Vision</span>
+                        <span class="timeline-tag" data-i18n="item2_tag2">Python & FiftyOne</span>
+                        <span class="timeline-tag" data-i18n="item2_tag3">Gemini AI & TF.js</span>
                     </div>
                 </div>
 

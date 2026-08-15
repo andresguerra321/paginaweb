@@ -141,7 +141,7 @@
 
             proj_delivery_desc: 'Plataforma automatizada de pedidos integrando WhatsApp. Creada para optimizar la logística de restaurantes con procesamiento en tiempo real.',
             proj_whatsapp_desc: 'Asistente conversacional premium con memoria y personalidad de ventas, impulsado por arquitecturas Serverless y LLMs avanzados.',
-            proj_guardian_desc: 'Sistema de seguridad predictiva para flotas. Integra Visión Computacional Edge y asistentes de IA en la nube para prevenir riesgos.',
+            proj_guardian_desc: 'Sistema de seguridad predictiva para transporte con Visión Artificial en el Edge y arquitectura de 3 agentes: Centinela (MediaPipe/TF.js), Oráculo (Python/FiftyOne) y Copiloto (Gemini AI).',
             proj_banco_desc: 'Plataforma financiera simulada con arquitectura de bases de datos de alta resiliencia y seguridad transaccional.',
             proj_luau_desc: 'Motor asíncrono para gestión de concurrencia en Luau. Estructuras de datos inmutables y tipado estricto para máximo rendimiento.',
 
@@ -169,18 +169,18 @@
             timeline_badge_progress: 'EN PRODUCCIÓN',
             
             item1_date: '2024',
-            item1_title: 'Lanzamiento de Motores Transaccionales & Core Bancario',
-            item1_desc: 'Desarrollo y puesta en marcha de motores transaccionales con consistencia ACID, control de concurrencia estricto y prevención de race conditions para operaciones financieras críticas en Node.js, Python y Luau.',
-            item1_tag1: 'Sistemas Transaccionales',
+            item1_title: 'Desarrollo de Motores Transaccionales & Prototipo Core Bancario',
+            item1_desc: 'Diseño y prototipado de motores transaccionales con consistencia ACID, control estricto de concurrencia y prevención de race conditions para operaciones financieras simuladas (Banco ACME) en Node.js, MySQL y Luau.',
+            item1_tag1: 'Motores Transaccionales',
             item1_tag2: 'Consistencia ACID',
-            item1_tag3: 'Node.js & Luau',
+            item1_tag3: 'Node.js & MySQL',
 
             item2_date: '2025',
-            item2_title: 'Despliegue de GUARDIAN: Visión Artificial en Tiempo Real',
-            item2_desc: 'Lanzamiento del sistema de telemetría y seguridad vial con análisis de somnolencia e inferencia de modelos en el edge del navegador usando TensorFlow.js y Python, con cero latencia y privacidad local garantizada.',
-            item2_tag1: 'Computer Vision',
-            item2_tag2: 'Inferencia Edge',
-            item2_tag3: 'TensorFlow.js & Python',
+            item2_title: 'I+D & Despliegue de GUARDIAN: Visión Artificial Edge',
+            item2_desc: 'Arquitectura híbrida de seguridad predictiva para flotas: inferencia de visión artificial en el edge (MediaPipe/TensorFlow.js) para detección biométrica a +30 FPS, backend en Python, curación de datasets con FiftyOne y copiloto conversacional con Gemini AI.',
+            item2_tag1: 'Edge Computer Vision',
+            item2_tag2: 'Python & FiftyOne',
+            item2_tag3: 'Gemini AI & TF.js',
 
             item3_date: '2025 – 2026',
             item3_title: 'Puesta en Producción: Suite de Automatización WhatsApp & DeliveryBot',
@@ -212,6 +212,11 @@
             modal_sub: 'Choose your preferred language to explore the portfolio.',
             modal_es: '🇪🇸 Español',
             modal_en: '🇺🇸 English',
+
+            cookie_title: 'Configuración de Privacidad',
+            cookie_desc: 'Utilizamos cookies analíticas para medir el tráfico y optimizar el rendimiento técnico en conformidad con el RGPD europeo y Google Consent Mode v2.',
+            cookie_btn_accept: 'Aceptar Todas',
+            cookie_btn_decline: 'Solo Esenciales',
 
             // WhatsApp Bot Landing Translations
             wa_nav_back: 'Volver al Portafolio',
@@ -670,7 +675,7 @@
 
             proj_delivery_desc: 'Automated ordering platform integrating WhatsApp. Created to optimize restaurant logistics with real-time processing.',
             proj_whatsapp_desc: 'Premium conversational assistant with memory and a sales personality, powered by Serverless architectures and advanced LLMs.',
-            proj_guardian_desc: 'Predictive security Research & Innovation project. Integrates Edge Computer Vision and Cloud AI assistants as an advanced technical case study.',
+            proj_guardian_desc: 'Predictive fleet safety system featuring Edge Computer Vision and a 3-agent architecture: Centinela (MediaPipe/TF.js), Oráculo (Python/FiftyOne backend), and Copiloto (Gemini AI).',
             proj_banco_desc: 'Simulated financial platform featuring high-resilience database architecture and transactional security.',
             proj_luau_desc: 'Asynchronous engine for concurrency management in Luau. Immutable data structures and strict typing for maximum performance.',
 
@@ -698,18 +703,18 @@
             timeline_badge_progress: 'IN PRODUCTION',
             
             item1_date: '2024',
-            item1_title: 'Launch of Transactional Engines & Core Banking Systems',
-            item1_desc: 'Development and deployment of transactional engines with strict ACID consistency, concurrency isolation, and race-condition prevention for mission-critical financial operations using Node.js, Python, and Luau.',
-            item1_tag1: 'Transactional Systems',
+            item1_title: 'Development of Transactional Engines & Core Banking Prototype',
+            item1_desc: 'Design and prototyping of transactional engines with strict ACID consistency, concurrency isolation, and race-condition prevention for simulated financial operations (Banco ACME) using Node.js, MySQL, and Luau.',
+            item1_tag1: 'Transactional Engines',
             item1_tag2: 'ACID Consistency',
-            item1_tag3: 'Node.js & Luau',
+            item1_tag3: 'Node.js & MySQL',
 
             item2_date: '2025',
-            item2_title: 'Deployment of GUARDIAN: Real-Time Computer Vision',
-            item2_desc: 'Launch of the fleet safety and telemetry system featuring real-time drowsiness detection and edge inference in the browser with TensorFlow.js and Python, ensuring zero latency and 100% local privacy.',
-            item2_tag1: 'Computer Vision',
-            item2_tag2: 'Edge AI Inference',
-            item2_tag3: 'TensorFlow.js & Python',
+            item2_title: 'R&D & Deployment of GUARDIAN: Edge Computer Vision',
+            item2_desc: 'Hybrid predictive safety architecture for fleets: edge computer vision inference (MediaPipe/TensorFlow.js) for biometric detection at +30 FPS, Python backend, dataset curation with FiftyOne, and conversational copilot with Gemini AI.',
+            item2_tag1: 'Edge Computer Vision',
+            item2_tag2: 'Python & FiftyOne',
+            item2_tag3: 'Gemini AI & TF.js',
 
             item3_date: '2025 – 2026',
             item3_title: 'Production Release: WhatsApp AI Automation Suite & DeliveryBot',
@@ -741,6 +746,11 @@
             modal_sub: 'Choose your preferred language to explore the portfolio.',
             modal_es: '🇪🇸 Español',
             modal_en: '🇺🇸 English',
+
+            cookie_title: 'Privacy & Consent Settings',
+            cookie_desc: 'We use analytical cookies to measure traffic and optimize technical performance in compliance with European GDPR & Google Consent Mode v2.',
+            cookie_btn_accept: 'Accept All',
+            cookie_btn_decline: 'Essential Only',
 
             // WhatsApp Bot Landing Translations
             wa_nav_back: 'Back to Portfolio',

@@ -9,6 +9,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <!-- Google tag (gtag.js) - Google Consent Mode v2 -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      var savedConsent = localStorage.getItem('cookie_consent');
+      if (savedConsent === 'granted') {
+        gtag('consent', 'default', {
+          'ad_storage': 'granted',
+          'ad_user_data': 'granted',
+          'ad_personalization': 'granted',
+          'analytics_storage': 'granted'
+        });
+      } else {
+        gtag('consent', 'default', {
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': 'denied'
+        });
+      }
+
+      gtag('js', new Date());
+      gtag('config', 'G-XG8HJTJMQY');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG8HJTJMQY"></script>
+    <script src="js/consent-banner.js" defer></script>
+
     <link rel="stylesheet" href="css/transition.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
     <style>
