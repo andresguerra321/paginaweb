@@ -261,4 +261,44 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // ===== ANTI-INSPECTION & SECURE VIDEO LOADING =====
+  
+  // 1. Obfuscate the video URL using a Blob object so it doesn't appear in the HTML
+  if (modalHeroVideo) {
+    const videoUrl = '../video/0811(1).mp4';
+    fetch(videoUrl)
+      .then(response => response.blob())
+      .then(blob => {
+        const blobUrl = URL.createObjectURL(blob);
+        modalHeroVideo.src = blobUrl;
+      })
+      .catch(err => console.warn("Could not load secure video blob"));
+  }
+
+  // 2. Disable right-click globally
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+
+  // 3. Disable common Developer Tools shortcuts
+  document.addEventListener('keydown', function(e) {
+    // F12
+    if (e.key === 'F12') {
+      e.preventDefault();
+    }
+    // Ctrl+Shift+I / Cmd+Option+I (Inspect)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+      e.preventDefault();
+    }
+    // Ctrl+Shift+J / Cmd+Option+J (Console)
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+      e.preventDefault();
+    }
+    // Ctrl+U / Cmd+U (View Source)
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u')) {
+      e.preventDefault();
+    }
+  });
+
 })
