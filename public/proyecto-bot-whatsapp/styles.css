@@ -3214,3 +3214,34 @@ body.dark-theme::before {
   }
 }
 
+/* ===== DELIVERY BOT MOBILE SLIDER FIX ===== */
+@media (max-width: 992px) {
+  .pricing-grid, .delivery-portfolio-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 16px !important;
+    padding: 10px 16px 30px !important;
+    margin: 24px 0 0 !important;
+    width: 100% !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+  }
+  
+  .pricing-grid::-webkit-scrollbar, .delivery-portfolio-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+  
+  .pricing-grid > .pricing-card, .delivery-portfolio-grid > .col-lg-4, .delivery-portfolio-grid > .portfolio-item, .delivery-portfolio-grid > div {
+    width: 85vw !important;
+    max-width: 320px !important;
+    min-width: 280px !important;
+    flex: 0 0 auto !important;
+    scroll-snap-align: center !important;
+    margin: 0 !important;
+  }
+}

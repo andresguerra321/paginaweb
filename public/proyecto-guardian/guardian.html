@@ -23,7 +23,7 @@
   
   <!-- AI Libraries (MediaPipe, TF.js, COCO-SSD) loaded deferred at bottom of body
        to prevent page freeze on initial load -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 
   <style>
     main.perf-hidden { opacity: 0; pointer-events: none; }
@@ -59,10 +59,13 @@
 </head>
 <body class="dark-theme">
 
-  <!-- PAGE TRANSITION OVERLAY -->
-  <div class="page-transition" id="page-transition">
-      <div class="transition-logo">AG</div>
-      <div class="transition-text" data-i18n="loading_project">Cargando Proyecto</div>
+  <!-- PAGE TRANSITION OVERLAY (5s REAL LOADING) -->
+  <div class="page-transition-overlay" id="page-transition-overlay">
+      <div class="minimal-progress-bar" id="minimal-bar"></div>
+      <div class="minimal-loader-content" id="minimal-content">
+          <div class="minimal-loader-logo" style="font-size:2rem;letter-spacing:5px;">GUARDIAN<span style="color:#00f3ff;">.</span></div>
+          <div class="minimal-loader-subtitle" id="minimal-subtitle" style="margin-top:10px;color:#00f3ff;" data-i18n="guardian_loader_init">INICIALIZANDO SISTEMA</div>
+      </div>
   </div>
 
   <nav class="top-nav">
@@ -84,12 +87,12 @@
     <!-- HERO SECTION -->
     <section class="hero-section">
       <div class="hero-content reveal-on-scroll">
-        <div class="badge" data-i18n="guardian_badge">SaaS / Infraestructura IA</div>
+        <div class="badge" data-i18n="guardian_badge">I+D / Proyecto de Investigación</div>
         <h1 class="hero-title">
           <span class="gradient-text">GUARDIAN</span>
         </h1>
         <p class="hero-desc" data-i18n="guardian_hero_desc">
-          Arquitectura de seguridad predictiva para transporte terrestre que previene accidentes antes de que ocurran. 
+          Proyecto de investigación en seguridad predictiva vehicular. 
           Combina Visión Computacional en el borde con LLMs conversacionales en la nube para crear una experiencia de "Copiloto Virtual" autónomo.
         </p>
         <div class="tags-container">
@@ -101,62 +104,6 @@
       </div>
       <div class="hero-visual reveal-on-scroll reveal-delay-2">
         <img src="../img/3-1200.png" alt="Guardian Dashboard">
-      </div>
-    </section>
-
-    <!-- ARCHITECTURE SECTION -->
-    <section class="features-section">
-      <div class="section-header reveal-on-scroll">
-        <h2 class="section-title" data-i18n="guardian_arch_title">Arquitectura de 3 Agentes</h2>
-        <p class="section-subtitle" data-i18n="guardian_arch_desc">El sistema opera distribuyendo la carga cognitiva en 3 agentes especializados para garantizar baja latencia y alta precisión.</p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-card reveal-on-scroll reveal-delay-1">
-          <div class="feature-icon-wrapper" style="color: #00f3ff;">👁️</div>
-          <h3 class="feature-title" data-i18n="guardian_agent_centinela">Agente Centinela</h3>
-          <p class="feature-desc" data-i18n="guardian_centinela_desc">Procesamiento Edge en cabina. Usa MediaPipe y TF.js para trackear 468 puntos faciales a +30FPS detectando somnolencia (EAR/Yawn) y distracción sin depender de conexión a internet.</p>
-        </div>
-        
-        <div class="feature-card reveal-on-scroll reveal-delay-2">
-          <div class="feature-icon-wrapper" style="color: #ffb700;">🔮</div>
-          <h3 class="feature-title" data-i18n="guardian_agent_oraculo">Agente Oráculo</h3>
-          <p class="feature-desc" data-i18n="guardian_oraculo_desc">Motor de riesgos en la nube. Ingiere telemetría en tiempo real, condiciones climáticas y datos de ruta para calcular la probabilidad de accidente y coordinar las alertas críticas.</p>
-        </div>
-
-        <div class="feature-card reveal-on-scroll reveal-delay-3">
-          <div class="feature-icon-wrapper" style="color: #b537f2;">🤖</div>
-          <h3 class="feature-title" data-i18n="guardian_agent_copiloto">Agente Copiloto</h3>
-          <p class="feature-desc" data-i18n="guardian_copiloto_desc">Asistente conversacional (Gemini Pro) que habla con el conductor vía síntesis de voz, manteniéndolo despierto, alertando peligros y actuando como un acompañante virtual empático.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CAPACITIES & IMPACT SECTION -->
-    <section class="features-section" style="padding-top: 0;">
-      <div class="section-header reveal-on-scroll">
-        <h2 class="section-title" data-i18n="guardian_impact_title">Capacidades & Impacto Operativo</h2>
-        <p class="section-subtitle" data-i18n="guardian_impact_desc">GUARDIAN no es solo una dashcam, es un ecosistema IoT completo diseñado para flotas de transporte pesado, logística y transporte de pasajeros.</p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-card reveal-on-scroll reveal-delay-1">
-          <div class="feature-icon-wrapper" style="color: #00f3ff;">🛡️</div>
-          <h3 class="feature-title" data-i18n="guardian_cap_1_title">Prevención Proactiva</h3>
-          <p class="feature-desc" data-i18n="guardian_cap_1_desc">A diferencia de los sistemas reactivos, GUARDIAN detecta los microsueños antes de que los ojos se cierren por completo (analizando patrones de parpadeo y bostezos mediante EAR/MAR), permitiendo alertar al conductor con segundos de anticipación vitales.</p>
-        </div>
-        
-        <div class="feature-card reveal-on-scroll reveal-delay-2">
-          <div class="feature-icon-wrapper" style="color: #ffb700;">📡</div>
-          <h3 class="feature-title" data-i18n="guardian_cap_2_title">IoT & Telemetría Segura</h3>
-          <p class="feature-desc" data-i18n="guardian_cap_2_desc">Integración mediante protocolos MQTT y WebSockets encriptados. Si el vehículo pierde conexión en carretera, el Agente Centinela (Edge) sigue operando 100% offline y sincroniza los eventos de riesgo cuando recupera la señal.</p>
-        </div>
-
-        <div class="feature-card reveal-on-scroll reveal-delay-3">
-          <div class="feature-icon-wrapper" style="color: #b537f2;">📊</div>
-          <h3 class="feature-title" data-i18n="guardian_cap_3_title">Dashboard para Flotas</h3>
-          <p class="feature-desc" data-i18n="guardian_cap_3_desc">Los administradores visualizan en tiempo real el nivel de fatiga de todos los conductores, reciben alertas críticas y pueden comunicarse bidireccionalmente gracias al módulo de administración centralizado.</p>
-        </div>
       </div>
     </section>
 
@@ -301,7 +248,7 @@
                   <div class="panel-header">
                       <h2>
                           <div class="panel-icon-wrap"><span class="panel-icon">🎥</span></div>
-                          Centinela Edge Vision
+                          <span data-i18n="guardian_ui_edge">Centinela Edge Vision</span>
                       </h2>
                       <div class="camera-controls">
                           <button id="btn-toggle-mesh" class="btn-icon" title="Toggle AI Mesh">👁️</button>
@@ -387,17 +334,17 @@
                           <div class="panel-icon-wrap" style="background: rgba(255,0,85,0.1); border-color: rgba(255,0,85,0.2);">
                               <span class="panel-icon">🚨</span>
                           </div>
-                          Incident Log
+                          <span data-i18n="guardian_ui_incident">Incident Log</span>
                       </h2>
                       <div class="alert-counter">
-                          <span id="alert-count">0</span> Events
+                          <span id="alert-count">0</span> <span data-i18n="guardian_ui_events">Events</span>
                       </div>
                   </div>
 
                   <div class="alert-feed" id="alert-feed">
                       <div class="alert-empty" id="alert-empty">
                           <span class="empty-icon">📭</span>
-                          <p>Esperando eventos de telemetría...</p>
+                          <p data-i18n="guardian_ui_empty">Esperando eventos de telemetría...</p>
                       </div>
                   </div>
 
@@ -408,11 +355,11 @@
                               <div class="copilot-avatar-glow"></div>
                               <span class="copilot-avatar">🤖</span>
                           </div>
-                          <span class="copilot-name">Copilot AI</span>
-                          <span class="copilot-status" id="copilot-status">Idle</span>
+                          <span class="copilot-name" data-i18n="guardian_ui_copilot">Copilot AI</span>
+                          <span class="copilot-status" id="copilot-status" data-i18n="guardian_ui_idle">Idle</span>
                       </div>
                       <div class="copilot-message" id="copilot-message">
-                          <p>Sistema GUARDIAN iniciado. Listo para monitorear.</p>
+                          <p data-i18n="guardian_ui_started">Sistema GUARDIAN iniciado. Listo para monitorear.</p>
                       </div>
                   </div>
 
@@ -422,28 +369,28 @@
                           <span class="stat-icon" style="color: #3b82f6;">⏱️</span>
                           <div class="stat-info">
                               <span class="stat-value" id="stat-session-time">00:00</span>
-                              <span class="stat-label">Session</span>
+                              <span class="stat-label" data-i18n="guardian_ui_session">Session</span>
                           </div>
                       </div>
                       <div class="stat-card">
                           <span class="stat-icon" style="color: #00ff9d;">🎯</span>
                           <div class="stat-info">
                               <span class="stat-value" id="stat-attention-score">100%</span>
-                              <span class="stat-label">Attention</span>
+                              <span class="stat-label" data-i18n="guardian_ui_attention">Attention</span>
                           </div>
                       </div>
                       <div class="stat-card">
                           <span class="stat-icon" style="color: #ffb700;">😴</span>
                           <div class="stat-info">
                               <span class="stat-value" id="stat-drowsy-events">0</span>
-                              <span class="stat-label">Fatigue</span>
+                              <span class="stat-label" data-i18n="guardian_ui_fatigue">Fatigue</span>
                           </div>
                       </div>
                       <div class="stat-card">
                           <span class="stat-icon" style="color: #ff0055;">⚠️</span>
                           <div class="stat-info">
                               <span class="stat-value" id="stat-road-alerts">0</span>
-                              <span class="stat-label">Road Dangers</span>
+                              <span class="stat-label" data-i18n="guardian_ui_dangers">Road Dangers</span>
                           </div>
                       </div>
                   </div>
@@ -452,15 +399,70 @@
       </div>
     </section>
 
+    <!-- ARCHITECTURE SECTION -->
+    <section class="features-section">
+      <div class="section-header reveal-on-scroll">
+        <h2 class="section-title" data-i18n="guardian_arch_title">Arquitectura de 3 Agentes</h2>
+        <p class="section-subtitle" data-i18n="guardian_arch_desc">El sistema opera distribuyendo la carga cognitiva en 3 agentes especializados para garantizar baja latencia y alta precisión.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal-on-scroll reveal-delay-1">
+          <div class="feature-icon-wrapper" style="color: #00f3ff;">👁️</div>
+          <h3 class="feature-title" data-i18n="guardian_agent_centinela">Agente Centinela</h3>
+          <p class="feature-desc" data-i18n="guardian_centinela_desc">Procesamiento Edge en cabina. Usa MediaPipe y TF.js para trackear 468 puntos faciales a +30FPS detectando somnolencia (EAR/Yawn) y distracción sin depender de conexión a internet.</p>
+        </div>
+        
+        <div class="feature-card reveal-on-scroll reveal-delay-2">
+          <div class="feature-icon-wrapper" style="color: #ffb700;">🔮</div>
+          <h3 class="feature-title" data-i18n="guardian_agent_oraculo">Agente Oráculo</h3>
+          <p class="feature-desc" data-i18n="guardian_oraculo_desc">Motor de riesgos en la nube. Ingiere telemetría en tiempo real, condiciones climáticas y datos de ruta para calcular la probabilidad de accidente y coordinar las alertas críticas.</p>
+        </div>
+
+        <div class="feature-card reveal-on-scroll reveal-delay-3">
+          <div class="feature-icon-wrapper" style="color: #b537f2;">🤖</div>
+          <h3 class="feature-title" data-i18n="guardian_agent_copiloto">Agente Copiloto</h3>
+          <p class="feature-desc" data-i18n="guardian_copiloto_desc">Asistente conversacional (Gemini Pro) que habla con el conductor vía síntesis de voz, manteniéndolo despierto, alertando peligros y actuando como un acompañante virtual empático.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPACITIES & IMPACT SECTION -->
+    <section class="features-section" style="padding-top: 0;">
+      <div class="section-header reveal-on-scroll">
+        <h2 class="section-title" data-i18n="guardian_impact_title">Capacidades & Impacto Operativo</h2>
+        <p class="section-subtitle" data-i18n="guardian_impact_desc">GUARDIAN no es solo una dashcam, es un ecosistema IoT completo diseñado para flotas de transporte pesado, logística y transporte de pasajeros.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal-on-scroll reveal-delay-1">
+          <div class="feature-icon-wrapper" style="color: #00f3ff;">🛡️</div>
+          <h3 class="feature-title" data-i18n="guardian_cap_1_title">Prevención Proactiva</h3>
+          <p class="feature-desc" data-i18n="guardian_cap_1_desc">A diferencia de los sistemas reactivos, GUARDIAN detecta los microsueños antes de que los ojos se cierren por completo (analizando patrones de parpadeo y bostezos mediante EAR/MAR), permitiendo alertar al conductor con segundos de anticipación vitales.</p>
+        </div>
+        
+        <div class="feature-card reveal-on-scroll reveal-delay-2">
+          <div class="feature-icon-wrapper" style="color: #ffb700;">📡</div>
+          <h3 class="feature-title" data-i18n="guardian_cap_2_title">IoT & Telemetría Segura</h3>
+          <p class="feature-desc" data-i18n="guardian_cap_2_desc">Integración mediante protocolos MQTT y WebSockets encriptados. Si el vehículo pierde conexión en carretera, el Agente Centinela (Edge) sigue operando 100% offline y sincroniza los eventos de riesgo cuando recupera la señal.</p>
+        </div>
+
+        <div class="feature-card reveal-on-scroll reveal-delay-3">
+          <div class="feature-icon-wrapper" style="color: #b537f2;">📊</div>
+          <h3 class="feature-title" data-i18n="guardian_cap_3_title">Dashboard para Flotas</h3>
+          <p class="feature-desc" data-i18n="guardian_cap_3_desc">Los administradores visualizan en tiempo real el nivel de fatiga de todos los conductores, reciben alertas críticas y pueden comunicarse bidireccionalmente gracias al módulo de administración centralizado.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- FOOTER CTA -->
     <section class="project-cta-section reveal-on-scroll">
-      <h3 data-i18n="guardian_cta_title">¿Interesado en implementar GUARDIAN?</h3>
+      <h3 data-i18n="guardian_cta_title">Explora la Innovación en IA Edge</h3>
       <p style="color: var(--text-muted); margin-top: 1rem;" data-i18n="guardian_cta_desc">
-        La plataforma completa incluye dashboard gerencial, base de datos en nube y analítica avanzada.
+        Conoce más sobre la arquitectura técnica, modelos de inferencia local y telemetría distribuida de este proyecto de investigación.
       </p>
       <div class="cta-buttons">
-
-        <a href="https://wa.me/573046208573?text=Hola,%20me%20gustaría%20hablar%20sobre%20implementar%20el%20sistema%20GUARDIAN" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: var(--emerald-primary); color: white; border: none;">
+        <a href="https://wa.me/573185602203?text=Hola%20Andrés,%20vi%20el%20proyecto%20GUARDIAN%20en%20tu%20portafolio%20y%20me%20gustaría%20saber%20más%20sobre%20la%20investigación" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="background: var(--emerald-primary); color: white; border: none;">
           <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> <span data-i18n="btn_whatsapp">Contactar por WhatsApp</span>
         </a>
       </div>
@@ -472,20 +474,45 @@
   <script src="../js/i18n.js"></script>
   
   <script>
-    // Reveal animations script
+    // Reveal animations script & 5s Loading Screen
     document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('main-content').classList.remove('perf-hidden');
-      document.getElementById('main-content').classList.add('perf-reveal');
+      const overlay = document.getElementById('page-transition-overlay');
+      const bar = document.getElementById('minimal-bar');
+      const subtitle = document.getElementById('minimal-subtitle');
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+          progress += 2;
+          if (bar) bar.style.width = progress + '%';
+          
+          if (progress === 20 && subtitle) subtitle.textContent = (window.i18nEngine && window.i18nEngine.getLanguage() === 'en') ? "LOADING AI MODELS..." : "CARGANDO MODELOS IA...";
+          if (progress === 50 && subtitle) subtitle.textContent = (window.i18nEngine && window.i18nEngine.getLanguage() === 'en') ? "CONNECTING TELEMETRY..." : "CONECTANDO TELEMETRÍA...";
+          if (progress === 80 && subtitle) subtitle.textContent = (window.i18nEngine && window.i18nEngine.getLanguage() === 'en') ? "PREPARING COPILOT..." : "PREPARANDO COPILOTO...";
+          
+          if (progress >= 100) {
+              clearInterval(interval);
+              setTimeout(() => {
+                  if (overlay) {
+                      overlay.style.opacity = '0';
+                      setTimeout(() => overlay.remove(), 400);
+                  }
+                  const mainContent = document.getElementById('main-content');
+                  mainContent.classList.remove('perf-hidden');
+                  mainContent.classList.add('perf-reveal');
+                  
+                  // Init observer for scroll reveals
+                  const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                      if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                      }
+                    });
+                  }, { threshold: 0.1 });
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
+                  document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+              }, 300);
           }
-        });
-      }, { threshold: 0.1 });
-
-      document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+      }, 100); // 100ms * 50 = 5000ms = 5s
     });
   </script>
 
