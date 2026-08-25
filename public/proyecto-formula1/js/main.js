@@ -3,7 +3,8 @@
  * ===================================================
  * High-precision concurrent statistical racing engine.
  * Computes telemetry, driver attributes, tire degradation,
- * live SVG track animation, and interactive cockpit HUD.
+ * live SVG track animation with directional vehicle heading,
+ * and interactive cockpit HUD.
  */
 
 (function () {
@@ -120,9 +121,10 @@
     const BASE_LAP_TIME = 73.5; // Monaco baseline (seconds)
 
     const state = {
-        isRacing: false,
-        currentLap: 0,
+        isRacing: true, // Active simulation running by default
+        currentLap: 1,
         totalLaps: 53,
+        speedMultiplier: 1.0, // 1x, 2x, 4x
         weather: 'SOLEADO',
         weatherTemp: 28,
         safetyCarDeployed: false,
@@ -150,7 +152,7 @@
             hero_eyebrow: 'Motor Estadístico de Alta Fidelidad',
             hero_title: 'Siente la carrera.<br><span class="gradient-text">Simulada por Datos.</span>',
             hero_subtitle: 'F1 Sim Pro calcula el ritmo de cada monoplaza evaluando la habilidad de los pilotos, la degradación de los compuestos, la carga aerodinámica y eventos de pista en tiempo real.',
-            hero_btn_start: 'Iniciar Demo',
+            hero_btn_start: 'Reiniciar Salida',
             hero_btn_explore: 'Explorar Características',
             sim_title: 'Mission Control Room',
             sim_subtitle: 'Interactúa en tiempo real con la carrera. Cambia entre la telemetría gráfica en vivo, la tabla de estadísticas de pilotos, el setup aerodinámico y los principios del motor.',
@@ -158,17 +160,17 @@
             tab_stats: 'Estadísticas de Pilotos',
             tab_config: 'Configuración de Escudería',
             tab_arch: 'Motor de Simulación',
-            btn_start_race: 'Iniciar Demo',
+            btn_start_race: 'Salida FIA',
             btn_weather: 'Clima',
             btn_sc: 'Safety Car',
-            btn_reset: 'Reset',
+            btn_reset: 'Parrilla',
             waiting_start: 'ESPERANDO INICIO',
-            racing: 'CARRERA EN CURSO',
+            racing: 'CARRERA EN VIVO',
             sc_active: 'SAFETY CAR',
             finished: 'BANDERA A CUADROS',
             flag_green: 'Bandera Verde',
             flag_yellow: 'Safety Car Activo',
-            radio_init: 'Monoplazas alineados en la recta de salida de Mónaco.',
+            radio_init: 'Simulación en vivo: Monoplazas en batalla en el circuito de Mónaco.',
             cta_title: '¿Necesitas un Motor Estadístico o Simulador a Medida?',
             cta_desc: 'Desarrollo algoritmos de cálculo numérico, motores de simulación concurrentes y dashboards de telemetría de alto rendimiento para tu negocio.',
             cta_btn: 'Contactar por WhatsApp'
@@ -182,7 +184,7 @@
             hero_eyebrow: 'High-Fidelity Statistical Engine',
             hero_title: 'Feel the race.<br><span class="gradient-text">Driven by Data.</span>',
             hero_subtitle: 'F1 Sim Pro computes each car\'s pace by evaluating driver skill, compound degradation, downforce levels, and live track events in real time.',
-            hero_btn_start: 'Launch Demo',
+            hero_btn_start: 'Restart Race',
             hero_btn_explore: 'Explore Features',
             sim_title: 'Mission Control Room',
             sim_subtitle: 'Interact in real time with the race. Switch between live telemetry HUD, driver stats matrix, aerodynamic setup, and concurrency architecture.',
@@ -190,17 +192,17 @@
             tab_stats: 'Driver Statistics',
             tab_config: 'Team Setup',
             tab_arch: 'Simulation Engine',
-            btn_start_race: 'Launch Demo',
+            btn_start_race: 'FIA Start',
             btn_weather: 'Weather',
             btn_sc: 'Safety Car',
-            btn_reset: 'Reset',
+            btn_reset: 'Grid Reset',
             waiting_start: 'WAITING FOR START',
-            racing: 'RACE IN PROGRESS',
+            racing: 'RACE LIVE',
             sc_active: 'SAFETY CAR',
             finished: 'CHECKERED FLAG',
             flag_green: 'Green Flag',
             flag_yellow: 'Safety Car Deployed',
-            radio_init: 'Cars positioned on the Monaco starting grid.',
+            radio_init: 'Live simulation: Cars racing on the Circuit de Monaco.',
             cta_title: 'Need a Custom Statistical Engine or Simulator?',
             cta_desc: 'I develop high-performance numerical algorithms, concurrent simulation engines, and real-time telemetry dashboards for your enterprise.',
             cta_btn: 'Contact on WhatsApp'
@@ -223,8 +225,10 @@
 
         renderLeaderboard();
         updateCockpitHUD(state.activeDriverCode);
-        updateCockpitGauges(0, 0);
+        updateCockpitGauges(240, 80);
 
+        // Start live continuous simulation loop immediately
+        startSimulationEngineLoop();
         logRadio(I18N[state.lang].radio_init);
     });
 
@@ -254,15 +258,17 @@
         const sorted = [...DRIVERS_DB].sort((a, b) => b.habilidad - a.habilidad);
 
         simDrivers = sorted.map((driver, index) => {
-            const gridDistance = 0.985 - (index * 0.015);
+            // Initial staggered positions around track for active racing
+            const initialDist = 0.985 - (index * 0.035);
             return {
                 ...driver,
                 gridSlot: index + 1,
-                totalDistance: gridDistance,
-                lapProgress: gridDistance * 100,
-                currentLap: 0,
-                speedKmh: 0,
-                baseSpeedFactor: 0.00032 + (driver.habilidad * 0.0000015),
+                totalDistance: initialDist,
+                lapProgress: initialDist * 100,
+                currentLap: 1,
+                speedKmh: 240,
+                // Base speed factor: calibrated for fluid ~14s laps at 1x
+                baseSpeedFactor: 0.00115 + (driver.habilidad * 0.000004),
                 paceModifier: 1.0,
                 tyreWear: 100,
                 bestLapTime: null,
@@ -272,13 +278,13 @@
             };
         });
 
-        updateAllCarsOnTrack();
+        createPersistentCarSVGElements();
         populateDriverStatsTable(simDrivers);
     }
 
     function resetDriversToGrid() {
         simDrivers.forEach((driver, index) => {
-            const gridDistance = 0.985 - (index * 0.015);
+            const gridDistance = 0.985 - (index * 0.02);
             driver.totalDistance = gridDistance;
             driver.lapProgress = gridDistance * 100;
             driver.currentLap = 0;
@@ -289,7 +295,7 @@
             driver.isLeader = index === 0;
         });
 
-        updateAllCarsOnTrack();
+        renderAllCarsOnTrack();
         renderLeaderboard();
     }
 
@@ -355,9 +361,7 @@
                 const trackTabBtn = document.getElementById('tab-btn-track');
                 if (trackTabBtn) trackTabBtn.click();
 
-                setTimeout(() => {
-                    if (!state.isRacing) startRaceSequence();
-                }, 500);
+                startRaceSequence();
             });
         }
     }
@@ -553,7 +557,7 @@
     }
 
     // ═══════════════════════════════════════
-    // MONACO TRACK SVG & CAR RENDERING
+    // MONACO TRACK SVG & PERSISTENT CAR RENDERING
     // ═══════════════════════════════════════
     function initTrackSVG() {
         const container = document.getElementById('trackContainer');
@@ -561,6 +565,16 @@
 
         const svgHTML = `
         <svg viewBox="0 0 800 480" class="circuit-svg" id="f1CircuitSvg">
+            <defs>
+                <filter id="carGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+
             <pattern id="circuitGrid" width="40" height="40" patternUnits="userSpaceOnUse">
                 <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="1"/>
             </pattern>
@@ -569,33 +583,37 @@
             <!-- Harbor Water Accent -->
             <path d="M 400 320 C 500 320, 600 330, 700 340 L 700 420 L 400 420 Z" fill="rgba(56, 189, 248, 0.03)" />
             
-            <!-- Kerbs Glow Line -->
-            <path d="M 450 410 L 520 410 C 560 410, 595 390, 595 345 C 595 300, 570 210, 535 155 C 505 105, 440 85, 385 100 C 345 112, 310 135, 280 160 C 255 180, 225 195, 225 220 C 225 245, 275 255, 315 262 C 355 268, 400 275, 440 280 C 485 285, 545 290, 600 295 C 660 300, 725 312, 740 332 C 750 350, 720 365, 675 365 C 630 365, 585 360, 540 360 C 495 360, 465 372, 425 372 C 385 372, 350 360, 305 360 C 260 360, 235 382, 245 408 C 255 428, 310 410, 380 410 L 450 410 Z" fill="none" stroke="rgba(225,6,0,0.22)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Kerbs Outer Base (Monaco Red & White / Track Border) -->
+            <path d="M 450 410 L 520 410 C 560 410, 595 390, 595 345 C 595 300, 570 210, 535 155 C 505 105, 440 85, 385 100 C 345 112, 310 135, 280 160 C 255 180, 225 195, 225 220 C 225 245, 275 255, 315 262 C 355 268, 400 275, 440 280 C 485 285, 545 290, 600 295 C 660 300, 725 312, 740 332 C 750 350, 720 365, 675 365 C 630 365, 585 360, 540 360 C 495 360, 465 372, 425 372 C 385 372, 350 360, 305 360 C 260 360, 235 382, 245 408 C 255 428, 310 410, 380 410 L 450 410 Z" fill="none" stroke="rgba(225,6,0,0.28)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
             
             <!-- Asphalt Surface -->
-            <path id="mainTrackPath" d="M 450 410 L 520 410 C 560 410, 595 390, 595 345 C 595 300, 570 210, 535 155 C 505 105, 440 85, 385 100 C 345 112, 310 135, 280 160 C 255 180, 225 195, 225 220 C 225 245, 275 255, 315 262 C 355 268, 400 275, 440 280 C 485 285, 545 290, 600 295 C 660 300, 725 312, 740 332 C 750 350, 720 365, 675 365 C 630 365, 585 360, 540 360 C 495 360, 465 372, 425 372 C 385 372, 350 360, 305 360 C 260 360, 235 382, 245 408 C 255 428, 310 410, 380 410 L 450 410 Z" fill="none" stroke="#0B1324" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+            <path id="mainTrackPath" d="M 450 410 L 520 410 C 560 410, 595 390, 595 345 C 595 300, 570 210, 535 155 C 505 105, 440 85, 385 100 C 345 112, 310 135, 280 160 C 255 180, 225 195, 225 220 C 225 245, 275 255, 315 262 C 355 268, 400 275, 440 280 C 485 285, 545 290, 600 295 C 660 300, 725 312, 740 332 C 750 350, 720 365, 675 365 C 630 365, 585 360, 540 360 C 495 360, 465 372, 425 372 C 385 372, 350 360, 305 360 C 260 360, 235 382, 245 408 C 255 428, 310 410, 380 410 L 450 410 Z" fill="none" stroke="#080E1C" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
             
             <!-- Racing Line -->
-            <path d="M 450 410 L 520 410 C 560 410, 595 390, 595 345 C 595 300, 570 210, 535 155 C 505 105, 440 85, 385 100 C 345 112, 310 135, 280 160 C 255 180, 225 195, 225 220 C 225 245, 275 255, 315 262 C 355 268, 400 275, 440 280 C 485 285, 545 290, 600 295 C 660 300, 725 312, 740 332 C 750 350, 720 365, 675 365 C 630 365, 585 360, 540 360 C 495 360, 465 372, 425 372 C 385 372, 350 360, 305 360 C 260 360, 235 382, 245 408 C 255 428, 310 410, 380 410 L 450 410 Z" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round"/>
+            <path d="M 450 410 L 520 410 C 560 410, 595 390, 595 345 C 595 300, 570 210, 535 155 C 505 105, 440 85, 385 100 C 345 112, 310 135, 280 160 C 255 180, 225 195, 225 220 C 225 245, 275 255, 315 262 C 355 268, 400 275, 440 280 C 485 285, 545 290, 600 295 C 660 300, 725 312, 740 332 C 750 350, 720 365, 675 365 C 630 365, 585 360, 540 360 C 495 360, 465 372, 425 372 C 385 372, 350 360, 305 360 C 260 360, 235 382, 245 408 C 255 428, 310 410, 380 410 L 450 410 Z" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round"/>
             
-            <!-- Start/Finish Gantry Line -->
-            <line x1="450" y1="398" x2="450" y2="422" stroke="#ffffff" stroke-width="3"/>
-            <text x="450" y="440" fill="rgba(255,255,255,0.7)" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">SALIDA / META</text>
+            <!-- Tunnel Glow Line -->
+            <path d="M 600 295 C 660 300, 725 312, 740 332" fill="none" stroke="rgba(251, 191, 36, 0.45)" stroke-width="4" stroke-linecap="round"/>
+
+            <!-- Start/Finish Line -->
+            <line x1="450" y1="398" x2="450" y2="422" stroke="#ffffff" stroke-width="3.5"/>
+            <text x="450" y="442" fill="rgba(255,255,255,0.75)" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" text-anchor="middle">SALIDA / META</text>
             
-            <!-- Key Landmark Labels -->
-            <text x="615" y="348" fill="#38BDF8" font-family="monospace" font-size="8" font-weight="bold">SAINTE DÉVOTE</text>
-            <text x="410" y="78" fill="#38BDF8" font-family="monospace" font-size="8" font-weight="bold">CASINO</text>
-            <text x="135" y="222" fill="#A855F7" font-family="monospace" font-size="8" font-weight="bold">FAIRMONT</text>
-            <text x="680" y="280" fill="#FBBF24" font-family="monospace" font-size="8" font-weight="bold">TUNNEL</text>
-            <text x="490" y="348" fill="#FF1801" font-family="monospace" font-size="8" font-weight="bold">TABAC</text>
-            
+            <!-- Landmark Labels -->
+            <text x="615" y="348" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">SAINTE DÉVOTE (T1)</text>
+            <text x="410" y="78" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">CASINO SQUARE (T4)</text>
+            <text x="135" y="222" fill="#A855F7" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">FAIRMONT (T6)</text>
+            <text x="680" y="280" fill="#FBBF24" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">TUNNEL</text>
+            <text x="490" y="348" fill="#FF1801" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">TABAC</text>
+
+            <!-- Dynamic Cars Layer -->
             <g id="carsLayer"></g>
         </svg>
         `;
         container.innerHTML = svgHTML;
     }
 
-    function updateAllCarsOnTrack() {
+    function createPersistentCarSVGElements() {
         const layer = document.getElementById('carsLayer');
         if (!layer) return;
         layer.innerHTML = '';
@@ -606,50 +624,130 @@
             const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
             g.setAttribute("class", "svg-car-marker");
             g.setAttribute("id", `car-${driver.codigo}`);
+            g.style.cursor = 'pointer';
 
-            if (driver.isLeader) {
-                const pulse = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                pulse.setAttribute("cx", "0"); pulse.setAttribute("cy", "0");
-                pulse.setAttribute("r", "9"); pulse.setAttribute("fill", teamColor);
-                pulse.setAttribute("class", "car-pulse");
-                g.appendChild(pulse);
-            }
+            // Click car to select
+            g.addEventListener('click', () => {
+                selectDriver(driver.codigo);
+            });
 
-            const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            dot.setAttribute("cx", "0"); dot.setAttribute("cy", "0");
-            dot.setAttribute("r", driver.isLeader ? "5.5" : "4.5");
-            dot.setAttribute("fill", teamColor);
-            dot.setAttribute("stroke", "#040814");
-            dot.setAttribute("stroke-width", "1.5");
+            // 1. Leader Pulse Ring
+            const leaderPulse = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            leaderPulse.setAttribute("cx", "0");
+            leaderPulse.setAttribute("cy", "0");
+            leaderPulse.setAttribute("r", "16");
+            leaderPulse.setAttribute("fill", "none");
+            leaderPulse.setAttribute("stroke", teamColor);
+            leaderPulse.setAttribute("stroke-width", "2");
+            leaderPulse.setAttribute("class", "car-leader-pulse");
+            leaderPulse.style.display = driver.isLeader ? "block" : "none";
+            g.appendChild(leaderPulse);
 
-            const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            text.setAttribute("x", "8"); text.setAttribute("y", "3.5");
-            text.setAttribute("fill", "#ffffff");
-            text.setAttribute("font-family", "monospace");
-            text.setAttribute("font-size", "10");
-            text.setAttribute("font-weight", "bold");
-            text.textContent = driver.codigo;
+            // 2. Halo Glow
+            const halo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            halo.setAttribute("cx", "0");
+            halo.setAttribute("cy", "0");
+            halo.setAttribute("r", "11");
+            halo.setAttribute("fill", teamColor);
+            halo.setAttribute("opacity", "0.35");
+            g.appendChild(halo);
 
-            g.appendChild(dot);
-            g.appendChild(text);
+            // 3. Directional Vehicle Body (Aerodynamic Capsule Arrow)
+            const body = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            body.setAttribute("d", "M 10 0 L -7 -5.5 L -3.5 0 L -7 5.5 Z");
+            body.setAttribute("fill", teamColor);
+            body.setAttribute("stroke", "#ffffff");
+            body.setAttribute("stroke-width", "1.2");
+            g.appendChild(body);
+
+            // 4. White Cockpit Center Pip
+            const pip = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            pip.setAttribute("cx", "1");
+            pip.setAttribute("cy", "0");
+            pip.setAttribute("r", "2");
+            pip.setAttribute("fill", "#ffffff");
+            g.appendChild(pip);
+
+            // 5. Driver Code Tag (Counter-rotated for perfect horizontal readability)
+            const tagGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            tagGroup.setAttribute("class", "car-tag-group");
+
+            const tagBg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            tagBg.setAttribute("x", "12");
+            tagBg.setAttribute("y", "-8");
+            tagBg.setAttribute("width", "30");
+            tagBg.setAttribute("height", "16");
+            tagBg.setAttribute("rx", "3.5");
+            tagBg.setAttribute("fill", "rgba(4, 8, 20, 0.88)");
+            tagBg.setAttribute("stroke", teamColor);
+            tagBg.setAttribute("stroke-width", "1");
+            tagGroup.appendChild(tagBg);
+
+            const tagText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            tagText.setAttribute("x", "27");
+            tagText.setAttribute("y", "3.5");
+            tagText.setAttribute("text-anchor", "middle");
+            tagText.setAttribute("font-family", "'JetBrains Mono', monospace");
+            tagText.setAttribute("font-size", "8.5");
+            tagText.setAttribute("font-weight", "800");
+            tagText.setAttribute("fill", "#ffffff");
+            tagText.textContent = driver.codigo;
+            tagGroup.appendChild(tagText);
+
+            g.appendChild(tagGroup);
             layer.appendChild(g);
-
-            animateCarAlongPath(g, driver.lapProgress);
         });
+
+        renderAllCarsOnTrack();
     }
 
-    function animateCarAlongPath(carElement, progressPct) {
-        const path = document.getElementById('mainTrackPath');
-        if (!path || !carElement) return;
-
+    function getTrackPointAndAngle(path, progress) {
         try {
-            const length = path.getTotalLength();
-            if (length > 0) {
-                const pct = ((progressPct % 100) + 100) % 100;
-                const pt = path.getPointAtLength((pct / 100) * length);
-                carElement.setAttribute("transform", `translate(${pt.x}, ${pt.y})`);
+            const totalLength = path.getTotalLength();
+            if (!totalLength || totalLength <= 0) return { x: 450, y: 410, angle: 0 };
+
+            const p = ((progress % 1) + 1) % 1;
+            const s = p * totalLength;
+            const pt = path.getPointAtLength(s);
+
+            const ds = 2;
+            const nextS = (s + ds) % totalLength;
+            const nextPt = path.getPointAtLength(nextS);
+
+            const dx = nextPt.x - pt.x;
+            const dy = nextPt.y - pt.y;
+            const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+            return { x: pt.x, y: pt.y, angle: angle };
+        } catch (e) {
+            return { x: 450, y: 410, angle: 0 };
+        }
+    }
+
+    function renderAllCarsOnTrack() {
+        const path = document.getElementById('mainTrackPath');
+        if (!path) return;
+
+        simDrivers.forEach(driver => {
+            const carEl = document.getElementById(`car-${driver.codigo}`);
+            if (!carEl) return;
+
+            const { x, y, angle } = getTrackPointAndAngle(path, driver.totalDistance);
+
+            carEl.setAttribute("transform", `translate(${x.toFixed(2)}, ${y.toFixed(2)}) rotate(${angle.toFixed(1)})`);
+
+            // Counter-rotate the tag so driver text stays horizontal
+            const tagGroup = carEl.querySelector('.car-tag-group');
+            if (tagGroup) {
+                tagGroup.setAttribute("transform", `rotate(${(-angle).toFixed(1)})`);
             }
-        } catch (e) {}
+
+            // Update leader pulse
+            const pulse = carEl.querySelector('.car-leader-pulse');
+            if (pulse) {
+                pulse.style.display = driver.isLeader ? "block" : "none";
+            }
+        });
     }
 
     // ═══════════════════════════════════════
@@ -660,10 +758,11 @@
         const btnReset = document.getElementById('btnResetSim');
         const btnWeather = document.getElementById('btnChangeWeather');
         const btnSC = document.getElementById('btnTriggerSC');
+        const btnSpeed = document.getElementById('btnSpeedMultiplier');
 
         if (btnStart) {
             btnStart.addEventListener('click', () => {
-                if (!state.isRacing) startRaceSequence();
+                startRaceSequence();
             });
         }
 
@@ -671,12 +770,20 @@
             btnReset.addEventListener('click', () => resetRace());
         }
 
+        if (btnSpeed) {
+            btnSpeed.addEventListener('click', () => {
+                if (state.speedMultiplier === 1.0) state.speedMultiplier = 2.0;
+                else if (state.speedMultiplier === 2.0) state.speedMultiplier = 4.0;
+                else state.speedMultiplier = 1.0;
+
+                const textEl = document.getElementById('speedMultiplierText');
+                if (textEl) textEl.textContent = `${state.speedMultiplier}x`;
+                playTone(520, 'sine', 0.1, 0.05);
+            });
+        }
+
         if (btnWeather) {
             btnWeather.addEventListener('click', () => {
-                if (!state.isRacing) {
-                    logRadio("Inicia la carrera para cambiar el clima.");
-                    return;
-                }
                 const weathers = ['LLUVIA', 'SOLEADO', 'NUBLADO'];
                 const nextWeathers = weathers.filter(w => w !== state.weather);
                 const w = nextWeathers[Math.floor(Math.random() * nextWeathers.length)];
@@ -696,10 +803,6 @@
 
         if (btnSC) {
             btnSC.addEventListener('click', () => {
-                if (!state.isRacing) {
-                    logRadio("Inicia la carrera para desplegar el Safety Car.");
-                    return;
-                }
                 state.safetyCarDeployed = !state.safetyCarDeployed;
                 const dot = document.getElementById('flagDot');
                 const text = document.getElementById('flagText');
@@ -730,7 +833,7 @@
         if (btnStart) btnStart.disabled = true;
 
         if (banner) {
-            banner.textContent = "SECUENCIA DE SALIDA";
+            banner.textContent = "SECUENCIA DE SALIDA FIA";
             banner.classList.remove('lights-out');
         }
 
@@ -760,6 +863,7 @@
                     const heroLapBadge = document.getElementById('heroLapBadge');
                     if (heroLapBadge) heroLapBadge.textContent = 'VUELTA 1/53';
 
+                    if (btnStart) btnStart.disabled = false;
                     if (btnReset) btnReset.disabled = false;
 
                     const dot = document.getElementById('simStatusDot');
@@ -768,16 +872,12 @@
                     if (text) text.textContent = I18N[state.lang].racing;
 
                     logRadio("¡Luces apagadas en Mónaco! Salida limpia hacia Sainte Dévote.");
-                    startSimulationEngineLoop();
                 }, 500 + Math.random() * 400);
             }
         }, 300);
     }
 
     function resetRace() {
-        if (state.animFrameId) cancelAnimationFrame(state.animFrameId);
-        if (state.telemetryTimer) clearInterval(state.telemetryTimer);
-
         state.isRacing = false;
         state.currentLap = 0;
         state.safetyCarDeployed = false;
@@ -786,9 +886,7 @@
         const lapEl = document.getElementById('currentLapCounter');
         if (lapEl) lapEl.textContent = 0;
 
-        const btnStart = document.getElementById('btnStartRace');
         const btnReset = document.getElementById('btnResetSim');
-        if (btnStart) btnStart.disabled = false;
         if (btnReset) btnReset.disabled = true;
 
         const dot = document.getElementById('simStatusDot');
@@ -813,19 +911,20 @@
     }
 
     // ═══════════════════════════════════════
-    // REAL-TIME PHYSICS LOOP (60 FPS)
+    // REAL-TIME CONTINUOUS PHYSICS LOOP (60 FPS)
     // ═══════════════════════════════════════
     function startSimulationEngineLoop() {
         state.lastFrameTime = performance.now();
 
         function frame(now) {
-            if (!state.isRacing) return;
-
             const dt = Math.min((now - state.lastFrameTime) / 1000, 0.1);
             state.lastFrameTime = now;
 
-            advancePhysics(dt);
-            updateAllCarsOnTrack();
+            if (state.isRacing) {
+                advancePhysics(dt);
+            }
+
+            renderAllCarsOnTrack();
             updateSimulationRanking();
 
             state.animFrameId = requestAnimationFrame(frame);
@@ -833,35 +932,40 @@
 
         state.animFrameId = requestAnimationFrame(frame);
 
+        // Telemetry loop (every 100ms)
         state.telemetryTimer = setInterval(() => {
-            if (!state.isRacing) return;
-
             const activeDriver = simDrivers.find(d => d.codigo === state.activeDriverCode) || simDrivers[0];
+
+            if (!state.isRacing) {
+                updateCockpitGauges(0, 0);
+                return;
+            }
 
             if (state.safetyCarDeployed) {
                 updateCockpitGauges(130, 45);
             } else {
-                const isStraight = activeDriver.lapProgress < 15 || (activeDriver.lapProgress > 60 && activeDriver.lapProgress < 75);
-                const targetSpd = isStraight ? (310 + Math.floor(Math.random() * 25)) : (140 + Math.floor(Math.random() * 30));
-                updateCockpitGauges(targetSpd, isStraight ? 100 : 25);
+                const isStraight = (activeDriver.totalDistance % 1) < 0.15 || ((activeDriver.totalDistance % 1) > 0.65 && (activeDriver.totalDistance % 1) < 0.78);
+                const targetSpd = isStraight ? (310 + Math.floor(Math.random() * 30)) : (140 + Math.floor(Math.random() * 35));
+                updateCockpitGauges(targetSpd, isStraight ? 100 : 30);
             }
 
             updateDeltaChart();
+            updateHeroTelemetry();
 
-            if (state.currentLap === 4) logRadio("Presión en los neumáticos estabilizada en ventana óptima.");
-            if (state.currentLap === 10) logRadio("Modo de motor STRAT-2 activado para defender posición.");
-            if (state.currentLap === 18) logRadio("Monitoreando desgaste: 65% de vida útil en juego de blandos.");
-        }, 120);
+            if (state.currentLap === 5) logRadio("Presión en los neumáticos estabilizada en ventana óptima.");
+            if (state.currentLap === 12) logRadio("Modo de motor STRAT-2 activado para defender posición.");
+            if (state.currentLap === 20) logRadio("Monitoreando desgaste: 65% de vida útil en juego de blandos.");
+        }, 100);
     }
 
     function advancePhysics(dt) {
         simDrivers.forEach(driver => {
-            let speedMultiplier = driver.paceModifier;
+            let speedMultiplier = driver.paceModifier * state.speedMultiplier;
 
             if (state.safetyCarDeployed) {
-                speedMultiplier = 0.35;
+                speedMultiplier = 0.4 * state.speedMultiplier;
             } else {
-                const microDelta = (Math.random() - 0.48) * 0.12;
+                const microDelta = (Math.random() - 0.48) * 0.15;
                 speedMultiplier += microDelta;
 
                 if (state.weather === 'LLUVIA') {
@@ -869,6 +973,7 @@
                 }
             }
 
+            // Distance advance
             const distanceDelta = driver.baseSpeedFactor * speedMultiplier * (dt * 60);
             driver.totalDistance += distanceDelta;
             driver.lapProgress = (driver.totalDistance % 1) * 100;
@@ -917,8 +1022,6 @@
     }
 
     function endRace() {
-        if (state.animFrameId) cancelAnimationFrame(state.animFrameId);
-        if (state.telemetryTimer) clearInterval(state.telemetryTimer);
         state.isRacing = false;
 
         const dot = document.getElementById('simStatusDot');
@@ -945,7 +1048,7 @@
             const teamInfo = TEAMS_CONFIG[driver.equipo] || { name: driver.equipo, color: '#fff' };
             const isLeader = index === 0;
             const gapStr = isLeader ? 'LÍDER' : `+${driver.gapToLeader.toFixed(3)}s`;
-            const timeStr = `1:${(12 + Math.floor(Math.random() * 2))}.${Math.floor(Math.random() * 890) + 100}`;
+            const timeStr = `1:${(12 + (index % 3))}.${Math.floor(Math.random() * 800) + 100}`;
             const isActive = driver.codigo === state.activeDriverCode;
 
             const row = document.createElement('div');
@@ -959,21 +1062,31 @@
                 <span class="sim-row-time text-right">${timeStr}</span>
                 <span class="sim-row-gap text-right ${isLeader ? 'leader' : ''}">${gapStr}</span>
                 <div class="sim-row-tire text-right">
-                    <span class="tire-pill medium">M</span>
+                    <span class="tire-pill ${index < 3 ? 'soft' : 'medium'}">${index < 3 ? 'S' : 'M'}</span>
                 </div>
             `;
 
             row.addEventListener('click', () => {
-                document.querySelectorAll('.sim-driver-row').forEach(r => r.classList.remove('active-driver'));
-                row.classList.add('active-driver');
-                state.activeDriverCode = driver.codigo;
-                state.activeDriverPos = index + 1;
-                updateCockpitHUD(driver.codigo, driver, teamInfo, index + 1);
-                playTone(600, 'sine', 0.1, 0.08);
+                selectDriver(driver.codigo, index + 1);
             });
 
             list.appendChild(row);
         });
+    }
+
+    function selectDriver(driverCode, pos = null) {
+        document.querySelectorAll('.sim-driver-row').forEach(r => r.classList.remove('active-driver'));
+        state.activeDriverCode = driverCode;
+
+        const driverIdx = simDrivers.findIndex(d => d.codigo === driverCode);
+        const actualPos = pos || (driverIdx >= 0 ? driverIdx + 1 : 1);
+        state.activeDriverPos = actualPos;
+
+        const allRows = document.querySelectorAll('.sim-driver-row');
+        if (allRows[driverIdx]) allRows[driverIdx].classList.add('active-driver');
+
+        updateCockpitHUD(driverCode, simDrivers[driverIdx], null, actualPos);
+        playTone(600, 'sine', 0.1, 0.08);
     }
 
     function updateCockpitHUD(driverCode, driverData = null, teamInfo = null, pos = null) {
@@ -994,7 +1107,7 @@
 
         const tireWearEl = document.getElementById('hudTireWear');
         if (tireWearEl) {
-            const wear = Math.max(40, 100 - (state.currentLap * 1.3));
+            const wear = Math.max(40, 100 - (state.currentLap * 1.2));
             tireWearEl.textContent = `${Math.floor(wear)}%`;
         }
     }
@@ -1007,7 +1120,7 @@
         if (!speedEl) return;
 
         let currentSpeed = parseInt(speedEl.textContent) || 0;
-        currentSpeed += (targetSpeed - currentSpeed) * 0.2;
+        currentSpeed += (targetSpeed - currentSpeed) * 0.25;
         currentSpeed = Math.floor(currentSpeed);
 
         speedEl.textContent = currentSpeed;
@@ -1033,6 +1146,25 @@
 
         if (thr) thr.style.height = `${throttlePct}%`;
         if (brk) brk.style.height = throttlePct === 0 ? '75%' : '0%';
+    }
+
+    function updateHeroTelemetry() {
+        const heroTopSpeed = document.getElementById('heroTopSpeed');
+        const heroTireWear = document.getElementById('heroTireWear');
+        const heroBattery = document.getElementById('heroBattery');
+
+        if (heroTopSpeed) {
+            const spd = 310 + Math.floor(Math.random() * 28);
+            heroTopSpeed.textContent = `${spd} KM/H`;
+        }
+        if (heroTireWear) {
+            const wear = Math.max(50, 95 - Math.floor(state.currentLap * 1.1));
+            heroTireWear.textContent = `${wear}%`;
+        }
+        if (heroBattery) {
+            const batt = 70 + Math.floor(Math.random() * 25);
+            heroBattery.textContent = `${batt}%`;
+        }
     }
 
     // ═══════════════════════════════════════
