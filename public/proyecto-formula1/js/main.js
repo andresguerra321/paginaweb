@@ -411,16 +411,42 @@
             leaderPulse.style.display = driver.isLeader ? "block" : "none";
             g.appendChild(leaderPulse);
 
-            // 2. Halo Glow
+            // 2. High Speed Aero Wake Trail (Supersonic glow behind rear wing)
+            const aeroGlow = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            aeroGlow.setAttribute("x1", "-7");
+            aeroGlow.setAttribute("y1", "0");
+            aeroGlow.setAttribute("x2", "-30");
+            aeroGlow.setAttribute("y2", "0");
+            aeroGlow.setAttribute("stroke", "#38BDF8");
+            aeroGlow.setAttribute("stroke-width", "6");
+            aeroGlow.setAttribute("stroke-linecap", "round");
+            aeroGlow.setAttribute("class", "car-aero-glow");
+            aeroGlow.setAttribute("opacity", "0");
+            g.appendChild(aeroGlow);
+
+            const aeroTrail = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            aeroTrail.setAttribute("x1", "-7");
+            aeroTrail.setAttribute("y1", "0");
+            aeroTrail.setAttribute("x2", "-24");
+            aeroTrail.setAttribute("y2", "0");
+            aeroTrail.setAttribute("stroke", teamColor);
+            aeroTrail.setAttribute("stroke-width", "2.5");
+            aeroTrail.setAttribute("stroke-linecap", "round");
+            aeroTrail.setAttribute("class", "car-aero-trail");
+            aeroTrail.setAttribute("opacity", "0");
+            g.appendChild(aeroTrail);
+
+            // 3. Halo Glow
             const halo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
             halo.setAttribute("cx", "0");
             halo.setAttribute("cy", "0");
             halo.setAttribute("r", "11");
             halo.setAttribute("fill", teamColor);
             halo.setAttribute("opacity", "0.35");
+            halo.setAttribute("class", "car-halo-glow");
             g.appendChild(halo);
 
-            // 3. Directional Vehicle Body (Aerodynamic Capsule Arrow)
+            // 4. Directional Vehicle Body (Aerodynamic Capsule Arrow)
             const body = document.createElementNS("http://www.w3.org/2000/svg", "path");
             body.setAttribute("d", "M 10 0 L -7 -5.5 L -3.5 0 L -7 5.5 Z");
             body.setAttribute("fill", teamColor);
@@ -428,7 +454,26 @@
             body.setAttribute("stroke-width", "1.2");
             g.appendChild(body);
 
-            // 4. White Cockpit Center Pip
+            // 5. Rear Brake LEDs (Glow intense ruby-red when braking into corners)
+            const brakeL = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            brakeL.setAttribute("cx", "-7");
+            brakeL.setAttribute("cy", "-3.5");
+            brakeL.setAttribute("r", "1.6");
+            brakeL.setAttribute("fill", "#FF1801");
+            brakeL.setAttribute("class", "car-brake-led");
+            brakeL.setAttribute("opacity", "0");
+            g.appendChild(brakeL);
+
+            const brakeR = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            brakeR.setAttribute("cx", "-7");
+            brakeR.setAttribute("cy", "3.5");
+            brakeR.setAttribute("r", "1.6");
+            brakeR.setAttribute("fill", "#FF1801");
+            brakeR.setAttribute("class", "car-brake-led");
+            brakeR.setAttribute("opacity", "0");
+            g.appendChild(brakeR);
+
+            // 6. White Cockpit Center Pip
             const pip = document.createElementNS("http://www.w3.org/2000/svg", "circle");
             pip.setAttribute("cx", "1");
             pip.setAttribute("cy", "0");
@@ -436,23 +481,23 @@
             pip.setAttribute("fill", "#ffffff");
             g.appendChild(pip);
 
-            // 5. Driver Code Tag (Counter-rotated for perfect horizontal readability)
+            // 7. Dynamic Telemetry Tag Pill: [ VER | 324 ] + DRS badge
             const tagGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
             tagGroup.setAttribute("class", "car-tag-group");
 
             const tagBg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
             tagBg.setAttribute("x", "12");
-            tagBg.setAttribute("y", "-8");
-            tagBg.setAttribute("width", "30");
-            tagBg.setAttribute("height", "16");
+            tagBg.setAttribute("y", "-8.5");
+            tagBg.setAttribute("width", "46");
+            tagBg.setAttribute("height", "17");
             tagBg.setAttribute("rx", "3.5");
-            tagBg.setAttribute("fill", "rgba(4, 8, 20, 0.88)");
+            tagBg.setAttribute("fill", "rgba(4, 8, 20, 0.90)");
             tagBg.setAttribute("stroke", teamColor);
             tagBg.setAttribute("stroke-width", "1");
             tagGroup.appendChild(tagBg);
 
             const tagText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            tagText.setAttribute("x", "27");
+            tagText.setAttribute("x", "22");
             tagText.setAttribute("y", "3.5");
             tagText.setAttribute("text-anchor", "middle");
             tagText.setAttribute("font-family", "'JetBrains Mono', monospace");
@@ -461,6 +506,52 @@
             tagText.setAttribute("fill", "#ffffff");
             tagText.textContent = driver.codigo;
             tagGroup.appendChild(tagText);
+
+            const tagDivider = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            tagDivider.setAttribute("x1", "32");
+            tagDivider.setAttribute("y1", "-4");
+            tagDivider.setAttribute("x2", "32");
+            tagDivider.setAttribute("y2", "4");
+            tagDivider.setAttribute("stroke", "rgba(255,255,255,0.2)");
+            tagDivider.setAttribute("stroke-width", "1");
+            tagGroup.appendChild(tagDivider);
+
+            const speedText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            speedText.setAttribute("x", "45");
+            speedText.setAttribute("y", "3.5");
+            speedText.setAttribute("text-anchor", "middle");
+            speedText.setAttribute("font-family", "'JetBrains Mono', monospace");
+            speedText.setAttribute("font-size", "7.5");
+            speedText.setAttribute("font-weight", "700");
+            speedText.setAttribute("fill", "#38BDF8");
+            speedText.setAttribute("class", "car-speed-val");
+            speedText.textContent = "240";
+            tagGroup.appendChild(speedText);
+
+            // DRS Active Badge
+            const drsBg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            drsBg.setAttribute("x", "12");
+            drsBg.setAttribute("y", "-15");
+            drsBg.setAttribute("width", "20");
+            drsBg.setAttribute("height", "6");
+            drsBg.setAttribute("rx", "1.5");
+            drsBg.setAttribute("fill", "#00E676");
+            drsBg.setAttribute("class", "car-drs-badge");
+            drsBg.setAttribute("opacity", "0");
+            tagGroup.appendChild(drsBg);
+
+            const drsTxt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            drsTxt.setAttribute("x", "22");
+            drsTxt.setAttribute("y", "-10");
+            drsTxt.setAttribute("text-anchor", "middle");
+            drsTxt.setAttribute("font-family", "'JetBrains Mono', monospace");
+            drsTxt.setAttribute("font-size", "5");
+            drsTxt.setAttribute("font-weight", "900");
+            drsTxt.setAttribute("fill", "#040814");
+            drsTxt.setAttribute("class", "car-drs-text");
+            drsTxt.setAttribute("opacity", "0");
+            drsTxt.textContent = "DRS";
+            tagGroup.appendChild(drsTxt);
 
             g.appendChild(tagGroup);
             layer.appendChild(g);
@@ -483,11 +574,11 @@
         const d0 = trackLUT[idx0];
         const d1 = trackLUT[idx1];
 
-        // Smooth interpolation
+        // Smooth position interpolation
         const x = d0.x + (d1.x - d0.x) * t;
         const y = d0.y + (d1.y - d0.y) * t;
 
-        // Angle interpolation with wrap handling
+        // Angle interpolation with 360 wrap handling
         let a0 = d0.angle;
         let a1 = d1.angle;
         if (a1 - a0 > 180) a1 -= 360;
@@ -524,6 +615,59 @@
             const pulse = carEl.querySelector('.car-leader-pulse');
             if (pulse) {
                 pulse.style.display = driver.isLeader ? "block" : "none";
+            }
+
+            // ══════════════════════════════════════════
+            // DYNAMIC SPEED TELEMETRY VISUALIZATION
+            // ══════════════════════════════════════════
+            const spd = driver.speedKmh || 240;
+            const aeroTrail = carEl.querySelector('.car-aero-trail');
+            const aeroGlow = carEl.querySelector('.car-aero-glow');
+            const brakeLeds = carEl.querySelectorAll('.car-brake-led');
+            const speedText = carEl.querySelector('.car-speed-val');
+            const drsBadge = carEl.querySelector('.car-drs-badge');
+            const drsText = carEl.querySelector('.car-drs-text');
+
+            if (speedText) speedText.textContent = spd;
+
+            if (spd > 275) {
+                // High Speed Mode: Extended supersonic wake & DRS
+                const trailLen = Math.min(42, 14 + ((spd - 275) / 65) * 28);
+                if (aeroTrail) {
+                    aeroTrail.setAttribute('x2', `${(-7 - trailLen).toFixed(1)}`);
+                    aeroTrail.setAttribute('opacity', '0.85');
+                }
+                if (aeroGlow) {
+                    aeroGlow.setAttribute('x2', `${(-7 - trailLen * 1.25).toFixed(1)}`);
+                    aeroGlow.setAttribute('opacity', '0.45');
+                }
+                if (drsBadge) drsBadge.setAttribute('opacity', '1');
+                if (drsText) drsText.setAttribute('opacity', '1');
+                if (speedText) speedText.setAttribute('fill', '#00E676');
+
+                brakeLeds.forEach(led => led.setAttribute('opacity', '0'));
+
+            } else if (spd < 170) {
+                // Heavy Braking Mode: Glowing ruby-red brake LEDs
+                if (aeroTrail) aeroTrail.setAttribute('opacity', '0');
+                if (aeroGlow) aeroGlow.setAttribute('opacity', '0');
+                if (drsBadge) drsBadge.setAttribute('opacity', '0');
+                if (drsText) drsText.setAttribute('opacity', '0');
+                if (speedText) speedText.setAttribute('fill', '#FF5252');
+
+                brakeLeds.forEach(led => {
+                    led.setAttribute('opacity', '1');
+                });
+
+            } else {
+                // Normal Cornering Mode: Clean cyan HUD
+                if (aeroTrail) aeroTrail.setAttribute('opacity', '0');
+                if (aeroGlow) aeroGlow.setAttribute('opacity', '0');
+                if (drsBadge) drsBadge.setAttribute('opacity', '0');
+                if (drsText) drsText.setAttribute('opacity', '0');
+                if (speedText) speedText.setAttribute('fill', '#38BDF8');
+
+                brakeLeds.forEach(led => led.setAttribute('opacity', '0'));
             }
         });
     }
