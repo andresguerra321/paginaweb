@@ -324,6 +324,10 @@
                 window.location.href = 'proyecto-guardian/guardian.html';
                 return;
             }
+            if (projectId === 'formula1' || projectId === 'f1') {
+                window.location.href = 'proyecto-formula1/index.html';
+                return;
+            }
             
             const project = proyectosData[projectId];
             const container = document.getElementById('project-container');
