@@ -15,11 +15,23 @@
     
     <link rel="stylesheet" href="css/index.css">
     
-    <!-- External Libraries -->
+    <!-- External Libraries (Chart.js) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Saltar al contenido</a>
+
+    <!-- Page Transition Overlay -->
+    <div class="page-transition-overlay" id="page-transition-overlay">
+        <div class="minimal-loader">
+            <div class="minimal-loader-title">F1 SIM PRO</div>
+            <div class="minimal-loader-bar-bg">
+                <div class="minimal-loader-bar" id="minimal-bar"></div>
+            </div>
+            <div class="minimal-loader-subtitle" style="margin-top:10px;color:var(--f1-red);font-family:var(--font-mono);font-size:0.75rem;">INICIALIZANDO MOTOR TELEMÉTRICO</div>
+        </div>
+    </div>
+
     <div class="ambient-glow"></div>
 
     <!-- HUD Ticker Top -->
@@ -29,7 +41,7 @@
             <span class="ticker-separator">//</span>
             <div class="ticker-item"><span>TELEMETRÍA EN TIEMPO REAL // 60 FPS</span></div>
             <span class="ticker-separator">//</span>
-            <div class="ticker-item"><span>CIRCUITO: AUTODROMO NAZIONALE MONZA</span></div>
+            <div class="ticker-item"><span>CIRCUITO: CIRCUIT DE MONACO (MONTE CARLO)</span></div>
             <span class="ticker-separator">//</span>
             <div class="ticker-item"><div class="ticker-dot"></div><span>SESIÓN EN VIVO</span></div>
             <span class="ticker-separator">//</span>
@@ -38,9 +50,7 @@
             <span class="ticker-separator">//</span>
             <div class="ticker-item"><span>TELEMETRÍA EN TIEMPO REAL // 60 FPS</span></div>
             <span class="ticker-separator">//</span>
-            <div class="ticker-item"><span>CIRCUITO: AUTODROMO NAZIONALE MONZA</span></div>
-            <span class="ticker-separator">//</span>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>SESIÓN EN VIVO</span></div>
+            <div class="ticker-item"><span>CIRCUITO: CIRCUIT DE MONACO (MONTE CARLO)</span></div>
             <span class="ticker-separator">//</span>
         </div>
     </div>
@@ -48,28 +58,35 @@
     <!-- Navbar -->
     <nav class="navbar" id="mainNav">
         <div class="container nav-row">
-            <a href="#" class="nav-brand">
-                <span class="brand-mark">F1</span>
-                <span class="brand-divider"></span>
-                <span class="brand-product">Sim Pro</span>
-            </a>
+            <div class="nav-left-group">
+                <a href="../index.html" class="nav-back-link" data-i18n="nav_back">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    <span>Volver a Soluciones</span>
+                </a>
+
+                <a href="#" class="nav-brand">
+                    <span class="brand-mark">F1</span>
+                    <span class="brand-divider"></span>
+                    <span class="brand-product">Sim Pro</span>
+                </a>
+            </div>
             
             <ul class="nav-links" id="navLinks">
-                <li><a href="#sim-engine" class="active">Simulador</a></li>
-                <li><a href="#features">Características</a></li>
-                <li><a href="#how-it-works">Cómo Funciona</a></li>
+                <li><a href="#sim-engine" class="active" data-i18n="nav_sim">Simulador</a></li>
+                <li><a href="#features" data-i18n="nav_features">Características</a></li>
+                <li><a href="#how-it-works" data-i18n="nav_how">Cómo Funciona</a></li>
             </ul>
 
             <div class="nav-controls">
                 <div class="engine-status-pill">
                     <div class="engine-dot"></div>
-                    <span id="navEngineStatus">SISTEMA ACTIVO</span>
+                    <span id="navEngineStatus" data-i18n="nav_status">SISTEMA ACTIVO</span>
                 </div>
                 <div class="lang-switch">
-                    <button class="lang-btn active" id="btnLangEs">ES</button>
-                    <button class="lang-btn" id="btnLangEn">EN</button>
+                    <button type="button" class="lang-btn active" id="btnLangEs">ES</button>
+                    <button type="button" class="lang-btn" id="btnLangEn">EN</button>
                 </div>
-                <button class="nav-hamburger" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+                <button type="button" class="nav-hamburger" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
                     <span></span><span></span><span></span>
                 </button>
             </div>
@@ -86,22 +103,22 @@
                 <div class="hero-text reveal">
                     <div class="hero-eyebrow">
                         <span class="hero-badge">v2.0 Pro</span>
-                        Motor Estadístico de Alta Fidelidad
+                        <span data-i18n="hero_eyebrow">Motor Estadístico de Alta Fidelidad</span>
                     </div>
-                    <h1 class="hero-title">
+                    <h1 class="hero-title" data-i18n="hero_title">
                         Siente la carrera.<br>
                         <span class="gradient-text">Simulada por Datos.</span>
                     </h1>
-                    <p class="hero-subtitle">
+                    <p class="hero-subtitle" data-i18n="hero_subtitle">
                         F1 Sim Pro calcula el ritmo de cada monoplaza evaluando la habilidad de los pilotos, la degradación de los compuestos, la carga aerodinámica y eventos de pista en tiempo real.
                     </p>
                     
                     <div class="hero-actions">
-                        <button class="btn-hero-primary" id="btnHeroStart">
+                        <button type="button" class="btn-hero-primary" id="btnHeroStart">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                            Iniciar Demo
+                            <span data-i18n="hero_btn_start">Iniciar Demo</span>
                         </button>
-                        <a href="#features" class="btn-outline">Explorar Características</a>
+                        <a href="#features" class="btn-outline" data-i18n="hero_btn_explore">Explorar Características</a>
                     </div>
 
                     <div class="hero-pills">
@@ -204,8 +221,8 @@
         <section id="sim-engine" class="sim-section container">
             <div class="sec-header reveal">
                 <div class="sim-pill-eyebrow"><div class="pulse-ring"></div> Centro de Mando</div>
-                <h2 class="sec-title">Mission Control Room</h2>
-                <p class="sec-subtitle">
+                <h2 class="sec-title" data-i18n="sim_title">Mission Control Room</h2>
+                <p class="sec-subtitle" data-i18n="sim_subtitle">
                     Interactúa en tiempo real con la carrera. Cambia entre la telemetría gráfica en vivo, la tabla de estadísticas de pilotos, el setup aerodinámico y los principios del motor.
                 </p>
             </div>
@@ -213,10 +230,22 @@
             <div class="sim-control-room reveal reveal-delay-1">
                 <!-- Nav Tabs -->
                 <div class="sim-nav-tabs" role="tablist">
-                    <button class="sim-tab-btn active" role="tab" id="tab-btn-track" aria-selected="true" data-target="pane-track">🏎️ Pista & Telemetría</button>
-                    <button class="sim-tab-btn" role="tab" id="tab-btn-stats" aria-selected="false" data-target="pane-stats">📊 Estadísticas de Pilotos</button>
-                    <button class="sim-tab-btn" role="tab" id="tab-btn-config" aria-selected="false" data-target="pane-config">⚙️ Configuración de Escudería</button>
-                    <button class="sim-tab-btn" role="tab" id="tab-btn-arch" aria-selected="false" data-target="pane-arch">🧠 Motor de Simulación</button>
+                    <button type="button" class="sim-tab-btn active" role="tab" id="tab-btn-track" aria-selected="true" data-target="pane-track">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                        <span data-i18n="tab_track">Pista & Telemetría</span>
+                    </button>
+                    <button type="button" class="sim-tab-btn" role="tab" id="tab-btn-stats" aria-selected="false" data-target="pane-stats">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                        <span data-i18n="tab_stats">Estadísticas de Pilotos</span>
+                    </button>
+                    <button type="button" class="sim-tab-btn" role="tab" id="tab-btn-config" aria-selected="false" data-target="pane-config">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        <span data-i18n="tab_config">Configuración de Escudería</span>
+                    </button>
+                    <button type="button" class="sim-tab-btn" role="tab" id="tab-btn-arch" aria-selected="false" data-target="pane-arch">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                        <span data-i18n="tab_arch">Motor de Simulación</span>
+                    </button>
                 </div>
 
                 <!-- Pane 1: Track & Telemetry -->
@@ -227,7 +256,7 @@
                         <div class="sim-toolbar-left">
                             <div class="sim-status-badge">
                                 <div class="status-indicator ready" id="simStatusDot"></div>
-                                <span id="simStatusText">ESPERANDO INICIO</span>
+                                <span id="simStatusText" data-i18n="waiting_start">ESPERANDO INICIO</span>
                             </div>
                             <div class="sim-lap-hud">
                                 <span class="hud-tag">VUELTA</span>
@@ -236,28 +265,28 @@
                                 <span class="hud-total" id="totalLapsCounter">53</span>
                             </div>
                             <div class="sim-condition-tag">
-                                ☁️ <span id="weatherText">Soleado (28°C)</span>
+                                <span id="weatherText">☀️ Soleado (28°C)</span>
                             </div>
                             <div class="sim-flag-tag">
-                                <div class="flag-dot green" id="flagDot"></div> <span id="flagText">Bandera Verde</span>
+                                <div class="flag-dot green" id="flagDot"></div> <span id="flagText" data-i18n="flag_green">Bandera Verde</span>
                             </div>
                         </div>
                         <div class="sim-toolbar-right">
-                            <button class="btn-control-start" id="btnStartRace">
+                            <button type="button" class="btn-control-start" id="btnStartRace">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                <span>Iniciar Demo</span>
+                                <span data-i18n="btn_start_race">Iniciar Demo</span>
                             </button>
-                            <button class="btn-control-weather" id="btnChangeWeather" aria-label="Cambiar Clima" title="Cambiar Clima Aleatorio">
+                            <button type="button" class="btn-control-weather" id="btnChangeWeather" aria-label="Cambiar Clima" title="Cambiar Clima Aleatorio">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
-                                <span class="btn-text-hide-sm">Clima</span>
+                                <span class="btn-text-hide-sm" data-i18n="btn_weather">Clima</span>
                             </button>
-                            <button class="btn-control-sc" id="btnTriggerSC" aria-label="Lanzar Safety Car" title="Simular Safety Car">
+                            <button type="button" class="btn-control-sc" id="btnTriggerSC" aria-label="Lanzar Safety Car" title="Simular Safety Car">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                <span class="btn-text-hide-sm">Safety Car</span>
+                                <span class="btn-text-hide-sm" data-i18n="btn_sc">Safety Car</span>
                             </button>
-                            <button class="btn-control-reset" id="btnResetSim" disabled aria-label="Reiniciar Sesión" title="Reiniciar Sesión">
+                            <button type="button" class="btn-control-reset" id="btnResetSim" disabled aria-label="Reiniciar Sesión" title="Reiniciar Sesión">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>
-                                <span class="btn-text-hide-sm">Reset</span>
+                                <span class="btn-text-hide-sm" data-i18n="btn_reset">Reset</span>
                             </button>
                         </div>
                     </div>
@@ -285,7 +314,7 @@
                                 </div>
                                 <div class="sector-legend">
                                     <span class="sector-badge s1">S1 Casino</span>
-                                    <span class="sector-badge s2">S2 Túnel</span>
+                                    <span class="sector-badge s2">S2 Tunnel</span>
                                     <span class="sector-badge s3">S3 Piscine</span>
                                 </div>
                             </div>
@@ -320,10 +349,10 @@
 
                                 <div class="gauges-cluster">
                                     <div class="radial-gauge-box">
-                                        <!-- SVG Circular Speedometer -->
+                                        <!-- SVG Speedometer Dial -->
                                         <svg class="radial-svg" viewBox="0 0 100 100">
-                                            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6" stroke-dasharray="212" stroke-dashoffset="0"></circle>
-                                            <circle id="speedDial" cx="50" cy="50" r="45" fill="none" stroke="var(--telemetry-green)" stroke-width="6" stroke-dasharray="212" stroke-dashoffset="150" stroke-linecap="round"></circle>
+                                            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"></circle>
+                                            <circle id="speedDial" cx="50" cy="50" r="45" fill="none" stroke="var(--telemetry-green)" stroke-width="6" stroke-dasharray="212" stroke-dashoffset="212" stroke-linecap="round" transform="rotate(-90 50 50)"></circle>
                                         </svg>
                                         <div class="radial-center-text">
                                             <span class="radial-speed-val" id="hudSpeed">0</span>
@@ -429,7 +458,7 @@
                                 <label for="setupAero">Carga Aerodinámica</label>
                                 <select id="setupAero" class="config-select">
                                     <option value="ALTA">Alta (Mayor adherencia en curva, menor vel. punta)</option>
-                                    <option value="MEDIA" selected>Media (Equilibrada para Monza/Spa)</option>
+                                    <option value="MEDIA" selected>Media (Equilibrada)</option>
                                     <option value="BAJA">Baja (Menor resistencia, máxima vel. punta)</option>
                                 </select>
                             </div>
@@ -570,7 +599,7 @@
                     <div class="bento-card-top">
                         <span class="bento-badge">ARQUITECTURA</span>
                         <div class="bento-svg-graphic">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--data-cyan)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--data-cyan)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
                         </div>
                     </div>
                     <h3 class="bento-title">Hilos Concurrentes</h3>
@@ -641,6 +670,22 @@
             </div>
         </section>
 
+        <!-- CTA CONTACT SECTION -->
+        <section class="project-cta-section container reveal">
+            <div class="cta-box">
+                <h3 data-i18n="cta_title">¿Necesitas un Motor Estadístico o Simulador a Medida?</h3>
+                <p data-i18n="cta_desc">
+                    Desarrollo algoritmos de cálculo numérico, motores de simulación concurrentes y dashboards de telemetría de alto rendimiento para tu negocio.
+                </p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20el%20proyecto%20de%20Simulaci%C3%B3n%20F1%20en%20tu%20sitio%20web%20y%20me%20gustar%C3%ADa%20cotizar%20un%20motor%20a%20medida" target="_blank" rel="noopener noreferrer" class="btn btn-hero-primary cta-btn-whatsapp">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
+                        <span data-i18n="cta_btn">Contactar por WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
@@ -651,16 +696,18 @@
                 Sim Pro
             </a>
             <ul class="footer-links">
-                <li><a href="#sim-engine">Simulador</a></li>
-                <li><a href="#features">Características</a></li>
-                <li><a href="#how-it-works">Cómo Funciona</a></li>
+                <li><a href="../index.html">Suite Principal</a></li>
+                <li><a href="#sim-engine" data-i18n="nav_sim">Simulador</a></li>
+                <li><a href="#features" data-i18n="nav_features">Características</a></li>
+                <li><a href="#how-it-works" data-i18n="nav_how">Cómo Funciona</a></li>
             </ul>
             <div class="footer-copy">
-                &copy; 2026 F1 Sim Pro. Motor Estadístico de Fórmula 1.
+                &copy; 2026 AG Private Engineering — F1 Sim Pro. Todos los derechos reservados.
             </div>
         </div>
     </footer>
 
-    <script type="module" src="js/main.js"></script>
+    <!-- Main JS (Standard Script, Zero CORS Failure) -->
+    <script src="js/main.js" defer></script>
 </body>
 </html>

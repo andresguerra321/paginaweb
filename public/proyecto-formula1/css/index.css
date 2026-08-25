@@ -203,6 +203,34 @@ section {
     gap: 1rem;
 }
 
+.nav-left-group {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.nav-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-sm);
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition);
+}
+
+.nav-back-link:hover {
+    color: #fff;
+    background: rgba(225, 6, 0, 0.15);
+    border-color: rgba(225, 6, 0, 0.35);
+    transform: translateX(-2px);
+}
+
 .nav-brand {
     display: flex;
     align-items: center;
@@ -2171,6 +2199,130 @@ section {
     }
     .reveal { opacity: 1; transform: none; }
     .ticker-inner { animation: none; }
+}
+
+/* ============================================================
+   PAGE TRANSITION OVERLAY & B2B CTA
+   ============================================================ */
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #040814;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+.minimal-loader {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.minimal-loader-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #fff;
+    margin-bottom: 0.75rem;
+}
+
+.minimal-loader-bar-bg {
+    width: 200px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.minimal-loader-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--f1-red);
+    box-shadow: 0 0 10px var(--f1-red);
+    transition: width 0.08s ease;
+}
+
+/* ── Project CTA Section ── */
+.project-cta-section {
+    padding: var(--section-padding) 0 4rem;
+}
+
+.cta-box {
+    background: linear-gradient(135deg, rgba(13, 20, 42, 0.7) 0%, rgba(225, 6, 0, 0.08) 100%);
+    border: 1px solid rgba(225, 6, 0, 0.25);
+    border-radius: var(--radius-lg);
+    padding: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(225, 6, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(225, 6, 0, 0.15) 0%, transparent 70%);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+.cta-box h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.cta-box p {
+    color: var(--text-dim);
+    max-width: 650px;
+    margin: 0 auto 2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.cta-btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #25D366;
+    color: #040814 !important;
+    font-weight: 700;
+    padding: 0.85rem 1.75rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    box-shadow: 0 0 25px rgba(37, 211, 102, 0.35);
+    transition: all var(--transition);
+}
+
+.cta-btn-whatsapp:hover {
+    background: #22bf5b;
+    transform: translateY(-2px);
+    box-shadow: 0 0 35px rgba(37, 211, 102, 0.5);
+}
+
+#speedDial {
+    transition: stroke-dashoffset 0.15s ease-out;
 }
 
 :focus-visible {
