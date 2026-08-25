@@ -1109,8 +1109,8 @@ section {
 }
 
 .svg-car-marker {
-    transition: transform 0.04s linear;
     will-change: transform;
+    pointer-events: all;
 }
 .svg-car-marker text {
     user-select: none;
@@ -1119,9 +1119,11 @@ section {
 .svg-car-marker:hover .car-tag-group rect {
     fill: #E10600;
     stroke: #ffffff;
+    filter: drop-shadow(0 0 8px #E10600);
 }
 .car-leader-pulse {
     animation: car-pulse-anim 1.2s ease-out infinite;
+    pointer-events: none;
 }
 @keyframes car-pulse-anim {
     0% { transform: scale(0.6); opacity: 0.9; }
