@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="waBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#061F14"/>
+      <stop offset="100%" stop-color="#020B07"/>
+    </linearGradient>
+    <linearGradient id="waGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#25D366"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+  </defs>
+  <rect width="92" height="92" x="4" y="4" rx="22" fill="url(#waBg)" stroke="url(#waGreen)" stroke-width="4"/>
+  <path d="M50 20 C33.4 20 20 33.4 20 50 C20 56 21.8 61.6 24.8 66.2 L21 79 L34.2 75.4 C38.7 78.3 44.1 80 50 80 C66.6 80 80 66.6 80 50 C80 33.4 66.6 20 50 20 Z" fill="none" stroke="url(#waGreen)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="40" cy="48" r="4.5" fill="#FFFFFF"/>
+  <circle cx="60" cy="48" r="4.5" fill="#FFFFFF"/>
+  <path d="M42 59 Q50 65 58 59" fill="none" stroke="#25D366" stroke-width="4" stroke-linecap="round"/>
+</svg>

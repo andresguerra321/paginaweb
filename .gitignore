@@ -1,3 +1,8 @@
+node_modules/
 dist/
-
 startbootstrap-agency-gh-pages/
+graphify-out/
+*.zip
+*.py
+*.tmp
+.DS_Store

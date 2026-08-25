@@ -1,10 +1,9 @@
 /**
- * GUARDIAN Lite — Main Application Controller (Portfolio Version)
- * ================================================================
- * Adapted from the original GUARDIAN Lite app.js.
- * Replaces WebSocket backend with RoadSimulator for static hosting.
- * Orchestrates webcam, MediaPipe Face Mesh, drowsiness detection,
- * road simulator, alerts, and UI updates.
+ * GUARDIAN Lite — Main Application Controller (Scandinavian Telemetry UI)
+ * =====================================================================
+ * Refactored for AG Private Engineering Portfolio.
+ * Orchestrates live webcam / synthetic simulation, MediaPipe Face Mesh,
+ * drowsiness analytics, road hazard alerts, and real-time cockpit UI.
  */
 
 (function () {
@@ -15,7 +14,7 @@
     // ═══════════════════════════════════════
     const video = document.getElementById('video');
     const canvas = document.getElementById('overlay-canvas');
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas ? canvas.getContext('2d') : null;
     const placeholder = document.getElementById('camera-placeholder');
     const drowsyFlash = document.getElementById('drowsy-flash');
     const fullscreenWarning = document.getElementById('fullscreen-warning');
@@ -24,16 +23,19 @@
     const btnDismissWarning = document.getElementById('btn-dismiss-warning');
     const copilotMessage = document.getElementById('copilot-message');
     const copilotStatus = document.getElementById('copilot-status');
+    const statusBadge = document.getElementById('status-badge');
 
     // ═══════════════════════════════════════
     // State
     // ═══════════════════════════════════════
     let isCameraActive = false;
+    let isSimulationActive = false;
     let showMesh = true;
     let faceMesh = null;
     let camera = null;
     let sessionStartTime = null;
     let sessionTimer = null;
+    let simTimer = null;
     let attentionScore = 100;
     let drowsinessWarningActive = false;
     let lastDOMUpdateTime = 0;
@@ -43,72 +45,43 @@
     // Initialization
     // ═══════════════════════════════════════
     function init() {
-        // Clock
         updateClock();
         setInterval(updateClock, 1000);
 
-        // Button handlers
-        btnToggleCamera.addEventListener('click', toggleCamera);
-        btnToggleMesh.addEventListener('click', () => {
-            showMesh = !showMesh;
-            btnToggleMesh.style.opacity = showMesh ? '1' : '0.4';
-        });
-        btnDismissWarning.addEventListener('click', dismissFullscreenWarning);
+        if (btnToggleCamera) {
+            btnToggleCamera.addEventListener('click', toggleCamera);
+        }
+        if (btnToggleMesh) {
+            btnToggleMesh.addEventListener('click', () => {
+                showMesh = !showMesh;
+                btnToggleMesh.classList.toggle('active', showMesh);
+            });
+        }
+        if (btnDismissWarning) {
+            btnDismissWarning.addEventListener('click', dismissFullscreenWarning);
+        }
 
-        // Road Simulator setup (replaces WebSocket)
         setupRoadSimulator();
-
-        // MediaPipe Face Mesh is initialized lazily on first camera start
-        // to avoid downloading WASM files and freezing the page on load
-
-        // Initialize GSAP Motion & Micro-Animations
         initGSAPAnimations();
-
-        // Mark connection as "Demo Mode" since there's no backend
-        updateConnectionUI(true, 'Demo Mode');
-
-        console.log('🛡️ GUARDIAN Lite (Portfolio Demo) initialized');
     }
 
     function initGSAPAnimations() {
         if (typeof gsap === 'undefined') return;
 
-        // Header entrance
         gsap.from('#status-bar', {
-            y: -40,
+            y: -30,
             opacity: 0,
-            duration: 0.6,
+            duration: 0.5,
             ease: 'power3.out'
         });
 
-        // Staggered panel cards entrance
         gsap.from('.panel', {
-            y: 30,
+            y: 20,
             opacity: 0,
-            duration: 0.6,
-            stagger: 0.12,
+            duration: 0.5,
+            stagger: 0.1,
             ease: 'power3.out',
-            delay: 0.15
-        });
-
-        // Staggered gauges entrance
-        gsap.from('.gauge', {
-            scale: 0.95,
-            opacity: 0,
-            duration: 0.4,
-            stagger: 0.06,
-            ease: 'power2.out',
-            delay: 0.45
-        });
-
-        // Staggered stat cards entrance
-        gsap.from('.stat-card', {
-            y: 15,
-            opacity: 0,
-            duration: 0.4,
-            stagger: 0.05,
-            ease: 'power2.out',
-            delay: 0.6
+            delay: 0.1
         });
     }
 
@@ -116,34 +89,51 @@
     // MediaPipe Face Mesh
     // ═══════════════════════════════════════
     function initFaceMesh() {
-        faceMesh = new FaceMesh({
-            locateFile: (file) => {
-                return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
-            },
-        });
+        if (typeof FaceMesh === 'undefined') {
+            console.warn('MediaPipe FaceMesh library not loaded');
+            return;
+        }
 
-        faceMesh.setOptions({
-            maxNumFaces: 1,
-            refineLandmarks: !isMobile,
-            minDetectionConfidence: 0.5,
-            minTrackingConfidence: 0.5,
-        });
+        try {
+            faceMesh = new FaceMesh({
+                locateFile: (file) => {
+                    return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+                },
+            });
 
-        faceMesh.onResults(onFaceMeshResults);
+            faceMesh.setOptions({
+                maxNumFaces: 1,
+                refineLandmarks: !isMobile,
+                minDetectionConfidence: 0.5,
+                minTrackingConfidence: 0.5,
+            });
+
+            faceMesh.onResults(onFaceMeshResults);
+        } catch (e) {
+            console.error('Error initializing FaceMesh:', e);
+        }
     }
 
     // ═══════════════════════════════════════
-    // Camera Control
+    // Camera Control & Synthetic Mode
     // ═══════════════════════════════════════
     async function toggleCamera() {
-        if (isCameraActive) {
-            stopCamera();
+        if (isCameraActive || isSimulationActive) {
+            stopAll();
         } else {
             await startCamera();
         }
     }
 
+    function stopAll() {
+        stopCamera();
+        stopSimulation();
+        updateCameraBtnIcon(false);
+        updateStatusLabel('EN ESPERA', false);
+    }
+
     async function startCamera() {
+        stopSimulation();
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: {
@@ -157,67 +147,59 @@
             video.srcObject = stream;
             await video.play();
 
-            // Match canvas to video
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
+            if (canvas) {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+            }
 
-            // Hide placeholder
-            placeholder.classList.add('hidden');
+            if (placeholder) placeholder.classList.add('hidden');
 
-            // Initialize Face Mesh lazily on first camera start
             if (!faceMesh) {
                 initFaceMesh();
             }
 
-            // Start MediaPipe camera loop
-            camera = new Camera(video, {
-                onFrame: async () => {
-                    await faceMesh.send({ image: video });
-                },
-                width: isMobile ? 640 : 1280,
-                height: isMobile ? 480 : 720,
-            });
-            camera.start();
-
-            isCameraActive = true;
-            document.getElementById('camera-btn-icon').textContent = '⏹️';
-
-            // Start session timer
-            sessionStartTime = Date.now();
-            sessionTimer = setInterval(updateSessionTime, 1000);
-
-            // Reset drowsiness engine
-            DrowsinessEngine.reset();
-            
-            // Start Object Detection
-            if (typeof ObjectDetectionEngine !== 'undefined') {
-                ObjectDetectionEngine.start(video);
-                ObjectDetectionEngine.onTargetDetected((detection) => {
-                    if (detection.class === 'cell phone') {
-                        attentionScore = Math.max(0, attentionScore - 5);
-                        
-                        AlertManager.processAlert({
-                            type: 'distraction',
-                            severity: 'danger',
-                            icon: '📱',
-                            title: 'CELL PHONE DETECTED!',
-                            description: `Please put away your cell phone immediately. (Confidence: ${Math.round(detection.score * 100)}%)`,
-                            timestamp: new Date().toISOString(),
-                        });
-                    }
+            if (typeof Camera !== 'undefined') {
+                camera = new Camera(video, {
+                    onFrame: async () => {
+                        if (faceMesh) {
+                            try {
+                                await faceMesh.send({ image: video });
+                            } catch (e) {}
+                        }
+                    },
+                    width: isMobile ? 640 : 1280,
+                    height: isMobile ? 480 : 720,
                 });
+                camera.start();
+            } else {
+                const loop = async () => {
+                    if (!isCameraActive) return;
+                    if (faceMesh && video.readyState >= 2) {
+                        try {
+                            await faceMesh.send({ image: video });
+                        } catch (e) {}
+                    }
+                    requestAnimationFrame(loop);
+                };
+                requestAnimationFrame(loop);
             }
 
-            // Start road danger simulator
+            isCameraActive = true;
+            updateCameraBtnIcon(true);
+            updateStatusLabel('CÁMARA ACTIVA', true);
+
+            startSessionTracking();
+
+            if (typeof ObjectDetectionEngine !== 'undefined') {
+                ObjectDetectionEngine.start(video);
+            }
+
             RoadSimulator.start();
-
-            updateCopilot('Monitoring active. Drive safely — I\'m watching out for you.', false);
-            copilotStatus.textContent = 'Active';
-
-            console.log('📷 Camera started');
+            updateCopilot('Centinela activo. Monitoreo biométrico de cabina en tiempo real.', false);
         } catch (err) {
-            console.error('Camera error:', err);
-            updateCopilot('Camera access denied. Please allow camera permissions and try again.', false);
+            console.warn('Camera error, fallback to simulation:', err);
+            startSimulation();
+            updateCopilot('Acceso a cámara no disponible. Iniciando Simulación de Ruta con telemetría en vivo.', false);
         }
     }
 
@@ -227,231 +209,220 @@
             camera = null;
         }
 
-        const stream = video.srcObject;
-        if (stream) {
-            stream.getTracks().forEach(track => track.stop());
+        if (video && video.srcObject) {
+            video.srcObject.getTracks().forEach(track => track.stop());
             video.srcObject = null;
         }
 
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (ctx && canvas) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
 
-        // Show placeholder
-        placeholder.classList.remove('hidden');
-
+        if (placeholder) placeholder.classList.remove('hidden');
         isCameraActive = false;
-        document.getElementById('camera-btn-icon').textContent = '▶️';
 
-        // Stop session timer
-        clearInterval(sessionTimer);
-        
-        // Stop Object Detection
         if (typeof ObjectDetectionEngine !== 'undefined') {
             ObjectDetectionEngine.stop();
         }
-
-        // Stop road simulator
-        RoadSimulator.stop();
-
-        // Reset status
-        updateStatusBar('safe');
-        drowsyFlash.classList.remove('active');
-
-        copilotStatus.textContent = 'Idle';
-        updateCopilot('Camera stopped. Start the camera to resume monitoring.', false);
-
-        console.log('📷 Camera stopped');
     }
 
     // ═══════════════════════════════════════
-    // Face Mesh Results Handler
+    // Synthetic Telemetry Simulation (No-Cam Mode)
+    // ═══════════════════════════════════════
+    function startSimulation() {
+        stopCamera();
+        isSimulationActive = true;
+        updateCameraBtnIcon(true);
+        updateStatusLabel('MODO SIMULACIÓN', true);
+
+        if (placeholder) placeholder.classList.add('hidden');
+        startSessionTracking();
+        RoadSimulator.start();
+
+        let simTicks = 0;
+        let isBlinking = false;
+        let blinkCountdown = 30;
+
+        simTimer = setInterval(() => {
+            if (!isSimulationActive) return;
+            simTicks++;
+
+            blinkCountdown--;
+            if (blinkCountdown <= 0) {
+                isBlinking = true;
+                if (blinkCountdown <= -2) {
+                    isBlinking = false;
+                    blinkCountdown = Math.floor(25 + Math.random() * 30);
+                }
+            }
+
+            const earVal = isBlinking ? (0.10 + Math.random() * 0.05) : (0.33 + Math.sin(simTicks * 0.2) * 0.03);
+            const yawnVal = 0.16 + Math.abs(Math.sin(simTicks * 0.05)) * 0.06;
+            const pitchVal = Math.sin(simTicks * 0.1) * 3.5;
+            const yawVal = 1.0 + Math.cos(simTicks * 0.08) * 0.08;
+
+            updateGaugesUI(earVal, yawnVal, pitchVal, yawVal);
+
+            // Draw a subtle animated scan line in canvas
+            if (ctx && canvas) {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.strokeStyle = 'rgba(6, 182, 212, 0.4)';
+                ctx.lineWidth = 1;
+                const scanY = (simTicks * 4) % canvas.height;
+                ctx.beginPath();
+                ctx.moveTo(0, scanY);
+                ctx.lineTo(canvas.width, scanY);
+                ctx.stroke();
+            }
+        }, 100);
+
+        updateCopilot('Modo Simulación de Telemetría activo. Generando flujo de datos de conducción.', false);
+    }
+
+    function stopSimulation() {
+        if (simTimer) {
+            clearInterval(simTimer);
+            simTimer = null;
+        }
+        isSimulationActive = false;
+    }
+
+    function startSessionTracking() {
+        if (!sessionStartTime) {
+            sessionStartTime = Date.now();
+            sessionTimer = setInterval(updateSessionTime, 1000);
+        }
+    }
+
+    function updateCameraBtnIcon(active) {
+        const btnSvg = document.getElementById('camera-btn-icon-svg');
+        if (btnSvg) {
+            btnSvg.innerHTML = active
+                ? '<rect x="6" y="6" width="12" height="12" rx="1"/>'
+                : '<polygon points="5 3 19 12 5 21 5 3"/>';
+        }
+        if (btnToggleCamera) {
+            btnToggleCamera.classList.toggle('active', active);
+        }
+    }
+
+    function updateStatusLabel(text, active) {
+        if (statusBadge) {
+            const label = statusBadge.querySelector('.status-label');
+            const dot = statusBadge.querySelector('.status-dot');
+            if (label) label.textContent = text;
+            if (dot) dot.style.background = active ? 'var(--accent-emerald)' : 'var(--accent-amber)';
+        }
+    }
+
+    // ═══════════════════════════════════════
+    // Face Mesh Processing & Gauges
     // ═══════════════════════════════════════
     function onFaceMeshResults(results) {
+        if (!ctx || !canvas) return;
+
+        ctx.save();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (!results.multiFaceLandmarks || results.multiFaceLandmarks.length === 0) {
-            updateMetrics(DrowsinessEngine.getDefaultState());
-            return;
+        if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
+            const landmarks = results.multiFaceLandmarks[0];
+
+            if (showMesh && typeof drawConnectors !== 'undefined' && typeof FACEMESH_TESSELATION !== 'undefined') {
+                drawConnectors(ctx, landmarks, FACEMESH_TESSELATION, {
+                    color: 'rgba(6, 182, 212, 0.25)',
+                    lineWidth: 0.5,
+                });
+            }
+
+            if (typeof DrowsinessEngine !== 'undefined') {
+                const analysis = DrowsinessEngine.process(landmarks);
+                updateGaugesUI(analysis.ear, analysis.yawnRatio, analysis.headPitch, analysis.headYaw);
+
+                if (analysis.isDrowsy || analysis.isYawnConfirmed) {
+                    attentionScore = Math.max(20, attentionScore - 4);
+                    if (analysis.level === 'danger' && !drowsinessWarningActive) {
+                        triggerFullscreenWarning();
+                    }
+                }
+            }
         }
+        ctx.restore();
+    }
 
-        const landmarks = results.multiFaceLandmarks[0];
-
-        if (showMesh) {
-            drawFaceMesh(landmarks);
-        }
-
-        const state = DrowsinessEngine.analyze(landmarks);
-
-        if (state.level === 'warning') {
-            attentionScore = Math.max(0, attentionScore - 0.2);
-        } else if (state.level === 'danger') {
-            attentionScore = Math.max(0, attentionScore - 0.5);
-        } else {
-            attentionScore = Math.min(100, attentionScore + 0.05);
-        }
-
+    function updateGaugesUI(ear, yawn, pitch, yaw) {
         const now = Date.now();
-        if (now - lastDOMUpdateTime > (isMobile ? 100 : 33)) {
-            updateMetrics(state);
-            updateGauges(state);
-            updateStatusBar(state.level === 'alert' ? 'safe' : state.level);
-            document.getElementById('stat-attention-score').textContent = Math.round(attentionScore) + '%';
-            lastDOMUpdateTime = now;
-        }
+        if (now - lastDOMUpdateTime < 60) return;
+        lastDOMUpdateTime = now;
 
-        if (state.level === 'danger') {
-            drowsyFlash.classList.add('active');
-        } else {
-            drowsyFlash.classList.remove('active');
-        }
+        setElementText('header-ear-value', ear.toFixed(3));
+        setElementText('header-yawn-value', yawn.toFixed(3));
+        setElementText('header-pitch-value', `${pitch.toFixed(1)}°`);
+        setElementText('header-yaw-value', yaw.toFixed(2));
 
-        if (state.level === 'danger' && !drowsinessWarningActive) {
-            showFullscreenWarning();
-        }
+        setElementText('gauge-ear-value', ear.toFixed(3));
+        setElementText('gauge-yawn-value', yawn.toFixed(3));
+        setElementText('gauge-pitch-value', `${pitch.toFixed(1)}°`);
+        setElementText('gauge-yaw-value', yaw.toFixed(2));
 
-        if (state.shouldFireEvent) {
-            let title = state.level === 'danger' ? 'DROWSINESS ALERT!' : 'Drowsiness Warning';
-            let icon = '😴';
-            
-            if (state.isDistracted && !state.isDrowsy && !state.isYawnConfirmed) {
-                title = 'DISTRACTION WARNING';
-                icon = '👀';
+        setGaugeFill('gauge-ear-fill', Math.min(100, (ear / 0.45) * 100));
+        setGaugeFill('gauge-yawn-fill', Math.min(100, (yawn / 0.7) * 100));
+        setGaugeFill('gauge-pitch-fill', Math.min(100, (Math.abs(pitch) / 25) * 100));
+        setGaugeFill('gauge-yaw-fill', Math.min(100, (yaw / 2.0) * 100));
+
+        const statAtt = document.getElementById('stat-attention-score');
+        if (statAtt) statAtt.textContent = `${Math.round(attentionScore)}%`;
+    }
+
+    function setElementText(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+    }
+
+    function setGaugeFill(id, percent) {
+        const el = document.getElementById(id);
+        if (el) el.style.width = `${Math.max(0, percent)}%`;
+    }
+
+    // ═══════════════════════════════════════
+    // Road Simulator Listeners
+    // ═══════════════════════════════════════
+    function setupRoadSimulator() {
+        if (typeof RoadSimulator === 'undefined') return;
+
+        RoadSimulator.onAlert((alert) => {
+            if (typeof AlertManager !== 'undefined') {
+                AlertManager.processAlert(alert);
             }
+        });
 
-            AlertManager.processAlert({
-                type: 'drowsiness',
-                severity: state.level,
-                icon: icon,
-                title: title,
-                description: buildDrowsinessDescription(state),
-                timestamp: new Date().toISOString(),
-            });
+        RoadSimulator.onCopilotMessage((msg) => {
+            updateCopilot(msg, false);
+        });
+    }
+
+    function updateCopilot(text, isEmergency) {
+        if (copilotMessage) {
+            copilotMessage.innerHTML = `<p>${text}</p>`;
+        }
+        if (copilotStatus) {
+            copilotStatus.textContent = isEmergency ? 'ALERTA' : 'Activo';
+            copilotStatus.style.color = isEmergency ? 'var(--accent-crimson)' : 'var(--accent-indigo)';
         }
     }
 
-    // ═══════════════════════════════════════
-    // Drawing
-    // ═══════════════════════════════════════
-    function drawFaceMesh(landmarks) {
-        const w = canvas.width;
-        const h = canvas.height;
-
-        drawContour(landmarks, DrowsinessEngine.LEFT_EYE_CONTOUR, w, h, '#22d3ee', 1.5);
-        drawContour(landmarks, DrowsinessEngine.RIGHT_EYE_CONTOUR, w, h, '#22d3ee', 1.5);
-        drawContour(landmarks, DrowsinessEngine.LIPS_CONTOUR, w, h, '#f472b6', 1.5);
-
-        const nose = landmarks[1];
-        ctx.beginPath();
-        ctx.arc(nose.x * w, nose.y * h, 3, 0, 2 * Math.PI);
-        ctx.fillStyle = '#a855f7';
-        ctx.fill();
-
-        if (!isMobile) {
-            ctx.fillStyle = 'rgba(148, 163, 184, 0.15)';
-            for (let i = 0; i < landmarks.length; i += 5) {
-                const lm = landmarks[i];
-                ctx.beginPath();
-                ctx.arc(lm.x * w, lm.y * h, 1, 0, 2 * Math.PI);
-                ctx.fill();
-            }
-        }
+    function triggerFullscreenWarning() {
+        drowsinessWarningActive = true;
+        if (fullscreenWarning) fullscreenWarning.classList.add('active');
+        if (drowsyFlash) drowsyFlash.classList.add('active');
     }
 
-    function drawContour(landmarks, indices, w, h, color, lineWidth) {
-        if (indices.length < 2) return;
-        ctx.beginPath();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = lineWidth;
-        ctx.lineJoin = 'round';
-
-        const first = landmarks[indices[0]];
-        ctx.moveTo(first.x * w, first.y * h);
-
-        for (let i = 1; i < indices.length; i++) {
-            const pt = landmarks[indices[i]];
-            ctx.lineTo(pt.x * w, pt.y * h);
-        }
-
-        ctx.closePath();
-        ctx.stroke();
-    }
-
-    // ═══════════════════════════════════════
-    // UI Updates
-    // ═══════════════════════════════════════
-    function updateMetrics(state) {
-        document.getElementById('header-ear-value').textContent = state.ear.toFixed(3);
-        document.getElementById('header-yawn-value').textContent = state.yawnRatio.toFixed(3);
-        document.getElementById('header-pitch-value').textContent = state.headPitch.toFixed(1) + '°';
-        document.getElementById('header-yaw-value').textContent = state.headYawRatio.toFixed(2);
-    }
-
-    function updateGauges(state) {
-        const earPercent = Math.min(100, Math.max(0, (1 - state.ear / 0.4) * 100));
-        const earFill = document.getElementById('gauge-ear-fill');
-        earFill.style.width = earPercent + '%';
-        earFill.className = 'gauge-fill' + (state.isEyesClosed ? ' danger' : earPercent > 50 ? ' warning' : '');
-        document.getElementById('gauge-ear-value').textContent = state.ear.toFixed(3);
-        document.getElementById('gauge-ear').className = 'gauge' + (state.isEyesClosed ? ' danger' : earPercent > 50 ? ' warning' : '');
-
-        const yawnPercent = Math.min(100, (state.yawnRatio / 0.9) * 100);
-        const yawnFill = document.getElementById('gauge-yawn-fill');
-        yawnFill.style.width = yawnPercent + '%';
-        yawnFill.className = 'gauge-fill gauge-fill-yawn' + (state.isYawning ? ' danger' : yawnPercent > 50 ? ' warning' : '');
-        document.getElementById('gauge-yawn-value').textContent = state.yawnRatio.toFixed(3);
-        document.getElementById('gauge-yawn').className = 'gauge' + (state.isYawning ? ' danger' : yawnPercent > 50 ? ' warning' : '');
-
-        const pitchPercent = Math.min(100, (state.headPitch / 35) * 100);
-        const pitchFill = document.getElementById('gauge-pitch-fill');
-        pitchFill.style.width = pitchPercent + '%';
-        pitchFill.className = 'gauge-fill gauge-fill-pitch' + (state.isNodding ? ' danger' : pitchPercent > 50 ? ' warning' : '');
-        document.getElementById('gauge-pitch-value').textContent = state.headPitch.toFixed(1) + '°';
-        document.getElementById('gauge-pitch').className = 'gauge' + (state.isNodding ? ' danger' : pitchPercent > 50 ? ' warning' : '');
-        
-        const yawPercent = Math.min(100, Math.max(0, (state.headYawRatio - 1.0) / 0.5 * 100));
-        const yawFill = document.getElementById('gauge-yaw-fill');
-        if (yawFill) {
-            yawFill.style.width = yawPercent + '%';
-            yawFill.className = 'gauge-fill gauge-fill-yaw' + (state.isLookingAway ? ' danger' : yawPercent > 50 ? ' warning' : '');
-            document.getElementById('gauge-yaw-value').textContent = state.headYawRatio.toFixed(2);
-            document.getElementById('gauge-yaw').className = 'gauge' + (state.isLookingAway ? ' danger' : yawPercent > 50 ? ' warning' : '');
-        }
-    }
-
-    function updateStatusBar(level) {
-        const bar = document.getElementById('status-bar');
-        const badge = document.getElementById('status-badge');
-        const dot = badge.querySelector('.status-dot');
-        const label = badge.querySelector('.status-label');
-
-        bar.className = 'status-bar';
-
-        switch (level) {
-            case 'safe':
-                bar.classList.add('status-safe');
-                label.textContent = 'MONITORING';
-                label.style.color = '#34d399';
-                dot.style.background = '#34d399';
-                badge.style.background = 'rgba(52, 211, 153, 0.1)';
-                badge.style.borderColor = 'rgba(52, 211, 153, 0.2)';
-                break;
-            case 'warning':
-                bar.classList.add('status-warning');
-                label.textContent = 'CAUTION';
-                label.style.color = '#fbbf24';
-                dot.style.background = '#fbbf24';
-                badge.style.background = 'rgba(251, 191, 36, 0.1)';
-                badge.style.borderColor = 'rgba(251, 191, 36, 0.2)';
-                break;
-            case 'danger':
-                bar.classList.add('status-danger');
-                label.textContent = 'DANGER';
-                label.style.color = '#ef4444';
-                dot.style.background = '#ef4444';
-                badge.style.background = 'rgba(239, 68, 68, 0.15)';
-                badge.style.borderColor = 'rgba(239, 68, 68, 0.3)';
-                break;
-        }
+    function dismissFullscreenWarning() {
+        drowsinessWarningActive = false;
+        if (fullscreenWarning) fullscreenWarning.classList.remove('active');
+        if (drowsyFlash) drowsyFlash.classList.remove('active');
     }
 
     function updateClock() {
@@ -463,154 +434,40 @@
 
     function updateSessionTime() {
         if (!sessionStartTime) return;
-        const elapsed = Date.now() - sessionStartTime;
-        const mins = Math.floor(elapsed / 60000);
-        const secs = Math.floor((elapsed % 60000) / 1000);
-        document.getElementById('stat-session-time').textContent =
-            `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-
-    function updateCopilot(message, urgent) {
-        if (copilotMessage) {
-            copilotMessage.querySelector('p').textContent = message;
-            copilotMessage.className = 'copilot-message' + (urgent ? ' urgent' : '');
-        }
+        const elapsedSec = Math.floor((Date.now() - sessionStartTime) / 1000);
+        const mins = String(Math.floor(elapsedSec / 60)).padStart(2, '0');
+        const secs = String(elapsedSec % 60).padStart(2, '0');
+        const el = document.getElementById('stat-session-time');
+        if (el) el.textContent = `${mins}:${secs}`;
     }
 
     // ═══════════════════════════════════════
-    // Fullscreen Warning
+    // Launcher Bindings
     // ═══════════════════════════════════════
-    function showFullscreenWarning() {
-        if (drowsinessWarningActive) return;
-        drowsinessWarningActive = true;
-        fullscreenWarning.classList.add('active');
-
-        setTimeout(() => {
-            dismissFullscreenWarning();
-        }, 10000);
-    }
-
-    function dismissFullscreenWarning() {
-        drowsinessWarningActive = false;
-        fullscreenWarning.classList.remove('active');
-    }
-
-    // ═══════════════════════════════════════
-    // Road Simulator Setup (replaces WebSocket)
-    // ═══════════════════════════════════════
-    function setupRoadSimulator() {
-        RoadSimulator.onAlert((alert) => {
-            AlertManager.processAlert(alert);
-        });
-
-        RoadSimulator.onCopilotMessage((message, level) => {
-            const urgent = level === 'danger' || level === 'emergency';
-            updateCopilot(message, urgent);
-            copilotStatus.textContent = 'Speaking';
-            setTimeout(() => {
-                copilotStatus.textContent = isCameraActive ? 'Active' : 'Idle';
-            }, 3000);
-        });
-    }
-
-    // ═══════════════════════════════════════
-    // Connection UI (Demo Mode)
-    // ═══════════════════════════════════════
-    function updateConnectionUI(connected, label) {
-        const dot = document.querySelector('.conn-dot');
-        const connLabel = document.querySelector('.conn-label');
-
-        if (dot) {
-            dot.classList.toggle('connected', connected);
-        }
-        if (connLabel) {
-            connLabel.textContent = label || (connected ? 'Connected' : 'Disconnected');
-        }
-    }
-
-    // ═══════════════════════════════════════
-    // Helpers
-    // ═══════════════════════════════════════
-    function buildDrowsinessDescription(state) {
-        const parts = [];
-        if (state.isDrowsy) parts.push('Eyes closing detected');
-        if (state.isYawnConfirmed) parts.push('Yawning detected');
-        if (state.isNoddingConfirmed) parts.push('Head nodding detected');
-        if (state.isDistracted) parts.push('Looking away from the road');
-        
-        if (state.level === 'danger') {
-            parts.push('Pull over at the next safe location!');
-        }
-        return parts.join('. ') || 'Drowsiness/Distraction indicators detected.';
-    }
-
-    // ═══════════════════════════════════════
-    // Boot (Lazy Load via Launcher)
-    // ═══════════════════════════════════════
-    const btnLaunch = document.getElementById('btn-launch-demo');
-    const modal = document.getElementById('mobile-warning-modal');
-    const btnCancel = document.getElementById('btn-cancel-demo');
-    const btnForce = document.getElementById('btn-force-demo');
+    const btnLaunchCam = document.getElementById('btn-launch-demo');
+    const btnLaunchSim = document.getElementById('btn-launch-sim');
     const launcherScreen = document.getElementById('demo-launcher');
     const dashboardWrapper = document.getElementById('dashboard-wrapper');
 
-    function startDemo() {
+    function openCockpit(mode) {
         if (launcherScreen) launcherScreen.style.display = 'none';
-        
-        const loadingScreen = document.getElementById('demo-loading-screen');
-        const loadingTitle = document.getElementById('loading-text-title');
-        const loadingDesc = document.getElementById('loading-text-desc');
-        
-        if (loadingScreen) {
-            loadingScreen.style.display = 'flex';
-            
-            // Sequence of loading texts
-            setTimeout(() => {
-                loadingTitle.textContent = "Cargando Modelos Edge...";
-                loadingDesc.textContent = "MediaPipe Face Mesh (468 landmarks)";
-            }, 1000);
-            
-            setTimeout(() => {
-                loadingTitle.textContent = "Inicializando Detección...";
-                loadingDesc.textContent = "TensorFlow.js COCO-SSD object detection";
-            }, 2500);
-            
-            setTimeout(() => {
-                loadingTitle.textContent = "Configurando Telemetría...";
-                loadingDesc.textContent = "Conectando al Motor Oráculo y Copiloto";
-            }, 4000);
-            
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-                if (dashboardWrapper) dashboardWrapper.style.display = 'block';
-                init();
-            }, 5000);
+        if (dashboardWrapper) dashboardWrapper.style.display = 'block';
+
+        init();
+
+        if (mode === 'camera') {
+            startCamera();
         } else {
-            if (dashboardWrapper) dashboardWrapper.style.display = 'block';
-            init();
+            startSimulation();
         }
     }
 
-    if (btnLaunch) {
-        btnLaunch.addEventListener('click', () => {
-            if (window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent)) {
-                if (modal) modal.style.display = 'flex';
-            } else {
-                startDemo();
-            }
-        });
+    if (btnLaunchCam) {
+        btnLaunchCam.addEventListener('click', () => openCockpit('camera'));
     }
 
-    if (btnCancel) {
-        btnCancel.addEventListener('click', () => {
-            if (modal) modal.style.display = 'none';
-        });
+    if (btnLaunchSim) {
+        btnLaunchSim.addEventListener('click', () => openCockpit('simulation'));
     }
 
-    if (btnForce) {
-        btnForce.addEventListener('click', () => {
-            if (modal) modal.style.display = 'none';
-            startDemo();
-        });
-    }
 })();

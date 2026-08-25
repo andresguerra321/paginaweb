@@ -1,8 +1,8 @@
 /**
- * GUARDIAN Lite — Alert Notification Manager
- * ==========================================
+ * GUARDIAN Lite — Alert Notification Manager (Scandinavian UI)
+ * ============================================================
  * Manages floating notifications, alert feed,
- * and audio alerts using Web Audio API.
+ * and audio alerts using Web Audio API with clean SVG icons.
  */
 
 const AlertManager = (() => {
@@ -19,7 +19,7 @@ const AlertManager = (() => {
     }
 
     /**
-     * Play a beep sound using Web Audio API.
+     * Play a calibrated beep sound using Web Audio API.
      * @param {'info'|'warning'|'danger'|'emergency'} severity
      */
     function playAlertSound(severity) {
@@ -33,159 +33,95 @@ const AlertManager = (() => {
             oscillator.connect(gainNode);
             gainNode.connect(ctx.destination);
 
-            // Different sounds per severity
             switch (severity) {
                 case 'info':
                     oscillator.frequency.value = 440;
                     oscillator.type = 'sine';
-                    gainNode.gain.value = 0.1;
+                    gainNode.gain.value = 0.08;
                     oscillator.start();
-                    oscillator.stop(ctx.currentTime + 0.15);
+                    oscillator.stop(ctx.currentTime + 0.12);
                     break;
 
                 case 'warning':
-                    oscillator.frequency.value = 600;
+                    oscillator.frequency.value = 580;
                     oscillator.type = 'triangle';
-                    gainNode.gain.value = 0.15;
+                    gainNode.gain.value = 0.12;
                     oscillator.start();
-                    // Two beeps
-                    gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
-                    gainNode.gain.setValueAtTime(0, ctx.currentTime + 0.12);
-                    gainNode.gain.setValueAtTime(0.15, ctx.currentTime + 0.2);
-                    gainNode.gain.setValueAtTime(0, ctx.currentTime + 0.32);
-                    oscillator.stop(ctx.currentTime + 0.35);
+                    gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
+                    gainNode.gain.setValueAtTime(0, ctx.currentTime + 0.1);
+                    gainNode.gain.setValueAtTime(0.12, ctx.currentTime + 0.18);
+                    gainNode.gain.setValueAtTime(0, ctx.currentTime + 0.28);
+                    oscillator.stop(ctx.currentTime + 0.3);
                     break;
 
                 case 'danger':
-                    oscillator.frequency.value = 1000;
-                    oscillator.type = 'square';
-                    gainNode.gain.value = 0.15;
-                    oscillator.start();
-                    // PI PI PI
-                    for (let i = 0; i < 3; i++) {
-                        gainNode.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.2);
-                        gainNode.gain.setValueAtTime(0, ctx.currentTime + i * 0.2 + 0.1);
-                    }
-                    oscillator.stop(ctx.currentTime + 0.6);
-                    break;
-
                 case 'emergency':
-                    // Faster, higher pitched PI PI PI PI PI
+                    oscillator.frequency.value = 880;
                     oscillator.type = 'square';
-                    oscillator.frequency.value = 1200;
-                    gainNode.gain.value = 0.2;
+                    gainNode.gain.value = 0.12;
                     oscillator.start();
-                    for (let i = 0; i < 5; i++) {
-                        gainNode.gain.setValueAtTime(0.2, ctx.currentTime + i * 0.15);
-                        gainNode.gain.setValueAtTime(0, ctx.currentTime + i * 0.15 + 0.08);
+                    for (let i = 0; i < 3; i++) {
+                        gainNode.gain.setValueAtTime(0.12, ctx.currentTime + i * 0.18);
+                        gainNode.gain.setValueAtTime(0, ctx.currentTime + i * 0.18 + 0.09);
                     }
-                    oscillator.stop(ctx.currentTime + 0.75);
+                    oscillator.stop(ctx.currentTime + 0.55);
                     break;
             }
         } catch (e) {
-            console.warn('Audio alert failed:', e);
+            console.warn('Audio alert skipped:', e);
         }
     }
 
-
-    // ═══════════════════════════════════════
-    // Floating Notifications
-    // ═══════════════════════════════════════
-    let notificationCount = 0;
-    const MAX_NOTIFICATIONS = 4;
-
-    /**
-     * Show a floating notification.
-     * @param {Object} alert - { severity, icon, title, description, type }
-     */
-    function showNotification(alert) {
-        const container = document.getElementById('notification-container');
-        if (!container) return;
-
-        // Limit visible notifications
-        const existing = container.querySelectorAll('.notification');
-        if (existing.length >= MAX_NOTIFICATIONS) {
-            // Remove oldest
-            existing[0].classList.add('removing');
-            setTimeout(() => existing[0].remove(), 300);
+    function getAlertSvg(type, severity) {
+        if (type === 'distraction') {
+            return `<svg class="alert-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`;
         }
-
-        const severity = alert.severity || 'info';
-        const el = document.createElement('div');
-        el.className = `notification severity-${severity}`;
-        el.innerHTML = `
-            <span class="notification-icon">${alert.icon || '🔔'}</span>
-            <div class="notification-body">
-                <div class="notification-title">${escapeHtml(alert.title || 'Alert')}</div>
-                <div class="notification-desc">${escapeHtml(alert.description || '')}</div>
-                <div class="notification-timer">
-                    <div class="notification-timer-bar"></div>
-                </div>
-            </div>
-        `;
-
-        // Click to dismiss
-        el.addEventListener('click', () => {
-            el.classList.add('removing');
-            setTimeout(() => el.remove(), 300);
-        });
-
-        container.appendChild(el);
-
-        // Play sound
-        playAlertSound(severity);
-
-        // Auto-dismiss after 8 seconds
-        setTimeout(() => {
-            if (el.parentNode) {
-                el.classList.add('removing');
-                setTimeout(() => el.remove(), 300);
-            }
-        }, 8000);
-
-        notificationCount++;
+        if (type === 'drowsiness') {
+            return `<svg class="alert-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+        }
+        if (severity === 'danger' || severity === 'emergency') {
+            return `<svg class="alert-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+        }
+        if (severity === 'warning') {
+            return `<svg class="alert-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+        }
+        return `<svg class="alert-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>`;
     }
-
 
     // ═══════════════════════════════════════
     // Alert Feed (in-panel list)
     // ═══════════════════════════════════════
     let feedCount = 0;
-    const MAX_FEED_ITEMS = 50;
+    const MAX_FEED_ITEMS = 30;
 
-    /**
-     * Add an alert to the in-panel feed.
-     * @param {Object} alert - { severity, icon, title, description, timestamp }
-     */
     function addToFeed(alert) {
         const feed = document.getElementById('alert-feed');
         const empty = document.getElementById('alert-empty');
         if (!feed) return;
 
-        // Hide empty state
         if (empty) empty.style.display = 'none';
 
         const severity = alert.severity || 'info';
         const time = alert.timestamp
-            ? new Date(alert.timestamp).toLocaleTimeString()
-            : new Date().toLocaleTimeString();
+            ? new Date(alert.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+            : new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+        const iconSvg = alert.svg || getAlertSvg(alert.type, severity);
 
         const card = document.createElement('div');
-        card.className = `alert-card-feed severity-${severity}`;
+        card.className = `alert-item ${severity}`;
         card.innerHTML = `
-            <span class="alert-card-icon">${alert.icon || '🔔'}</span>
-            <div class="alert-card-body">
-                <div class="alert-card-title">${escapeHtml(alert.title || 'Alert')}</div>
-                <div class="alert-card-desc">${escapeHtml(alert.description || '')}</div>
-                <div class="alert-card-time">${time}</div>
+            ${iconSvg}
+            <div class="alert-item-content">
+                <div class="alert-item-title">${escapeHtml(alert.title || 'Alerta')}</div>
+                <div class="alert-item-desc">${escapeHtml(alert.description || '')}</div>
             </div>
+            <div class="alert-item-time">${time}</div>
         `;
 
-        // Insert at top
         feed.insertBefore(card, feed.firstChild);
 
-        // Limit feed items
-        const items = feed.querySelectorAll('.alert-card-feed');
+        const items = feed.querySelectorAll('.alert-item');
         if (items.length > MAX_FEED_ITEMS) {
             items[items.length - 1].remove();
         }
@@ -194,19 +130,14 @@ const AlertManager = (() => {
         updateAlertCounter();
     }
 
-
-    // ═══════════════════════════════════════
-    // Combined: Show + Feed
-    // ═══════════════════════════════════════
-
     /**
      * Process an incoming alert: show notification + add to feed.
      */
     function processAlert(alert) {
-        showNotification(alert);
         addToFeed(alert);
+        playAlertSound(alert.severity || 'info');
 
-        // Update stats
+        // Update session stats
         if (alert.type === 'drowsiness') {
             incrementStat('stat-drowsy-events');
         } else if (alert.type === 'road_danger') {
@@ -214,10 +145,6 @@ const AlertManager = (() => {
         }
     }
 
-
-    // ═══════════════════════════════════════
-    // Helpers
-    // ═══════════════════════════════════════
     function updateAlertCounter() {
         const counter = document.getElementById('alert-count');
         if (counter) counter.textContent = feedCount;
@@ -238,7 +165,6 @@ const AlertManager = (() => {
 
     return {
         processAlert,
-        showNotification,
         addToFeed,
         playAlertSound,
     };

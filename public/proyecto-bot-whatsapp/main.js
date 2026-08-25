@@ -1,38 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ===== CURRENCY TOGGLE (COP / USD) =====
-  const currencyToggle = document.getElementById('currencyToggle')
-  const priceAmounts = document.querySelectorAll('.price-amount')
-  const priceOriginals = document.querySelectorAll('.price-original')
-  const labelCOP = document.getElementById('labelCOP')
-  const labelUSD = document.getElementById('labelUSD')
-
-  if (currencyToggle) {
-    currencyToggle.addEventListener('change', () => {
-      const isUSD = currencyToggle.checked
-
-      if (isUSD) {
-        labelCOP.classList.add('muted')
-        labelUSD.classList.remove('muted')
-      } else {
-        labelCOP.classList.remove('muted')
-        labelUSD.classList.add('muted')
-      }
-
-      // Update discounted prices
-      priceAmounts.forEach(el => {
-        const cop = el.getAttribute('data-cop')
-        const usd = el.getAttribute('data-usd')
-        el.textContent = isUSD ? usd : cop
-      })
-
-      // Update original (strikethrough) prices
-      priceOriginals.forEach(el => {
-        const cop = el.getAttribute('data-cop')
-        const usd = el.getAttribute('data-usd')
-        el.textContent = isUSD ? usd : cop
-      })
-    })
-  }
+  // Removed dead code since pricing toggle no longer exists in UI
 
   // ===== CUSTOM 60FPS SMOOTH SCROLL ENGINE (requestAnimationFrame) =====
   // Garantiza un desplazamiento suave estilo seda (ease-in-out-cubic) sin importar el navegador o móvil.
@@ -88,55 +56,52 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // ===== SCROLL REVEAL ANIMATION (INTERSECTION OBSERVER) =====
-  // Collect all revealable elements
-  const revealElements = document.querySelectorAll('.glass-card, .section-header, .pricing-card, .showcase-card, .promo-banner')
+  // Collect all revealable elements that might not have the class in HTML
+  const autoReveal = document.querySelectorAll('.glass-card, .section-header, .pricing-card, .showcase-card, .promo-banner, .timeline-panel, .portfolio-item');
   
-  revealElements.forEach(el => {
-    el.classList.add('reveal-on-scroll')
-  })
+  autoReveal.forEach(el => {
+    el.classList.add('reveal-on-scroll');
+  });
 
   // Apply staggered delays to grouped elements
   function applyStaggeredDelays(selector) {
-    const elements = document.querySelectorAll(selector)
+    const elements = document.querySelectorAll(selector);
     elements.forEach((el, index) => {
-      const delayClass = `reveal-delay-${Math.min(index + 1, 6)}`
-      el.classList.add(delayClass)
-    })
+      const delayClass = `reveal-delay-${Math.min(index + 1, 6)}`;
+      el.classList.add(delayClass);
+    });
   }
 
-  applyStaggeredDelays('.feature-card')
-  applyStaggeredDelays('.pricing-card')
+  applyStaggeredDelays('.feature-card');
+  applyStaggeredDelays('.pricing-card');
+  applyStaggeredDelays('.portfolio-item');
+  applyStaggeredDelays('.delivery-portfolio-grid > div');
+  applyStaggeredDelays('.timeline > li');
 
   const observerOptions = {
-    threshold: 0.08,
-    rootMargin: '0px 0px -30px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px -20px 0px'
+  };
+
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe ALL elements with .reveal-on-scroll (both auto-added and in HTML markup)
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+  } else {
+    // Graceful fallback for older environments
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('revealed'));
   }
-
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed')
-        observer.unobserve(entry.target)
-      }
-    })
-  }, observerOptions)
-
-  revealElements.forEach(el => revealObserver.observe(el))
 
   // ===== HIDE VIDEO FALLBACK IF VIDEO LOADS =====
-  const heroVideo = document.getElementById('heroVideo')
-  const videoFallback = document.getElementById('videoFallback')
-
-  if (heroVideo && videoFallback) {
-    heroVideo.addEventListener('loadeddata', () => {
-      videoFallback.style.display = 'none'
-    })
-
-    // If the video already loaded before the listener was attached
-    if (heroVideo.readyState >= 2) {
-      videoFallback.style.display = 'none'
-    }
-  }
+  // Removed dead code since heroVideo and videoFallback no longer exist
 
   // ===== LIGHTBOX =====
   const lightbox = document.getElementById('lightbox')
@@ -227,18 +192,55 @@ document.addEventListener('DOMContentLoaded', () => {
   const demoVideoClose = document.getElementById('demoVideoClose');
   const modalHeroVideo = document.getElementById('modalHeroVideo');
 
+  let videoBlobLoaded = false;
+  let isFetchingVideo = false;
+
+  function loadAndPlayDemoVideo() {
+    if (!modalHeroVideo) return;
+    
+    if (modalHeroVideo.src && videoBlobLoaded) {
+      modalHeroVideo.currentTime = 0;
+      modalHeroVideo.muted = false;
+      modalHeroVideo.play().catch(e => {
+        modalHeroVideo.muted = true;
+        modalHeroVideo.play();
+      });
+      return;
+    }
+
+    if (isFetchingVideo) return;
+    isFetchingVideo = true;
+
+    const videoUrl = '../video/0811(1).mp4';
+    fetch(videoUrl)
+      .then(response => response.blob())
+      .then(blob => {
+        const blobUrl = URL.createObjectURL(blob);
+        modalHeroVideo.src = blobUrl;
+        videoBlobLoaded = true;
+        isFetchingVideo = false;
+        modalHeroVideo.currentTime = 0;
+        modalHeroVideo.muted = false;
+        modalHeroVideo.play().catch(e => {
+          modalHeroVideo.muted = true;
+          modalHeroVideo.play();
+        });
+      })
+      .catch(err => {
+        console.warn("Could not load video blob", err);
+        // Fallback
+        modalHeroVideo.src = videoUrl;
+        videoBlobLoaded = true;
+        isFetchingVideo = false;
+        modalHeroVideo.play().catch(() => {});
+      });
+  }
+
   if (openDemoBtn && demoVideoModal && modalHeroVideo) {
     openDemoBtn.addEventListener('click', () => {
       demoVideoModal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      modalHeroVideo.currentTime = 0;
-      // Play with sound if possible since it was user-initiated
-      modalHeroVideo.muted = false;
-      modalHeroVideo.play().catch(e => {
-        // Fallback to muted if browser strictly blocks it
-        modalHeroVideo.muted = true;
-        modalHeroVideo.play();
-      });
+      loadAndPlayDemoVideo();
     });
 
     const closeVideoModal = () => {
@@ -261,44 +263,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  // ===== ANTI-INSPECTION & SECURE VIDEO LOADING =====
-  
-  // 1. Obfuscate the video URL using a Blob object so it doesn't appear in the HTML
-  if (modalHeroVideo) {
-    const videoUrl = '../video/0811(1).mp4';
-    fetch(videoUrl)
-      .then(response => response.blob())
-      .then(blob => {
-        const blobUrl = URL.createObjectURL(blob);
-        modalHeroVideo.src = blobUrl;
-      })
-      .catch(err => console.warn("Could not load secure video blob"));
-  }
-
-  // 2. Disable right-click globally
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-  });
-
-  // 3. Disable common Developer Tools shortcuts
-  document.addEventListener('keydown', function(e) {
-    // F12
-    if (e.key === 'F12') {
-      e.preventDefault();
-    }
-    // Ctrl+Shift+I / Cmd+Option+I (Inspect)
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-      e.preventDefault();
-    }
-    // Ctrl+Shift+J / Cmd+Option+J (Console)
-    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
-      e.preventDefault();
-    }
-    // Ctrl+U / Cmd+U (View Source)
-    if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u')) {
-      e.preventDefault();
-    }
-  });
 
 })

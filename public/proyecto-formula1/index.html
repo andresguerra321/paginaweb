@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Simulador de Fórmula 1 de alta precisión impulsado por datos estadísticos, telemetría y algoritmos concurrentes.">
+    <title>F1 Sim Pro | Simulador Estadístico de Alta Precisión</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../img/favicon-f1.svg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/index.css">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido</a>
+    <div class="ambient-glow"></div>
+
+    <!-- HUD Ticker Top -->
+    <div class="hud-ticker" id="globalTicker" aria-hidden="true">
+        <div class="ticker-inner">
+            <div class="ticker-item"><div class="ticker-dot"></div><span>F1 SIM PRO // MOTOR ESTADÍSTICO ACTIVO</span></div>
+            <span class="ticker-separator">//</span>
+            <div class="ticker-item"><span>TELEMETRÍA EN TIEMPO REAL // 60 FPS</span></div>
+            <span class="ticker-separator">//</span>
+            <div class="ticker-item"><span>CIRCUITO: AUTODROMO NAZIONALE MONZA</span></div>
+            <span class="ticker-separator">//</span>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>SESIÓN EN VIVO</span></div>
+            <span class="ticker-separator">//</span>
+            <!-- Duplicate for continuous scroll -->
+            <div class="ticker-item"><div class="ticker-dot"></div><span>F1 SIM PRO // MOTOR ESTADÍSTICO ACTIVO</span></div>
+            <span class="ticker-separator">//</span>
+            <div class="ticker-item"><span>TELEMETRÍA EN TIEMPO REAL // 60 FPS</span></div>
+            <span class="ticker-separator">//</span>
+            <div class="ticker-item"><span>CIRCUITO: AUTODROMO NAZIONALE MONZA</span></div>
+            <span class="ticker-separator">//</span>
+            <div class="ticker-item"><div class="ticker-dot"></div><span>SESIÓN EN VIVO</span></div>
+            <span class="ticker-separator">//</span>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="mainNav">
+        <div class="container nav-row">
+            <a href="#" class="nav-brand">
+                <span class="brand-mark">F1</span>
+                <span class="brand-divider"></span>
+                <span class="brand-product">Sim Pro</span>
+            </a>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#sim-engine" class="active">Simulador</a></li>
+                <li><a href="#features">Características</a></li>
+                <li><a href="#how-it-works">Cómo Funciona</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                <div class="engine-status-pill">
+                    <div class="engine-dot"></div>
+                    <span id="navEngineStatus">SISTEMA ACTIVO</span>
+                </div>
+                <div class="lang-switch">
+                    <button class="lang-btn active" id="btnLangEs">ES</button>
+                    <button class="lang-btn" id="btnLangEn">EN</button>
+                </div>
+                <button class="nav-hamburger" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+
+        <!-- Hero Section -->
+        <section class="hero container">
+            <div class="hero-grid">
+                <!-- Text Content -->
+                <div class="hero-text reveal">
+                    <div class="hero-eyebrow">
+                        <span class="hero-badge">v2.0 Pro</span>
+                        Motor Estadístico de Alta Fidelidad
+                    </div>
+                    <h1 class="hero-title">
+                        Siente la carrera.<br>
+                        <span class="gradient-text">Simulada por Datos.</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        F1 Sim Pro calcula el ritmo de cada monoplaza evaluando la habilidad de los pilotos, la degradación de los compuestos, la carga aerodinámica y eventos de pista en tiempo real.
+                    </p>
+                    
+                    <div class="hero-actions">
+                        <button class="btn-hero-primary" id="btnHeroStart">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            Iniciar Demo
+                        </button>
+                        <a href="#features" class="btn-outline">Explorar Características</a>
+                    </div>
+
+                    <div class="hero-pills">
+                        <span class="hero-pill"><div class="pill-dot red"></div> Lógica Java Multithreading</span>
+                        <span class="hero-pill"><div class="pill-dot blue"></div> Telemetría Dinámica 60 FPS</span>
+                        <span class="hero-pill"><div class="pill-dot amber"></div> Desgaste y Clima Estocástico</span>
+                    </div>
+                </div>
+
+                <!-- Dashboard Preview -->
+                <div class="hero-visual reveal reveal-delay-2">
+                    <div class="hero-dashboard">
+                        <div class="dash-header">
+                            <div class="dash-header-left">
+                                <div class="dash-live-dot"></div>
+                                <span class="dash-label">Telemetría en Vivo</span>
+                            </div>
+                            <span class="dash-lap-badge" id="heroLapBadge">VUELTA 1/53</span>
+                        </div>
+                        <div class="dash-body" id="heroLeaderRows">
+                            <div class="dash-row">
+                                <span class="dash-pos">1</span>
+                                <div class="dash-driver">
+                                    <div class="dash-team-bar" style="background: var(--team-redbull);"></div>
+                                    <div>
+                                        <div class="dash-driver-name">Max Verstappen</div>
+                                        <div class="dash-driver-team">RED BULL RACING</div>
+                                    </div>
+                                </div>
+                                <span class="dash-time">1:32.450</span>
+                                <span class="dash-gap leader">LÍDER</span>
+                            </div>
+                            <div class="dash-row">
+                                <span class="dash-pos">2</span>
+                                <div class="dash-driver">
+                                    <div class="dash-team-bar" style="background: var(--team-ferrari);"></div>
+                                    <div>
+                                        <div class="dash-driver-name">Charles Leclerc</div>
+                                        <div class="dash-driver-team">FERRARI</div>
+                                    </div>
+                                </div>
+                                <span class="dash-time">1:32.890</span>
+                                <span class="dash-gap">+0.440</span>
+                            </div>
+                            <div class="dash-row">
+                                <span class="dash-pos">3</span>
+                                <div class="dash-driver">
+                                    <div class="dash-team-bar" style="background: var(--team-mclaren);"></div>
+                                    <div>
+                                        <div class="dash-driver-name">Lando Norris</div>
+                                        <div class="dash-driver-team">MCLAREN</div>
+                                    </div>
+                                </div>
+                                <span class="dash-time">1:33.102</span>
+                                <span class="dash-gap">+0.652</span>
+                            </div>
+                        </div>
+                        <div class="dash-telemetry">
+                            <div class="telem-item">
+                                <span class="telem-label">Velocidad Punta <span id="heroTopSpeed">335 KM/H</span></span>
+                                <div class="telem-bar"><div class="telem-bar-fill speed" style="width: 86%;"></div></div>
+                            </div>
+                            <div class="telem-item">
+                                <span class="telem-label">Neumáticos (S) <span id="heroTireWear">92%</span></span>
+                                <div class="telem-bar"><div class="telem-bar-fill tire" style="width: 92%;"></div></div>
+                            </div>
+                            <div class="telem-item">
+                                <span class="telem-label">Batería ERS <span id="heroBattery">78%</span></span>
+                                <div class="telem-bar"><div class="telem-bar-fill fuel" style="width: 78%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Metrics Strip -->
+        <section class="metrics-strip">
+            <div class="container metrics-grid reveal">
+                <div class="metric-card">
+                    <div class="metric-number">1<span class="metric-accent">ms</span></div>
+                    <div class="metric-label">Latencia del Motor</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">8</div>
+                    <div class="metric-label">Monoplazas en Pista</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">60<span class="metric-accent">fps</span></div>
+                    <div class="metric-label">Tasa de Refresco</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">100<span class="metric-accent">%</span></div>
+                    <div class="metric-label">Física Basada en Stats</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSION CONTROL ROOM (Main Interactive Section) -->
+        <section id="sim-engine" class="sim-section container">
+            <div class="sec-header reveal">
+                <div class="sim-pill-eyebrow"><div class="pulse-ring"></div> Centro de Mando</div>
+                <h2 class="sec-title">Mission Control Room</h2>
+                <p class="sec-subtitle">
+                    Interactúa en tiempo real con la carrera. Cambia entre la telemetría gráfica en vivo, la tabla de estadísticas de pilotos, el setup aerodinámico y los principios del motor.
+                </p>
+            </div>
+
+            <div class="sim-control-room reveal reveal-delay-1">
+                <!-- Nav Tabs -->
+                <div class="sim-nav-tabs" role="tablist">
+                    <button class="sim-tab-btn active" role="tab" id="tab-btn-track" aria-selected="true" data-target="pane-track">🏎️ Pista & Telemetría</button>
+                    <button class="sim-tab-btn" role="tab" id="tab-btn-stats" aria-selected="false" data-target="pane-stats">📊 Estadísticas de Pilotos</button>
+                    <button class="sim-tab-btn" role="tab" id="tab-btn-config" aria-selected="false" data-target="pane-config">⚙️ Configuración de Escudería</button>
+                    <button class="sim-tab-btn" role="tab" id="tab-btn-arch" aria-selected="false" data-target="pane-arch">🧠 Motor de Simulación</button>
+                </div>
+
+                <!-- Pane 1: Track & Telemetry -->
+                <div id="pane-track" class="tab-pane active" role="tabpanel">
+                    
+                    <!-- Sim Toolbar -->
+                    <div class="sim-toolbar">
+                        <div class="sim-toolbar-left">
+                            <div class="sim-status-badge">
+                                <div class="status-indicator ready" id="simStatusDot"></div>
+                                <span id="simStatusText">ESPERANDO INICIO</span>
+                            </div>
+                            <div class="sim-lap-hud">
+                                <span class="hud-tag">VUELTA</span>
+                                <span class="hud-current" id="currentLapCounter">0</span>
+                                <span class="hud-divider">/</span>
+                                <span class="hud-total" id="totalLapsCounter">53</span>
+                            </div>
+                            <div class="sim-condition-tag">
+                                ☁️ <span id="weatherText">Soleado (28°C)</span>
+                            </div>
+                            <div class="sim-flag-tag">
+                                <div class="flag-dot green" id="flagDot"></div> <span id="flagText">Bandera Verde</span>
+                            </div>
+                        </div>
+                        <div class="sim-toolbar-right">
+                            <button class="btn-control-start" id="btnStartRace">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                <span>Iniciar Demo</span>
+                            </button>
+                            <button class="btn-control-weather" id="btnChangeWeather" aria-label="Cambiar Clima" title="Cambiar Clima Aleatorio">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                                <span class="btn-text-hide-sm">Clima</span>
+                            </button>
+                            <button class="btn-control-sc" id="btnTriggerSC" aria-label="Lanzar Safety Car" title="Simular Safety Car">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                <span class="btn-text-hide-sm">Safety Car</span>
+                            </button>
+                            <button class="btn-control-reset" id="btnResetSim" disabled aria-label="Reiniciar Sesión" title="Reiniciar Sesión">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>
+                                <span class="btn-text-hide-sm">Reset</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Gantry Starting Lights -->
+                    <div class="gantry-lights-bar">
+                        <div class="gantry-title">SEMÁFORO DE SALIDA FIA</div>
+                        <div class="gantry-pods" id="gantryLights">
+                            <div class="gantry-pod"><div class="pod-light"></div></div>
+                            <div class="gantry-pod"><div class="pod-light"></div></div>
+                            <div class="gantry-pod"><div class="pod-light"></div></div>
+                            <div class="gantry-pod"><div class="pod-light"></div></div>
+                            <div class="gantry-pod"><div class="pod-light"></div></div>
+                        </div>
+                        <div class="gantry-banner" id="gantryBanner">WAITING</div>
+                    </div>
+
+                    <div class="sim-grid-viewport">
+                        <!-- Canvas / SVG Track -->
+                        <div class="circuit-canvas-wrap">
+                            <div class="circuit-header-hud">
+                                <div class="circuit-name">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    Circuit de Monaco — 3.337 km (Monte Carlo)
+                                </div>
+                                <div class="sector-legend">
+                                    <span class="sector-badge s1">S1 Casino</span>
+                                    <span class="sector-badge s2">S2 Túnel</span>
+                                    <span class="sector-badge s3">S3 Piscine</span>
+                                </div>
+                            </div>
+                            
+                            <div class="svg-track-container" id="trackContainer">
+                                <!-- SVG dynamically injected -->
+                            </div>
+
+                            <div class="live-radio-feed">
+                                <div class="radio-label">
+                                    <div class="radio-dot"></div> CANAL DE RADIO EN VIVO
+                                </div>
+                                <div class="radio-message" id="raceRadioMsg">Esperando inicio de sesión...</div>
+                            </div>
+                        </div>
+
+                        <!-- Cockpit & Leaderboard -->
+                        <div class="sim-cockpit-sidebar">
+                            
+                            <!-- Cockpit HUD -->
+                            <div class="driver-cockpit-hud">
+                                <div class="cockpit-header">
+                                    <div class="driver-badge-group">
+                                        <span class="cockpit-driver-code" id="hudDriverCode">VER</span>
+                                        <div>
+                                            <div class="cockpit-driver-name" id="hudDriverName">Max Verstappen</div>
+                                            <div class="cockpit-team-name" id="hudDriverTeam">Red Bull Racing</div>
+                                        </div>
+                                    </div>
+                                    <div class="cockpit-pos-badge" id="hudPos">P1</div>
+                                </div>
+
+                                <div class="gauges-cluster">
+                                    <div class="radial-gauge-box">
+                                        <!-- SVG Circular Speedometer -->
+                                        <svg class="radial-svg" viewBox="0 0 100 100">
+                                            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6" stroke-dasharray="212" stroke-dashoffset="0"></circle>
+                                            <circle id="speedDial" cx="50" cy="50" r="45" fill="none" stroke="var(--telemetry-green)" stroke-width="6" stroke-dasharray="212" stroke-dashoffset="150" stroke-linecap="round"></circle>
+                                        </svg>
+                                        <div class="radial-center-text">
+                                            <span class="radial-speed-val" id="hudSpeed">0</span>
+                                            <span class="radial-speed-unit">KM/H</span>
+                                            <span class="radial-gear-badge" id="hudGear">N</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="pedal-telemetry-box">
+                                        <div class="pedal-channel">
+                                            <div class="pedal-bar-wrap"><div class="pedal-fill throttle" id="hudThrottle" style="height: 0%;"></div></div>
+                                            <span class="pedal-label">GAS</span>
+                                        </div>
+                                        <div class="pedal-channel">
+                                            <div class="pedal-bar-wrap"><div class="pedal-fill brake" id="hudBrake" style="height: 0%;"></div></div>
+                                            <span class="pedal-label">FRENO</span>
+                                        </div>
+                                        
+                                        <div class="tire-compound-box">
+                                            <div class="compound-disc soft" id="hudTireCompound">S</div>
+                                            <span class="tire-wear-pct" id="hudTireWear">100%</span>
+                                            <span class="tire-temp-label" id="hudTireTemp">95°C</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="delta-sparkline-box">
+                                    <div class="sparkline-label">
+                                        <span>Delta de Tiempo por Vuelta</span>
+                                        <span class="text-green" id="hudDelta">-0.125s</span>
+                                    </div>
+                                    <div style="height: 38px; position: relative;">
+                                        <canvas id="deltaChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Leaderboard -->
+                            <div class="sim-leaderboard">
+                                <div class="leaderboard-header">
+                                    <span>POS</span>
+                                    <span>PILOTO</span>
+                                    <span class="text-right">TIEMPO</span>
+                                    <span class="text-right">GAP</span>
+                                    <span class="text-right">NEUM.</span>
+                                </div>
+                                <div class="leaderboard-rows" id="leaderboardList">
+                                    <!-- Rendered dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pane 2: Driver Stats -->
+                <div id="pane-stats" class="tab-pane" role="tabpanel">
+                    <div class="stats-layout">
+                        <div class="stats-header-desc">
+                            <h3>Atributos Fundacionales de los Pilotos</h3>
+                            <p>El motor de cálculo utiliza estos parámetros estadísticos para simular el ritmo por sector, probabilidades de error en frenada y la gestión de degradación de neumáticos.</p>
+                        </div>
+
+                        <div class="driver-stats-table-wrap">
+                            <table class="driver-stats-table">
+                                <thead>
+                                    <tr>
+                                        <th>Piloto</th>
+                                        <th>Habilidad (OVR)</th>
+                                        <th>Experiencia</th>
+                                        <th>Gestión de Neumáticos</th>
+                                        <th>Prob. de Error</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="driverStatsTbody">
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pane 3: Vehicle Setup -->
+                <div id="pane-config" class="tab-pane" role="tabpanel">
+                    <div class="vehicle-config-layout">
+                        <div class="config-header-desc">
+                            <h3>Setup Aerodinámico y Estrategia</h3>
+                            <p>Modifica los parámetros de tu escudería. La aerodinámica altera el compromiso entre velocidad punta y agarre en curva, mientras que el compuesto define el agarre inicial frente al desgaste por vuelta.</p>
+                        </div>
+
+                        <form id="setupForm" class="config-form-grid">
+                            <div class="form-group">
+                                <label for="setupEscuderia">Escudería</label>
+                                <select id="setupEscuderia" class="config-select">
+                                    <option value="RED_BULL">Red Bull Racing (RB20)</option>
+                                    <option value="FERRARI">Scuderia Ferrari (SF-24)</option>
+                                    <option value="MCLAREN">McLaren F1 Team (MCL38)</option>
+                                    <option value="MERCEDES">Mercedes-AMG PETRONAS (W15)</option>
+                                    <option value="ASTON_MARTIN">Aston Martin Aramco (AMR24)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="setupAero">Carga Aerodinámica</label>
+                                <select id="setupAero" class="config-select">
+                                    <option value="ALTA">Alta (Mayor adherencia en curva, menor vel. punta)</option>
+                                    <option value="MEDIA" selected>Media (Equilibrada para Monza/Spa)</option>
+                                    <option value="BAJA">Baja (Menor resistencia, máxima vel. punta)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="setupTires">Compuesto de Neumáticos</label>
+                                <select id="setupTires" class="config-select">
+                                    <option value="SOFT">Blando (Rojo - Máximo agarre, alta degradación)</option>
+                                    <option value="MEDIUM" selected>Medio (Amarillo - Ritmo y duración balanceados)</option>
+                                    <option value="HARD">Duro (Blanco - Menor agarre, máxima durabilidad)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-actions-full">
+                                <button type="submit" class="btn-hero-primary">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    Aplicar Configuración al Monoplaza
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="setupFeedback" class="config-feedback-card">
+                            <div class="feedback-title" id="setupFeedbackTitle">SETUP APLICADO A RED BULL RACING</div>
+                            <div class="feedback-stats-grid">
+                                <div class="feedback-stat-box">
+                                    <div class="stat-label">Velocidad Punta Est.</div>
+                                    <div class="stat-val positive">348 KM/H</div>
+                                </div>
+                                <div class="feedback-stat-box">
+                                    <div class="stat-label">Degradación Estimada</div>
+                                    <div class="stat-val">2.4% por vuelta</div>
+                                </div>
+                                <div class="feedback-stat-box">
+                                    <div class="stat-label">Agarre en Curva</div>
+                                    <div class="stat-val">Equilibrado</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Pane 4: Simulation Engine -->
+                <div id="pane-arch" class="tab-pane" role="tabpanel">
+                    <div class="java-arch-layout">
+                        <div class="engine-overview-card">
+                            <div class="engine-card-header">
+                                <div class="engine-card-title">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-f1-red"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                    <h4>Motor Algorítmico Concurrente</h4>
+                                </div>
+                                <span class="engine-version-tag">Arquitectura Java 17</span>
+                            </div>
+                            <p class="engine-desc">
+                                El proyecto procesa la carrera evaluando simultáneamente los monoplazas mediante hilos concurrentes (`HiloPiloto`), considerando factores estocásticos como variaciones climáticas, degradación física de compuestos y presión psicológica entre pilotos para determinar adelantamientos y errores no forzados.
+                            </p>
+                        </div>
+
+                        <div class="engine-packages-grid">
+                            <div class="package-card">
+                                <div class="pkg-header">
+                                    <span class="pkg-tag">HILOS CONCURRENTES</span>
+                                    <h5>Simulation Engine</h5>
+                                </div>
+                                <p class="pkg-desc-text">Calcula deltas de tiempo por sector y trayectorias en paralelo, garantizando simulación en tiempo real a 60 FPS.</p>
+                            </div>
+                            <div class="package-card">
+                                <div class="pkg-header">
+                                    <span class="pkg-tag">VARIABLES AMBIENTALES</span>
+                                    <h5>Weather System</h5>
+                                </div>
+                                <p class="pkg-desc-text">Simula cambios dinámicos de temperatura de asfalto y lluvia, forzando decisiones tácticas de neumáticos.</p>
+                            </div>
+                            <div class="package-card">
+                                <div class="pkg-header">
+                                    <span class="pkg-tag">GESTIÓN DE CARRERA</span>
+                                    <h5>Race Director</h5>
+                                </div>
+                                <p class="pkg-desc-text">Evalúa incidentes de pista para desplegar Safety Car, banderas amarillas y ajustar deltas de velocidad de todo el pelotón.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FEATURES BENTO GRID -->
+        <section id="features" class="container">
+            <div class="sec-header reveal">
+                <div class="sec-eyebrow">Capacidades del Sistema</div>
+                <h2 class="sec-title">Diseñado para la Precisión</h2>
+                <p class="sec-subtitle">
+                    Una plataforma que combina modelado físico, telemetría y diseño de alto impacto.
+                </p>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Bento 1: Telemetry -->
+                <div class="bento-card bento-col-8 reveal">
+                    <div class="bento-card-top">
+                        <span class="bento-badge">TELEMETRÍA EN VIVO</span>
+                        <div class="bento-svg-graphic">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--telemetry-green)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="bento-title">Adquisición de Datos a 60 FPS</h3>
+                    <p class="bento-desc">
+                        Monitorea velocidad punta, apertura de mariposa de gas, frenada en ápice y deltas de tiempo por vuelta en un tablero interactivo con respuesta instantánea.
+                    </p>
+                    <div class="bento-chips">
+                        <span class="bento-chip">Velocímetro Radial</span>
+                        <span class="bento-chip">Delta Sparkline</span>
+                        <span class="bento-chip">Pedales Telemetría</span>
+                    </div>
+                </div>
+
+                <!-- Bento 2: Tyre Degradation -->
+                <div class="bento-card bento-col-4 reveal reveal-delay-1">
+                    <div class="bento-card-top">
+                        <span class="bento-badge">MODELADO FÍSICO</span>
+                        <div class="bento-svg-graphic">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--f1-red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="bento-title">Degradación de Compuestos</h3>
+                    <p class="bento-desc">
+                        Curvas de desgaste no lineales para neumáticos Blandos, Medios, Duros y de Lluvia.
+                    </p>
+                    <div class="bento-chips">
+                        <span class="bento-chip">Soft / Med / Hard</span>
+                        <span class="bento-chip">Temperatura Óptima</span>
+                    </div>
+                </div>
+
+                <!-- Bento 3: Concurrency Engine -->
+                <div class="bento-card bento-col-4 reveal reveal-delay-2">
+                    <div class="bento-card-top">
+                        <span class="bento-badge">ARQUITECTURA</span>
+                        <div class="bento-svg-graphic">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--data-cyan)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="bento-title">Hilos Concurrentes</h3>
+                    <p class="bento-desc">
+                        Cada piloto procesa sus decisiones en un worker independiente, evitando cuellos de botella y manteniendo la fidelidad del cálculo.
+                    </p>
+                    <div class="bento-chips">
+                        <span class="bento-chip">HiloPiloto</span>
+                        <span class="bento-chip">ThreadPool</span>
+                    </div>
+                </div>
+
+                <!-- Bento 4: Dynamic Events -->
+                <div class="bento-card bento-col-8 reveal reveal-delay-3">
+                    <div class="bento-card-top">
+                        <span class="bento-badge">ESTOCÁSTICA</span>
+                        <div class="bento-svg-graphic">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--warning-amber)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        </div>
+                    </div>
+                    <h3 class="bento-title">Eventos Dinámicos de Pista</h3>
+                    <p class="bento-desc">
+                        Lluvias repentinas, despistes bajo presión y despliegues de Safety Car que alteran la estrategia de paradas en boxes en cuestión de milisegundos.
+                    </p>
+                    <div class="bento-chips">
+                        <span class="bento-chip">Safety Car</span>
+                        <span class="bento-chip">Clima Cambiante</span>
+                        <span class="bento-chip">Radio FIA</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section id="how-it-works" class="container">
+            <div class="sec-header reveal">
+                <div class="sec-eyebrow">Flujo de Simulación</div>
+                <h2 class="sec-title">Cómo Funciona el Motor</h2>
+                <p class="sec-subtitle">
+                    De los parámetros iniciales al veredicto de la bandera a cuadros.
+                </p>
+            </div>
+
+            <div class="steps-grid reveal reveal-delay-1">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <h3 class="step-title">Configuración</h3>
+                    <p class="step-desc">
+                        Se cargan los atributos de cada piloto y la configuración aerodinámica y de compuestos de cada monoplaza.
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <h3 class="step-title">Cálculo en Tiempo Real</h3>
+                    <p class="step-desc">
+                        El motor computa sector a sector la adherencia, velocidad en recta y deltas de tiempo entre cada monoplaza.
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <h3 class="step-title">Telemetría y Control</h3>
+                    <p class="step-desc">
+                        Visualiza los resultados en el panel de control a 60 FPS, cambia el clima o altera las condiciones de carrera.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a href="#" class="footer-brand">
+                <span class="brand-mark">F1</span>
+                Sim Pro
+            </a>
+            <ul class="footer-links">
+                <li><a href="#sim-engine">Simulador</a></li>
+                <li><a href="#features">Características</a></li>
+                <li><a href="#how-it-works">Cómo Funciona</a></li>
+            </ul>
+            <div class="footer-copy">
+                &copy; 2026 F1 Sim Pro. Motor Estadístico de Fórmula 1.
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -83,8 +83,19 @@
             });
         }
 
-        // Tracking de assets (imágenes y videos)
-        const assets = Array.from(document.querySelectorAll('img, video'));
+        // Tracking de assets (imágenes y videos activos)
+        const assets = Array.from(document.querySelectorAll('img, video')).filter(function(asset) {
+            if (asset.tagName.toLowerCase() === 'img') {
+                return asset.src && asset.src !== '' && !asset.src.endsWith('#');
+            }
+            if (asset.tagName.toLowerCase() === 'video') {
+                const hasSource = asset.src || asset.currentSrc || asset.querySelector('source[src]');
+                const isPreloadNone = asset.getAttribute('preload') === 'none';
+                return Boolean(hasSource) && !isPreloadNone;
+            }
+            return false;
+        });
+
         let totalAssets = assets.length;
         let loadedCount = 0;
 
