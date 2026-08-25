@@ -1194,11 +1194,54 @@
     // ═══════════════════════════════════════
     function initNavigation() {
         const navbar = document.getElementById('mainNav');
-        if (navbar) {
-            window.addEventListener('scroll', () => {
-                navbar.classList.toggle('scrolled', window.scrollY > 30);
-            });
+        const ticker = document.getElementById('globalTicker');
+
+        function handleScroll() {
+            const isScrolled = window.scrollY > 20;
+            if (navbar) navbar.classList.toggle('scrolled', isScrolled);
+            if (ticker) ticker.classList.toggle('scrolled', isScrolled);
+
+            // ScrollSpy for navbar links
+            const scrollPos = window.scrollY + 120;
+            const sections = [
+                { id: 'sim-engine', link: document.querySelector('.nav-links a[href="#sim-engine"]') },
+                { id: 'features', link: document.querySelector('.nav-links a[href="#features"]') },
+                { id: 'how-it-works', link: document.querySelector('.nav-links a[href="#how-it-works"]') }
+            ];
+
+            let activeFound = false;
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const sec = document.getElementById(sections[i].id);
+                if (sec && scrollPos >= sec.offsetTop) {
+                    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                    if (sections[i].link) sections[i].link.classList.add('active');
+                    activeFound = true;
+                    break;
+                }
+            }
+            if (!activeFound && window.scrollY < 200) {
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                const first = document.querySelector('.nav-links a[href="#sim-engine"]');
+                if (first) first.classList.add('active');
+            }
         }
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+
+        // Smooth scroll for nav anchor links
+        document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetEl = document.querySelector(targetId);
+                    if (targetEl) {
+                        e.preventDefault();
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
 
         const navToggle = document.getElementById('navToggle');
         const navLinks = document.getElementById('navLinks');
@@ -1275,8 +1318,11 @@
                 const targetPane = document.getElementById(targetId);
                 if (targetPane) targetPane.classList.add('active');
 
-                if (targetId === 'pane-track' && state.chartInstance) {
-                    state.chartInstance.resize();
+                if (targetId === 'pane-track') {
+                    renderAllCarsOnTrack();
+                    if (state.chartInstance) {
+                        setTimeout(() => state.chartInstance.resize(), 50);
+                    }
                 }
             });
         });

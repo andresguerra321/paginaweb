@@ -77,9 +77,14 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--navbar-height) + 24px);
     font-size: 16px;
     scrollbar-width: thin;
     scrollbar-color: var(--f1-red) var(--bg-base);
+}
+
+section[id] {
+    scroll-margin-top: calc(var(--navbar-height) + 24px);
 }
 
 ::-webkit-scrollbar { width: 6px; }
@@ -187,13 +192,13 @@ section {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
-    transition: background var(--transition), box-shadow var(--transition), top var(--transition);
+    transition: top 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .navbar.scrolled {
     top: 0;
     background: rgba(4, 8, 20, 0.96);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
 }
 
 .nav-row {
@@ -384,11 +389,18 @@ section {
     letter-spacing: 0.05em;
     text-transform: uppercase;
     overflow: hidden;
-    transition: transform var(--transition);
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.hud-ticker.scrolled {
+    transform: translateY(-100%);
+    opacity: 0;
 }
 
 .hud-ticker.hidden {
     transform: translateY(-100%);
+    opacity: 0;
 }
 
 .ticker-inner {
