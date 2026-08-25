@@ -227,7 +227,7 @@
     <nav class="navbar">
         <a href="index.html" class="back-link" id="backLink">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-            <span id="backLinkText">Volver al Portafolio</span>
+            <span id="backLinkText">Volver a Soluciones</span>
         </a>
         <div class="lang-switcher">
             <button type="button" class="lang-btn active" id="langBtnES">ES</button>
@@ -331,8 +331,8 @@
             if (project) {
                 const desc = typeof project.description === 'object' ? (project.description[lang] || project.description.es) : project.description;
                 const waText = lang === 'en'
-                    ? encodeURIComponent(`Hello Andrés, I would like to get more information about the project ${project.title} that I saw on your portfolio.`)
-                    : encodeURIComponent(`Hola Andrés, me gustaría saber más información sobre el proyecto ${project.title} que vi en tu portafolio.`);
+                    ? encodeURIComponent(`Hello Andrés, I would like to get more information about the solution ${project.title} that I saw on your platform.`)
+                    : encodeURIComponent(`Hola Andrés, me gustaría saber más información sobre la solución ${project.title} que vi en tu plataforma web.`);
                 const waLink = `https://wa.me/573185602203?text=${waText}`;
                 const btnText = lang === 'en' ? 'Contact on WhatsApp for more details' : 'Contactar por WhatsApp para más información';
                 let tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
@@ -379,7 +379,7 @@
             const lang = localStorage.getItem('portfolio_lang') || 'es';
             const backTxt = document.getElementById('backLinkText');
             if (backTxt) {
-                backTxt.textContent = lang === 'en' ? 'Back to Portfolio' : 'Volver al Portafolio';
+                backTxt.textContent = lang === 'en' ? 'Back to Solutions' : 'Volver a Soluciones';
             }
         }
         window.addEventListener('languageChanged', updateBackLink);

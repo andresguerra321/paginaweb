@@ -64,7 +64,7 @@
             stat_agile_title: 'Garantía de Rendimiento',
             stat_agile_desc: 'Arquitecturas optimizadas para alta concurrencia, tolerancia a fallos y mínima latencia.',
 
-            projects_label: '03 // PORTAFOLIO',
+            projects_label: '03 // SUITE DE SOLUCIONES',
             projects_title: 'Casos de Éxito',
             project_btn_view: 'Ver Caso ↗',
 
@@ -209,7 +209,7 @@
             footer_rights: '© 2026 AG Private Engineering — Andrés Felipe Guerra. Todos los derechos reservados.',
 
             modal_title: 'Select Language / Selecciona tu idioma',
-            modal_sub: 'Choose your preferred language to explore the portfolio.',
+            modal_sub: 'Selecciona tu idioma preferido para explorar las soluciones empresariales.',
             modal_es: '🇪🇸 Español',
             modal_en: '🇺🇸 English',
 
@@ -219,7 +219,7 @@
             cookie_btn_decline: 'Solo Esenciales',
 
             // WhatsApp Bot Landing Translations
-            wa_nav_back: 'Volver al Portafolio',
+            wa_nav_back: 'Volver a Soluciones',
             wa_hero_title: 'Inteligencia Artificial para <br><span class="gradient-text">Atención y Ventas 24/7</span>',
             wa_hero_sub: 'Automatiza el agendamiento y la conversión de clientes en WhatsApp. Un asistente inteligente que transcribe audios y se integra con tu equipo comercial.',
             wa_btn_demo: 'Agendar Demo Privada',
@@ -477,7 +477,7 @@
             guardian_loader_init: 'INICIALIZANDO SISTEMA',
 
             // Web & SaaS Landing Translations
-            ws_nav_back: 'Volver al Portafolio',
+            ws_nav_back: 'Volver a Soluciones',
             ws_badge: 'Ingeniería a Medida',
             ws_hero_title: 'Desarrollo Web y Plataformas <br><span class="gradient-text">SaaS de Alto Rendimiento</span>',
             ws_hero_sub: 'Transformamos la lógica de tu negocio en aplicaciones web escalables, paneles de control intuitivos y arquitecturas en la nube preparadas para crecer.',
@@ -598,7 +598,7 @@
             stat_agile_title: 'Performance Assurance',
             stat_agile_desc: 'Optimized architectures for high concurrency, fault tolerance, and minimal latency.',
 
-            projects_label: '03 // PORTFOLIO',
+            projects_label: '03 // SOLUTIONS SUITE',
             projects_title: 'Success Cases',
             project_btn_view: 'View Case ↗',
 
@@ -743,7 +743,7 @@
             footer_rights: '© 2026 AG Private Engineering — Andrés Felipe Guerra. All rights reserved.',
 
             modal_title: 'Select Language / Selecciona tu idioma',
-            modal_sub: 'Choose your preferred language to explore the portfolio.',
+            modal_sub: 'Choose your preferred language to explore the enterprise suite.',
             modal_es: '🇪🇸 Español',
             modal_en: '🇺🇸 English',
 
@@ -753,7 +753,7 @@
             cookie_btn_decline: 'Essential Only',
 
             // WhatsApp Bot Landing Translations
-            wa_nav_back: 'Back to Portfolio',
+            wa_nav_back: 'Back to Solutions',
             wa_hero_title: 'Artificial Intelligence for <br><span class="gradient-text">24/7 Sales & Support</span>',
             wa_hero_sub: 'Automate scheduling and customer conversion on WhatsApp. A smart assistant that transcribes audio and integrates with your sales team.',
             wa_btn_demo: 'Schedule Private Demo',
@@ -1011,7 +1011,7 @@
             guardian_loader_init: 'INITIALIZING SYSTEM',
 
             // Web & SaaS Landing Translations
-            ws_nav_back: 'Back to Portfolio',
+            ws_nav_back: 'Back to Solutions',
             ws_badge: 'Bespoke Engineering',
             ws_hero_title: 'Custom Web Development & <br><span class="gradient-text">High-Performance SaaS</span>',
             ws_hero_sub: 'We turn your business logic into scalable web applications, intuitive dashboards, and cloud architectures built for growth.',
