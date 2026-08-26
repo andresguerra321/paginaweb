@@ -29,9 +29,21 @@
 }
 
 .page-transition-overlay.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    display: none !important;
+}
+
+main.perf-hidden {
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
+}
+
+main.perf-reveal {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition: opacity 0.3s ease;
 }
 
 /* Minimal Top Progress Bar */

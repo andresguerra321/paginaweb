@@ -522,43 +522,70 @@
   
   <script>
     // Fast Loading Transition & IntersectionObserver
-    document.addEventListener('DOMContentLoaded', () => {
-      const overlay = document.getElementById('page-transition-overlay');
-      const bar = document.getElementById('minimal-bar');
-      const mainContent = document.getElementById('main-content');
-      
-      let progress = 0;
-      const interval = setInterval(() => {
+    (function() {
+      function dismissLoader() {
+        const overlay = document.getElementById('page-transition-overlay');
+        const mainContent = document.getElementById('main-content');
+        if (overlay) {
+          overlay.style.opacity = '0';
+          setTimeout(() => { if (overlay) overlay.remove(); }, 200);
+        }
+        if (mainContent) {
+          mainContent.classList.remove('perf-hidden');
+          mainContent.classList.add('perf-reveal');
+          mainContent.style.opacity = '1';
+          mainContent.style.pointerEvents = 'auto';
+        }
+      }
+
+      function initScrollObserver() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.05 });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('page-transition-overlay');
+        const bar = document.getElementById('minimal-bar');
+
+        if (document.hidden || document.visibilityState === 'hidden') {
+          dismissLoader();
+          initScrollObserver();
+          return;
+        }
+
+        let progress = 0;
+        const interval = setInterval(() => {
           progress += 25;
           if (bar) bar.style.width = progress + '%';
-          
-          if (progress >= 100) {
-              clearInterval(interval);
-              setTimeout(() => {
-                  if (overlay) {
-                      overlay.style.opacity = '0';
-                      setTimeout(() => overlay.remove(), 300);
-                  }
-                  if (mainContent) {
-                      mainContent.classList.remove('perf-hidden');
-                      mainContent.classList.add('perf-reveal');
-                  }
-                  
-                  // Observer for scroll reveals
-                  const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                      if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        observer.unobserve(entry.target);
-                      }
-                    });
-                  }, { threshold: 0.05 });
 
-                  document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-              }, 100);
+          if (progress >= 100) {
+            clearInterval(interval);
+            dismissLoader();
+            initScrollObserver();
           }
-      }, 30);
-    });
+        }, 25);
+
+        setTimeout(() => {
+          clearInterval(interval);
+          dismissLoader();
+          initScrollObserver();
+        }, 500);
+      });
+
+      window.addEventListener('pageshow', dismissLoader);
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') dismissLoader();
+      });
+      window.addEventListener('focus', dismissLoader);
+    })();
   </script>
 
   <!-- AI Libraries -->

@@ -345,6 +345,7 @@ body.dark-theme::before {
   background: linear-gradient(135deg, var(--emerald-primary) 0%, #38bdf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-subtitle {
@@ -2554,6 +2555,7 @@ body.dark-theme::before {
   background: linear-gradient(135deg, var(--delivery-primary) 0%, var(--delivery-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .delivery-pills {

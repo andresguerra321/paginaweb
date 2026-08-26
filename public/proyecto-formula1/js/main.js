@@ -239,18 +239,38 @@
         const bar = document.getElementById('minimal-bar');
         if (!overlay) return;
 
+        function dismissF1Loader() {
+            if (overlay) {
+                overlay.style.opacity = '0';
+                setTimeout(() => { if (overlay) overlay.remove(); }, 200);
+            }
+        }
+
+        if (document.hidden || document.visibilityState === 'hidden') {
+            dismissF1Loader();
+            return;
+        }
+
         let progress = 0;
         const interval = setInterval(() => {
             progress += 25;
             if (bar) bar.style.width = `${progress}%`;
             if (progress >= 100) {
                 clearInterval(interval);
-                setTimeout(() => {
-                    overlay.style.opacity = '0';
-                    setTimeout(() => overlay.remove(), 300);
-                }, 100);
+                dismissF1Loader();
             }
-        }, 30);
+        }, 20);
+
+        setTimeout(() => {
+            clearInterval(interval);
+            dismissF1Loader();
+        }, 400);
+
+        window.addEventListener('pageshow', dismissF1Loader);
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') dismissF1Loader();
+        });
+        window.addEventListener('focus', dismissF1Loader);
     }
 
     // ═══════════════════════════════════════
