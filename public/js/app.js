@@ -99,6 +99,12 @@
                 }
             });
 
+            // Explicitly sync hero trust strip display with the home/about tab
+            const trustStrip = document.getElementById('heroTrustStrip') || document.querySelector('.hero-trust-strip');
+            if (trustStrip) {
+                trustStrip.style.display = (tabId === '#about') ? 'block' : 'none';
+            }
+
             // Update active state in navbar
             allNavAnchors.forEach(a => {
                 a.classList.remove('active');
