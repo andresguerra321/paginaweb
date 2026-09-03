@@ -89,10 +89,10 @@
                 if (shouldShow) {
                     section.style.display = 'block';
                     const reveals = section.querySelectorAll('.reveal');
-                    reveals.forEach(el => {
-                        el.classList.add('visible');
-                        el.style.opacity = '1';
-                        el.style.transform = 'none';
+                    reveals.forEach((el, index) => {
+                        setTimeout(() => {
+                            el.classList.add('revealed');
+                        }, index * 40);
                     });
                 } else {
                     section.style.display = 'none';
@@ -184,81 +184,84 @@
         activateSection(initialHash, initialHash);
 
         /* ------------------------------------------------------------
-           4. STAGGERED SCROLL REVEALS (GPU-Accelerated)
+           4. HARDWARE-ACCELERATED SCROLL REVEALS
            ------------------------------------------------------------ */
         const revealElements = document.querySelectorAll('.reveal');
 
-        const revealObserver = new IntersectionObserver((entries) => {
-            const visibleTargets = [];
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.classList.contains('revealed')) {
-                    entry.target.classList.add('revealed');
-                    visibleTargets.push(entry.target);
-                    revealObserver.unobserve(entry.target);
-                }
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.08,
+                rootMargin: '0px 0px -30px 0px'
             });
 
-            if (visibleTargets.length > 0 && hasAnime) {
-                anime({
-                    targets: visibleTargets,
-                    opacity: [0, 1],
-                    translateY: [24, 0],
-                    duration: 700,
-                    delay: anime.stagger(80),
-                    easing: 'cubicBezier(0.32, 0.72, 0, 1)'
-                });
-            } else {
-                visibleTargets.forEach(el => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                });
-            }
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -40px 0px'
-        });
-
-        revealElements.forEach(el => revealObserver.observe(el));
+            revealElements.forEach(el => revealObserver.observe(el));
+        } else {
+            revealElements.forEach(el => el.classList.add('revealed'));
+        }
 
         /* ------------------------------------------------------------
-           5. HERO ENTRANCE CHOREOGRAPHY
+           5. HERO ENTRANCE CHOREOGRAPHY (Silky Apple/Stripe Curve)
            ------------------------------------------------------------ */
-        if (hasAnime) {
-            anime.timeline({
-                easing: 'cubicBezier(0.32, 0.72, 0, 1)',
-                delay: 150
-            })
-            .add({
-                targets: '#heroTitle',
-                opacity: [0, 1],
-                translateY: [24, 0],
-                duration: 700
-            })
-            .add({
-                targets: '#heroSubtitle',
-                opacity: [0, 1],
-                translateY: [16, 0],
-                duration: 600
-            }, '-=450')
-            .add({
-                targets: '#heroCta',
-                opacity: [0, 1],
-                translateY: [16, 0],
-                duration: 500
-            }, '-=400')
-            .add({
-                targets: '#heroVisual',
-                opacity: [0, 1],
-                scale: [0.96, 1],
-                translateY: [20, 0],
-                duration: 800
-            }, '-=600')
-            .add({
-                targets: '.hero-trust-strip',
-                opacity: [0, 1],
-                translateY: [12, 0],
-                duration: 500
-            }, '-=400');
+        function playHeroEntrance() {
+            const status = document.getElementById('heroStatus');
+            const title = document.getElementById('heroTitle');
+            const subtitle = document.getElementById('heroSubtitle');
+            const cta = document.getElementById('heroCta');
+            const mobileVisual = document.getElementById('heroMobileVisual');
+            const trustStrip = document.querySelector('.hero-trust-strip');
+
+            if (typeof anime !== 'undefined') {
+                anime.timeline({
+                    easing: 'cubicBezier(0.16, 1, 0.3, 1)'
+                })
+                .add({
+                    targets: status,
+                    opacity: [0, 1],
+                    translateY: [12, 0],
+                    duration: 450,
+                    delay: 50
+                })
+                .add({
+                    targets: title,
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 600
+                }, '-=300')
+                .add({
+                    targets: subtitle,
+                    opacity: [0, 1],
+                    translateY: [16, 0],
+                    duration: 500
+                }, '-=350')
+                .add({
+                    targets: cta,
+                    opacity: [0, 1],
+                    translateY: [14, 0],
+                    duration: 450
+                }, '-=350')
+                .add({
+                    targets: [mobileVisual, trustStrip].filter(Boolean),
+                    opacity: [0, 1],
+                    translateY: [12, 0],
+                    duration: 500
+                }, '-=300');
+            } else {
+                [status, title, subtitle, cta, mobileVisual, trustStrip].forEach(el => {
+                    if (el) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'none';
+                    }
+                });
+            }
         }
+
+        playHeroEntrance();
     }
 })();

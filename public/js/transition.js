@@ -43,6 +43,18 @@
     }
 
     function runEntranceAnimation() {
+        let isTransitioning = false;
+        try {
+            isTransitioning = sessionStorage.getItem('ag_transition_active') === 'true';
+            sessionStorage.removeItem('ag_transition_active');
+        } catch (e) {}
+
+        if (!isTransitioning) {
+            // Direct load / page refresh: Do NOT create or flash any overlay!
+            forceDismiss();
+            return;
+        }
+
         createLoaderHTML();
         const overlay = document.getElementById('page-transition-overlay');
         const bar = document.getElementById('minimal-bar');
@@ -53,15 +65,15 @@
             return;
         }
 
+        // Make overlay immediately visible for incoming transition
+        overlay.style.display = 'flex';
+        overlay.style.visibility = 'visible';
+        overlay.style.opacity = '1';
+        overlay.classList.add('active');
+
         // If tab was opened in the background or is currently hidden, dismiss immediately
         if (document.hidden || document.visibilityState === 'hidden') {
             forceDismiss();
-            return;
-        }
-
-        // If page is already fully loaded, dismiss fast
-        if (document.readyState === 'complete') {
-            setTimeout(finishLoading, 100);
             return;
         }
 
@@ -96,7 +108,7 @@
 
                 // Guaranteed safety timer to avoid any frozen animation
                 setTimeout(forceDismiss, 350);
-            }, 120);
+            }, 100);
         }
 
         // Logo micro-animation
@@ -104,48 +116,16 @@
             try {
                 anime({
                     targets: content,
-                    opacity: [0.6, 1],
+                    opacity: [0.8, 1],
                     scale: [0.98, 1],
-                    duration: 300,
+                    duration: 250,
                     easing: 'easeOutQuad'
                 });
             } catch (e) {}
         }
 
-        // Track critical visible images only
-        const images = Array.from(document.querySelectorAll('img')).filter(function(img) {
-            return img.src && !img.src.endsWith('#') && img.getAttribute('loading') !== 'lazy';
-        });
-
-        let totalAssets = Math.min(images.length, 6);
-        let loadedCount = 0;
-
-        function updateProgress() {
-            loadedCount++;
-            if (bar && totalAssets > 0) {
-                const percentage = Math.min((loadedCount / totalAssets) * 100, 100);
-                bar.style.width = percentage + '%';
-            }
-            if (loadedCount >= totalAssets) {
-                finishLoading();
-            }
-        }
-
-        if (totalAssets === 0) {
-            finishLoading();
-        } else {
-            images.slice(0, totalAssets).forEach(function(img) {
-                if (img.complete) {
-                    updateProgress();
-                } else {
-                    img.addEventListener('load', updateProgress, { once: true });
-                    img.addEventListener('error', updateProgress, { once: true });
-                }
-            });
-        }
-
-        // Strict failsafe limits: max 600ms or on window load
-        setTimeout(finishLoading, 600);
+        // Strict incoming transition timer: max 300ms
+        setTimeout(finishLoading, 300);
         window.addEventListener('load', finishLoading, { once: true });
     }
 
@@ -216,6 +196,9 @@
 
             if (href.endsWith('.html') || href.includes('.html?') || href === './' || href === '../' || href === 'index.html') {
                 e.preventDefault();
+                try {
+                    sessionStorage.setItem('ag_transition_active', 'true');
+                } catch (err) {}
                 runExitAnimation(href);
             }
         });
