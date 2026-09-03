@@ -797,3 +797,38 @@ footer {
     gap: 1rem;
   }
 }
+
+/* ===== EMIL KOWALSKI / APPLE HIG MICROINTERACTIONS & MOBILE SPEED ===== */
+.btn, .glass-card, .plan-card, .feature-card {
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 120ms ease-out, background-color 150ms ease, box-shadow 150ms ease;
+}
+
+.btn:active {
+  transform: scale(0.97) !important;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding-top: 5.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+  .showcase-grid, .evidence-grid, .features-grid {
+    grid-template-columns: 1fr;
+  }
+  .glass-card {
+    padding: 1.5rem;
+  }
+}
+

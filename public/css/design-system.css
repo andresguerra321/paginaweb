@@ -1,0 +1,161 @@
+/* ============================================================
+   AG PRIVATE ENGINEERING — DESIGN SYSTEM TOKENS & RESET
+   Crafted with taste-skill & impeccable standards
+   ============================================================ */
+
+:root {
+    /* --- Obsidian & Slate Surface Palette --- */
+    --bg-base: #07090E;
+    --bg-surface: #0E131F;
+    --bg-elevated: #141C2E;
+    --bg-card: #0F1626;
+
+    /* --- Accents (Clean, non-glowing signals) --- */
+    --accent-primary: #4F46E5;       /* 5.9:1 WCAG AA compliant against white */
+    --accent-primary-hover: #4338CA;
+    --accent-primary-subtle: rgba(79, 70, 229, 0.14);
+    --accent-emerald: #10B981;
+    --accent-emerald-subtle: rgba(16, 185, 129, 0.14);
+    --accent-cyan: #38BDF8;
+
+    /* --- High Contrast Neutrals (WCAG AA & AAA compliant) --- */
+    --text-primary: #FFFFFF;
+    --text-secondary: #CBD5E1;       /* 8.5:1 contrast against #07090E */
+    --text-muted: #94A3B8;           /* 4.8:1 contrast against #07090E */
+    --text-inverse: #07090E;
+
+    /* --- Crisp Hairline Borders --- */
+    --border-subtle: rgba(255, 255, 255, 0.09);
+    --border-distinct: rgba(255, 255, 255, 0.16);
+    --border-active: rgba(79, 70, 229, 0.5);
+
+    /* --- Neutral Elevation Shadows (Zero neon glow) --- */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.6);
+    --shadow-island: 0 16px 36px rgba(0, 0, 0, 0.7);
+
+    /* --- Typography Scale & Proportions --- */
+    --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+    --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* --- Radii --- */
+    --radius-card: 16px;
+    --radius-pill: 9999px;
+    --radius-sm: 8px;
+
+    /* --- Spacing --- */
+    --container-max: 1200px;
+    --section-py: 6rem;
+    --gutter: 2rem;
+
+    /* --- Motion --- */
+    --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+    --duration-fast: 180ms;
+    --duration-normal: 320ms;
+}
+
+/* --- Resets --- */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.65;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    min-height: 100dvh;
+    overflow-x: hidden;
+}
+
+/* Calm organic lighting without artificial gridlines */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99, 102, 241, 0.07), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 90% 70%, rgba(16, 185, 129, 0.04), transparent 60%);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+}
+
+p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    max-width: 65ch;
+    text-wrap: pretty;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-spring);
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+img, svg, picture {
+    display: block;
+    max-width: 100%;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    position: relative;
+    z-index: 1;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

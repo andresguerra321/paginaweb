@@ -53,8 +53,7 @@ main.perf-reveal {
     left: 0;
     height: 2px;
     width: 0%;
-    background: linear-gradient(90deg, #3B82F6, #60A5FA);
-    box-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+    background: #6366F1;
     transition: width 0.1s linear;
 }
 

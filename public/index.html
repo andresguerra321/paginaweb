@@ -10,10 +10,6 @@
     <meta property="og:title" content="AG Private Engineering — Software a Medida &amp; Automatización IA">
     <meta property="og:description" content="Software propietario, plataformas SaaS y automatizaciones con IA de alto rendimiento.">
     <meta property="og:image" content="https://paginaweb.andres-felipe-gueco.workers.dev/proyecto-bot-whatsapp/img/hero.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://paginaweb.andres-felipe-gueco.workers.dev/">
     <meta property="og:type" content="website">
 
     <!-- Twitter Cards -->
@@ -23,7 +19,7 @@
     <meta name="twitter:image" content="https://paginaweb.andres-felipe-gueco.workers.dev/proyecto-bot-whatsapp/img/hero.png">
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     
-    <!-- Structured Data for SEO Sitelinks -->
+    <!-- Structured Data for SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -34,27 +30,28 @@
       "author": {
         "@type": "Person",
         "name": "Andrés Felipe Guerra"
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://paginaweb.andres-felipe-gueco.workers.dev/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
       }
     }
     </script>
-    <!-- Google Fonts: Plus Jakarta Sans, Inter, JetBrains Mono -->
+
+    <!-- Google Fonts: Outfit, DM Sans, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Modular CSS Architecture (Zero inline bloat) -->
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/transition.css">
-    <!-- anime.js — lightweight animation library (~17KB) -->
+
+    <!-- Anime.js lightweight animation engine -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" defer></script>
+    
     <!-- Google tag (gtag.js) - Google Consent Mode v2 -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
 
-      // Initialize default consent according to GDPR / DMA Consent Mode v2
       var savedConsent = localStorage.getItem('cookie_consent');
       if (savedConsent === 'granted') {
         gtag('consent', 'default', {
@@ -77,2100 +74,52 @@
     </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG8HJTJMQY"></script>
     <script src="js/consent-banner.js" defer></script>
-    
-    <style>
-    /* ============================================================
-       DESIGN SYSTEM — CSS Variables & Reset
-       ============================================================ */
-    :root {
-        --bg-base: #040814;
-        --bg-surface: #090e1d;
-        --bg-card: rgba(13, 20, 36, 0.55);
-        --bg-card-hover: rgba(20, 30, 52, 0.75);
-        --primary: #3B82F6;
-        --primary-hover: #2563EB;
-        --primary-dim: rgba(59, 130, 246, 0.12);
-        --primary-glow: rgba(59, 130, 246, 0.35);
-        --accent-cyan: #38BDF8;
-        --accent-emerald: #10B981;
-        --secondary: #1E293B;
-        --text: #F8FAFC;
-        --text-dim: #94A3B8;
-        --text-muted: #64748B;
-        --border: rgba(255, 255, 255, 0.07);
-        --border-hover: rgba(59, 130, 246, 0.35);
-        --font-hero: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-        --font-body: 'Inter', system-ui, sans-serif;
-        --font-mono: 'JetBrains Mono', monospace;
-        --radius-sm: 8px;
-        --radius-md: 14px;
-        --radius-lg: 20px;
-        --gap: clamp(1rem, 3vw, 2rem);
-        --section-padding: clamp(4rem, 9vh, 6.5rem);
-        --container-width: min(92%, 1160px);
-        --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    *, *::before, *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html {
-        scroll-behavior: smooth;
-        font-size: 16px;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE and Edge */
-    }
-
-    ::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Opera */
-    }
-
-    /* ============================================================
-       OPTIMIZED MINIMALIST GLASSMORPHISM BACKGROUND
-       ============================================================ */
-    body {
-        font-family: var(--font-body);
-        font-weight: 400;
-        color: var(--text);
-        background-color: var(--bg-base);
-        background-image: 
-            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.12), transparent 70%),
-            linear-gradient(to bottom, #040814 0%, #080d1a 100%);
-        background-attachment: fixed;
-        line-height: 1.6;
-        overflow-x: hidden;
-    }
-
-    body::before {
-        content: '';
-        position: fixed;
-        top: 25%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60vw;
-        height: 30vw;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, transparent 70%);
-        filter: blur(80px);
-        pointer-events: none;
-        z-index: 0;
-    }
-
-    body::after {
-        display: none;
-    }
-
-    /* ============================================================
-       TYPOGRAPHY
-       ============================================================ */
-    h1, h2, h3, h4, h5, h6 {
-        font-family: var(--font-hero);
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        line-height: 1.1;
-    }
-
-    a {
-        color: var(--primary);
-        text-decoration: none;
-        transition: color var(--transition);
-    }
-
-    a:hover {
-        color: var(--text);
-    }
-
-    ::selection {
-        background: var(--primary);
-        color: #FFFFFF;
-    }
-
-    /* ============================================================
-       LAYOUT UTILITIES
-       ============================================================ */
-    .container {
-        width: var(--container-width);
-        margin: 0 auto;
-    }
-
-    section {
-        position: relative;
-        z-index: 1;
-        padding: var(--section-padding) 0;
-    }
-
-    .section-label {
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-        color: var(--primary);
-        letter-spacing: 0.1em;
-        margin-bottom: 1rem;
-        opacity: 0.7;
-    }
-
-    /* ============================================================
-       REVEAL ANIMATIONS (anime.js driven)
-       Elements are visible by default and enhance smoothly.
-       ============================================================ */
-    .reveal {
-        opacity: 1;
-        transform: translateY(0);
-        transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Hero letter-by-letter animation */
-    .hero-title .letter {
-        display: inline-block;
-        opacity: 0;
-        transform: translateY(40px);
-        line-height: 1;
-    }
-
-    .hero-title .word-break {
-        display: block;
-    }
-
-    /* Stagger glow effect for project cards on reveal */
-    .project-card.anime-revealed {
-        box-shadow: 0 0 0px var(--primary-glow);
-        animation: card-glow-pulse 2s ease-out forwards;
-    }
-
-    @keyframes card-glow-pulse {
-        0% { box-shadow: 0 0 15px var(--primary-glow); }
-        100% { box-shadow: 0 0 0px transparent; }
-    }
-
-    /* Timeline line draw animation */
-    .timeline-container .timeline-line-animated {
-        position: absolute;
-        left: 8px;
-        top: 0;
-        width: 1px;
-        height: 0;
-        background: var(--primary);
-        z-index: 1;
-    }
-
-    /* Contact glitch-flicker effect */
-    .contact-title .glitch-letter {
-        display: inline-block;
-        opacity: 0;
-    }
-
-    /* ============================================================
-       NAVBAR
-       ============================================================ */
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        padding: 1.2rem 0;
-        transition: background var(--transition), padding var(--transition), backdrop-filter var(--transition);
-    }
-
-    nav.scrolled {
-        padding: 0.8rem 0;
-        background: rgba(5, 5, 5, 0.8);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border);
-    }
-
-    nav .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .nav-logo {
-        font-family: var(--font-hero);
-        font-weight: 800;
-        font-size: 1.8rem;
-        color: var(--text);
-        letter-spacing: 2px;
-        text-decoration: none;
-        transition: transform 0.2s ease;
-    }
-
-    .nav-logo:hover {
-        transform: scale(1.05);
-    }
-
-    .nav-logo span {
-        color: var(--primary);
-    }
-
-    .nav-links {
-        display: flex;
-        list-style: none;
-        gap: 2rem;
-    }
-
-    .nav-links a {
-        font-size: 0.8rem;
-        font-weight: 500;
-        color: var(--text-dim);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        text-decoration: none;
-        transition: color var(--transition);
-        position: relative;
-    }
-
-    .nav-links a::after {
-        content: '';
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        width: 0;
-        height: 1px;
-        background: var(--primary);
-        transition: width var(--transition);
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-        color: var(--primary);
-    }
-
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-        width: 100%;
-    }
-
-    /* Mobile menu toggle */
-    .nav-toggle {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 4px;
-    }
-
-    .nav-toggle span {
-        display: block;
-        width: 24px;
-        height: 2px;
-        background: var(--text);
-        transition: transform var(--transition), opacity var(--transition);
-    }
-
-    .nav-toggle.open span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .nav-toggle.open span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .nav-toggle.open span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    /* ============================================================
-       HERO — WORLD-CLASS B2B SAAS STUDIO
-       ============================================================ */
-    #hero {
-        min-height: 90vh;
-        display: flex;
-        align-items: center;
-        padding: clamp(6rem, 12vh, 8rem) 0 4rem 0;
-        position: relative;
-    }
-
-    .hero-grid {
-        display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: clamp(2.5rem, 5vw, 4.5rem);
-        align-items: center;
-    }
-
-    .hero-badge-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        padding: 0.4rem 1rem;
-        background: rgba(59, 130, 246, 0.1);
-        border: 1px solid rgba(59, 130, 246, 0.3);
-        border-radius: 30px;
-        font-family: var(--font-body);
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #38BDF8;
-        letter-spacing: 0.03em;
-        margin-bottom: 1.5rem;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
-    }
-
-    .badge-pulse-dot {
-        width: 8px;
-        height: 8px;
-        background: #10B981;
-        border-radius: 50%;
-        box-shadow: 0 0 10px #10B981;
-        animation: pulseLive 2s infinite ease-in-out;
-    }
-
-    @keyframes pulseLive {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.4; transform: scale(0.75); }
-    }
-
-    .hero-title {
-        font-family: var(--font-hero);
-        font-size: clamp(2.3rem, 4.8vw, 3.8rem);
-        font-weight: 800;
-        line-height: 1.15;
-        letter-spacing: -0.03em;
-        color: #FFFFFF;
-        text-transform: none;
-        margin-bottom: 1.2rem;
-    }
-
-    .hero-gradient-text {
-        background: linear-gradient(135deg, #60A5FA 0%, #38BDF8 50%, #C084FC 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-fill-color: transparent;
-        -webkit-text-fill-color: transparent;
-        display: inline-block;
-    }
-
-    .hero-subtitle {
-        font-family: var(--font-body);
-        font-size: clamp(1rem, 1.5vw, 1.15rem);
-        color: #94A3B8;
-    }
-    .hero-title {
-        font-size: clamp(2.3rem, 4.8vw, 3.8rem);
-        font-weight: 800;
-        color: #FFFFFF;
-        line-height: 1.12;
-        letter-spacing: -0.03em;
-        margin-bottom: 1.2rem;
-    }
-
-    .hero-gradient-text {
-        background: linear-gradient(135deg, #FFFFFF 40%, #94A3B8 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        display: inline;
-    }
-
-    .hero-subtitle {
-        font-size: clamp(1rem, 1.2vw, 1.12rem);
-        color: var(--text-dim);
-        line-height: 1.7;
-        margin-bottom: 2rem;
-        max-width: 540px;
-        font-weight: 400;
-    }
-
-    .hero-cta {
-        display: flex;
-        gap: 0.9rem;
-        margin-bottom: 1.8rem;
-        flex-wrap: wrap;
-        align-items: center;
-    }
-
-    .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        padding: 0.85rem 1.6rem;
-        font-family: var(--font-hero);
-        font-weight: 700;
-        font-size: 0.86rem;
-        border-radius: var(--radius-sm);
-        text-decoration: none;
-        transition: all var(--transition);
-        cursor: pointer;
-        border: none;
-    }
-
-    .btn-hero-primary {
-        background: var(--primary);
-        color: #FFFFFF;
-        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
-    }
-
-    .btn-hero-primary:hover {
-        background: var(--primary-hover);
-        box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
-        transform: translateY(-2px);
-        color: #FFFFFF;
-    }
-
-    .btn-hero-secondary {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid var(--border);
-        color: #F8FAFC;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-    }
-
-    .btn-hero-secondary:hover {
-        background: rgba(255, 255, 255, 0.06);
-        border-color: rgba(255, 255, 255, 0.15);
-        color: #FFFFFF;
-        transform: translateY(-2px);
-    }
-
-    .btn-primary {
-        background: var(--primary);
-        color: #FFFFFF;
-        border: none;
-        box-shadow: 0 4px 18px rgba(59, 130, 246, 0.3);
-    }
-
-    .btn-primary:hover {
-        background: var(--primary-hover);
-        color: #FFFFFF;
-        box-shadow: 0 6px 22px rgba(59, 130, 246, 0.45);
-        transform: translateY(-2px);
-    }
-
-    .btn-outline {
-        background: rgba(255, 255, 255, 0.03);
-        color: var(--text);
-        border: 1px solid var(--border);
-    }
-
-    .btn-outline:hover {
-        border-color: var(--primary);
-        color: #FFFFFF;
-        background: rgba(59, 130, 246, 0.08);
-        transform: translateY(-2px);
-    }
-
-    /* Minimalist Unified Trust Bar */
-    .hero-trust-bar {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.85rem;
-        padding: 0.55rem 1.1rem;
-        background: rgba(13, 20, 36, 0.55);
-        border: 1px solid var(--border);
-        border-radius: 30px;
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        text-decoration: none;
-        transition: all var(--transition);
-        margin-top: 1.2rem;
-        flex-wrap: wrap;
-        width: fit-content;
-        max-width: 100%;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-        cursor: pointer;
-    }
-
-    .hero-trust-bar:hover {
-        border-color: rgba(59, 130, 246, 0.4);
-        background: rgba(20, 30, 52, 0.75);
-        transform: translateY(-2px);
-        box-shadow: 0 10px 28px rgba(59, 130, 246, 0.15);
-    }
-
-    .hero-rating-group {
-        display: flex;
-        align-items: center;
-        gap: 0.45rem;
-    }
-
-    .hero-stars-row {
-        color: #F59E0B;
-        font-size: 0.82rem;
-        letter-spacing: 1px;
-        line-height: 1;
-    }
-
-    .hero-rating-score {
-        display: flex;
-        align-items: baseline;
-        gap: 0.35rem;
-        font-size: 0.82rem;
-    }
-
-    .hero-rating-score strong {
-        color: #FFFFFF;
-        font-weight: 700;
-        font-family: var(--font-hero);
-    }
-
-    .hero-rating-score span {
-        color: var(--text-dim);
-        font-size: 0.72rem;
-    }
-
-    .hero-trust-divider {
-        width: 1px;
-        height: 16px;
-        background: rgba(255, 255, 255, 0.12);
-    }
-
-    .hero-platform-chips {
-        display: flex;
-        align-items: center;
-        gap: 0.35rem;
-    }
-
-    .hero-plat-chip {
-        font-family: var(--font-mono);
-        font-size: 0.66rem;
-        font-weight: 600;
-        padding: 0.2rem 0.55rem;
-        border-radius: 6px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: #CBD5E1;
-        line-height: 1.2;
-    }
-
-    .hero-reviews-link {
-        font-family: var(--font-hero);
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--primary);
-        display: inline-flex;
-        align-items: center;
-        gap: 3px;
-        transition: all 0.2s ease;
-    }
-
-    .hero-trust-bar:hover .hero-reviews-link {
-        color: #60A5FA;
-        transform: translateX(2px);
-    }
-
-    /* Minimalist High-End Studio Hero Card */
-    .studio-ctrl-preview {
-        background: rgba(15, 23, 42, 0.65);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 20px;
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        overflow: hidden;
-        position: relative;
-        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .studio-ctrl-preview:hover {
-        border-color: rgba(255, 255, 255, 0.18);
-        transform: translateY(-4px);
-        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
-    .ctrl-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.9rem 1.4rem;
-        background: rgba(10, 15, 29, 0.7);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .ctrl-brand {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .ctrl-pulse-indicator {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #10B981;
-        box-shadow: 0 0 10px #10B981;
-    }
-
-    .ctrl-brand-name {
-        font-family: var(--font-mono);
-        font-size: 0.72rem;
-        color: #E2E8F0;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-    }
-
-    .ctrl-status-badge {
-        font-family: var(--font-mono);
-        font-size: 0.65rem;
-        color: #94A3B8;
-        font-weight: 500;
-        letter-spacing: 0.04em;
-    }
-
-    .ctrl-body {
-        padding: 1.4rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1.1rem;
-    }
-
-    /* Top Statement Banner */
-    .ctrl-hero-banner {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 14px;
-        padding: 1.1rem 1.25rem;
-    }
-
-    .ctrl-banner-tag {
-        display: block;
-        font-family: var(--font-mono);
-        font-size: 0.68rem;
-        color: #38BDF8;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        margin-bottom: 0.4rem;
-    }
-
-    .ctrl-banner-title {
-        font-family: var(--font-hero);
-        font-size: 1.18rem;
-        font-weight: 700;
-        color: #FFFFFF;
-        line-height: 1.3;
-        margin-bottom: 0.35rem;
-        letter-spacing: -0.01em;
-    }
-
-    .ctrl-banner-desc {
-        font-size: 0.8rem;
-        color: #94A3B8;
-        line-height: 1.5;
-        margin: 0;
-    }
-
-    /* 3 Pillars List */
-    .ctrl-pillars-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.6rem;
-    }
-
-    .ctrl-pillar-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 0.75rem 1rem;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.04);
-        border-radius: 12px;
-        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        text-decoration: none;
-    }
-
-    .ctrl-pillar-item:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.12);
-        transform: translateX(4px);
-    }
-
-    .pillar-num {
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        color: #64748B;
-        font-weight: 600;
-        flex-shrink: 0;
-    }
-
-    .ctrl-pillar-item:hover .pillar-num {
-        color: #38BDF8;
-    }
-
-    .pillar-content {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .pillar-title {
-        font-size: 0.84rem;
-        font-weight: 600;
-        color: #F1F5F9;
-        margin: 0 0 0.15rem 0;
-        line-height: 1.25;
-    }
-
-    .pillar-desc {
-        font-size: 0.74rem;
-        color: #94A3B8;
-        margin: 0;
-        line-height: 1.45;
-    }
-
-    .pillar-arrow {
-        font-size: 0.85rem;
-        color: #64748B;
-        transition: transform 0.2s ease, color 0.2s ease;
-        flex-shrink: 0;
-    }
-
-    .ctrl-pillar-item:hover .pillar-arrow {
-        color: #FFFFFF;
-        transform: translate(2px, -2px);
-    }
-
-    /* Stack Footer */
-    .ctrl-stack-footer {
-        padding-top: 0.4rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .stack-footer-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0.6rem;
-    }
-
-    .stack-lbl {
-        font-family: var(--font-mono);
-        font-size: 0.64rem;
-        color: #64748B;
-        letter-spacing: 0.06em;
-        font-weight: 600;
-    }
-
-    .stack-badge {
-        font-family: var(--font-mono);
-        font-size: 0.62rem;
-        color: #10B981;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-    }
-
-    .stack-tags-cloud {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.4rem;
-    }
-
-    .stack-chip {
-        font-family: var(--font-mono);
-        font-size: 0.66rem;
-        color: #CBD5E1;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        padding: 0.25rem 0.6rem;
-        border-radius: 6px;
-        transition: all 0.2s ease;
-    }
-
-    .stack-chip:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: rgba(255, 255, 255, 0.15);
-        color: #FFFFFF;
-    }
-
-    /* ============================================================
-       ABOUT — 02 // OVERVIEW
-       ============================================================ */
-    #about {
-        border-top: 1px solid var(--border);
-    }
-
-    /* ============================================================
-       02 // ABOUT — MINIMALIST TIMELINE (StartBootstrap Reference)
-       ============================================================ */
-    .about-section {
-        padding: clamp(5rem, 10vh, 8rem) 0;
-        position: relative;
-    }
-
-    .about-header {
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-
-    .about-mono-label {
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        color: var(--primary);
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        display: block;
-        margin-bottom: 1rem;
-    }
-
-    .about-hero-title {
-        font-family: var(--font-hero);
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 800;
-        color: #F5F5F7;
-        line-height: 1.1;
-    }
-
-    .about-intro {
-        text-align: center;
-        max-width: 800px;
-        margin: 0 auto 4rem auto;
-        font-size: 1.1rem;
-        color: #A1A1A6;
-        line-height: 1.6;
-    }
-    
-    .about-intro strong {
-        color: #FFFFFF;
-        font-weight: 500;
-    }
-
-    .apple-timeline {
-        position: relative;
-        padding: 0;
-        list-style: none;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .apple-timeline:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 50%;
-        width: 2px;
-        margin-left: -1px;
-        background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.1) 10%, rgba(255, 255, 255, 0.1) 90%, transparent);
-    }
-
-    .apple-timeline > li {
-        position: relative;
-        margin-bottom: 50px;
-        min-height: 100px;
-    }
-
-    .apple-timeline > li:after, .apple-timeline > li:before {
-        display: table;
-        content: " ";
-    }
-    .apple-timeline > li:after {
-        clear: both;
-    }
-
-    .apple-timeline-panel {
-        position: relative;
-        width: 45%;
-        float: left;
-        text-align: right;
-        padding: 2.5rem;
-        background: rgba(18, 18, 24, 0.4);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 20px;
-        transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 300ms ease;
-    }
-
-    .apple-timeline > li.timeline-inverted > .apple-timeline-panel {
-        float: right;
-        text-align: left;
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-        .apple-timeline-panel.interactive:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-    }
-
-    .apple-timeline-panel.interactive:active {
-        transform: scale(0.98);
-        transition: transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .apple-timeline-image {
-        position: absolute;
-        left: 50%;
-        width: 60px;
-        height: 60px;
-        margin-left: -30px;
-        background: #121218;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 50%;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: var(--font-mono);
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #FFFFFF;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    }
-
-    .apple-timeline-image.final {
-        background: var(--primary);
-        color: #000;
-        border: none;
-    }
-
-    .apple-timeline-heading h4 {
-        font-family: var(--font-hero);
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: #F5F5F7;
-        margin-bottom: 0.5rem;
-    }
-
-    .apple-timeline-heading .subheading {
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        color: var(--primary);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: 1rem;
-    }
-
-    .apple-timeline-body p {
-        font-size: 0.95rem;
-        color: #86868B;
-        line-height: 1.7;
-    }
-
-    @media (max-width: 768px) {
-        .apple-timeline:before {
-            left: 30px;
-        }
-        .apple-timeline-image {
-            left: 30px;
-            width: 40px;
-            height: 40px;
-            margin-left: -20px;
-            font-size: 0.9rem;
-        }
-        .apple-timeline-panel {
-            width: calc(100% - 70px);
-            float: right;
-            text-align: left;
-            padding: 1.5rem;
-        }
-        .apple-timeline > li.timeline-inverted > .apple-timeline-panel {
-            float: right;
-            text-align: left;
-        }
-    }
-
-    /* ============================================================
-       03 // SOCIAL PROOF & VERIFIED B2B REVIEWS (MINIMALIST GLASS)
-       ============================================================ */
-    #social-proof {
-        border-top: 1px solid var(--border);
-        padding: clamp(3.5rem, 7vh, 5.5rem) 0;
-        position: relative;
-    }
-
-    .social-proof-header {
-        text-align: center;
-        max-width: 720px;
-        margin: 0 auto 2.5rem auto;
-    }
-
-    .social-proof-header h2 {
-        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-        color: #FFFFFF;
-        margin-bottom: 0.6rem;
-    }
-
-    .social-proof-sub {
-        font-size: 0.95rem;
-        color: var(--text-dim);
-        line-height: 1.6;
-    }
-
-    /* Platform Badges Bar */
-    .platforms-trust-bar {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        margin-bottom: 3rem;
-    }
-
-    .platform-trust-card {
-        background: rgba(13, 20, 36, 0.45);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-md);
-        padding: 0.9rem 1.1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.85rem;
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        transition: all var(--transition);
-    }
-
-    .platform-trust-card:hover {
-        border-color: rgba(59, 130, 246, 0.35);
-        background: rgba(20, 30, 52, 0.65);
-        transform: translateY(-2px);
-    }
-
-    .platform-logo-badge {
-        font-family: var(--font-hero);
-        font-size: 0.95rem;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 38px;
-        height: 38px;
-        min-width: 38px;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: #E2E8F0;
-    }
-
-    .platform-trust-info {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .platform-trust-name {
-        font-family: var(--font-hero);
-        font-size: 0.86rem;
-        font-weight: 700;
-        color: #FFFFFF;
-    }
-
-    .platform-trust-desc {
-        font-size: 0.72rem;
-        color: var(--text-muted);
-        margin-top: 1px;
-    }
-
-    /* Reviews 2x2 Grid */
-    .reviews-b2b-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-
-    @media (max-width: 900px) {
-        .reviews-b2b-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .review-b2b-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-md);
-        padding: 1.8rem 2rem;
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: all var(--transition);
-        position: relative;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    }
-
-    .review-b2b-card:hover {
-        border-color: rgba(59, 130, 246, 0.35);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
-        transform: translateY(-3px);
-    }
-
-    .review-card-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-
-    .review-plat-tag {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-family: var(--font-mono);
-        font-size: 0.7rem;
-        font-weight: 600;
-        padding: 0.25rem 0.65rem;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: #E2E8F0;
-    }
-
-    .review-solution-tag {
-        font-family: var(--font-mono);
-        font-size: 0.68rem;
-        color: #94A3B8;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        padding: 0.2rem 0.55rem;
-        border-radius: 6px;
-        border: 1px solid rgba(59, 130, 246, 0.25);
-        font-weight: 600;
-    }
-
-    .review-stars {
-        color: #F59E0B;
-        font-size: 0.95rem;
-        letter-spacing: 2px;
-        margin-bottom: 0.8rem;
-    }
-
-    .review-title {
-        font-family: var(--font-hero);
-        font-size: 1.12rem;
-        font-weight: 700;
-        color: #FFFFFF;
-        line-height: 1.4;
-        margin-bottom: 0.8rem;
-    }
-
-    .review-quote {
-        font-size: 0.92rem;
-        color: #94A3B8;
-        line-height: 1.7;
-        margin-bottom: 1.5rem;
-        font-style: normal;
-    }
-
-    .review-footer {
-        border-top: 1px solid rgba(255, 255, 255, 0.07);
-        padding-top: 1.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-    }
-
-    .reviewer-meta {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .reviewer-name {
-        font-family: var(--font-hero);
-        font-size: 0.88rem;
-        font-weight: 700;
-        color: #F8FAFC;
-    }
-
-    .reviewer-role {
-        font-size: 0.75rem;
-        color: #64748B;
-        margin-top: 2px;
-    }
-
-    .review-metric-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-family: var(--font-mono);
-        font-size: 0.7rem;
-        font-weight: 500;
-        color: #CBD5E1;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 0.25rem 0.65rem;
-        border-radius: 20px;
-    }
-
-    .stat-card {
-        background: var(--bg-card);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-md);
-        padding: 2rem 1.5rem;
-        transition: all var(--transition);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    }
-
-    .stat-card:hover {
-        border-color: rgba(59, 130, 246, 0.35);
-        transform: translateY(-4px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
-    }
-
-    /* ============================================================
-       PROJECTS — 03 // PROYECTOS DESPLEGADOS
-       ============================================================ */
-    #projects {
-        border-top: 1px solid var(--border);
-    }
-
-    .projects-header {
-        margin-bottom: 3rem;
-    }
-
-    .projects-header h2 {
-        font-size: clamp(1.8rem, 4vw, 2.5rem);
-        color: var(--text);
-    }
-
-    .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.8rem;
-    }
-
-    .project-card {
-        position: relative;
-        background: var(--bg-card);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-md);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        transition: all var(--transition);
-    }
-
-    .project-image-placeholder {
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        background: transparent;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--text-muted);
-        font-family: var(--font-mono);
-        font-size: 0.85rem;
-        border-bottom: 1px solid var(--border);
-        overflow: hidden;
-    }
-
-    .project-image-placeholder img {
-        mix-blend-mode: screen;
-    }
-
-    .project-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, var(--primary), var(--accent-cyan));
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.4s ease;
-        z-index: 3;
-    }
-
-    .project-card:hover::before {
-        transform: scaleX(1);
-    }
-
-    .project-card:hover {
-        border-color: var(--border-hover);
-        box-shadow: 0 16px 45px rgba(59, 130, 246, 0.2);
-        transform: translateY(-4px);
-    }
-
-    .project-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 2.5rem;
-        flex-grow: 1;
-        z-index: 2;
-    }
-
-    .project-number {
-        font-family: var(--font-mono);
-        font-size: 0.7rem;
-        color: var(--text-muted);
-        letter-spacing: 0.1em;
-    }
-
-    .project-info {
-        transform: translateY(10px);
-        transition: transform var(--transition);
-    }
-
-    .project-card:hover .project-info {
-        transform: translateY(0);
-    }
-
-    .project-info h3 {
-        font-size: 1.3rem;
-        font-weight: 800;
-        color: var(--text);
-        margin-bottom: 0.4rem;
-        text-transform: uppercase;
-    }
-
-    .project-info p {
-        font-size: 0.85rem;
-        color: var(--text-dim);
-        margin-bottom: 1rem;
-        line-height: 1.5;
-    }
-
-    .project-tags {
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-        opacity: 0;
-        transform: translateY(5px);
-        transition: opacity var(--transition), transform var(--transition);
-    }
-
-    .project-card:hover .project-tags {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .project-tag {
-        font-family: var(--font-mono);
-        font-size: 0.65rem;
-        padding: 0.35rem 0.8rem;
-        border: 1px solid var(--primary-dim);
-        border-radius: var(--radius-sm);
-        color: var(--primary);
-        background: var(--primary-dim);
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        font-weight: 600;
-    }
-
-    /* Decorative grid pattern inside cards */
-    .project-bg-pattern {
-        position: absolute;
-        inset: 0;
-        background-image:
-            linear-gradient(var(--border) 1px, transparent 1px),
-            linear-gradient(90deg, var(--border) 1px, transparent 1px);
-        background-size: 40px 40px;
-        opacity: 0.3;
-        z-index: 1;
-        transition: opacity var(--transition);
-    }
-
-    .project-card:hover .project-bg-pattern {
-        opacity: 0.5;
-    }
-
-    /* ============================================================
-       SKILLS — 04 // HABILIDADES
-       ============================================================ */
-    #skills {
-        border-top: 1px solid var(--border);
-    }
-
-    .skills-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-    }
-
-    .skills-bars h3 {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
-        color: var(--text);
-    }
-
-    .skill-category {
-        margin-bottom: 2rem;
-    }
-
-    .skill-category h4 {
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        color: var(--primary);
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-        margin-bottom: 1rem;
-    }
-
-    .skill-item {
-        margin-bottom: 1.2rem;
-    }
-
-    .skill-item-header {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.85rem;
-        color: var(--text-dim);
-        margin-bottom: 0.4rem;
-    }
-
-    .skill-bar {
-        height: 3px;
-        background: var(--border);
-        border-radius: 2px;
-        overflow: hidden;
-    }
-
-    .skill-fill {
-        height: 100%;
-        background: var(--primary);
-        border-radius: 2px;
-        width: 0;
-        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-
-    .competencies h3 {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
-        color: var(--text);
-    }
-
-    .competency {
-        padding: 2.5rem;
-        background: var(--bg-card);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        margin-bottom: 1rem;
-        transition: background var(--transition), box-shadow var(--transition);
-    }
-
-    .competency:hover {
-        border-color: var(--primary);
-        background: rgba(59, 130, 246, 0.04);
-        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.1);
-    }
-
-    .competency h4 {
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: var(--text);
-        margin-bottom: 0.5rem;
-    }
-
-    .competency h4::before {
-        content: '→ ';
-        color: var(--primary);
-    }
-
-    .competency p {
-        font-size: 0.85rem;
-        color: var(--text-dim);
-        line-height: 1.6;
-    }
-
-    /* ============================================================
-       TIMELINE — 08 // TRAYECTORIA PROFESIONAL & HITOS
-       ============================================================ */
-    #timeline {
-        border-top: 1px solid var(--border);
-        background: radial-gradient(circle at 50% 100%, rgba(59, 130, 246, 0.05) 0%, transparent 60%);
-    }
-
-    .timeline-container {
-        position: relative;
-        max-width: 820px;
-        margin: 0 auto;
-        padding-left: 2.8rem;
-    }
-
-    .timeline-container::before {
-        content: '';
-        position: absolute;
-        left: 10px;
-        top: 15px;
-        bottom: 15px;
-        width: 2px;
-        background: linear-gradient(to bottom, var(--primary), var(--accent-cyan), rgba(59, 130, 246, 0.15));
-    }
-
-    .timeline-item {
-        position: relative;
-        margin-bottom: 2.2rem;
-        padding: 1.8rem 2.2rem;
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-md);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        transition: all var(--transition);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-    }
-
-    .timeline-item:hover {
-        border-color: var(--border-hover);
-        transform: translateX(4px);
-        box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15);
-    }
-
-    .timeline-item::before {
-        content: '';
-        position: absolute;
-        left: -2.35rem;
-        top: 2rem;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: #030712;
-        border: 3px solid var(--primary);
-        box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
-        z-index: 2;
-        transition: all 0.3s ease;
-    }
-
-    .timeline-item:hover::before {
-        background: var(--primary);
-        box-shadow: 0 0 18px rgba(59, 130, 246, 0.9);
-        transform: scale(1.2);
-    }
-
-    .timeline-item.present::before {
-        border-color: #10B981;
-        box-shadow: 0 0 14px #10B981;
-        animation: pulseLive 2s infinite ease-in-out;
-    }
-
-    .timeline-item-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 0.6rem;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-
-    .timeline-date {
-        font-family: var(--font-mono);
-        font-size: 0.78rem;
-        font-weight: 700;
-        color: #38BDF8;
-        background: rgba(56, 189, 248, 0.1);
-        border: 1px solid rgba(56, 189, 248, 0.25);
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        letter-spacing: 0.05em;
-    }
-
-    .timeline-date.present {
-        color: #10B981;
-        background: rgba(16, 185, 129, 0.12);
-        border-color: rgba(16, 185, 129, 0.3);
-    }
-
-    .timeline-item h3 {
-        font-family: var(--font-hero);
-        font-size: 1.18rem;
-        font-weight: 800;
-        color: #FFFFFF;
-        margin-bottom: 0.6rem;
-        line-height: 1.4;
-    }
-
-    .timeline-item p {
-        font-size: 0.9rem;
-        color: var(--text-dim);
-        line-height: 1.7;
-        margin-bottom: 1rem;
-    }
-
-    .timeline-tags {
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-    }
-
-    .timeline-tag {
-        font-family: var(--font-mono);
-        font-size: 0.68rem;
-        padding: 0.25rem 0.65rem;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 6px;
-        color: #94A3B8;
-        font-weight: 500;
-    }
-
-    .timeline-badge {
-        display: inline-block;
-        font-family: var(--font-mono);
-        font-size: 0.65rem;
-        font-weight: 700;
-        padding: 0.2rem 0.6rem;
-        background: rgba(16, 185, 129, 0.12);
-        color: #10B981;
-        border: 1px solid rgba(16, 185, 129, 0.28);
-        border-radius: var(--radius-sm);
-        letter-spacing: 0.08em;
-    }
-
-    /* ============================================================
-       TECHNOLOGIES — 06 // MARQUEE
-       ============================================================ */
-    #tech {
-        border-top: 1px solid var(--border);
-        padding: var(--section-padding) 0;
-        overflow: hidden;
-    }
-
-    .marquee-wrapper {
-        overflow: hidden;
-        padding: 2.5rem 0;
-        position: relative;
-    }
-
-    /* Subtle Fade edges */
-    .marquee-wrapper::before,
-    .marquee-wrapper::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 140px;
-        z-index: 2;
-        pointer-events: none;
-    }
-
-    .marquee-wrapper::before {
-        left: 0;
-        background: linear-gradient(to right, #030712, transparent);
-    }
-
-    .marquee-wrapper::after {
-        right: 0;
-        background: linear-gradient(to left, #030712, transparent);
-    }
-
-    .marquee-track {
-        display: flex;
-        align-items: center;
-        gap: 1.2rem;
-        animation: marquee 35s linear infinite;
-        width: max-content;
-    }
-
-    .marquee-track:hover {
-        animation-play-state: paused;
-    }
-
-    .marquee-item {
-        font-family: var(--font-mono);
-        font-size: clamp(0.85rem, 1.3vw, 1.05rem);
-        font-weight: 600;
-        white-space: nowrap;
-        color: #94A3B8;
-        background: rgba(15, 23, 42, 0.65);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 30px;
-        padding: 0.55rem 1.3rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(8px);
-    }
-
-    .marquee-item:hover {
-        color: #38BDF8;
-        border-color: rgba(59, 130, 246, 0.5);
-        background: rgba(30, 41, 59, 0.85);
-        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25);
-        transform: translateY(-2px);
-    }
-
-    .marquee-separator {
-        font-size: 0.65rem;
-        color: rgba(59, 130, 246, 0.4);
-        user-select: none;
-    }
-
-    @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-
-    /* ============================================================
-       CONTACT — 07 // TERMINAL FINAL
-       ============================================================ */
-    #contact {
-        border-top: 1px solid var(--border);
-        text-align: center;
-    }
-
-    .contact-wrapper {
-        max-width: 650px;
-        margin: 0 auto;
-        padding: 4rem 2rem;
-        background: var(--bg-card);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-lg);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .contact-title {
-        font-size: clamp(2rem, 5vw, 3.5rem);
-        font-weight: 800;
-        text-transform: uppercase;
-        color: var(--text);
-        margin-bottom: 1rem;
-    }
-
-    .contact-title span {
-        color: var(--primary);
-    }
-
-    .contact-sub {
-        font-size: 1rem;
-        color: var(--text-dim);
-        margin-bottom: 3rem;
-        line-height: 1.6;
-    }
-
-    .contact-actions {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .contact-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        padding: 1rem 2rem;
-        font-family: var(--font-mono);
-        font-size: 0.85rem;
-        color: var(--text);
-        border: 1px solid var(--secondary);
-        border-radius: var(--radius-sm);
-        text-decoration: none;
-        transition: all var(--transition);
-        cursor: pointer;
-    }
-
-    .contact-btn:hover {
-        border-color: var(--primary);
-        color: var(--primary);
-        box-shadow: 0 0 20px var(--primary-dim);
-    }
-
-    .contact-btn svg {
-        width: 18px;
-        height: 18px;
-        fill: currentColor;
-    }
-
-    /* ============================================================
-       FOOTER
-       ============================================================ */
-    footer {
-        padding: 2rem 0;
-        border-top: 1px solid var(--border);
-        text-align: center;
-    }
-
-    footer p {
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        letter-spacing: 0.05em;
-    }
-
-    footer a {
-        color: var(--primary);
-    }
-
-    /* ============================================================
-       RESPONSIVE — Mobile First (768px, 1200px)
-       ============================================================ */
-    @media (max-width: 1200px) {
-        .hero-grid {
-            gap: 3rem;
-        }
-
-        .about-grid {
-            gap: 3rem;
-        }
-    }
-
-    @media (max-width: 768px) {
-        /* Mobile Performance Overrides */
-        body {
-            background-attachment: scroll !important;
-        }
-
-        body::before, body::after {
-            display: none !important;
-            animation: none !important;
-        }
-
-        /* Navbar mobile */
-        .nav-toggle {
-            display: flex;
-        }
-
-        .nav-links {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 280px;
-            height: 100vh;
-            background: rgba(5, 5, 5, 0.98);
-            backdrop-filter: blur(20px);
-            flex-direction: column;
-            padding: 5rem 2rem;
-            gap: 1.5rem;
-            transition: right var(--transition);
-            border-left: 1px solid var(--border);
-        }
-
-        .nav-links.open {
-            right: 0;
-        }
-
-        .nav-links a {
-            font-size: 1rem;
-        }
-
-        /* Hero */
-        .hero-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 12vw, 4rem);
-        }
-
-        .console {
-            order: -1;
-        }
-
-        /* About */
-        .about-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .about-label {
-            position: static;
-        }
-
-        .about-stats {
-            grid-template-columns: 1fr;
-        }
-
-        /* Projects */
-        .projects-grid {
-            grid-template-columns: 1fr;
-        }
-
-        /* Skills */
-        .skills-grid {
-            grid-template-columns: 1fr;
-            gap: 3rem;
-        }
-
-        /* Timeline */
-        .timeline-container {
-            padding-left: 2.5rem;
-        }
-    }
-
-    /* Overlay for mobile nav */
-    .nav-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 998;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity var(--transition);
-    }
-
-    .nav-overlay.active {
-        opacity: 1;
-        pointer-events: all;
-    }
-
-    /* ============================================================
-       i18n LANGUAGE SWITCHER & MODAL STYLES
-       ============================================================ */
-    .lang-switcher {
-        display: inline-flex;
-        align-items: center;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 3px 4px;
-        gap: 2px;
-        margin-left: 1rem;
-    }
-
-    .lang-btn {
-        background: transparent;
-        border: none;
-        color: var(--text-dim);
-        font-family: var(--font-mono);
-        font-size: 0.75rem;
-        font-weight: 600;
-        padding: 3px 10px;
-        border-radius: 14px;
-        cursor: pointer;
-        transition: all var(--transition);
-    }
-
-    .lang-btn:hover {
-        color: var(--text);
-    }
-
-    .lang-btn.active {
-        background: var(--primary);
-        color: #FFFFFF;
-        box-shadow: 0 0 12px var(--primary-glow);
-    }
-
-    /* Initial Language Choice Modal */
-    .lang-modal-backdrop {
-        position: fixed;
-        inset: 0;
-        background: rgba(5, 5, 5, 0.88);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.4s ease;
-        padding: 1.5rem;
-    }
-
-    .lang-modal-backdrop.active {
-        opacity: 1;
-        pointer-events: all;
-    }
-
-    .lang-modal-card {
-        background: rgba(15, 15, 15, 0.95);
-        border: 1px solid var(--border-hover);
-        border-radius: var(--radius-md);
-        padding: 2.5rem 2rem;
-        max-width: 440px;
-        width: 100%;
-        text-align: center;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
-        transform: translateY(20px);
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .lang-modal-backdrop.active .lang-modal-card {
-        transform: translateY(0);
-    }
-
-    .lang-modal-icon {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        display: block;
-    }
-
-    .lang-modal-title {
-        font-family: var(--font-hero);
-        font-size: 1.4rem;
-        font-weight: 800;
-        color: #FFFFFF;
-        margin-bottom: 0.5rem;
-    }
-
-    .lang-modal-sub {
-        font-size: 0.85rem;
-        color: var(--text-dim);
-        margin-bottom: 2rem;
-        line-height: 1.5;
-    }
-
-    .lang-modal-actions {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-    }
-
-    .lang-modal-btn {
-        flex: 1;
-        padding: 0.9rem 1.2rem;
-        font-family: var(--font-hero);
-        font-weight: 700;
-        font-size: 0.9rem;
-        border-radius: var(--radius-sm);
-        border: 1px solid var(--border-hover);
-        background: rgba(255, 255, 255, 0.05);
-        color: var(--text);
-        cursor: pointer;
-        transition: all var(--transition);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .lang-modal-btn:hover {
-        border-color: var(--primary);
-        background: var(--primary-dim);
-        color: var(--primary);
-        box-shadow: 0 0 20px var(--primary-glow);
-    }
-    </style>
 </head>
-<body id="page-top">
+<body>
 
-    <!-- Language Initial Choice Modal -->
+    <!-- Language Selection Modal (Zero-latency local first) -->
     <div class="lang-modal-backdrop" id="langModal">
         <div class="lang-modal-card">
             <span class="lang-modal-icon">🌐</span>
-            <h3 class="lang-modal-title" data-i18n="modal_title">Selecciona tu idioma / Select Language</h3>
+            <h2 class="lang-modal-title" data-i18n="modal_title">Selecciona tu idioma / Select Language</h2>
             <p class="lang-modal-sub" data-i18n="modal_sub">Escoge el idioma preferido para navegar la suite de soluciones.</p>
             <div class="lang-modal-actions">
-                <button type="button" class="lang-modal-btn" id="modalBtnES" data-i18n="modal_es">🇪🇸 Español</button>
-                <button type="button" class="lang-modal-btn" id="modalBtnEN" data-i18n="modal_en">🇺🇸 English</button>
+                <button type="button" class="lang-modal-btn" id="modalBtnES" data-i18n="modal_es">Español</button>
+                <button type="button" class="lang-modal-btn" id="modalBtnEN" data-i18n="modal_en">English</button>
             </div>
         </div>
     </div>
 
-    <!-- Mobile Nav Overlay -->
-    <div class="nav-overlay" id="navOverlay"></div>
+    <!-- Mobile Fullscreen Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <div class="mobile-nav-links">
+            <a href="#about" class="mobile-nav-link" data-i18n="nav_about">Sobre Mí</a>
+            <a href="#services" class="mobile-nav-link" data-i18n="nav_projects">Servicios</a>
+            <a href="#skills" class="mobile-nav-link" data-i18n="nav_skills">Habilidades</a>
+            <a href="#timeline" class="mobile-nav-link" data-i18n="nav_timeline">Trayectoria</a>
+            <a href="#contact" class="mobile-nav-link" data-i18n="nav_contact">Contacto</a>
+        </div>
+    </div>
 
     <!-- ============================================================
-         NAVBAR
+         FLOATING ISLAND NAVBAR
          ============================================================ -->
     <nav id="mainNav">
-        <div class="container">
-            <a href="#page-top" class="nav-logo interactive">A<span>G</span></a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#about" class="interactive" data-i18n="nav_about">Sobre Mí</a></li>
-                <li><a href="#services" class="interactive" data-i18n="nav_projects">Proyectos</a></li>
-                <li><a href="#skills" class="interactive" data-i18n="nav_skills">Habilidades</a></li>
-                <li><a href="#timeline" class="interactive" data-i18n="nav_timeline">Trayectoria</a></li>
-                <li><a href="#contact" class="interactive" data-i18n="nav_contact">Contacto</a></li>
-            </ul>
-            <div style="display: flex; align-items: center; gap: 0.8rem;">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">AG<span>.</span></a>
+            <div class="nav-links" id="navLinks">
+                <a href="#about" class="nav-link" data-i18n="nav_about">Sobre Mí</a>
+                <a href="#services" class="nav-link" data-i18n="nav_projects">Servicios</a>
+                <a href="#skills" class="nav-link" data-i18n="nav_skills">Habilidades</a>
+                <a href="#timeline" class="nav-link" data-i18n="nav_timeline">Trayectoria</a>
+                <a href="#contact" class="nav-link" data-i18n="nav_contact">Contacto</a>
+            </div>
+            <div class="nav-actions">
                 <div class="lang-switcher">
-                    <button type="button" class="lang-btn active interactive" id="langBtnES" aria-label="Español">ES</button>
-                    <button type="button" class="lang-btn interactive" id="langBtnEN" aria-label="English">EN</button>
+                    <button type="button" class="lang-btn active" id="langBtnES" aria-label="Cambiar a Español">ES</button>
+                    <button type="button" class="lang-btn" id="langBtnEN" aria-label="Switch to English">EN</button>
                 </div>
-                <button class="nav-toggle interactive" id="navToggle" aria-label="Abrir menú de navegación">
+                <button class="nav-toggle" id="navToggle" aria-label="Menú de navegación">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -2179,833 +128,539 @@
         </div>
     </nav>
 
-    <!-- ============================================================
-         01 // HERO
-         ============================================================ -->
-    <header id="hero">
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <div class="hero-badge-pill reveal">
-                        <span class="badge-pulse-dot"></span>
-                        <span data-i18n="hero_badge">✦ Automatización Inteligente & Software a Medida</span>
+    <main>
+        <!-- ============================================================
+             HERO SECTION — Software a Medida, Sin Intermediarios
+             ============================================================ -->
+        <header id="hero" class="hero-section">
+            <div class="container">
+                <div class="hero-card-stage reveal">
+                    <!-- Top Status Bar -->
+                    <div class="hero-stage-top">
+                        <span class="hero-stage-brand">AG.</span>
+                        <div class="hero-stage-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text" data-i18n="ctrl_status">Disponible para proyectos</span>
+                        </div>
                     </div>
-                    <h1 class="hero-title reveal" id="heroTitle" data-i18n="hero_title">
-                        Ingeniería de Software & <br><span class="hero-gradient-text">Automatización IA para Negocios</span>
-                    </h1>
-                    <p class="hero-subtitle reveal" id="heroSubtitle" data-i18n="hero_subtitle">
-                        Transformamos la operativa de tu empresa con asistentes de IA conversacional, plataformas web a medida y flujos automatizados de alta rentabilidad.
+
+                    <!-- Main Editorial Content -->
+                    <div class="hero-stage-content">
+                        <p class="hero-stage-kicker" data-i18n="ctrl_mesh">AG Private Engineering</p>
+                        <h1 class="hero-stage-title" id="heroTitle" data-i18n="hero_title">
+                            Software a medida, sin intermediarios
+                        </h1>
+                        <p class="hero-stage-subtitle" id="heroSubtitle" data-i18n="hero_subtitle">
+                            Trato directo con el desarrollador. Código propio, sin comisiones de agencia.
+                        </p>
+
+                        <div class="hero-stage-actions" id="heroCta">
+                            <a href="#contact" class="btn-hero-primary interactive">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                                <span data-i18n="hero_btn_contact">Agendar consultoría</span>
+                            </a>
+                            <a href="#services" class="btn-hero-secondary interactive">
+                                <span data-i18n="hero_btn_projects">Ver servicios</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Hairline Divider & Tech Stack -->
+                    <div class="hero-stage-divider"></div>
+                    <div class="hero-tech-stack-row">
+                        <span class="hero-tech-item">Next.js</span>
+                        <span class="hero-tech-item">Node.js</span>
+                        <span class="hero-tech-item">Python</span>
+                        <span class="hero-tech-item">Meta Cloud API</span>
+                        <span class="hero-tech-item">Docker</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ============================================================
+             VISIÓN TÉCNICA & ARQUITECTURA SAAS (Asymmetric Bento)
+             ============================================================ -->
+        <section id="about" class="section-wrapper">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title" data-i18n="about_label_title">Soberanía Tecnológica &amp; Arquitectura SaaS</h2>
+                    <p class="section-description" data-i18n="about_p1">
+                        Diseño y construyo plataformas a medida y flujos de automatización que eliminan suscripciones mensuales rígidas. Tu empresa controla el código y los datos al 100%.
                     </p>
-                    <div class="hero-cta reveal" id="heroCta">
-                        <a href="#contact" class="btn btn-hero-primary interactive">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-                            <span data-i18n="hero_btn_contact">AGENDAR CONSULTORÍA</span>
+                </div>
+
+                <div class="bento-grid">
+                    <!-- Bento Card 1: Soberanía Tecnológica (Span 7) -->
+                    <div class="bento-col-7 bento-card reveal">
+                        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;" data-i18n="about_p1_title">Soberanía Tecnológica Total</h3>
+                        <p data-i18n="about_p1_desc">Código fuente e infraestructura de tu propiedad. Sin comisiones recurrentes ni lock-in de proveedores.</p>
+                        <div style="display: flex; gap: 2rem; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
+                            <div>
+                                <span style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 700; color: var(--accent-emerald);">0%</span>
+                                <p style="font-size: 0.875rem; color: var(--text-muted);">Comisiones Recurrentes</p>
+                            </div>
+                            <div style="width: 1px; height: 40px; background: var(--border-subtle);"></div>
+                            <div>
+                                <span style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 700; color: var(--accent-cyan);">100%</span>
+                                <p style="font-size: 0.875rem; color: var(--text-muted);">Propiedad del Código</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bento Card 2: Resiliencia & Concurrencia (Span 5) -->
+                    <div class="bento-col-5 bento-card reveal">
+                        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;" data-i18n="about_p3_title">Resiliencia &amp; Alta Concurrencia</h3>
+                        <p data-i18n="about_p3_desc">Backends con consistencia transaccional diseñados para soportar alta carga y escalabilidad sin cuellos de botella.</p>
+                    </div>
+
+                    <!-- Bento Card 3: Automatización & Agentes IA (Span 6) -->
+                    <div class="bento-col-6 bento-card reveal">
+                        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;" data-i18n="about_p2_title">Automatización &amp; Agentes IA</h3>
+                        <p data-i18n="about_p2_desc">Pipelines autónomos en WhatsApp y n8n conectados a tu base de datos y CRM para operaciones 24/7 sin fallos.</p>
+                    </div>
+
+                    <!-- Bento Card 4: Arquitectura Enterprise (Span 6) -->
+                    <div class="bento-col-6 bento-card reveal">
+                        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;" data-i18n="about_node_title">Arquitectura &amp; Ecosistemas SaaS</h3>
+                        <p data-i18n="about_p2">Next.js, Node.js y Python conectados a WhatsApp Cloud API y n8n para operaciones continuas 24/7 sin fallos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             ESTÁNDARES DE INGENIERÍA & VALIDACIÓN EN PRODUCCIÓN
+             ============================================================ -->
+        <section id="social-proof" class="section-wrapper">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title" data-i18n="social_proof_title">Ingeniería Probada en Entornos Reales</h2>
+                    <p class="section-description" data-i18n="social_proof_sub">
+                        Código modular testeado bajo tráfico real, arquitecturas escalables y soberanía tecnológica total sin dependencias frágiles.
+                    </p>
+                </div>
+
+                <div class="bento-grid">
+                    <!-- Quality Standard 1 -->
+                    <div class="bento-col-6 bento-card reveal">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem;">
+                                <span class="hero-chip" data-i18n="sp_r1_tag">Calidad de Código</span>
+                                <span class="hero-chip">TypeScript</span>
+                            </div>
+                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r1_title">Despliegues continuos, tipado estricto y cero regresiones</h3>
+                            <p data-i18n="sp_r1_quote">Tipado estricto con TypeScript, pruebas continuas y despliegues sin regresiones en producción.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quality Standard 2 -->
+                    <div class="bento-col-6 bento-card reveal">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem;">
+                                <span class="hero-chip" data-i18n="sp_r2_tag">Alta Concurrencia</span>
+                                <span class="hero-chip" style="color: var(--accent-emerald);">99.9% Uptime</span>
+                            </div>
+                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r2_title">Arquitecturas resilientes preparadas para alta carga</h3>
+                            <p data-i18n="sp_r2_quote">Arquitecturas cloud y backends asíncronos diseñados para absorber picos de tráfico sin cuellos de botella.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quality Standard 3 -->
+                    <div class="bento-col-6 bento-card reveal">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem;">
+                                <span class="hero-chip" data-i18n="sp_r3_tag">Automatización Oficial</span>
+                                <span class="hero-chip">WhatsApp Cloud</span>
+                            </div>
+                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r3_title">Integración certificada con WhatsApp Business Cloud API</h3>
+                            <p data-i18n="sp_r3_quote">Código e infraestructura 100% de tu propiedad. Sin comisiones recurrentes ni dependencia de terceros.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quality Standard 4 -->
+                    <div class="bento-col-6 bento-card reveal">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem;">
+                                <span class="hero-chip" data-i18n="sp_r4_tag">Seguridad &amp; Aislamiento</span>
+                                <span class="hero-chip">TLS / JWT</span>
+                            </div>
+                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r4_title">Aislamiento de datos multi-tenant y cifrado de extremo a extremo</h3>
+                            <p data-i18n="sp_r4_quote">Bases de datos aisladas por cliente, autenticación criptográfica y cifrado TLS de extremo a extremo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             SERVICIOS & PROYECTOS INSIGNIA (BENTO SHOWCASE)
+             ============================================================ -->
+        <section id="services" class="section-wrapper">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title" data-i18n="services_title">Servicios &amp; Sistemas en Producción</h2>
+                </div>
+
+                <div class="bento-grid">
+                    <!-- Hero Project: DeliveryBot WhatsApp (Span 12) -->
+                    <div class="bento-col-12 bento-card interactive reveal">
+                        <div class="project-bento-hero">
+                            <div class="project-media-frame">
+                                <picture>
+                                    <source srcset="img/2-1200.avif 1200w, img/2-800.avif 800w" type="image/avif">
+                                    <source srcset="img/2-1200.webp 1200w, img/2-800.webp 800w" type="image/webp">
+                                    <img src="img/2-1200.png" alt="Ecosistema de Bots Empresariales" loading="lazy">
+                                </picture>
+                            </div>
+                            <div class="project-details">
+                                <h3 class="section-title" style="font-size: 1.85rem;" data-i18n="proj_1_unified_title">Suite Empresarial de IA</h3>
+                                <p data-i18n="proj_1_unified_desc">
+                                    Asistente conversacional con IA y terminal de pedidos DeliveryBot. Respuestas inmediatas 24/7 y cobros automáticos.
+                                </p>
+                                <div class="project-tags-row">
+                                    <span class="project-tag">Groq AI</span>
+                                    <span class="project-tag">WhatsApp API</span>
+                                    <span class="project-tag">n8n</span>
+                                    <span class="project-tag">Serverless</span>
+                                </div>
+                                <div>
+                                    <a href="proyecto-bot-whatsapp/index.html" class="btn-island" data-i18n="project_btn_view_unified">
+                                        Explorar Ecosistema <span class="btn-island-icon">↗</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Desarrollo Web & SaaS (Span 6) -->
+                    <div class="bento-col-6 bento-card interactive reveal" style="gap: 1.5rem;">
+                        <div class="project-media-frame" style="max-height: 240px;">
+                            <img src="img/saas-dev-logo.jpg" alt="Desarrollo Web &amp; SaaS" loading="lazy">
+                        </div>
+                        <h3 class="section-title" style="font-size: 1.5rem;" data-i18n="serv_2_title">Desarrollo Web &amp; SaaS</h3>
+                        <p data-i18n="serv_2_desc">
+                            Plataformas a medida, paneles de administración y backends de alto rendimiento en Next.js y Node.js.
+                        </p>
+                        <div class="project-tags-row">
+                            <span class="project-tag">React / Next.js</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">Custom Backend</span>
+                        </div>
+                        <div style="margin-top: auto; padding-top: 0.5rem;">
+                            <a href="proyecto-web-saas/index.html" class="btn-secondary" data-i18n="project_btn_view">
+                                Ver Solución ↗
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: F1 Sim Pro (Span 6) -->
+                    <div class="bento-col-6 bento-card interactive reveal" style="gap: 1.5rem;">
+                        <div class="project-media-frame" style="max-height: 240px;">
+                            <img src="img/f1-sim-pro-logo.jpg" alt="F1 Sim Pro Motorsport" loading="lazy">
+                        </div>
+                        <h3 class="section-title" style="font-size: 1.5rem;" data-i18n="serv_3_title">F1 Sim Pro — Motor Concurrente &amp; Algoritmos Java</h3>
+                        <p data-i18n="serv_3_desc">
+                            Simulador de telemetría y física a 60 FPS con Java 17, algoritmos concurrentes y modelos estocásticos.
+                        </p>
+                        <div class="project-tags-row">
+                            <span class="project-tag">Java 17 Concurrente</span>
+                            <span class="project-tag">Telemetría 60 FPS</span>
+                            <span class="project-tag">Patrón Strategy</span>
+                        </div>
+                        <div style="margin-top: auto; padding-top: 0.5rem;">
+                            <a href="proyecto-formula1/index.html" class="btn-secondary" data-i18n="serv_3_btn">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             METODOLOGÍA & CÓMO TRABAJAMOS
+             ============================================================ -->
+        <section id="workflow" class="section-wrapper">
+            <div class="container">
+                <div class="section-header center reveal">
+                    <h2 class="section-title" data-i18n="workflow_title">Cómo Trabajamos</h2>
+                </div>
+
+                <div class="matrix-grid">
+                    <!-- Step 1 -->
+                    <div class="bento-card reveal">
+                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step1_title">Diagnóstico Inicial</h3>
+                        <p data-i18n="wf_step1_desc">Analizamos tus cuellos de botella operativos y oportunidades de automatización.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bento-card reveal">
+                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step2_title">Propuesta &amp; Arquitectura</h3>
+                        <p data-i18n="wf_step2_desc">Diseñamos la solución técnica orientada al máximo retorno de inversión (ROI).</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bento-card reveal">
+                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step3_title">Desarrollo Ágil</h3>
+                        <p data-i18n="wf_step3_desc">Construimos e iteramos rápidamente usando tecnologías sólidas y tipado estricto.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bento-card reveal">
+                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step4_title">Despliegue &amp; Soporte</h3>
+                        <p data-i18n="wf_step4_desc">Lanzamos el sistema a producción y aseguramos su estabilidad continua 24/7.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             CAPACIDADES TÉCNICAS (Clean Matrix)
+             ============================================================ -->
+        <section id="skills" class="section-wrapper">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title" data-i18n="skills_title">Stack &amp; Arquitectura</h2>
+                </div>
+
+                <div class="matrix-grid">
+                    <!-- Domain 1 -->
+                    <div class="bento-card matrix-card reveal">
+                        <div class="matrix-header">
+                            <h3 data-i18n="cat_scripting">Scripting &amp; Runtimes</h3>
+                        </div>
+                        <div class="matrix-items-list">
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>TypeScript / Node.js</span>
+                                    <span class="matrix-badge">Strict</span>
+                                </div>
+                                <span class="matrix-item-desc">APIs asíncronas, microservicios, tipado estricto</span>
+                            </div>
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>Python 3</span>
+                                    <span class="matrix-badge">Async</span>
+                                </div>
+                                <span class="matrix-item-desc">Pipelines de datos, IA, procesamiento de lenguaje natural</span>
+                            </div>
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>Java 17</span>
+                                    <span class="matrix-badge">LTS</span>
+                                </div>
+                                <span class="matrix-item-desc">Concurrencia, ExecutorService, POO enterprise</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Domain 2 -->
+                    <div class="bento-card matrix-card reveal">
+                        <div class="matrix-header">
+                            <h3 data-i18n="cat_frameworks">Frameworks &amp; UI</h3>
+                        </div>
+                        <div class="matrix-items-list">
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>React / Next.js</span>
+                                    <span class="matrix-badge">App Router</span>
+                                </div>
+                                <span class="matrix-item-desc">Server Components, SSR de alta fidelidad, SEO</span>
+                            </div>
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>FastAPI / Express</span>
+                                    <span class="matrix-badge">REST</span>
+                                </div>
+                                <span class="matrix-item-desc">Microservicios ligeros, OpenAPI y autenticación JWT</span>
+                            </div>
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>Modern Vanilla CSS</span>
+                                    <span class="matrix-badge">Design Systems</span>
+                                </div>
+                                <span class="matrix-item-desc">Arquitecturas Bento, microinteracciones fluidas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Domain 3 -->
+                    <div class="bento-card matrix-card reveal">
+                        <div class="matrix-header">
+                            <h3>IA &amp; Automatizaciones</h3>
+                        </div>
+                        <div class="matrix-items-list">
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>WhatsApp Cloud API</span>
+                                    <span class="matrix-badge">Meta Oficial</span>
+                                </div>
+                                <span class="matrix-item-desc">Asistentes conversacionales, DeliveryBot, Webhooks</span>
+                            </div>
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>n8n Workflows</span>
+                                    <span class="matrix-badge">Self-hosted</span>
+                                </div>
+                                <span class="matrix-item-desc">Orquestación de pipelines, CRMs y pagos automatizados</span>
+                            </div>
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>Groq &amp; LLM Orchestration</span>
+                                    <span class="matrix-badge">Ultra Low Latency</span>
+                                </div>
+                                <span class="matrix-item-desc">Inferencia de lenguaje a velocidad sub-segundo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Domain 4 -->
+                    <div class="bento-card matrix-card reveal">
+                        <div class="matrix-header">
+                            <h3 data-i18n="cat_backend">Cloud &amp; Seguridad</h3>
+                        </div>
+                        <div class="matrix-items-list">
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>PostgreSQL &amp; MongoDB</span>
+                                    <span class="matrix-badge">ACID</span>
+                                </div>
+                                <span class="matrix-item-desc">Esquemas multi-tenant aislados, consistencia transaccional</span>
+                            </div>
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>Docker &amp; CI/CD</span>
+                                    <span class="matrix-badge">DevOps</span>
+                                </div>
+                                <span class="matrix-item-desc">Despliegues reproducibles, pipelines de testing continuo</span>
+                            </div>
+                            <div class="matrix-item">
+                                <div class="matrix-item-title">
+                                    <span>Cloudflare Workers</span>
+                                    <span class="matrix-badge">Edge</span>
+                                </div>
+                                <span class="matrix-item-desc">Serverless global, protección DDoS y CDN distribuida</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             TRAYECTORIA & HITOS EN PRODUCCIÓN
+             ============================================================ -->
+        <section id="timeline" class="section-wrapper">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title" data-i18n="timeline_title">Lanzamientos &amp; Sistemas en Producción</h2>
+                </div>
+
+                <div class="timeline-grid">
+                    <!-- Milestone 1 -->
+                    <div class="bento-card timeline-row reveal">
+                        <span class="timeline-date" data-i18n="item1_date">Nov 2025</span>
+                        <div class="timeline-card-content">
+                            <h3 data-i18n="item1_title">Lanzamiento Suite Empresarial IA &amp; WhatsApp Bot</h3>
+                            <p data-i18n="item1_desc">Despliegue en producción de terminales de pedidos y asistentes conversacionales con Meta Cloud API y n8n.</p>
+                            <div class="timeline-tags">
+                                <span class="hero-chip">Meta Cloud API</span>
+                                <span class="hero-chip">n8n</span>
+                                <span class="hero-chip">Node.js</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 2 -->
+                    <div class="bento-card timeline-row reveal">
+                        <span class="timeline-date" data-i18n="item2_date">Ene 2026</span>
+                        <div class="timeline-card-content">
+                            <h3 data-i18n="item2_title">Arquitectura Concurrente F1 Sim Pro</h3>
+                            <p data-i18n="item2_desc">Motor de simulación física y telemetría en tiempo real basado en modelos multihilo y sincronización a 60 FPS.</p>
+                            <div class="timeline-tags">
+                                <span class="hero-chip">Java 17</span>
+                                <span class="hero-chip">Multithreading</span>
+                                <span class="hero-chip">60 FPS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 3 -->
+                    <div class="bento-card timeline-row reveal">
+                        <span class="timeline-date" data-i18n="item3_date">Mar 2026</span>
+                        <div class="timeline-card-content">
+                            <h3 data-i18n="item3_title">Sistemas Propietarios &amp; Ecosistemas Web</h3>
+                            <p data-i18n="item3_desc">Consolidación de AG Private Engineering para desarrollo de software propietario sin costes de agencia.</p>
+                            <div class="timeline-tags">
+                                <span class="hero-chip">Next.js</span>
+                                <span class="hero-chip">SaaS Propietario</span>
+                                <span class="hero-chip">TypeScript</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             ECOSISTEMA TECNOLÓGICO (Scannable Grid)
+             ============================================================ -->
+        <section id="tech" class="section-wrapper">
+            <div class="container">
+                <div class="section-header center reveal">
+                    <h2 class="section-title">Tecnologías Principales</h2>
+                </div>
+
+                <div class="tech-matrix-cloud reveal">
+                    <span class="tech-chip">TypeScript</span>
+                    <span class="tech-chip">Next.js</span>
+                    <span class="tech-chip">React</span>
+                    <span class="tech-chip">Node.js</span>
+                    <span class="tech-chip">Python</span>
+                    <span class="tech-chip">FastAPI</span>
+                    <span class="tech-chip">Meta Cloud API</span>
+                    <span class="tech-chip">n8n</span>
+                    <span class="tech-chip">Docker</span>
+                    <span class="tech-chip">PostgreSQL</span>
+                    <span class="tech-chip">MongoDB</span>
+                    <span class="tech-chip">Java 17</span>
+                    <span class="tech-chip">Cloudflare Edge</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             CONTACTO DIRECTO (High Authority Conversion)
+             ============================================================ -->
+        <section id="contact" class="section-wrapper">
+            <div class="container">
+                <div class="bento-card contact-card reveal">
+                    <h2 class="section-title" data-i18n="contact_heading">Hablemos de tu Proyecto</h2>
+                    <p class="section-description" data-i18n="contact_sub">
+                        Ingeniería de software a medida, automatizaciones e infraestructura cloud.<br>
+                        Trato directo con el desarrollador, sin intermediarios ni costes inflados de agencia.
+                    </p>
+                    <div class="contact-actions-grid">
+                        <a href="mailto:andres.guerra@gmail.com" class="contact-link-pill">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Email Directo
                         </a>
-                        <a href="#services" class="btn btn-hero-secondary interactive">
-                            <span data-i18n="hero_btn_projects">EXPLORAR SERVICIOS</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        <a href="https://github.com/andresguerra321/paginaweb" target="_blank" rel="noopener noreferrer" class="contact-link-pill">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                            GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/andr%C3%A9s-felipe-guerra-correa-556333267/" target="_blank" rel="noopener noreferrer" class="contact-link-pill">
+                            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                            LinkedIn
+                        </a>
+                        <a href="https://es.fiverr.com/s/dDvmP03" target="_blank" rel="noopener noreferrer" class="contact-link-pill">
+                            <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 16H4v-9h16v9z"/></svg>
+                            Fiverr Direct
                         </a>
                     </div>
-                    <a href="#social-proof" class="hero-trust-bar reveal interactive" id="heroTrustBar">
-                        <div class="hero-rating-group">
-                            <span class="ctrl-pulse-indicator" style="width: 8px; height: 8px; background: #10B981; box-shadow: 0 0 10px #10B981; border-radius: 50%;"></span>
-                            <div class="hero-rating-score">
-                                <strong data-i18n="hero_status_pill">En Desarrollo Activo &amp; Producción</strong>
-                                <span data-i18n="hero_status_desc">Sistemas Operativos 24/7</span>
-                            </div>
-                        </div>
-                        <div class="hero-trust-divider"></div>
-                        <div class="hero-platform-chips">
-                            <span class="hero-plat-chip">CI/CD</span>
-                            <span class="hero-plat-chip">Docker</span>
-                            <span class="hero-plat-chip">Serverless</span>
-                        </div>
-                        <span class="hero-reviews-link" data-i18n="hero_view_projects">Ver Estándares ↗</span>
-                    </a>
-                </div>
-
-                <!-- Minimalist High-End Studio Engineering Card -->
-                <div class="studio-ctrl-preview reveal" id="heroVisual">
-                    <div class="ctrl-header">
-                        <div class="ctrl-brand">
-                            <span class="ctrl-pulse-indicator"></span>
-                            <span class="ctrl-brand-name" data-i18n="ctrl_mesh">ESTUDIO DE INGENIERÍA</span>
-                        </div>
-                        <div class="ctrl-status-badge">
-                            <span data-i18n="ctrl_status">DISPONIBLE PARA PROYECTOS</span>
-                        </div>
-                    </div>
-
-                    <div class="ctrl-body">
-                        <!-- Top Statement Banner -->
-                        <div class="ctrl-hero-banner">
-                            <span class="ctrl-banner-tag" data-i18n="ctrl_hero_tag">// ENFOQUE DE INGENIERÍA</span>
-                            <h3 class="ctrl-banner-title" data-i18n="ctrl_hero_title">Software Propietario a Medida</h3>
-                            <p class="ctrl-banner-desc" data-i18n="ctrl_hero_sub">Código escalable, arquitecturas modernas y 0% comisiones recurrentes a terceros.</p>
-                        </div>
-
-                        <!-- 3 Engineering Pillars -->
-                        <div class="ctrl-pillars-list">
-                            <a href="#services" class="ctrl-pillar-item interactive">
-                                <div class="pillar-num" data-i18n="ctrl_pillar1_num">01</div>
-                                <div class="pillar-content">
-                                    <h4 class="pillar-title" data-i18n="ctrl_pillar1_title">Plataformas Web &amp; SaaS</h4>
-                                    <p class="pillar-desc" data-i18n="ctrl_pillar1_desc">Aplicaciones de alto rendimiento en Next.js, Node.js y bases de datos aisladas.</p>
-                                </div>
-                                <div class="pillar-arrow">↗</div>
-                            </a>
-
-                            <a href="#services" class="ctrl-pillar-item interactive">
-                                <div class="pillar-num" data-i18n="ctrl_pillar2_num">02</div>
-                                <div class="pillar-content">
-                                    <h4 class="pillar-title" data-i18n="ctrl_pillar2_title">Automatización &amp; IA</h4>
-                                    <p class="pillar-desc" data-i18n="ctrl_pillar2_desc">Asistentes de atención continua y conexión oficial a Meta Cloud API.</p>
-                                </div>
-                                <div class="pillar-arrow">↗</div>
-                            </a>
-
-                            <a href="#services" class="ctrl-pillar-item interactive">
-                                <div class="pillar-num" data-i18n="ctrl_pillar3_num">03</div>
-                                <div class="pillar-content">
-                                    <h4 class="pillar-title" data-i18n="ctrl_pillar3_title">Integración &amp; Pipelines</h4>
-                                    <p class="pillar-desc" data-i18n="ctrl_pillar3_desc">Sincronización de CRMs, pasarelas de pago, webhooks y APIs externas.</p>
-                                </div>
-                                <div class="pillar-arrow">↗</div>
-                            </a>
-                        </div>
-
-                        <!-- Bottom Tech Stack Pill Row -->
-                        <div class="ctrl-stack-footer">
-                            <div class="stack-footer-header">
-                                <span class="stack-lbl" data-i18n="ctrl_footer_lbl">STACK PRINCIPAL</span>
-                                <span class="stack-badge" data-i18n="ctrl_footer_badge">100% CÓDIGO PROPIO</span>
-                            </div>
-                            <div class="stack-tags-cloud">
-                                <span class="stack-chip">TypeScript</span>
-                                <span class="stack-chip">React / Next.js</span>
-                                <span class="stack-chip">Node.js</span>
-                                <span class="stack-chip">Python</span>
-                                <span class="stack-chip">MongoDB</span>
-                                <span class="stack-chip">Meta Cloud API</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </div>
-    </header>
-
-    <!-- ============================================================
-         02 // VISIÓN TÉCNICA & ARQUITECTURA SAAS
-         ============================================================ -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-header reveal">
-                <span class="about-mono-label" data-i18n="about_label_sub">02 // VISIÓN TÉCNICA</span>
-                <h2 class="about-hero-title" data-i18n="about_label_title">INGENIERÍA<br>SAAS & IA</h2>
-            </div>
-            
-            <p class="about-intro reveal reveal-delay-1" data-i18n="about_p1">
-                Diseño y construyo <strong>plataformas SaaS a medida, software propietario y ecosistemas de automatización IA</strong> para empresas en expansión. Elimino la dependencia de suscripciones mensuales genéricas y herramientas rígidas.
-            </p>
-
-            <ul class="apple-timeline reveal reveal-delay-2">
-                <!-- Step 1 -->
-                <li>
-                    <div class="apple-timeline-image">01</div>
-                    <div class="apple-timeline-panel interactive">
-                        <div class="apple-timeline-heading">
-                            <h4 data-i18n="about_p1_title">Soberanía Tecnológica Total</h4>
-                            <h4 class="subheading" data-i18n="about_m3_lbl">Propietario</h4>
-                        </div>
-                        <div class="apple-timeline-body">
-                            <p data-i18n="about_p1_desc">Código fuente e infraestructura de tu propiedad. Sin comisiones recurrentes ni lock-in.</p>
-                        </div>
-                    </div>
-                </li>
-                
-                <!-- Step 2 -->
-                <li class="timeline-inverted">
-                    <div class="apple-timeline-image">02</div>
-                    <div class="apple-timeline-panel interactive">
-                        <div class="apple-timeline-heading">
-                            <h4 data-i18n="about_node_title">Arquitectura & Ecosistemas SaaS</h4>
-                            <h4 class="subheading" data-i18n="about_node_status">Sistemas Operacionales</h4>
-                        </div>
-                        <div class="apple-timeline-body">
-                            <p data-i18n="about_p2">Combino ingeniería fullstack moderna (Next.js, Node.js, Python, PostgreSQL) con arquitecturas seguras preparadas para soportar alta concurrencia.</p>
-                        </div>
-                    </div>
-                </li>
-                
-                <!-- Step 3 -->
-                <li>
-                    <div class="apple-timeline-image">03</div>
-                    <div class="apple-timeline-panel interactive">
-                        <div class="apple-timeline-heading">
-                            <h4 data-i18n="about_p2_title">Automatización & Agentes IA</h4>
-                            <h4 class="subheading" data-i18n="stat_fullstack_title">Automatización & IA</h4>
-                        </div>
-                        <div class="apple-timeline-body">
-                            <p data-i18n="about_p2_desc">Pipelines autónomos en WhatsApp y n8n conectados a tu base de datos y CRM.</p>
-                        </div>
-                    </div>
-                </li>
-                
-                <!-- Step 4 -->
-                <li class="timeline-inverted">
-                    <div class="apple-timeline-image">04</div>
-                    <div class="apple-timeline-panel interactive">
-                        <div class="apple-timeline-heading">
-                            <h4 data-i18n="about_p3_title">Resiliencia & Alta Concurrencia</h4>
-                            <h4 class="subheading" data-i18n="stat_agile_title">Garantía de Rendimiento</h4>
-                        </div>
-                        <div class="apple-timeline-body">
-                            <p data-i18n="about_p3_desc">Backends con consistencia transaccional diseñados para soportar alta carga y escalabilidad.</p>
-                        </div>
-                    </div>
-                </li>
-                
-                <!-- Final Node -->
-                <li>
-                    <div class="apple-timeline-image final">ROI</div>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- ============================================================
-         03 // ESTÁNDARES DE INGENIERÍA & VALIDACIÓN EN PRODUCCIÓN
-         ============================================================ -->
-    <section id="social-proof">
-        <div class="container">
-            <div class="social-proof-header reveal">
-                <span class="section-label" data-i18n="social_proof_label">03 // ESTÁNDARES &amp; VALIDACIÓN EN PRODUCCIÓN</span>
-                <h2 data-i18n="social_proof_title">Ingeniería Probada en Entornos Reales</h2>
-                <p class="social-proof-sub" data-i18n="social_proof_sub">Código modular testeado bajo tráfico real, arquitecturas escalables y soberanía tecnológica total sin dependencias frágiles.</p>
-            </div>
-
-            <!-- Platform & Engineering Standards Bar -->
-            <div class="platforms-trust-bar reveal reveal-delay-1">
-                <div class="platform-trust-card interactive">
-                    <div class="platform-logo-badge" style="color: #10B981; font-size: 1.1rem;">⚡</div>
-                    <div class="platform-trust-info">
-                        <span class="platform-trust-name" data-i18n="sp_plat_g2">En Producción Activa</span>
-                        <span class="platform-trust-desc" data-i18n="sp_plat_g2_desc">Sistemas desplegados y monitoreados 24/7</span>
-                    </div>
-                </div>
-                <div class="platform-trust-card interactive">
-                    <div class="platform-logo-badge" style="color: #38BDF8; font-size: 1.1rem;">🛡️</div>
-                    <div class="platform-trust-info">
-                        <span class="platform-trust-name" data-i18n="sp_plat_cap">100% Propietario</span>
-                        <span class="platform-trust-desc" data-i18n="sp_plat_cap_desc">Entrega total de código e infraestructura</span>
-                    </div>
-                </div>
-                <div class="platform-trust-card interactive">
-                    <div class="platform-logo-badge" style="color: #F59E0B; font-size: 1.1rem;">⏱️</div>
-                    <div class="platform-trust-info">
-                        <span class="platform-trust-name" data-i18n="sp_plat_tr">Baja Latencia</span>
-                        <span class="platform-trust-desc" data-i18n="sp_plat_tr_desc">Arquitecturas optimizadas en Edge y Serverless</span>
-                    </div>
-                </div>
-                <div class="platform-trust-card interactive">
-                    <div class="platform-logo-badge" style="color: #A855F7; font-size: 1.1rem;">🔄</div>
-                    <div class="platform-trust-info">
-                        <span class="platform-trust-name" data-i18n="sp_plat_sf">Integración Oficial</span>
-                        <span class="platform-trust-desc" data-i18n="sp_plat_sf_desc">Conexión certificada a Meta Cloud API</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Engineering Standards & Quality Cards Grid -->
-            <div class="reviews-b2b-grid">
-                <!-- Card 1: CI/CD & Clean Code -->
-                <div class="review-b2b-card reveal interactive">
-                    <div>
-                        <div class="review-card-top">
-                            <span class="review-plat-tag" style="color: #38BDF8; border-color: rgba(56, 189, 248, 0.3);">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                                CI/CD Pipeline
-                            </span>
-                            <span class="review-solution-tag" data-i18n="sp_r1_tag">Calidad de Código &amp; CI/CD</span>
-                        </div>
-                        <h3 class="review-title" data-i18n="sp_r1_title">Despliegues continuos, tipado estricto y cero regresiones</h3>
-                        <p class="review-quote" data-i18n="sp_r1_quote">Cada solución se construye bajo estándares modernos de desarrollo (TypeScript estricto, Python estructurado y Node.js modular). Implementamos pruebas automatizadas y pipelines de integración continua para asegurar que cada actualización sea confiable, robusta y libre de errores en producción.</p>
-                    </div>
-                    <div class="review-footer">
-                        <div class="reviewer-meta">
-                            <span class="reviewer-name" data-i18n="sp_r1_author">Desarrollo Activo</span>
-                            <span class="reviewer-role" data-i18n="sp_r1_role">Arquitectura Modular &amp; Tipado Estricto</span>
-                        </div>
-                        <span class="review-metric-pill" data-i18n="sp_r1_metric">100% TypeScript • CI/CD Pipelines</span>
-                    </div>
-                </div>
-
-                <!-- Card 2: Performance & Concurrency -->
-                <div class="review-b2b-card reveal reveal-delay-1 interactive">
-                    <div>
-                        <div class="review-card-top">
-                            <span class="review-plat-tag" style="color: #10B981; border-color: rgba(16, 185, 129, 0.3);">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                Alta Disponibilidad
-                            </span>
-                            <span class="review-solution-tag" data-i18n="sp_r2_tag">Rendimiento &amp; Alta Concurrencia</span>
-                        </div>
-                        <h3 class="review-title" data-i18n="sp_r2_title">Respuestas sub-segundo y tolerancia a fallos en tiempo real</h3>
-                        <p class="review-quote" data-i18n="sp_r2_quote">Diseñamos plataformas web y sistemas de mensajería preparados para gestionar picos de tráfico sin caídas. Empleamos arquitecturas orientadas a eventos, bases de datos optimizadas con indexación estricta y servidores stateless con capacidad de recuperación automática en milisegundos.</p>
-                    </div>
-                    <div class="review-footer">
-                        <div class="reviewer-meta">
-                            <span class="reviewer-name" data-i18n="sp_r2_author">Probado en Producción</span>
-                            <span class="reviewer-role" data-i18n="sp_r2_role">Tolerancia a Fallos &amp; Monitoreo 24/7</span>
-                        </div>
-                        <span class="review-metric-pill" data-i18n="sp_r2_metric">99.9% Disponibilidad • Latencia Mínima</span>
-                    </div>
-                </div>
-
-                <!-- Card 3: Code Sovereignty -->
-                <div class="review-b2b-card reveal reveal-delay-2 interactive">
-                    <div>
-                        <div class="review-card-top">
-                            <span class="review-plat-tag" style="color: #F59E0B; border-color: rgba(245, 158, 11, 0.3);">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                100% Propietario
-                            </span>
-                            <span class="review-solution-tag" data-i18n="sp_r3_tag">Soberanía &amp; Sin Lock-in</span>
-                        </div>
-                        <h3 class="review-title" data-i18n="sp_r3_title">Tu software, tu infraestructura, tus bases de datos</h3>
-                        <p class="review-quote" data-i18n="sp_r3_quote">Eliminamos la dependencia de plataformas cerradas de suscripción mensual que cobran por cada interacción. Entregamos repositorios limpios y configuraciones de despliegue en la nube (Docker / Serverless) de tu propiedad exclusiva, permitiéndote escalar libremente sin costos ocultos.</p>
-                    </div>
-                    <div class="review-footer">
-                        <div class="reviewer-meta">
-                            <span class="reviewer-name" data-i18n="sp_r3_author">Código 100% Propio</span>
-                            <span class="reviewer-role" data-i18n="sp_r3_role">Propiedad Intelectual Total del Cliente</span>
-                        </div>
-                        <span class="review-metric-pill" data-i18n="sp_r3_metric">0% Comisiones • Sin Lock-in</span>
-                    </div>
-                </div>
-
-                <!-- Card 4: Security & Privacy -->
-                <div class="review-b2b-card reveal reveal-delay-3 interactive">
-                    <div>
-                        <div class="review-card-top">
-                            <span class="review-plat-tag" style="color: #A855F7; border-color: rgba(168, 85, 247, 0.3);">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                                Blindaje de Datos
-                            </span>
-                            <span class="review-solution-tag" data-i18n="sp_r4_tag">Seguridad &amp; Aislamiento</span>
-                        </div>
-                        <h3 class="review-title" data-i18n="sp_r4_title">Aislamiento de datos multi-tenant y cifrado de extremo a extremo</h3>
-                        <p class="review-quote" data-i18n="sp_r4_quote">Tratamos la privacidad empresarial con rigor crítico. Implementamos esquemas de datos aislados por cliente en MongoDB/PostgreSQL, autenticación criptográfica segura mediante JWT, y comunicación encriptada de extremo a extremo en todas las integraciones de API y Webhooks.</p>
-                    </div>
-                    <div class="review-footer">
-                        <div class="reviewer-meta">
-                            <span class="reviewer-name" data-i18n="sp_r4_author">Seguridad &amp; Privacidad</span>
-                            <span class="reviewer-role" data-i18n="sp_r4_role">Aislamiento Estricto &amp; Cifrado TLS</span>
-                        </div>
-                        <span class="review-metric-pill" data-i18n="sp_r4_metric">Tokens Seguros • Cifrado de Datos</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-         04 // SERVICIOS PRINCIPALES
-         ============================================================ -->
-    <section id="services">
-        <div class="container">
-            <div class="projects-header reveal">
-                <span class="section-label" data-i18n="services_label">04 // SOLUCIONES B2B</span>
-                <h2 data-i18n="services_title">Servicios Principales</h2>
-            </div>
-            <div class="projects-grid">
-                <!-- Service 1: Suite Empresarial IA -->
-                <div class="project-card reveal interactive">
-                    <div class="project-image-placeholder" style="padding: 0;">
-                        <picture>
-                          <source srcset="img/2-1200.avif 1200w, img/2-800.avif 800w" type="image/avif">
-                          <source srcset="img/2-1200.webp 1200w, img/2-800.webp 800w" type="image/webp">
-                          <img src="img/2-1200.png" alt="Ecosistema de Bots Empresariales" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                        </picture>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-number">01</span>
-                        <div class="project-info">
-                            <h3 data-i18n="proj_1_unified_title">Suite Empresarial de IA</h3>
-                            <p data-i18n="proj_1_unified_desc">Ecosistema integral de automatización que combina un <strong>Asistente Conversacional en WhatsApp (IA)</strong> y una <strong>Terminal de Pedidos en WhatsApp (DeliveryBot)</strong>. Arquitectura Cloud serverless con procesamiento en tiempo real y conexión directa a pasarelas de pago y CRMs.</p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto-bot-whatsapp/index.html" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view_unified">Explorar Ecosistema ↗</a></div>
-                            <div class="project-tags">
-                                <span class="project-tag">Groq AI</span>
-                                <span class="project-tag">WhatsApp API</span>
-                                <span class="project-tag">n8n</span>
-                                <span class="project-tag">Serverless</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service 2: Desarrollo Web / SaaS -->
-                <div class="project-card reveal reveal-delay-1 interactive">
-                    <div class="project-image-placeholder" style="padding: 0; position: relative; overflow: hidden;">
-                        <img src="img/saas-dev-logo.jpg" alt="Desarrollo Web &amp; SaaS — Glassmorphism Logo" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                    </div>
-                    <div class="project-content">
-                        <span class="project-number">02</span>
-                        <div class="project-info">
-                            <h3 data-i18n="serv_2_title">Desarrollo Web & SaaS</h3>
-                            <p data-i18n="serv_2_desc">Plataformas a medida, paneles de administración y aplicaciones web de alto rendimiento. Construimos el núcleo digital de tu empresa para escalar sin límites.</p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto-web-saas/index.html" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Solución ↗</a></div>
-                            <div class="project-tags">
-                                <span class="project-tag">React / Next.js</span>
-                                <span class="project-tag">Node.js</span>
-                                <span class="project-tag">Custom Backend</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Service 3: F1 Sim Pro (Motores de Simulación & Telemetría) -->
-                <div class="project-card reveal reveal-delay-2 interactive">
-                    <div class="project-image-placeholder" style="padding: 0; position: relative; overflow: hidden;">
-                        <img src="img/f1-sim-pro-logo.jpg" alt="F1 Sim Pro — Glassmorphism Motorsport Telemetry Logo" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                    </div>
-                    <div class="project-content">
-                        <span class="project-number">03</span>
-                        <div class="project-info">
-                            <h3 data-i18n="serv_3_title">F1 Sim Pro — Motor Concurrente &amp; Algoritmos Java</h3>
-                            <p data-i18n="serv_3_desc">Simulador de telemetría y física de carrera desarrollado bajo conceptos de ingeniería Java (Multithreading, POO Robusta y Estructuras Concurrentes). Procesa telemetría en tiempo real a 60 FPS, modelos estocásticos de degradación de neumáticos y cálculo de deltas en paralelo.</p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto-formula1/index.html" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem; background: var(--f1-red, #E10600); border-color: var(--f1-red, #E10600);" data-i18n="serv_3_btn">Explorar Simulador ↗</a></div>
-                            <div class="project-tags">
-                                <span class="project-tag">Java 17 Concurrente</span>
-                                <span class="project-tag">Multithreading (POO)</span>
-                                <span class="project-tag">Telemetría 60 FPS</span>
-                                <span class="project-tag">Modelado Estocástico</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-         05 // INNOVACIÓN & CORE TECH
-         ============================================================ -->
-    <section id="innovation">
-        <div class="container">
-            <div class="projects-header reveal">
-                <span class="section-label" data-i18n="innovation_label">05 // I+D</span>
-                <h2 data-i18n="innovation_title">Innovación & Core Tech</h2>
-            </div>
-            <div class="projects-grid">
-                <!-- GUARDIAN -->
-                <div class="project-card reveal interactive">
-                    <div class="project-image-placeholder" style="padding: 0;">
-                        <picture>
-                          <source srcset="img/3-1200.avif 1200w, img/3-800.avif 800w" type="image/avif">
-                          <source srcset="img/3-1200.webp 1200w, img/3-800.webp 800w" type="image/webp">
-                          <img src="img/3-1200.png" alt="GUARDIAN Security System" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                        </picture>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-number">001</span>
-                        <div class="project-info">
-                            <h3 data-i18n="proj_3_title">GUARDIAN</h3>
-                            <p data-i18n="proj_guardian_desc">Sistema de seguridad predictiva para transporte terrestre con Visión Artificial Edge y arquitectura de 3 agentes: Centinela (MediaPipe/TF.js), Oráculo (Python/FiftyOne) y Copiloto (Gemini AI).</p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=guardian" class="btn btn-outline" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Investigación ↗</a></div>
-                            <div class="project-tags">
-                                <span class="project-tag">Python & FiftyOne</span>
-                                <span class="project-tag">MediaPipe / TF.js</span>
-                                <span class="project-tag">Gemini AI</span>
-                                <span class="project-tag">Edge Vision</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Banco ACME -->
-                <div class="project-card reveal reveal-delay-1 interactive">
-                    <div class="project-image-placeholder" style="padding: 0;">
-                        <picture>
-                          <source srcset="img/4-1200.avif 1200w, img/4-800.avif 800w" type="image/avif">
-                          <source srcset="img/4-1200.webp 1200w, img/4-800.webp 800w" type="image/webp">
-                          <img src="img/4-1200.png" alt="Banco ACME Dashboard" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                        </picture>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-number">002</span>
-                        <div class="project-info">
-                            <h3 data-i18n="proj_4_title">Banco ACME</h3>
-                            <p data-i18n="proj_banco_desc">Plataforma financiera simulada con arquitectura de bases de datos resiliente y transacciones seguras.</p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=banco-acme" class="btn btn-outline" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Más ↗</a></div>
-                            <div class="project-tags">
-                                <span class="project-tag">Node.js</span>
-                                <span class="project-tag">MySQL</span>
-                                <span class="project-tag">JavaScript</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Luau Engine -->
-                <div class="project-card reveal interactive">
-                    <div class="project-image-placeholder" style="padding: 0; background: #070a12; display: flex; flex-direction: column; justify-content: center; align-items: center; border-bottom: 1px solid var(--border); overflow: hidden; position: relative;">
-                        <div style="width: 100%; height: 100%; padding: 1.5rem; background: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(139,92,246,0.18) 100%); display: flex; flex-direction: column; justify-content: center; font-family: var(--font-mono); font-size: 0.8rem; color: #a5b4fc;">
-                            <div style="display: flex; gap: 6px; margin-bottom: 0.8rem;">
-                                <span style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
-                                <span style="width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
-                                <span style="width: 10px; height: 10px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
-                                <span style="font-size: 0.7rem; color: var(--text-dim); margin-left: 0.5rem;">task_scheduler.luau</span>
-                            </div>
-                            <div style="color: #60a5fa; font-weight: 600;">-- Luau High-Performance Async Task Engine</div>
-                            <div style="color: #e2e8f0; margin-top: 0.3rem;"><span style="color: #f472b6;">export type</span> Task&lt;T&gt; = { id: <span style="color: #38bdf8;">string</span>, payload: T, priority: <span style="color: #38bdf8;">number</span> }</div>
-                            <div style="color: #e2e8f0;"><span style="color: #f472b6;">local function</span> <span style="color: #818cf8;">executeAsync</span>(task: Task&lt;any&gt;): <span style="color: #38bdf8;">boolean</span></div>
-                            <div style="color: #475569; margin-top: 0.3rem;">-- Latencia sub-milisegundo &amp; micro-hilos orientados a eventos</div>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-number">003</span>
-                        <div class="project-info">
-                            <h3 data-i18n="proj_5_title">Luau Async Task Engine</h3>
-                            <p data-i18n="proj_luau_desc">Motor de gestión de tareas asíncronas y eventos concurrentes en Luau con tipado estricto (Strict Typing). Estructuras de datos inmutables y ejecución de alta velocidad.</p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto.html?id=luau-task-engine" class="btn btn-outline" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Más ↗</a></div>
-                            <div class="project-tags">
-                                <span class="project-tag">Luau</span>
-                                <span class="project-tag">Lua</span>
-                                <span class="project-tag">Strict Typing</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- F1 Sim Pro -->
-                <div class="project-card reveal reveal-delay-1 interactive">
-                    <div class="project-image-placeholder" style="padding: 0; position: relative; overflow: hidden;">
-                        <img src="img/f1-sim-pro-logo.jpg" alt="F1 Sim Pro — Glassmorphism Logo" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                    </div>
-                    <div class="project-content">
-                        <span class="project-number">004</span>
-                        <div class="project-info">
-                            <h3 data-i18n="proj_f1_title">F1 Sim Pro // Arquitectura Java &amp; Concurrencia</h3>
-                            <p data-i18n="proj_f1_desc">Motor de simulación de monoplazas basado en hilos concurrentes (HiloPiloto), patrones de diseño Strategy/Observer y sincronización de estado de baja latencia con renderizado vectorial en tiempo real.</p>
-                            <div style="margin-top: 1.2rem;"><a href="proyecto-formula1/index.html" class="btn btn-outline" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem 1.5rem;" data-i18n="project_btn_view">Ver Simulación ↗</a></div>
-                            <div class="project-tags">
-                                <span class="project-tag">Java 17</span>
-                                <span class="project-tag">ExecutorService</span>
-                                <span class="project-tag">Estructuras Concurrentes</span>
-                                <span class="project-tag">Patrón Strategy</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-         06 // CÓMO TRABAJAMOS (METODOLOGÍA)
-         ============================================================ -->
-    <section id="workflow">
-        <div class="container">
-            <div class="projects-header reveal" style="text-align: center; margin-bottom: 4rem;">
-                <span class="section-label" data-i18n="workflow_label">06 // METODOLOGÍA</span>
-                <h2 data-i18n="workflow_title">Cómo Trabajamos</h2>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem;">
-                <div class="stat-card reveal" style="text-align: center;">
-                    <div style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.15); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 1.2rem auto; font-size: 1.2rem; border: 1px solid rgba(59, 130, 246, 0.3);">1</div>
-                    <h4 data-i18n="wf_step1_title">1. Diagnóstico</h4>
-                    <p data-i18n="wf_step1_desc">Analizamos tus cuellos de botella operativos y oportunidades de automatización.</p>
-                </div>
-                <div class="stat-card reveal reveal-delay-1" style="text-align: center;">
-                    <div style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.15); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 1.2rem auto; font-size: 1.2rem; border: 1px solid rgba(59, 130, 246, 0.3);">2</div>
-                    <h4 data-i18n="wf_step2_title">2. Propuesta & Arquitectura</h4>
-                    <p data-i18n="wf_step2_desc">Diseñamos la solución técnica orientada al máximo ROI.</p>
-                </div>
-                <div class="stat-card reveal reveal-delay-2" style="text-align: center;">
-                    <div style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.15); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 1.2rem auto; font-size: 1.2rem; border: 1px solid rgba(59, 130, 246, 0.3);">3</div>
-                    <h4 data-i18n="wf_step3_title">3. Desarrollo Ágil</h4>
-                    <p data-i18n="wf_step3_desc">Construimos e iteramos rápidamente usando tecnologías sólidas.</p>
-                </div>
-                <div class="stat-card reveal reveal-delay-3" style="text-align: center;">
-                    <div style="width: 50px; height: 50px; background: rgba(59, 130, 246, 0.15); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin: 0 auto 1.2rem auto; font-size: 1.2rem; border: 1px solid rgba(59, 130, 246, 0.3);">4</div>
-                    <h4 data-i18n="wf_step4_title">4. Despliegue & Soporte</h4>
-                    <p data-i18n="wf_step4_desc">Lanzamos el sistema y aseguramos su estabilidad continua.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ============================================================
-         07 // EXPERTISE
-         ============================================================ -->
-    <section id="skills">
-        <div class="container">
-            <span class="section-label reveal" data-i18n="skills_label">07 // ARQUITECTURA Y LÓGICA</span>
-            <div class="skills-grid">
-                <!-- Skills Bars -->
-                <div class="skills-bars reveal">
-                    <h3 data-i18n="skills_title">Stack Técnico</h3>
-
-                    <div class="skill-category">
-                        <h4 data-i18n="cat_scripting">// Scripting &amp; Lenguajes</h4>
-                        <div class="skill-item">
-                            <div class="skill-item-header">
-                                <span>Lua / Luau (Strict Typing &amp; Task Engines)</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h4 data-i18n="cat_backend">// Backend &amp; APIs</h4>
-                        <div class="skill-item">
-                            <div class="skill-item-header">
-                                <span>Node.js / Python</span>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-item-header">
-                                <span>MySQL</span>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-item-header">
-                                <span>OpenAPI Spec (Swagger)</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h4 data-i18n="cat_frameworks">// Frameworks</h4>
-                        <div class="skill-item">
-                            <div class="skill-item-header">
-                                <span>Express / FastAPI</span>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-item-header">
-                                <span>React / Next.js</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h4 data-i18n="cat_frontend">// Frontend</h4>
-                        <div class="skill-item">
-                            <div class="skill-item-header">
-                                <span>HTML / CSS / JS</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h4 data-i18n="cat_automation">// Automatización</h4>
-                        <div class="skill-item">
-                            <div class="skill-item-header">
-                                <span data-i18n="skill_auto_n8n">n8n / Workflows</span>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-item-header">
-                                <span data-i18n="skill_auto_ai">Integración de IA</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Core Competencies -->
-                <div class="competencies reveal reveal-delay-2">
-                    <h3 data-i18n="core_comp_title">Core Competencies</h3>
-
-                    <div class="competency">
-                        <h4 data-i18n="comp_flow_title">Ingeniería de Flujos</h4>
-                        <p data-i18n="comp_flow_desc">Convierto procesos manuales en sistemas automatizados eficientes. Cada flujo de trabajo está diseñado para minimizar la intervención humana y maximizar la productividad.</p>
-                    </div>
-
-                    <div class="competency">
-                        <h4 data-i18n="comp_vision_title">Visión Integral</h4>
-                        <p data-i18n="comp_vision_desc">Desarrollo desde la arquitectura de bases de datos hasta la interfaz de usuario. Comprendo cómo cada capa del stack se conecta para crear soluciones cohesivas.</p>
-                    </div>
-
-                    <div class="competency">
-                        <h4 data-i18n="comp_sec_title">Seguridad y Escalabilidad</h4>
-                        <p data-i18n="comp_sec_desc">Código pensado para el futuro. Implemento principios de seguridad desde el diseño y arquitecturas que soportan crecimiento sin reestructuración.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-         08 // HITOS DE CONSTRUCCIÓN & LANZAMIENTOS
-         ============================================================ -->
-    <section id="timeline">
-        <div class="container">
-            <span class="section-label reveal" data-i18n="timeline_label">08 // HITOS DE CONSTRUCCIÓN</span>
-            <h2 class="reveal" style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 3.5rem;" data-i18n="timeline_title">Lanzamientos & Sistemas en Producción</h2>
-
-            <div class="timeline-container">
-                <!-- Milestone 1: 2024 -->
-                <div class="timeline-item reveal interactive">
-                    <div class="timeline-item-header">
-                        <span class="timeline-date" data-i18n="item1_date">2024</span>
-                    </div>
-                    <h3 data-i18n="item1_title">Desarrollo de Motores Transaccionales & Prototipo Core Bancario</h3>
-                    <p data-i18n="item1_desc">Diseño y prototipado de motores transaccionales con consistencia ACID, control estricto de concurrencia y prevención de race conditions para operaciones financieras simuladas (Banco ACME) en Node.js, MySQL y Luau.</p>
-                    <div class="timeline-tags">
-                        <span class="timeline-tag" data-i18n="item1_tag1">Motores Transaccionales</span>
-                        <span class="timeline-tag" data-i18n="item1_tag2">Consistencia ACID</span>
-                        <span class="timeline-tag" data-i18n="item1_tag3">Node.js & MySQL</span>
-                    </div>
-                </div>
-
-                <!-- Milestone 2: 2025 -->
-                <div class="timeline-item reveal reveal-delay-1 interactive">
-                    <div class="timeline-item-header">
-                        <span class="timeline-date" data-i18n="item2_date">2025</span>
-                    </div>
-                    <h3 data-i18n="item2_title">I+D & Despliegue de GUARDIAN: Visión Artificial Edge</h3>
-                    <p data-i18n="item2_desc">Arquitectura híbrida de seguridad predictiva para flotas: inferencia de visión artificial en el edge (MediaPipe/TensorFlow.js) para detección biométrica a +30 FPS, backend en Python, curación de datasets con FiftyOne y copiloto conversacional con Gemini AI.</p>
-                    <div class="timeline-tags">
-                        <span class="timeline-tag" data-i18n="item2_tag1">Edge Computer Vision</span>
-                        <span class="timeline-tag" data-i18n="item2_tag2">Python & FiftyOne</span>
-                        <span class="timeline-tag" data-i18n="item2_tag3">Gemini AI & TF.js</span>
-                    </div>
-                </div>
-
-                <!-- Milestone 3: 2025-2026 -->
-                <div class="timeline-item reveal reveal-delay-2 interactive">
-                    <div class="timeline-item-header">
-                        <span class="timeline-date" data-i18n="item3_date">2025 – 2026</span>
-                    </div>
-                    <h3 data-i18n="item3_title">Puesta en Producción: Suite de Automatización WhatsApp & DeliveryBot</h3>
-                    <p data-i18n="item3_desc">Despliegue comercial de asistentes conversacionales con IA sobre Meta Cloud API y terminales de pedidos para comercio electrónico y gastronomía, integrando sincronización de pedidos, reservas y pasarelas de pago 100% desatendidas.</p>
-                    <div class="timeline-tags">
-                        <span class="timeline-tag" data-i18n="item3_tag1">Meta Cloud API</span>
-                        <span class="timeline-tag" data-i18n="item3_tag2">Asistentes IA</span>
-                        <span class="timeline-tag" data-i18n="item3_tag3">Pipelines n8n</span>
-                    </div>
-                </div>
-
-                <!-- Milestone 4: Presente -->
-                <div class="timeline-item present reveal reveal-delay-3 interactive">
-                    <div class="timeline-item-header">
-                        <span class="timeline-date present" data-i18n="item4_date">PRESENTE</span>
-                        <span class="timeline-badge" data-i18n="timeline_badge_progress">EN PRODUCCIÓN</span>
-                    </div>
-                    <h3 data-i18n="item4_title">Desarrollo de Plataformas Web, SaaS & Software Propietario</h3>
-                    <p data-i18n="item4_desc">Ingeniería de software a medida para empresas: arquitectura de aplicaciones cloud fullstack (Next.js, Node.js, MongoDB/PostgreSQL), paneles de administración y ecosistemas digitales sin costes de licencias recurrentes a terceros.</p>
-                    <div class="timeline-tags">
-                        <span class="timeline-tag" data-i18n="item4_tag1">Fullstack SaaS</span>
-                        <span class="timeline-tag" data-i18n="item4_tag2">Next.js & Node.js</span>
-                        <span class="timeline-tag" data-i18n="item4_tag3">Cloud Serverless</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-         09 // TECNOLOGÍAS QUE DOMINAMOS
-         ============================================================ -->
-    <section class="marquee-section" id="tech">
-        <div class="container">
-            <span class="section-label reveal" style="text-align: center; display: block;" data-i18n="tech_label">09 // TECNOLOGÍAS QUE DOMINAMOS</span>
-        </div>
-        <div class="marquee-wrapper">
-            <div class="marquee-track" id="marqueeTrack">
-                <span class="marquee-item interactive">Lua</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Luau</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Node.js</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Next.js</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">React</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Python</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">n8n</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">MySQL</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">FastAPI</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Scrum</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Baileys</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">AI</span>
-                <span class="marquee-separator">◆</span>
-                <!-- Duplicate for seamless loop -->
-                <span class="marquee-item interactive">Lua</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Luau</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Node.js</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Next.js</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">React</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Python</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">n8n</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">MySQL</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">FastAPI</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Scrum</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">Baileys</span>
-                <span class="marquee-separator">◆</span>
-                <span class="marquee-item interactive">AI</span>
-                <span class="marquee-separator">◆</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-         10 // CONTACTO DIRECTO
-         ============================================================ -->
-    <section id="contact">
-        <div class="container">
-            <div class="contact-wrapper">
-                <span class="section-label reveal" data-i18n="contact_label">10 // CONTACTO DIRECTO</span>
-                <h2 class="contact-title reveal reveal-delay-1" data-i18n="contact_heading">HABLEMOS DE<br><span>TU PROYECTO</span></h2>
-                <p class="contact-sub reveal reveal-delay-2" data-i18n="contact_sub">
-                    Ingeniería de software a medida, automatizaciones e infraestructura cloud.<br>
-                    Trato directo con el desarrollador, sin intermediarios.
-                </p>
-                <div class="contact-actions reveal reveal-delay-3">
-                    <a href="mailto:andres.guerra@gmail.com" class="contact-btn interactive">
-                        <!-- Email SVG icon -->
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        Email
-                    </a>
-                    <a href="https://github.com/andresguerra321/paginaweb" target="_blank" rel="noopener noreferrer" class="contact-btn interactive">
-                        <!-- GitHub SVG icon -->
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-                        GitHub
-                    </a>
-                    <a href="https://www.linkedin.com/in/andr%C3%A9s-felipe-guerra-correa-556333267/" target="_blank" rel="noopener noreferrer" class="contact-btn interactive">
-                        <!-- LinkedIn SVG icon -->
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14m-.5 15.5v-5.3a3.26 3.26 0 00-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 011.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 001.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 00-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                        LinkedIn
-                    </a>
-                    <a href="https://es.fiverr.com/s/dDvmP03" target="_blank" rel="noopener noreferrer" class="contact-btn interactive">
-                        <!-- Fiverr (Briefcase) SVG icon -->
-                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 16H4v-9h16v9z"/></svg>
-                        Fiverr
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- ============================================================
          FOOTER
@@ -3016,481 +671,9 @@
         </div>
     </footer>
 
-
-    <script>
-    (function() {
-        'use strict';
-
-        /* --------------------------------------------------------
-           INIT APP ON DOM LOADED
-           -------------------------------------------------------- */
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initApp);
-        } else {
-            initApp();
-        }
-
-        function initApp() {
-            var hasAnime = typeof anime !== 'undefined';
-
-            /* --------------------------------------------------------
-               HERO — Entrance animation
-               -------------------------------------------------------- */
-            if (hasAnime) {
-                try {
-                    var heroTimeline = anime.timeline({
-                        easing: 'easeOutQuart',
-                        delay: 100
-                    });
-
-                    heroTimeline
-                        .add({
-                            targets: '.hero-badge-pill',
-                            opacity: [0, 1],
-                            translateY: [15, 0],
-                            duration: 500
-                        })
-                        .add({
-                            targets: '#heroTitle',
-                            opacity: [0, 1],
-                            translateY: [20, 0],
-                            duration: 600
-                        }, '-=300')
-                        .add({
-                            targets: '#heroSubtitle',
-                            opacity: [0, 1],
-                            translateY: [15, 0],
-                            duration: 500
-                        }, '-=350')
-                        .add({
-                            targets: '#heroCta, #heroTrustBar',
-                            opacity: [0, 1],
-                            translateY: [15, 0],
-                            duration: 500,
-                            delay: anime.stagger(80)
-                        }, '-=300')
-                        .add({
-                            targets: '#heroVisual',
-                            opacity: [0, 1],
-                            scale: [0.96, 1],
-                            translateY: [20, 0],
-                            duration: 700
-                        }, '-=400');
-
-                    /* Subtle Floating Pulse for Control Mesh Preview Nodes */
-                    anime({
-                        targets: '.flow-node.active',
-                        boxShadow: [
-                            '0 0 0px rgba(16, 185, 129, 0)',
-                            '0 0 14px rgba(16, 185, 129, 0.45)',
-                            '0 0 0px rgba(16, 185, 129, 0)'
-                        ],
-                        duration: 2500,
-                        easing: 'easeInOutQuad',
-                        loop: true
-                    });
-                } catch (err) {
-                    console.warn('Anime hero animation skipped:', err);
-                }
-            }
-
-            /* --------------------------------------------------------
-               NAVBAR — Glassmorphism on scroll + active link tracking
-               -------------------------------------------------------- */
-            var nav = document.getElementById('mainNav');
-            var ticking = false;
-
-            window.addEventListener('scroll', function() {
-                if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                        if (window.scrollY > 50) {
-                            nav.classList.add('scrolled');
-                        } else {
-                            nav.classList.remove('scrolled');
-                        }
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }, { passive: true });
-
-            /* ============================================================
-               SPA TAB BEHAVIOR — Display only the active module/tab
-               ============================================================ */
-            var allSections = document.querySelectorAll('header#hero, section[id]');
-            var navAnchors = document.querySelectorAll('.nav-links a');
-            
-            function getTabForId(targetId) {
-                if (targetId === '#page-top' || targetId === '#hero' || targetId === '#social-proof' || targetId === '' || targetId === '#') {
-                    return '#about';
-                }
-                if (targetId === '#innovation' || targetId === '#workflow') {
-                    return '#services';
-                }
-                if (targetId === '#tech') {
-                    return '#skills';
-                }
-                return targetId;
-            }
-
-            function activateSection(targetId, scrollToSection) {
-                var tabId = getTabForId(targetId);
-
-                allSections.forEach(function(section) {
-                    var sectionId = '#' + section.getAttribute('id');
-                    var shouldShow = false;
-
-                    if (tabId === '#about') {
-                        if (sectionId === '#hero' || sectionId === '#about' || sectionId === '#social-proof') {
-                            shouldShow = true;
-                        }
-                    } else if (tabId === '#services') {
-                        if (sectionId === '#services' || sectionId === '#innovation' || sectionId === '#workflow') {
-                            shouldShow = true;
-                        }
-                    } else if (tabId === '#skills') {
-                        if (sectionId === '#skills' || sectionId === '#tech') {
-                            shouldShow = true;
-                        }
-                    } else if (tabId === sectionId) {
-                        shouldShow = true;
-                    }
-
-                    if (shouldShow) {
-                        section.style.display = 'block';
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
-
-                // Update active class on nav links
-                navAnchors.forEach(function(a) {
-                    a.classList.remove('active');
-                    if (a.getAttribute('href') === tabId) {
-                        a.classList.add('active');
-                    }
-                });
-
-                // Scroll to specific section if requested (e.g. #social-proof), otherwise scroll to top
-                if (scrollToSection && scrollToSection !== tabId && scrollToSection !== '#about' && scrollToSection !== '#hero') {
-                    var targetEl = document.querySelector(scrollToSection);
-                    if (targetEl) {
-                        setTimeout(function() {
-                            var offset = 70;
-                            var topPos = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
-                            window.scrollTo({ top: topPos, behavior: 'smooth' });
-                        }, 50);
-                    }
-                } else {
-                    window.scrollTo(0, 0);
-                }
-
-                // Update URL hash smoothly without jumps
-                if (history.pushState) {
-                    history.pushState(null, null, tabId === '#about' ? ' ' : tabId);
-                }
-
-                // Trigger scroll event to wake up animations
-                setTimeout(function() {
-                    window.dispatchEvent(new Event('scroll'));
-                }, 60);
-            }
-
-            // Listen to all internal anchor clicks to switch tabs
-            document.querySelectorAll('a[href^="#"]').forEach(function(a) {
-                a.addEventListener('click', function(e) {
-                    var href = this.getAttribute('href');
-                    if (href) {
-                        e.preventDefault();
-                        activateSection(href, href);
-                    }
-                });
-            });
-
-            // Initialize with current URL hash or default to #about
-            var initialHash = window.location.hash || '#about';
-            activateSection(initialHash, initialHash);
-
-
-        /* --------------------------------------------------------
-           MOBILE NAV TOGGLE
-           -------------------------------------------------------- */
-        var navToggle = document.getElementById('navToggle');
-        var navLinks = document.getElementById('navLinks');
-        var navOverlay = document.getElementById('navOverlay');
-
-        navToggle.addEventListener('click', function() {
-            navToggle.classList.toggle('open');
-            navLinks.classList.toggle('open');
-            navOverlay.classList.toggle('active');
-        });
-
-        navOverlay.addEventListener('click', function() {
-            navToggle.classList.remove('open');
-            navLinks.classList.remove('open');
-            navOverlay.classList.remove('active');
-        });
-
-        navLinks.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                navToggle.classList.remove('open');
-                navLinks.classList.remove('open');
-                navOverlay.classList.remove('active');
-            });
-        });
-
-
-        /* --------------------------------------------------------
-           INTERSECTION OBSERVER + ANIME.JS — Scroll reveals
-           -------------------------------------------------------- */
-        function createRevealObserver(selector, animeConfig) {
-            var elements = document.querySelectorAll(selector);
-            if (elements.length === 0) return;
-
-            var observer = new IntersectionObserver(function(entries) {
-                var toAnimate = [];
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
-                        entry.target.setAttribute('data-animated', 'true');
-                        entry.target.classList.add('visible');
-                        toAnimate.push(entry.target);
-                    }
-                });
-                if (toAnimate.length > 0 && typeof anime !== 'undefined') {
-                    try {
-                        anime(Object.assign({}, animeConfig, { targets: toAnimate }));
-                    } catch(e) {}
-                }
-            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-            elements.forEach(function(el) { observer.observe(el); });
-        }
-
-        /* General reveals — sections, text blocks, labels */
-        if (typeof anime !== 'undefined') {
-            createRevealObserver('#about .reveal, #services .reveal, #social-proof .reveal, #skills .reveal, #timeline .reveal, #tech .reveal, #contact .reveal', {
-                opacity: [0.3, 1],
-                translateY: [15, 0],
-                duration: 600,
-                easing: 'easeOutQuart'
-            });
-        }
-
-        /* Project cards — staggered cascade with glow */
-        var projectCards = document.querySelectorAll('.project-card.reveal');
-        var projectObserver = new IntersectionObserver(function(entries) {
-            var targets = [];
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
-                    entry.target.setAttribute('data-animated', 'true');
-                    entry.target.classList.add('visible');
-                    targets.push(entry.target);
-                }
-            });
-            if (targets.length > 0 && typeof anime !== 'undefined') {
-                try {
-                    anime({
-                        targets: targets,
-                        opacity: [0.4, 1],
-                        translateY: [25, 0],
-                        scale: [0.98, 1],
-                        duration: 600,
-                        easing: 'easeOutQuart',
-                        delay: anime.stagger(100),
-                        complete: function() {
-                            targets.forEach(function(t) {
-                                t.classList.add('anime-revealed');
-                            });
-                        }
-                    });
-                } catch(e) {}
-            }
-        }, { threshold: 0.1 });
-
-        projectCards.forEach(function(card) { projectObserver.observe(card); });
-
-        /* Stat cards — bounce in */
-        var statCards = document.querySelectorAll('.stat-card.reveal');
-        var statObserver = new IntersectionObserver(function(entries) {
-            var targets = [];
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
-                    entry.target.setAttribute('data-animated', 'true');
-                    entry.target.classList.add('visible');
-                    targets.push(entry.target);
-                }
-            });
-            if (targets.length > 0 && typeof anime !== 'undefined') {
-                try {
-                    anime({
-                        targets: targets,
-                        opacity: [0.4, 1],
-                        translateY: [20, 0],
-                        scale: [0.95, 1],
-                        duration: 500,
-                        easing: 'easeOutBack',
-                        delay: anime.stagger(100)
-                    });
-                } catch(e) {}
-            }
-        }, { threshold: 0.2 });
-
-        statCards.forEach(function(c) { statObserver.observe(c); });
-
-        /* Competency cards — slide in from right */
-        var competencies = document.querySelectorAll('.competency');
-        var compObserver = new IntersectionObserver(function(entries) {
-            var targets = [];
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
-                    entry.target.setAttribute('data-animated', 'true');
-                    entry.target.classList.add('visible');
-                    targets.push(entry.target);
-                }
-            });
-            if (targets.length > 0 && typeof anime !== 'undefined') {
-                try {
-                    anime({
-                        targets: targets,
-                        opacity: [0.4, 1],
-                        translateX: [20, 0],
-                        duration: 500,
-                        easing: 'easeOutQuart',
-                        delay: anime.stagger(100)
-                    });
-                } catch(e) {}
-            }
-        }, { threshold: 0.2 });
-
-        competencies.forEach(function(c) {
-            compObserver.observe(c);
-        });
-
-
-        /* --------------------------------------------------------
-           SKILL BARS — anime.js width animation with elastic easing
-           -------------------------------------------------------- */
-        var skillFills = document.querySelectorAll('.skill-fill');
-
-        var skillObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
-                    entry.target.setAttribute('data-animated', 'true');
-                    var targetWidth = entry.target.getAttribute('data-width');
-                    if (typeof anime !== 'undefined') {
-                        try {
-                            anime({
-                                targets: entry.target,
-                                width: [0, targetWidth + '%'],
-                                duration: 1200,
-                                easing: 'easeInOutQuart',
-                            });
-                        } catch(e) {
-                            entry.target.style.width = targetWidth + '%';
-                        }
-                    } else {
-                        entry.target.style.width = targetWidth + '%';
-                    }
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, { threshold: 0.3 });
-
-        skillFills.forEach(function(fill) { skillObserver.observe(fill); });
-
-
-        /* --------------------------------------------------------
-           TIMELINE — Animated line draw + items stagger
-           -------------------------------------------------------- */
-        var timelineContainer = document.querySelector('.timeline-container');
-        if (timelineContainer) {
-            var animatedLine = document.createElement('div');
-            animatedLine.className = 'timeline-line-animated';
-            timelineContainer.appendChild(animatedLine);
-
-            var tlObserver = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
-                        entry.target.setAttribute('data-animated', 'true');
-                        if (typeof anime !== 'undefined') {
-                            try {
-                                anime({
-                                    targets: animatedLine,
-                                    height: [0, '100%'],
-                                    duration: 1200,
-                                    easing: 'easeInOutQuart'
-                                });
-                            } catch(e) {
-                                animatedLine.style.height = '100%';
-                            }
-                        } else {
-                            animatedLine.style.height = '100%';
-                        }
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            tlObserver.observe(timelineContainer);
-        }
-
-
-        /* --------------------------------------------------------
-           CONTACT — Dramatic entrance animation
-           -------------------------------------------------------- */
-        var contactTitle = document.querySelector('.contact-title');
-        if (contactTitle) {
-            var contactObserver = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting && entry.target.getAttribute('data-animated') !== 'true') {
-                        entry.target.setAttribute('data-animated', 'true');
-                        if (typeof anime !== 'undefined') {
-                            try {
-                                anime.timeline({ easing: 'easeOutExpo' })
-                                    .add({
-                                        targets: '.contact-title',
-                                        opacity: [0.5, 1],
-                                        scale: [0.95, 1],
-                                        duration: 600
-                                    })
-                                    .add({
-                                        targets: '.contact-sub',
-                                        opacity: [0.5, 1],
-                                        translateY: [10, 0],
-                                        duration: 500
-                                    }, '-=300')
-                                    .add({
-                                        targets: '.contact-btn',
-                                        opacity: [0.5, 1],
-                                        translateY: [10, 0],
-                                        duration: 400,
-                                        delay: anime.stagger(80)
-                                    }, '-=250');
-                            } catch(e) {}
-                        }
-                    }
-                });
-            }, { threshold: 0.2 });
-
-            contactObserver.observe(contactTitle);
-        }
-
-
-        /* --------------------------------------------------------
-           CONTROL PREVIEW — Live Status Metrics
-           -------------------------------------------------------- */
-        var consoleBody = document.getElementById('consoleBody');
-        if (consoleBody) {
-            // legacy fallback if needed
-        }
-
-        } /* end initApp */
-    })();
-    </script>
-
-    <!-- i18n Engine Script -->
+    <!-- Interactive Logic & i18n Modules -->
+    <script src="js/app.js"></script>
     <script src="js/i18n.js"></script>
-    <!-- Page Transition (Anime.js) -->
     <script src="js/transition.js"></script>
 </body>
 </html>
-
