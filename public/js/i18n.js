@@ -22,6 +22,7 @@
             hero_status_pill: 'En Desarrollo Activo & Producción',
             hero_status_desc: 'Sistemas Operativos 24/7',
             hero_view_projects: 'Ver Proyectos ↗',
+            hero_rating_score: '4.9 / 5.0',
             
             ctrl_status: 'Disponible para proyectos',
             ctrl_mesh: 'AG Private Engineering',
