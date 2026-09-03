@@ -236,37 +236,36 @@
                 delay: 150
             })
             .add({
-                targets: '.hero-eyebrow',
-                opacity: [0, 1],
-                translateY: [16, 0],
-                duration: 500
-            })
-            .add({
-                targets: '.hero-title',
+                targets: '#heroTitle',
                 opacity: [0, 1],
                 translateY: [24, 0],
                 duration: 700
-            }, '-=350')
+            })
             .add({
-                targets: '.hero-subtitle',
+                targets: '#heroSubtitle',
                 opacity: [0, 1],
                 translateY: [16, 0],
                 duration: 600
             }, '-=450')
             .add({
-                targets: '.hero-cta-group, .hero-trust-band',
+                targets: '#heroCta',
                 opacity: [0, 1],
                 translateY: [16, 0],
-                duration: 500,
-                delay: anime.stagger(100)
+                duration: 500
             }, '-=400')
             .add({
-                targets: '.hero-card-stage',
+                targets: '#heroVisual',
                 opacity: [0, 1],
-                scale: [0.98, 1],
+                scale: [0.96, 1],
                 translateY: [20, 0],
                 duration: 800
-            }, '-=500');
+            }, '-=600')
+            .add({
+                targets: '.hero-trust-strip',
+                opacity: [0, 1],
+                translateY: [12, 0],
+                duration: 500
+            }, '-=400');
         }
     }
 })();

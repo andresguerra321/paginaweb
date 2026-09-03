@@ -296,103 +296,145 @@
 }
 
 /* ============================================================
-   4. HERO STAGE (Taste-Skill Anti-Slop Editorial Standard)
+   4. HERO — Asymmetric Split (taste-skill §4.3, §4.7, §4.8)
+   Clean left-aligned content + right visual. No centered card.
    ============================================================ */
 .hero-section {
-    padding-top: 7.5rem;
-    padding-bottom: 4.5rem;
-}
-
-.hero-card-stage {
-    background: #0B0F17;
-    border: 1px solid var(--border-subtle);
-    border-radius: 20px;
-    padding: 3.5rem;
+    min-height: 100dvh;
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    max-width: 860px;
-    margin: 0 auto;
-    box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.5);
-    position: relative;
-}
-
-.hero-stage-top {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    width: 100%;
+    padding-top: 6rem;
+    padding-bottom: 3rem;
 }
 
-.hero-stage-brand {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 800;
-    color: #FFFFFF;
-    letter-spacing: -0.02em;
-}
-
-.hero-stage-status {
-    display: inline-flex;
+.hero-grid {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 4rem;
     align-items: center;
-    gap: 0.55rem;
-    font-family: var(--font-body);
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: var(--accent-emerald);
 }
 
-.hero-stage-status .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent-emerald);
-}
-
-.hero-stage-content {
+.hero-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.hero-stage-kicker {
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    margin-bottom: 0.75rem;
-    letter-spacing: normal;
-    text-transform: none;
-}
-
-.hero-stage-title {
+.hero-headline {
     font-family: var(--font-display);
-    font-size: clamp(2.35rem, 5vw, 3.85rem);
+    font-size: clamp(2.5rem, 5.5vw, 4rem);
     font-weight: 800;
-    line-height: 1.12;
-    letter-spacing: -0.035em;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
     color: #FFFFFF;
     margin-bottom: 1.25rem;
-    max-width: 22ch;
+    max-width: 18ch;
+    text-wrap: balance;
 }
 
-.hero-stage-subtitle {
+.hero-sub {
     font-family: var(--font-body);
-    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
     font-weight: 400;
     color: var(--text-secondary);
-    line-height: 1.55;
-    max-width: 48ch;
-    margin-bottom: 2.25rem;
+    line-height: 1.6;
+    max-width: 38ch;
+    margin-bottom: 2.5rem;
 }
 
-.hero-stage-actions {
+.hero-actions {
     display: flex;
     align-items: center;
-    gap: 1.75rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
 }
 
+/* --- Hero Visual (right column) --- */
+.hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-visual-glow {
+    position: absolute;
+    inset: -20%;
+    border-radius: 50%;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(79, 70, 229, 0.12) 0%,
+        rgba(16, 185, 129, 0.06) 40%,
+        transparent 70%
+    );
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero-visual-img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    border-radius: var(--radius-card);
+    object-fit: cover;
+    box-shadow:
+        0 24px 48px -12px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* --- Trust Strip (below hero, taste-skill §4.7) --- */
+.hero-trust-strip {
+    border-top: 1px solid var(--border-subtle);
+    padding: 1.5rem 0;
+}
+
+.trust-strip-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.trust-strip-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.trust-strip-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border-subtle);
+    flex-shrink: 0;
+}
+
+.trust-strip-logos {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    opacity: 0.5;
+    transition: opacity var(--duration-normal) ease;
+}
+
+.trust-strip-logos:hover {
+    opacity: 0.8;
+}
+
+.trust-strip-logos img {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+/* --- Hero Buttons (preserved from previous, already clean) --- */
 .btn-hero-primary {
     display: inline-flex;
     align-items: center;
@@ -458,35 +500,6 @@
 
 .btn-hero-secondary:active {
     transform: scale(0.97) !important;
-}
-
-.hero-stage-divider {
-    width: 100%;
-    height: 1px;
-    background: var(--border-subtle);
-    margin-top: 0.5rem;
-}
-
-.hero-tech-stack-row {
-    display: flex;
-    align-items: center;
-    gap: 2.25rem;
-    flex-wrap: wrap;
-}
-
-.hero-tech-item {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    transition: color var(--duration-fast) ease;
-    user-select: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .hero-tech-item:hover {
-        color: #FFFFFF;
-    }
 }
 
 /* ============================================================
@@ -910,22 +923,37 @@ footer p {
         display: flex;
     }
     .hero-section {
+        min-height: auto;
         padding-top: 5.5rem;
-        padding-bottom: 2.75rem;
+        padding-bottom: 2rem;
     }
-    .hero-card-stage {
-        padding: 2.25rem 1.35rem;
-        gap: 1.75rem;
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
     }
-    .hero-stage-title {
+    .hero-content {
+        order: 1;
+    }
+    .hero-visual {
+        order: 0;
+    }
+    .hero-visual-img {
+        max-width: 100%;
+        max-height: 320px;
+        object-fit: cover;
+        margin: 0 auto;
+    }
+    .hero-headline {
         font-size: 2.15rem;
-        line-height: 1.15;
+        line-height: 1.12;
+        max-width: none;
     }
-    .hero-stage-subtitle {
+    .hero-sub {
         font-size: 1.05rem;
         margin-bottom: 1.75rem;
+        max-width: none;
     }
-    .hero-stage-actions {
+    .hero-actions {
         flex-direction: column;
         width: 100%;
         gap: 0.85rem;
@@ -939,18 +967,16 @@ footer p {
         justify-content: center;
         min-height: 44px;
     }
-    .hero-tech-stack-row {
-        gap: 1.25rem;
-    }
-    .hero-trust-band {
+    .trust-strip-row {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.85rem;
-        width: 100%;
-        padding: 1rem;
+        gap: 1rem;
     }
-    .hero-trust-divider {
+    .trust-strip-divider {
         display: none;
+    }
+    .trust-strip-logos {
+        gap: 1.25rem;
     }
     .timeline-row {
         grid-template-columns: 1fr;
