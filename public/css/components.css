@@ -300,46 +300,122 @@
    Clean left-aligned content + right visual. No centered card.
    ============================================================ */
 .hero-section {
+    position: relative;
     min-height: 100dvh;
     display: flex;
     align-items: center;
-    padding-top: 6rem;
-    padding-bottom: 3rem;
+    overflow: hidden;
+    padding-top: 7rem;
+    padding-bottom: 4rem;
 }
 
-.hero-grid {
-    display: grid;
-    grid-template-columns: 7fr 5fr;
-    gap: 4rem;
-    align-items: center;
+/* --- Hero Background Layer (AVIF / WebP / Responsive Picture) --- */
+.hero-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    display: block;
+    transform: scale(1.02);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: 
+        /* Left dark vignette gradient to guarantee pristine text contrast */
+        linear-gradient(
+            90deg,
+            rgba(7, 9, 14, 0.97) 0%,
+            rgba(7, 9, 14, 0.92) 34%,
+            rgba(7, 9, 14, 0.65) 54%,
+            rgba(7, 9, 14, 0.22) 74%,
+            rgba(7, 9, 14, 0.05) 100%
+        ),
+        /* Bottom edge fade into page background & trust strip */
+        linear-gradient(
+            0deg,
+            var(--bg-base) 0%,
+            rgba(7, 9, 14, 0.85) 10%,
+            transparent 32%
+        ),
+        /* Top shadow for floating navbar readability */
+        linear-gradient(
+            180deg,
+            rgba(7, 9, 14, 0.75) 0%,
+            transparent 18%
+        );
+}
+
+.hero-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
 }
 
 .hero-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    max-width: 580px;
+}
+
+.hero-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+    color: var(--accent-emerald);
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: fit-content;
+}
+
+.hero-status-pill .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
 }
 
 .hero-headline {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5.5vw, 4rem);
+    font-size: clamp(2.5rem, 5.5vw, 4.1rem);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.04em;
     color: #FFFFFF;
     margin-bottom: 1.25rem;
-    max-width: 18ch;
+    max-width: 17ch;
     text-wrap: balance;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
 }
 
 .hero-sub {
     font-family: var(--font-body);
-    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
     font-weight: 400;
     color: var(--text-secondary);
     line-height: 1.6;
-    max-width: 38ch;
+    max-width: 40ch;
     margin-bottom: 2.5rem;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.7);
 }
 
 .hero-actions {
@@ -347,42 +423,6 @@
     align-items: center;
     gap: 1.5rem;
     flex-wrap: wrap;
-}
-
-/* --- Hero Visual (right column) --- */
-.hero-visual {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero-visual-glow {
-    position: absolute;
-    inset: -20%;
-    border-radius: 50%;
-    background: radial-gradient(
-        ellipse at center,
-        rgba(79, 70, 229, 0.12) 0%,
-        rgba(16, 185, 129, 0.06) 40%,
-        transparent 70%
-    );
-    filter: blur(60px);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.hero-visual-img {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 520px;
-    height: auto;
-    border-radius: var(--radius-card);
-    object-fit: cover;
-    box-shadow:
-        0 24px 48px -12px rgba(0, 0, 0, 0.6),
-        0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 /* --- Trust Strip (below hero, taste-skill §4.7) --- */
@@ -900,8 +940,32 @@ footer p {
     .bento-col-8, .bento-col-7, .bento-col-6, .bento-col-5, .bento-col-4 {
         grid-column: span 12;
     }
-    .hero-grid {
-        grid-template-columns: 1fr;
+    .hero-content {
+        max-width: 520px;
+    }
+    .hero-bg-img {
+        object-position: 80% center;
+    }
+    .hero-bg-overlay {
+        background: 
+            linear-gradient(
+                90deg,
+                rgba(7, 9, 14, 0.98) 0%,
+                rgba(7, 9, 14, 0.93) 42%,
+                rgba(7, 9, 14, 0.65) 68%,
+                rgba(7, 9, 14, 0.25) 100%
+            ),
+            linear-gradient(
+                0deg,
+                var(--bg-base) 0%,
+                rgba(7, 9, 14, 0.85) 10%,
+                transparent 30%
+            ),
+            linear-gradient(
+                180deg,
+                rgba(7, 9, 14, 0.75) 0%,
+                transparent 18%
+            );
     }
     .project-bento-hero {
         grid-template-columns: 1fr;
@@ -923,34 +987,34 @@ footer p {
         display: flex;
     }
     .hero-section {
-        min-height: auto;
-        padding-top: 5.5rem;
-        padding-bottom: 2rem;
+        min-height: 100dvh;
+        padding-top: 6.5rem;
+        padding-bottom: 3.5rem;
     }
-    .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
+    .hero-bg-img {
+        object-position: 78% center;
+    }
+    .hero-bg-overlay {
+        background: 
+            linear-gradient(
+                180deg,
+                rgba(7, 9, 14, 0.86) 0%,
+                rgba(7, 9, 14, 0.90) 45%,
+                rgba(7, 9, 14, 0.97) 80%,
+                var(--bg-base) 100%
+            );
     }
     .hero-content {
-        order: 1;
-    }
-    .hero-visual {
-        order: 0;
-    }
-    .hero-visual-img {
         max-width: 100%;
-        max-height: 320px;
-        object-fit: cover;
-        margin: 0 auto;
     }
     .hero-headline {
-        font-size: 2.15rem;
-        line-height: 1.12;
+        font-size: clamp(2rem, 7.5vw, 2.65rem);
+        line-height: 1.15;
         max-width: none;
     }
     .hero-sub {
         font-size: 1.05rem;
-        margin-bottom: 1.75rem;
+        margin-bottom: 2rem;
         max-width: none;
     }
     .hero-actions {
