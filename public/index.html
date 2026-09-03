@@ -17,7 +17,7 @@
     <meta name="twitter:title" content="AG Private Engineering — Software a Medida &amp; Automatización IA">
     <meta name="twitter:description" content="Software propietario, plataformas SaaS y automatizaciones con IA de alto rendimiento.">
     <meta name="twitter:image" content="https://paginaweb.andres-felipe-gueco.workers.dev/proyecto-bot-whatsapp/img/hero.png">
-    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="img/icons/favicon.svg">
     
     <!-- Structured Data for SEO -->
     <script type="application/ld+json">
@@ -40,8 +40,8 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Preload Hero Background Image for Sub-second LCP -->
-    <link rel="preload" as="image" href="img/heroindex-1024.webp" type="image/webp" media="(max-width: 1024px)" fetchpriority="high">
-    <link rel="preload" as="image" href="img/heroindex-1920.webp" type="image/webp" media="(min-width: 1025px)" fetchpriority="high">
+    <link rel="preload" as="image" href="img/hero/heroindex-1024.webp" type="image/webp" media="(max-width: 1024px)" fetchpriority="high">
+    <link rel="preload" as="image" href="img/hero/heroindex-1920.webp" type="image/webp" media="(min-width: 1025px)" fetchpriority="high">
 
     <!-- Modular CSS Architecture (Zero inline bloat) -->
     <link rel="stylesheet" href="css/design-system.css">
@@ -138,9 +138,9 @@
             <!-- Responsive Optimized Backdrop Picture Layer -->
             <div class="hero-backdrop" aria-hidden="true">
                 <picture>
-                    <source type="image/avif" srcset="img/heroindex-640.avif 640w, img/heroindex-1024.avif 1024w, img/heroindex-1920.avif 1920w" sizes="100vw">
-                    <source type="image/webp" srcset="img/heroindex-640.webp 640w, img/heroindex-1024.webp 1024w, img/heroindex-1920.webp 1920w" sizes="100vw">
-                    <img src="img/HEROINDEX.png"
+                    <source type="image/avif" srcset="img/hero/heroindex-640.avif 640w, img/hero/heroindex-1024.avif 1024w, img/hero/heroindex-1920.avif 1920w" sizes="100vw">
+                    <source type="image/webp" srcset="img/hero/heroindex-640.webp 640w, img/hero/heroindex-1024.webp 1024w, img/hero/heroindex-1920.webp 1920w" sizes="100vw">
+                    <img src="img/hero/HEROINDEX.png"
                          alt="Workspace de desarrollo AG Private Engineering"
                          class="hero-bg-img"
                          width="1920"
@@ -181,9 +181,9 @@
                 <!-- Mobile-dedicated Visual Showcase (0% text overlap on mobile devices) -->
                 <div class="hero-mobile-visual" id="heroMobileVisual" aria-hidden="true">
                     <picture>
-                        <source type="image/avif" srcset="img/heroindex-640.avif 640w, img/heroindex-1024.avif 1024w">
-                        <source type="image/webp" srcset="img/heroindex-640.webp 640w, img/heroindex-1024.webp 1024w">
-                        <img src="img/heroindex-640.webp"
+                        <source type="image/avif" srcset="img/hero/heroindex-640.avif 640w, img/hero/heroindex-1024.avif 1024w">
+                        <source type="image/webp" srcset="img/hero/heroindex-640.webp 640w, img/hero/heroindex-1024.webp 1024w">
+                        <img src="img/hero/heroindex-640.webp"
                              alt="Setup de ingeniería AG Private Engineering"
                              class="hero-mobile-img"
                              width="640"
@@ -344,9 +344,9 @@
                         <div class="project-bento-hero">
                             <div class="project-media-frame">
                                 <picture>
-                                    <source srcset="img/2-1200.avif 1200w, img/2-800.avif 800w" type="image/avif">
-                                    <source srcset="img/2-1200.webp 1200w, img/2-800.webp 800w" type="image/webp">
-                                    <img src="img/2-1200.png" alt="Ecosistema de Bots Empresariales" loading="lazy">
+                                    <source srcset="img/projects/formula1/2-1200.avif 1200w, img/projects/formula1/2-800.avif 800w" type="image/avif">
+                                    <source srcset="img/projects/formula1/2-1200.webp 1200w, img/projects/formula1/2-800.webp 800w" type="image/webp">
+                                    <img src="img/projects/formula1/2-1200.png" alt="Ecosistema de Bots Empresariales" loading="lazy">
                                 </picture>
                             </div>
                             <div class="project-details">
@@ -372,7 +372,7 @@
                     <!-- Project 2: Desarrollo Web & SaaS (Span 6) -->
                     <div class="bento-col-6 bento-card interactive reveal" style="gap: 1.5rem;">
                         <div class="project-media-frame" style="max-height: 240px;">
-                            <img src="img/saas-dev-logo.jpg" alt="Desarrollo Web &amp; SaaS" loading="lazy">
+                            <img src="img/projects/saas/saas-dev-logo.jpg" alt="Desarrollo Web &amp; SaaS" loading="lazy">
                         </div>
                         <h3 class="section-title" style="font-size: 1.5rem;" data-i18n="serv_2_title">Desarrollo Web &amp; SaaS</h3>
                         <p data-i18n="serv_2_desc">
@@ -393,7 +393,7 @@
                     <!-- Project 3: F1 Sim Pro (Span 6) -->
                     <div class="bento-col-6 bento-card interactive reveal" style="gap: 1.5rem;">
                         <div class="project-media-frame" style="max-height: 240px;">
-                            <img src="img/f1-sim-pro-logo.jpg" alt="F1 Sim Pro Motorsport" loading="lazy">
+                            <img src="img/projects/formula1/f1-sim-pro-logo.jpg" alt="F1 Sim Pro Motorsport" loading="lazy">
                         </div>
                         <h3 class="section-title" style="font-size: 1.5rem;" data-i18n="serv_3_title">F1 Sim Pro — Motor Concurrente &amp; Algoritmos Java</h3>
                         <p data-i18n="serv_3_desc">
