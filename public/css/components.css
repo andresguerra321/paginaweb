@@ -7,25 +7,30 @@
    1. SINGLE-LAYER BENTO CARD SYSTEM (Flattened, no nested cards)
    ============================================================ */
 .bento-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
+    background: linear-gradient(145deg, rgba(20, 28, 48, 0.65) 0%, rgba(14, 20, 34, 0.52) 100%);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-card);
     padding: 2.25rem;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--glass-specular), var(--shadow-sm);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: transform var(--duration-normal) var(--ease-spring),
                 border-color var(--duration-normal) var(--ease-spring),
-                box-shadow var(--duration-normal) var(--ease-spring);
+                box-shadow var(--duration-normal) var(--ease-spring),
+                background var(--duration-normal) var(--ease-spring);
     position: relative;
     overflow: hidden;
+    transform: translateZ(0); /* Hardware accelerated */
 }
 
 .bento-card.interactive:hover {
-    transform: translateY(-3px);
-    border-color: var(--border-distinct);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-4px) translateZ(0);
+    background: linear-gradient(145deg, rgba(28, 40, 68, 0.78) 0%, rgba(18, 26, 46, 0.68) 100%);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-specular-hover), var(--shadow-md);
 }
 
 /* ============================================================
@@ -272,22 +277,28 @@
     gap: 0.65rem;
     padding: 0.85rem 1.6rem;
     border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-distinct);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     color: var(--text-primary) !important;
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 0.95rem;
     text-decoration: none;
-    transition: transform 120ms ease-out, background var(--duration-fast) var(--ease-spring);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), var(--shadow-sm);
+    transition: transform 120ms ease-out, background var(--duration-fast) var(--ease-spring), border-color var(--duration-fast) var(--ease-spring), box-shadow var(--duration-fast) var(--ease-spring);
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 }
 
 @media (hover: hover) and (pointer: fine) {
     .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.26);
         transform: translateY(-2px);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), var(--shadow-md);
+        color: #FFFFFF !important;
     }
 }
 
@@ -581,10 +592,43 @@
     line-height: 1.65;
 }
 
+/* Ambient Lighting Meshes for Services Glassmorphism */
+#services {
+    position: relative;
+}
+
+#services::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    width: min(650px, 80vw);
+    height: min(450px, 60vh);
+    background: radial-gradient(ellipse at center, rgba(79, 70, 229, 0.12) 0%, rgba(56, 189, 248, 0.05) 45%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+#services::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+    width: min(550px, 70vw);
+    height: min(400px, 50vh);
+    background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+}
+
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 1.75rem;
+    position: relative;
+    z-index: 1;
 }
 
 .bento-col-12 { grid-column: span 12; }
@@ -606,8 +650,9 @@
     border-radius: 12px;
     overflow: hidden;
     position: relative;
-    background: #000000;
-    border: 1px solid var(--border-subtle);
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.12), 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .project-media-frame img {
@@ -636,12 +681,23 @@
 
 .project-tag {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: 0.85rem;
+    font-weight: 500;
     color: var(--text-secondary);
     background: rgba(255, 255, 255, 0.05);
-    padding: 0.3rem 0.75rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 0.35rem 0.8rem;
     border-radius: var(--radius-pill);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: all var(--duration-fast) var(--ease-spring);
+}
+
+.project-tag:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.22);
 }
 
 /* ============================================================
@@ -763,69 +819,131 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.4rem;
+    padding: 0.65rem 1.25rem;
     border-radius: var(--radius-pill);
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
     font-family: var(--font-mono);
     font-size: 0.9rem;
     font-weight: 500;
     transition: all var(--duration-fast) var(--ease-spring);
+    user-select: none;
 }
 
 .tech-chip:hover {
-    background: var(--bg-elevated);
-    border-color: var(--accent-primary);
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.24);
+    color: var(--text-primary);
     transform: translateY(-2px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), var(--shadow-sm);
 }
 
 /* ============================================================
-   10. CONTACT SECTION
+   10. CONTACT SECTION (Masterclass Glass Monolith)
    ============================================================ */
+#contact {
+    position: relative;
+    overflow: hidden;
+}
+
+#contact::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(850px, 90vw);
+    height: min(500px, 60vh);
+    background: radial-gradient(ellipse at center, rgba(79, 70, 229, 0.15) 0%, rgba(56, 189, 248, 0.07) 35%, rgba(16, 185, 129, 0.04) 55%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+}
+
 .contact-card {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.75rem;
-    padding: 3.5rem 2rem;
+    gap: 2rem;
+    padding: clamp(3rem, 6vw, 4.75rem) clamp(1.5rem, 5vw, 3rem);
+    background: linear-gradient(160deg, rgba(22, 32, 54, 0.72) 0%, rgba(12, 18, 32, 0.58) 100%);
+    backdrop-filter: var(--glass-blur-deep);
+    -webkit-backdrop-filter: var(--glass-blur-deep);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-card);
+    box-shadow: 
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.25),
+        inset 0 0 28px 0 rgba(255, 255, 255, 0.02),
+        var(--shadow-island);
+    position: relative;
+    z-index: 1;
 }
 
 .contact-actions-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.15rem;
     margin-top: 0.5rem;
+    position: relative;
+    z-index: 2;
 }
 
 .contact-link-pill {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.85rem 1.65rem;
+    padding: 0.95rem 1.85rem;
     border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     color: var(--text-primary);
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 0.95rem;
     text-decoration: none;
-    transition: all var(--duration-fast) var(--ease-spring);
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.14),
+        0 4px 14px rgba(0, 0, 0, 0.35);
+    transition: transform 140ms var(--ease-spring),
+                background var(--duration-fast) var(--ease-spring),
+                border-color var(--duration-fast) var(--ease-spring),
+                box-shadow var(--duration-fast) var(--ease-spring);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .contact-link-pill svg {
-    width: 18px;
-    height: 18px;
+    width: 19px;
+    height: 19px;
     fill: currentColor;
+    transition: transform var(--duration-fast) var(--ease-spring);
 }
 
-.contact-link-pill:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--border-distinct);
-    transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+    .contact-link-pill:hover {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.28);
+        transform: translateY(-3px);
+        box-shadow: 
+            inset 0 1px 1px rgba(255, 255, 255, 0.28),
+            0 8px 24px rgba(0, 0, 0, 0.55);
+        color: #FFFFFF !important;
+    }
+    .contact-link-pill:hover svg {
+        transform: scale(1.1);
+    }
+}
+
+.contact-link-pill:active {
+    transform: scale(0.97) !important;
 }
 
 /* ============================================================
@@ -1076,3 +1194,21 @@ footer p {
         min-height: 48px;
     }
 }
+
+/* ============================================================
+   14. CROSS-DEVICE GLASS STABILITY & ACCESSIBILITY GUARDS
+   ============================================================ */
+@supports not (backdrop-filter: blur(20px)) {
+    .bento-card, .contact-card, .btn-secondary, .contact-link-pill, .tech-chip, .project-tag {
+        background: #0E131F !important;
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .bento-card, .contact-card, #mainNav, .btn-secondary, .contact-link-pill, .tech-chip, .project-tag {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: #0E131F !important;
+    }
+}
+

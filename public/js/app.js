@@ -50,11 +50,8 @@
             if (targetId === '#services' || targetId === '#innovation' || targetId === '#workflow') {
                 return '#services';
             }
-            if (targetId === '#skills' || targetId === '#tech') {
+            if (targetId === '#skills' || targetId === '#tech' || targetId === '#timeline') {
                 return '#skills';
-            }
-            if (targetId === '#timeline') {
-                return '#timeline';
             }
             if (targetId === '#contact') {
                 return '#contact';
@@ -78,11 +75,7 @@
                         shouldShow = true;
                     }
                 } else if (tabId === '#skills') {
-                    if (sectionId === '#skills' || sectionId === '#tech') {
-                        shouldShow = true;
-                    }
-                } else if (tabId === '#timeline') {
-                    if (sectionId === '#timeline') {
+                    if (sectionId === '#skills' || sectionId === '#tech' || sectionId === '#timeline') {
                         shouldShow = true;
                     }
                 } else if (tabId === '#contact') {

@@ -35,6 +35,17 @@
     --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.6);
     --shadow-island: 0 16px 36px rgba(0, 0, 0, 0.7);
 
+    /* --- High-End Frosted Glass Tokens --- */
+    --glass-surface: rgba(18, 26, 44, 0.60);
+    --glass-surface-elevated: rgba(22, 32, 54, 0.72);
+    --glass-surface-hover: rgba(28, 40, 68, 0.82);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-border-hover: rgba(255, 255, 255, 0.24);
+    --glass-blur: blur(20px) saturate(180%);
+    --glass-blur-deep: blur(28px) saturate(190%);
+    --glass-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 0 16px 0 rgba(255, 255, 255, 0.015);
+    --glass-specular-hover: inset 0 1px 1px 0 rgba(255, 255, 255, 0.28), inset 0 0 24px 0 rgba(255, 255, 255, 0.03);
+
     /* --- Typography Scale & Proportions --- */
     --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
     --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
