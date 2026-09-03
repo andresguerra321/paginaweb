@@ -7,66 +7,71 @@
     <title>F1 Sim Pro | Simulador Estadístico de Alta Precisión</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="../img/favicon-f1.svg">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
     
+    <!-- Google Fonts: Outfit (Display deportivo), DM Sans (Texto), JetBrains Mono (Telemetría) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="css/index.css">
     
-    <!-- External Libraries (Chart.js) -->
+    <!-- External Libraries (Chart.js for Telemetry Sparklines) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Saltar al contenido</a>
 
-    <!-- Page Transition Overlay -->
+    <!-- Minimalist Page Transition Overlay (Zero-Flash Architecture) -->
     <div class="page-transition-overlay" id="page-transition-overlay">
         <div class="minimal-loader">
             <div class="minimal-loader-title">F1 SIM PRO</div>
             <div class="minimal-loader-bar-bg">
                 <div class="minimal-loader-bar" id="minimal-bar"></div>
             </div>
-            <div class="minimal-loader-subtitle" style="margin-top:10px;color:var(--f1-red);font-family:var(--font-mono);font-size:0.75rem;">INICIALIZANDO MOTOR TELEMÉTRICO</div>
+            <div class="minimal-loader-subtitle">INICIALIZANDO MOTOR TELEMÉTRICO</div>
         </div>
     </div>
 
-    <div class="ambient-glow"></div>
+    <!-- Ambient Lighting Backdrop -->
+    <div class="ambient-glow" aria-hidden="true"></div>
 
-    <!-- HUD Ticker Top -->
-    <div class="hud-ticker" id="globalTicker" aria-hidden="true">
-        <div class="ticker-inner">
-            <div class="ticker-item"><div class="ticker-dot"></div><span>F1 SIM PRO // MOTOR ESTADÍSTICO ACTIVO</span></div>
-            <span class="ticker-separator">//</span>
-            <div class="ticker-item"><span>TELEMETRÍA EN TIEMPO REAL // 60 FPS</span></div>
-            <span class="ticker-separator">//</span>
-            <div class="ticker-item"><span>CIRCUITO: CIRCUIT DE MONACO (MONTE CARLO)</span></div>
-            <span class="ticker-separator">//</span>
-            <div class="ticker-item"><div class="ticker-dot"></div><span>SESIÓN EN VIVO</span></div>
-            <span class="ticker-separator">//</span>
-            <!-- Duplicate for continuous scroll -->
-            <div class="ticker-item"><div class="ticker-dot"></div><span>F1 SIM PRO // MOTOR ESTADÍSTICO ACTIVO</span></div>
-            <span class="ticker-separator">//</span>
-            <div class="ticker-item"><span>TELEMETRÍA EN TIEMPO REAL // 60 FPS</span></div>
-            <span class="ticker-separator">//</span>
-            <div class="ticker-item"><span>CIRCUITO: CIRCUIT DE MONACO (MONTE CARLO)</span></div>
-            <span class="ticker-separator">//</span>
+    <!-- Static High-Precision Telemetry HUD (Replaces banned auto-scroll marquee) -->
+    <header class="hud-ticker" id="globalTicker" aria-label="Estado general de la telemetría">
+        <div class="container hud-ticker-content">
+            <div class="hud-ticker-cell">
+                <span class="hud-status-indicator active" aria-hidden="true"></span>
+                <span class="hud-ticker-label">F1 SIM PRO // MOTOR ESTADÍSTICO ACTIVO</span>
+            </div>
+            <div class="hud-ticker-divider" aria-hidden="true"></div>
+            <div class="hud-ticker-cell">
+                <span class="hud-ticker-dim">TELEMETRÍA EN VIVO</span>
+                <span class="hud-ticker-val">60 FPS</span>
+            </div>
+            <div class="hud-ticker-divider" aria-hidden="true"></div>
+            <div class="hud-ticker-cell">
+                <span class="hud-ticker-dim">CIRCUITO:</span>
+                <span class="hud-ticker-val">CIRCUIT DE MONACO (MONTE CARLO)</span>
+            </div>
+            <div class="hud-ticker-divider" aria-hidden="true"></div>
+            <div class="hud-ticker-cell">
+                <span class="hud-badge-live">SESIÓN EN VIVO</span>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <!-- Navbar -->
-    <nav class="navbar" id="mainNav">
+    <!-- Floating Island Navbar -->
+    <nav class="navbar" id="mainNav" aria-label="Navegación principal">
         <div class="container nav-row">
             <div class="nav-left-group">
                 <a href="../index.html" class="nav-back-link" data-i18n="nav_back">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
                     <span>Volver a Soluciones</span>
                 </a>
 
-                <a href="#" class="nav-brand">
+                <a href="#" class="nav-brand" aria-label="F1 Sim Pro Inicio">
                     <span class="brand-mark">F1</span>
-                    <span class="brand-divider"></span>
+                    <span class="brand-divider" aria-hidden="true"></span>
                     <span class="brand-product">Sim Pro</span>
                 </a>
             </div>
@@ -79,10 +84,10 @@
 
             <div class="nav-controls">
                 <div class="engine-status-pill">
-                    <div class="engine-dot"></div>
+                    <span class="engine-dot" aria-hidden="true"></span>
                     <span id="navEngineStatus" data-i18n="nav_status">SISTEMA ACTIVO</span>
                 </div>
-                <div class="lang-switch">
+                <div class="lang-switch" role="group" aria-label="Selector de idioma">
                     <button type="button" class="lang-btn active" id="btnLangEs">ES</button>
                     <button type="button" class="lang-btn" id="btnLangEn">EN</button>
                 </div>
@@ -96,18 +101,20 @@
     <!-- MAIN CONTENT -->
     <main id="main-content">
 
-        <!-- Hero Section -->
-        <section class="hero container">
+        <!-- ============================================================
+             HERO SECTION — High Precision Racing Telemetry
+             ============================================================ -->
+        <section class="hero-section container">
             <div class="hero-grid">
                 <!-- Text Content -->
-                <div class="hero-text reveal">
+                <div class="hero-text">
                     <div class="hero-eyebrow">
                         <span class="hero-badge">v2.0 Pro</span>
                         <span data-i18n="hero_eyebrow">Motor Estadístico de Alta Fidelidad</span>
                     </div>
                     <h1 class="hero-title" data-i18n="hero_title">
                         Siente la carrera.<br>
-                        <span class="gradient-text">Simulada por Datos.</span>
+                        <span class="hero-title-solid">Simulada por Datos.</span>
                     </h1>
                     <p class="hero-subtitle" data-i18n="hero_subtitle">
                         F1 Sim Pro calcula el ritmo de cada monoplaza evaluando la habilidad de los pilotos, la degradación de los compuestos, la carga aerodinámica y eventos de pista en tiempo real.
@@ -115,25 +122,25 @@
                     
                     <div class="hero-actions">
                         <button type="button" class="btn-hero-primary" id="btnHeroStart">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                             <span data-i18n="hero_btn_start">Iniciar Demo</span>
                         </button>
-                        <a href="#features" class="btn-outline" data-i18n="hero_btn_explore">Explorar Características</a>
+                        <a href="#features" class="btn-hero-secondary" data-i18n="hero_btn_explore">Explorar Características</a>
                     </div>
 
                     <div class="hero-pills">
-                        <span class="hero-pill"><div class="pill-dot red"></div> Lógica Java Multithreading</span>
-                        <span class="hero-pill"><div class="pill-dot blue"></div> Telemetría Dinámica 60 FPS</span>
-                        <span class="hero-pill"><div class="pill-dot amber"></div> Desgaste y Clima Estocástico</span>
+                        <span class="hero-pill"><span class="pill-dot red" aria-hidden="true"></span> Lógica Java Multithreading</span>
+                        <span class="hero-pill"><span class="pill-dot blue" aria-hidden="true"></span> Telemetría Dinámica 60 FPS</span>
+                        <span class="hero-pill"><span class="pill-dot amber" aria-hidden="true"></span> Desgaste y Clima Estocástico</span>
                     </div>
                 </div>
 
-                <!-- Dashboard Preview -->
-                <div class="hero-visual reveal reveal-delay-2">
+                <!-- Dashboard Preview Hero Card -->
+                <div class="hero-visual">
                     <div class="hero-dashboard">
                         <div class="dash-header">
                             <div class="dash-header-left">
-                                <div class="dash-live-dot"></div>
+                                <span class="dash-live-dot" aria-hidden="true"></span>
                                 <span class="dash-label">Telemetría en Vivo</span>
                             </div>
                             <span class="dash-lap-badge" id="heroLapBadge">VUELTA 1/53</span>
@@ -178,15 +185,15 @@
                         </div>
                         <div class="dash-telemetry">
                             <div class="telem-item">
-                                <span class="telem-label">Velocidad Punta <span id="heroTopSpeed">335 KM/H</span></span>
+                                <span class="telem-label">Velocidad Punta <strong id="heroTopSpeed">335 KM/H</strong></span>
                                 <div class="telem-bar"><div class="telem-bar-fill speed" style="width: 86%;"></div></div>
                             </div>
                             <div class="telem-item">
-                                <span class="telem-label">Neumáticos (S) <span id="heroTireWear">92%</span></span>
+                                <span class="telem-label">Neumáticos (S) <strong id="heroTireWear">92%</strong></span>
                                 <div class="telem-bar"><div class="telem-bar-fill tire" style="width: 92%;"></div></div>
                             </div>
                             <div class="telem-item">
-                                <span class="telem-label">Batería ERS <span id="heroBattery">78%</span></span>
+                                <span class="telem-label">Batería ERS <strong id="heroBattery">78%</strong></span>
                                 <div class="telem-bar"><div class="telem-bar-fill fuel" style="width: 78%;"></div></div>
                             </div>
                         </div>
@@ -195,9 +202,11 @@
             </div>
         </section>
 
-        <!-- Metrics Strip -->
+        <!-- ============================================================
+             METRICS STRIP — Clean Engineering Stats
+             ============================================================ -->
         <section class="metrics-strip">
-            <div class="container metrics-grid reveal">
+            <div class="container metrics-grid">
                 <div class="metric-card">
                     <div class="metric-number">1<span class="metric-accent">ms</span></div>
                     <div class="metric-label">Latencia del Motor</div>
@@ -217,33 +226,35 @@
             </div>
         </section>
 
-        <!-- MISSION CONTROL ROOM (Main Interactive Section) -->
+        <!-- ============================================================
+             MISSION CONTROL ROOM (Main Interactive Section)
+             ============================================================ -->
         <section id="sim-engine" class="sim-section container">
-            <div class="sec-header reveal">
-                <div class="sim-pill-eyebrow"><div class="pulse-ring"></div> Centro de Mando</div>
+            <div class="sec-header">
+                <div class="sim-pill-eyebrow">Centro de Mando Telemétrico</div>
                 <h2 class="sec-title" data-i18n="sim_title">Mission Control Room</h2>
                 <p class="sec-subtitle" data-i18n="sim_subtitle">
                     Interactúa en tiempo real con la carrera. Cambia entre la telemetría gráfica en vivo, la tabla de estadísticas de pilotos, el setup aerodinámico y los principios del motor.
                 </p>
             </div>
 
-            <div class="sim-control-room reveal reveal-delay-1">
+            <div class="sim-control-room">
                 <!-- Nav Tabs -->
                 <div class="sim-nav-tabs" role="tablist">
                     <button type="button" class="sim-tab-btn active" role="tab" id="tab-btn-track" aria-selected="true" data-target="pane-track">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
-                        <span data-i18n="tab_track">Pista & Telemetría</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                        <span data-i18n="tab_track">Pista &amp; Telemetría</span>
                     </button>
                     <button type="button" class="sim-tab-btn" role="tab" id="tab-btn-stats" aria-selected="false" data-target="pane-stats">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
                         <span data-i18n="tab_stats">Estadísticas de Pilotos</span>
                     </button>
                     <button type="button" class="sim-tab-btn" role="tab" id="tab-btn-config" aria-selected="false" data-target="pane-config">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                         <span data-i18n="tab_config">Configuración de Escudería</span>
                     </button>
                     <button type="button" class="sim-tab-btn" role="tab" id="tab-btn-arch" aria-selected="false" data-target="pane-arch">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
                         <span data-i18n="tab_arch">Motor de Simulación</span>
                     </button>
                 </div>
@@ -255,12 +266,12 @@
                     <div class="sim-toolbar">
                         <div class="sim-toolbar-left">
                             <div class="sim-status-badge">
-                                <div class="status-indicator ready" id="simStatusDot"></div>
+                                <span class="status-indicator ready" id="simStatusDot" aria-hidden="true"></span>
                                 <span id="simStatusText" data-i18n="waiting_start">ESPERANDO INICIO</span>
                             </div>
                             <div class="sim-lap-hud">
                                 <span class="hud-tag">VUELTA</span>
-                                <span class="hud-current" id="currentLapCounter">0</span>
+                                <strong class="hud-current" id="currentLapCounter">0</strong>
                                 <span class="hud-divider">/</span>
                                 <span class="hud-total" id="totalLapsCounter">53</span>
                             </div>
@@ -268,28 +279,29 @@
                                 <span id="weatherText">☀️ Soleado (28°C)</span>
                             </div>
                             <div class="sim-flag-tag">
-                                <div class="flag-dot green" id="flagDot"></div> <span id="flagText" data-i18n="flag_green">Bandera Verde</span>
+                                <span class="flag-dot green" id="flagDot" aria-hidden="true"></span>
+                                <span id="flagText" data-i18n="flag_green">Bandera Verde</span>
                             </div>
                         </div>
                         <div class="sim-toolbar-right">
                             <button type="button" class="btn-control-start" id="btnStartRace">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                                 <span data-i18n="btn_start_race">Iniciar Demo</span>
                             </button>
                             <button type="button" class="btn-control-weather" id="btnChangeWeather" aria-label="Cambiar Clima" title="Cambiar Clima Aleatorio">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
                                 <span class="btn-text-hide-sm" data-i18n="btn_weather">Clima</span>
                             </button>
                             <button type="button" class="btn-control-sc" id="btnTriggerSC" aria-label="Lanzar Safety Car" title="Simular Safety Car">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                                 <span class="btn-text-hide-sm" data-i18n="btn_sc">Safety Car</span>
                             </button>
                             <button type="button" class="btn-control-speed" id="btnSpeedMultiplier" aria-label="Velocidad" title="Velocidad de Simulación">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 19 22 12 13 5 13 19"></polygon><polygon points="2 19 11 12 2 5 2 19"></polygon></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="13 19 22 12 13 5 13 19"></polygon><polygon points="2 19 11 12 2 5 2 19"></polygon></svg>
                                 <span id="speedMultiplierText">1x</span>
                             </button>
                             <button type="button" class="btn-control-reset" id="btnResetSim" disabled aria-label="Reiniciar Sesión" title="Reiniciar Sesión">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>
                                 <span class="btn-text-hide-sm" data-i18n="btn_reset">Reset</span>
                             </button>
                         </div>
@@ -313,7 +325,7 @@
                         <div class="circuit-canvas-wrap">
                             <div class="circuit-header-hud">
                                 <div class="circuit-name">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                                     Circuit de Monaco — 3.337 km (Monte Carlo)
                                 </div>
                                 <div class="sector-legend">
@@ -331,7 +343,7 @@
 
                             <div class="live-radio-feed">
                                 <div class="radio-label">
-                                    <div class="radio-dot"></div> CANAL DE RADIO EN VIVO
+                                    <span class="radio-dot" aria-hidden="true"></span> CANAL DE RADIO EN VIVO
                                 </div>
                                 <div class="radio-message" id="raceRadioMsg">Esperando inicio de sesión...</div>
                             </div>
@@ -356,7 +368,7 @@
                                 <div class="gauges-cluster">
                                     <div class="radial-gauge-box">
                                         <!-- SVG Speedometer Dial -->
-                                        <svg class="radial-svg" viewBox="0 0 100 100">
+                                        <svg class="radial-svg" viewBox="0 0 100 100" aria-label="Velocímetro">
                                             <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"></circle>
                                             <circle id="speedDial" cx="50" cy="50" r="45" fill="none" stroke="var(--telemetry-green)" stroke-width="6" stroke-dasharray="212" stroke-dashoffset="212" stroke-linecap="round" transform="rotate(-90 50 50)"></circle>
                                         </svg>
@@ -390,7 +402,7 @@
                                         <span>Delta de Tiempo por Vuelta</span>
                                         <span class="text-green" id="hudDelta">-0.125s</span>
                                     </div>
-                                    <div style="height: 38px; position: relative;">
+                                    <div class="sparkline-canvas-holder">
                                         <canvas id="deltaChart"></canvas>
                                     </div>
                                 </div>
@@ -428,8 +440,8 @@
                                         <th>Piloto</th>
                                         <th>Habilidad (OVR)</th>
                                         <th>Experiencia</th>
-                                        <th>Gestión de Neumáticos</th>
-                                        <th>Prob. de Error</th>
+                                        <th>Gestión Neumáticos</th>
+                                        <th>Prob. Error</th>
                                     </tr>
                                 </thead>
                                 <tbody id="driverStatsTbody">
@@ -480,7 +492,7 @@
 
                             <div class="form-actions-full">
                                 <button type="submit" class="btn-hero-primary">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                     Aplicar Configuración al Monoplaza
                                 </button>
                             </div>
@@ -507,19 +519,19 @@
                     </div>
                 </div>
 
-                <!-- Pane 4: Simulation Engine -->
+                <!-- Pane 4: Simulation Engine Architecture -->
                 <div id="pane-arch" class="tab-pane" role="tabpanel">
                     <div class="java-arch-layout">
                         <div class="engine-overview-card">
                             <div class="engine-card-header">
                                 <div class="engine-card-title">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-f1-red"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-f1-red" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                                     <h4>Motor Algorítmico Concurrente</h4>
                                 </div>
                                 <span class="engine-version-tag">Arquitectura Java 17</span>
                             </div>
                             <p class="engine-desc">
-                                El proyecto procesa la carrera evaluando simultáneamente los monoplazas mediante hilos concurrentes (`HiloPiloto`), considerando factores estocásticos como variaciones climáticas, degradación física de compuestos y presión psicológica entre pilotos para determinar adelantamientos y errores no forzados.
+                                El proyecto procesa la carrera evaluando simultáneamente los monoplazas mediante hilos concurrentes (<code class="code-tag">HiloPiloto</code>), considerando factores estocásticos como variaciones climáticas, degradación física de compuestos y presión psicológica entre pilotos para determinar adelantamientos y errores no forzados.
                             </p>
                         </div>
 
@@ -552,23 +564,25 @@
             </div>
         </section>
 
-        <!-- FEATURES BENTO GRID -->
-        <section id="features" class="container">
-            <div class="sec-header reveal">
+        <!-- ============================================================
+             FEATURES BENTO GRID — Clean Capabilities
+             ============================================================ -->
+        <section id="features" class="container section-gap">
+            <div class="sec-header">
                 <div class="sec-eyebrow">Capacidades del Sistema</div>
                 <h2 class="sec-title">Diseñado para la Precisión</h2>
                 <p class="sec-subtitle">
-                    Una plataforma que combina modelado físico, telemetría y diseño de alto impacto.
+                    Una plataforma que combina modelado físico, telemetría y arquitectura concurrente de alto impacto.
                 </p>
             </div>
 
             <div class="bento-grid">
                 <!-- Bento 1: Telemetry -->
-                <div class="bento-card bento-col-8 reveal">
+                <div class="bento-card bento-col-8">
                     <div class="bento-card-top">
                         <span class="bento-badge">TELEMETRÍA EN VIVO</span>
-                        <div class="bento-svg-graphic">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--telemetry-green)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        <div class="bento-svg-graphic" aria-hidden="true">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--telemetry-green)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                         </div>
                     </div>
                     <h3 class="bento-title">Adquisición de Datos a 60 FPS</h3>
@@ -583,11 +597,11 @@
                 </div>
 
                 <!-- Bento 2: Tyre Degradation -->
-                <div class="bento-card bento-col-4 reveal reveal-delay-1">
+                <div class="bento-card bento-col-4">
                     <div class="bento-card-top">
                         <span class="bento-badge">MODELADO FÍSICO</span>
-                        <div class="bento-svg-graphic">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--f1-red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></svg>
+                        <div class="bento-svg-graphic" aria-hidden="true">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--f1-red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></svg>
                         </div>
                     </div>
                     <h3 class="bento-title">Degradación de Compuestos</h3>
@@ -601,11 +615,11 @@
                 </div>
 
                 <!-- Bento 3: Concurrency Engine -->
-                <div class="bento-card bento-col-4 reveal reveal-delay-2">
+                <div class="bento-card bento-col-4">
                     <div class="bento-card-top">
                         <span class="bento-badge">ARQUITECTURA</span>
-                        <div class="bento-svg-graphic">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--data-cyan)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                        <div class="bento-svg-graphic" aria-hidden="true">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--data-cyan)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
                         </div>
                     </div>
                     <h3 class="bento-title">Hilos Concurrentes</h3>
@@ -619,11 +633,11 @@
                 </div>
 
                 <!-- Bento 4: Dynamic Events -->
-                <div class="bento-card bento-col-8 reveal reveal-delay-3">
+                <div class="bento-card bento-col-8">
                     <div class="bento-card-top">
                         <span class="bento-badge">ESTOCÁSTICA</span>
-                        <div class="bento-svg-graphic">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--warning-amber)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        <div class="bento-svg-graphic" aria-hidden="true">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--warning-amber)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                         </div>
                     </div>
                     <h3 class="bento-title">Eventos Dinámicos de Pista</h3>
@@ -639,9 +653,11 @@
             </div>
         </section>
 
-        <!-- HOW IT WORKS -->
-        <section id="how-it-works" class="container">
-            <div class="sec-header reveal">
+        <!-- ============================================================
+             HOW IT WORKS — 3 Step Process
+             ============================================================ -->
+        <section id="how-it-works" class="container section-gap">
+            <div class="sec-header">
                 <div class="sec-eyebrow">Flujo de Simulación</div>
                 <h2 class="sec-title">Cómo Funciona el Motor</h2>
                 <p class="sec-subtitle">
@@ -649,7 +665,7 @@
                 </p>
             </div>
 
-            <div class="steps-grid reveal reveal-delay-1">
+            <div class="steps-grid">
                 <div class="step-card">
                     <div class="step-number">01</div>
                     <h3 class="step-title">Configuración</h3>
@@ -676,16 +692,18 @@
             </div>
         </section>
 
-        <!-- CTA CONTACT SECTION -->
-        <section class="project-cta-section container reveal">
+        <!-- ============================================================
+             CTA CONTACT SECTION
+             ============================================================ -->
+        <section class="project-cta-section container">
             <div class="cta-box">
                 <h3 data-i18n="cta_title">¿Necesitas un Motor Estadístico o Simulador a Medida?</h3>
                 <p data-i18n="cta_desc">
                     Desarrollo algoritmos de cálculo numérico, motores de simulación concurrentes y dashboards de telemetría de alto rendimiento para tu negocio.
                 </p>
                 <div class="cta-buttons">
-                    <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20el%20proyecto%20de%20Simulaci%C3%B3n%20F1%20en%20tu%20sitio%20web%20y%20me%20gustar%C3%ADa%20cotizar%20un%20motor%20a%20medida" target="_blank" rel="noopener noreferrer" class="btn btn-hero-primary cta-btn-whatsapp">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
+                    <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20el%20proyecto%20de%20Simulaci%C3%B3n%20F1%20en%20tu%20sitio%20web%20y%20me%20gustar%C3%ADa%20cotizar%20un%20motor%20a%20medida" target="_blank" rel="noopener noreferrer" class="btn-hero-primary cta-btn-whatsapp">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
                         <span data-i18n="cta_btn">Contactar por WhatsApp</span>
                     </a>
                 </div>
@@ -697,7 +715,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container footer-inner">
-            <a href="#" class="footer-brand">
+            <a href="#" class="footer-brand" aria-label="F1 Sim Pro">
                 <span class="brand-mark">F1</span>
                 Sim Pro
             </a>

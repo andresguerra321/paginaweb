@@ -246,11 +246,15 @@
             }
         }
 
-        if (document.hidden || document.visibilityState === 'hidden') {
+        // Zero-flash on direct visit or page refresh
+        const isFromInternalTransition = sessionStorage.getItem('ag_transition_active') === 'true';
+        if (!isFromInternalTransition || document.hidden || document.visibilityState === 'hidden') {
             dismissF1Loader();
             return;
         }
+        sessionStorage.removeItem('ag_transition_active');
 
+        overlay.classList.add('is-loading');
         let progress = 0;
         const interval = setInterval(() => {
             progress += 25;
@@ -259,12 +263,12 @@
                 clearInterval(interval);
                 dismissF1Loader();
             }
-        }, 20);
+        }, 30);
 
         setTimeout(() => {
             clearInterval(interval);
             dismissF1Loader();
-        }, 400);
+        }, 350);
 
         window.addEventListener('pageshow', dismissF1Loader);
         document.addEventListener('visibilitychange', () => {
