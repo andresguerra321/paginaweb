@@ -86,7 +86,7 @@
     /* ═══════════════════════════════════════════════════════════════
        3. SIMULATION STATE, PARTICLES & RACE CONTROL
        ═══════════════════════════════════════════════════════════════ */
-    let isRunning = true;
+    let isRunning = false; // Simulation stays paused on standing grid until user clicks Play
     let simSpeed = 1; // 1x, 2x, 4x
     const BASE_SIM_SPEED = 2.4; // Real racing visual pace (~23s lap around Monaco)
     let activeDriverId = 'VER';
@@ -105,8 +105,8 @@
 
     // Race Control live radio & event feed
     const raceControlEvents = [
-        { time: '14:32:00', type: 'green', text: 'FIA: SESIÓN GP MÓNACO INICIADA // BANDERA VERDE' },
-        { time: '14:32:04', type: 'green', text: 'DRS Y AERODINÁMICA ACTIVA 2026 HABILITADOS POR RACE CONTROL' }
+        { time: '14:30:00', type: 'green', text: 'FIA: PROCEDIMIENTO DE SALIDA COMPLETADO // PARRILLA 2026 LISTA' },
+        { time: '14:30:30', type: 'green', text: 'LISTO PARA LARGADA // PRESIONA "INICIAR CARRERA" PARA COMENZAR' }
     ];
 
     function logRaceEvent(type, text) {
@@ -147,38 +147,42 @@
         logRaceEvent(newState.toLowerCase(), `FIA RACE CONTROL: ${reason}`);
     }
 
-    // Build physical state for each car with complete 2026 dynamics
-    const cars = DRIVERS_DB.map((driver, index) => {
+    // Build physical state for each car positioned on the official standing grid
+    function createInitialCarState(driver, index) {
+        const isInside = index % 2 === 0;
+        const gridSlotProgress = 0.075 - (index * 0.0075);
         return {
             ...driver,
-            trackProgress: ((1 - (index * 0.042)) % 1.0 + 1.0) % 1.0, // Staggered grid positions
-            speed: 185, // km/h
-            targetSpeed: 210,
-            throttle: 0.85,
-            brake: 0,
-            gear: 4,
-            rpm: 10600,
-            batterySOC: 94 - (index * 2), // %
-            tireWear: 8 + (index * 1.6), // %
+            trackProgress: Math.max(0.015, gridSlotProgress),
+            speed: 0, // Stationary on starting grid
+            targetSpeed: 0,
+            throttle: 0,
+            brake: 1.0,
+            gear: 'N',
+            rpm: 4500, // Idling on grid
+            batterySOC: 100, // Full charge
+            tireWear: 0, // Fresh tyres
             compound: index % 3 === 0 ? 'SOFT' : (index % 3 === 1 ? 'MEDIUM' : 'HARD'),
-            tireTemps: { fl: 100, fr: 102, rl: 105, rr: 106 },
+            tireTemps: { fl: 100, fr: 100, rl: 100, rr: 100 },
             inPitLane: false,
-            pitState: 'NONE', // 'NONE', 'IN_LANE', 'STOPPED', 'EXITING'
+            pitState: 'NONE',
             pitTimer: 0,
             wantsPit: false,
             lapCount: 1,
-            gapToLeader: index === 0 ? 0 : index * 0.46,
-            lastSectorTime: '18.420',
+            gapToLeader: index === 0 ? 0 : index * 0.22,
+            lastSectorTime: '--.---',
             currentSector: 1,
-            activeAero: 'CORNER MODE',
-            laneOffset: 0,
-            targetLaneOffset: 0,
-            longGForce: 0.9,
+            activeAero: 'GRID MODE',
+            laneOffset: isInside ? -3.5 : 3.5, // 2-by-2 grid staggered formation
+            targetLaneOffset: isInside ? -3.5 : 3.5,
+            longGForce: 0.0,
             isBrakingHard: false,
             ersDeployTimer: 0,
             lockupTimer: 0
         };
-    });
+    }
+
+    const cars = DRIVERS_DB.map(createInitialCarState);
 
     /* ═══════════════════════════════════════════════════════════════
        4. SPLINE INTERPOLATION & TRACK TOPOLOGY HELPER
@@ -444,12 +448,12 @@
             if (car.lockupTimer > 0) car.lockupTimer -= scaledDt;
 
             // Clamp velocity boundaries
-            car.speed = Math.max(car.inPitLane && car.pitState === 'STOPPED' ? 0 : 45, Math.min(352, car.speed));
+            car.speed = Math.max(0, Math.min(352, car.speed));
 
             // Gear & RPM calculations
             if (car.speed === 0) {
                 car.gear = 'N';
-                car.rpm = 5000;
+                car.rpm = 4500;
             } else {
                 car.gear = Math.max(1, Math.min(8, Math.floor(car.speed / 41) + 1));
                 const baseGearSpeed = (car.gear - 1) * 41;
@@ -457,13 +461,15 @@
                 car.rpm = Math.floor(9200 + gearProgress * 5400);
             }
 
-            // Tire wear and heat progression
-            car.tireWear += 0.0035 * (car.speed > 220 ? 1.25 : 0.85) * scaledDt;
-            const lateralHeat = car.brake > 0.4 ? 2.2 : 0.4;
-            car.tireTemps.fl = Math.round(98 + (car.speed / 340) * 15 + lateralHeat);
-            car.tireTemps.fr = Math.round(101 + (car.speed / 340) * 17 + lateralHeat);
-            car.tireTemps.rl = Math.round(103 + (car.speed / 340) * 14);
-            car.tireTemps.rr = Math.round(105 + (car.speed / 340) * 16);
+            // Tire wear and heat progression (only when moving)
+            if (car.speed > 0) {
+                car.tireWear += 0.0035 * (car.speed > 220 ? 1.25 : 0.85) * scaledDt;
+                const lateralHeat = car.brake > 0.4 ? 2.2 : 0.4;
+                car.tireTemps.fl = Math.round(98 + (car.speed / 340) * 15 + lateralHeat);
+                car.tireTemps.fr = Math.round(101 + (car.speed / 340) * 17 + lateralHeat);
+                car.tireTemps.rl = Math.round(103 + (car.speed / 340) * 14);
+                car.tireTemps.rr = Math.round(105 + (car.speed / 340) * 16);
+            }
 
             // Smooth lateral lane offset interpolation
             car.laneOffset += (car.targetLaneOffset - car.laneOffset) * Math.min(1, 5 * scaledDt);
@@ -478,10 +484,12 @@
                 // Lap crossing detection
                 if (car.trackProgress < prevProgress && prevProgress > 0.85) {
                     car.lapCount++;
-                    if (car === cars[0]) currentLap = Math.min(TOTAL_LAPS, car.lapCount);
                 }
             }
         });
+
+        // Always calculate current race lap from the maximum lap achieved by the leader
+        currentLap = Math.min(TOTAL_LAPS, Math.max(1, ...cars.map(c => c.lapCount)));
 
         // Re-sort Standings by Laps and Track Progress
         cars.sort((a, b) => {
@@ -1024,15 +1032,51 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       9. COUNTDOWN TIMER: 2026 CALENDAR NEXT GP
+       9. COUNTDOWN TIMER: DYNAMIC 2026 CALENDAR NEXT GP
        ═══════════════════════════════════════════════════════════════ */
     function initCountdown() {
-        // Target: Monaco GP May 24, 2026
-        const targetDate = new Date('2026-05-24T13:00:00Z').getTime();
+        const F1_CALENDAR_EVENTS = [
+            { round: 'ROUND 03', title: 'GRAND PRIX DE MONACO 2026', circuit: 'CIRCUIT DE MONACO · MONTE CARLO', date: new Date('2026-05-24T13:00:00Z') },
+            { round: 'ROUND 04', title: 'GRAN PREMIO DE ESPAÑA 2026', circuit: 'IFEMA STREET CIRCUIT · MADRID', date: new Date('2026-06-21T13:00:00Z') },
+            { round: 'ROUND 05', title: 'BRITISH GRAND PRIX 2026', circuit: 'SILVERSTONE CIRCUIT · NORTHAMPTONSHIRE', date: new Date('2026-07-12T13:00:00Z') },
+            { round: 'ROUND 06', title: 'GRAN PREMIO D’ITALIA 2026', circuit: 'AUTODROMO NAZIONALE MONZA · MONZA', date: new Date('2026-09-06T13:00:00Z') },
+            { round: 'ROUND 07', title: 'AZERBAIJAN GRAND PRIX 2026', circuit: 'BAKU CITY CIRCUIT · BAKU', date: new Date('2026-09-20T11:00:00Z') },
+            { round: 'ROUND 08', title: 'SINGAPORE GRAND PRIX 2026', circuit: 'MARINA BAY STREET CIRCUIT · SINGAPORE', date: new Date('2026-10-04T12:00:00Z') },
+            { round: 'ROUND 09', title: 'UNITED STATES GP 2026', circuit: 'CIRCUIT OF THE AMERICAS · AUSTIN', date: new Date('2026-10-18T19:00:00Z') }
+        ];
+
+        function getNextEvent() {
+            const now = Date.now();
+            const upcoming = F1_CALENDAR_EVENTS.find(ev => ev.date.getTime() > now);
+            if (upcoming) return upcoming;
+
+            // If all hardcoded calendar dates have elapsed, schedule rolling next Sunday GP
+            const nextSunday = new Date();
+            const day = nextSunday.getUTCDay();
+            const daysToAdd = (7 - day) % 7 || 7;
+            nextSunday.setUTCDate(nextSunday.getUTCDate() + daysToAdd);
+            nextSunday.setUTCHours(13, 0, 0, 0);
+            return {
+                round: 'PRÓXIMO GP',
+                title: 'FIA F1 WORLD CHAMPIONSHIP',
+                circuit: 'PRÓXIMA SESIÓN OFICIAL',
+                date: nextSunday
+            };
+        }
+
+        const event = getNextEvent();
+        const roundBadge = document.getElementById('nextGpRoundBadge');
+        const titleEl = document.getElementById('nextGpTitle');
+        const circuitEl = document.getElementById('nextGpCircuit');
+
+        if (roundBadge) roundBadge.textContent = event.round;
+        if (titleEl) titleEl.textContent = event.title;
+        if (circuitEl) circuitEl.textContent = `${event.circuit} · ${event.date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' }).toUpperCase()}`;
 
         function tick() {
-            const now = new Date().getTime();
-            const diff = Math.max(0, targetDate - now);
+            const now = Date.now();
+            let diff = event.date.getTime() - now;
+            if (diff <= 0) diff = 7 * 86400000;
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -1055,16 +1099,141 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       10. SIMULATION CONTROLS & EVENT WIRING
+       10. SIMULATION CONTROLS, RESET & EVENT WIRING
        ═══════════════════════════════════════════════════════════════ */
+    function resetSimulation() {
+        isRunning = false;
+        currentLap = 1;
+        raceTicks = 0;
+        raceState = 'GREEN';
+
+        // Reset all cars to initial standing grid formation
+        DRIVERS_DB.forEach((driver, index) => {
+            const car = cars.find(c => c.id === driver.id);
+            if (car) {
+                const isInside = index % 2 === 0;
+                const gridSlot = 0.075 - (index * 0.0075);
+                car.trackProgress = Math.max(0.015, gridSlot);
+                car.speed = 0;
+                car.targetSpeed = 0;
+                car.throttle = 0;
+                car.brake = 1.0;
+                car.gear = 'N';
+                car.rpm = 4500;
+                car.batterySOC = 100;
+                car.tireWear = 0;
+                car.compound = index % 3 === 0 ? 'SOFT' : (index % 3 === 1 ? 'MEDIUM' : 'HARD');
+                car.tireTemps = { fl: 100, fr: 100, rl: 100, rr: 100 };
+                car.inPitLane = false;
+                car.pitState = 'NONE';
+                car.pitTimer = 0;
+                car.wantsPit = false;
+                car.lapCount = 1;
+                car.gapToLeader = index === 0 ? 0 : index * 0.22;
+                car.lastSectorTime = '--.---';
+                car.currentSector = 1;
+                car.activeAero = 'GRID MODE';
+                car.laneOffset = isInside ? -3.5 : 3.5;
+                car.targetLaneOffset = isInside ? -3.5 : 3.5;
+                car.longGForce = 0.0;
+                car.isBrakingHard = false;
+                car.ersDeployTimer = 0;
+                car.lockupTimer = 0;
+            }
+        });
+
+        // Clear particles
+        particles.length = 0;
+
+        // Reset Race Control Feed
+        raceControlEvents.length = 0;
+        raceControlEvents.push(
+            { time: '14:30:00', type: 'green', text: 'FIA: PROCEDIMIENTO DE SALIDA COMPLETADO // PARRILLA 2026 LISTA' },
+            { time: '14:30:30', type: 'green', text: 'LISTO PARA LARGADA // PRESIONA "INICIAR CARRERA" PARA COMENZAR' }
+        );
+
+        const listEl = document.getElementById('raceControlList');
+        if (listEl) {
+            listEl.innerHTML = raceControlEvents.map(ev => `
+                <div class="race-event-item ${ev.type}">
+                    <span class="event-time">${ev.time}</span>
+                    <span class="event-badge ${ev.type}">${ev.type.toUpperCase()}</span>
+                    <span class="event-text">${ev.text}</span>
+                </div>
+            `).join('');
+        }
+
+        const lapBadge = document.getElementById('trackLapBadge');
+        if (lapBadge) lapBadge.textContent = `VUELTA 1/${TOTAL_LAPS}`;
+
+        const flagBadge = document.getElementById('trackFlagBadge');
+        if (flagBadge) {
+            flagBadge.textContent = 'ESTADO: PARRILLA DE SALIDA';
+            flagBadge.style.color = '#00D2BE';
+        }
+
+        const raceBadge = document.getElementById('raceStateBadge');
+        const raceText = document.getElementById('raceStateText');
+        if (raceBadge) raceBadge.className = 'situation-status-chip green';
+        if (raceText) raceText.textContent = 'PARRILLA LISTA // ESPERANDO SEMÁFORO';
+
+        updateTimingTower();
+        updateCockpitHUD();
+        renderTrack();
+    }
+
     function initControls() {
-        // Play / Pause
         const btnPlay = document.getElementById('btnSimPlay');
+        const btnReset = document.getElementById('btnSimReset');
+
+        function updatePlayButtonUI() {
+            if (!btnPlay) return;
+            if (isRunning) {
+                btnPlay.innerHTML = `
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 4px;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                    <span>PAUSAR</span>
+                `;
+                btnPlay.classList.add('is-running');
+                btnPlay.classList.remove('active');
+            } else {
+                const isGridStart = currentLap === 1 && cars.every(c => c.lapCount === 1 && c.speed === 0);
+                btnPlay.innerHTML = `
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <span>${isGridStart ? 'INICIAR CARRERA' : 'REANUDAR'}</span>
+                `;
+                btnPlay.classList.remove('is-running');
+                btnPlay.classList.toggle('active', isGridStart);
+            }
+        }
+
         if (btnPlay) {
             btnPlay.addEventListener('click', () => {
+                const wasRunning = isRunning;
                 isRunning = !isRunning;
-                btnPlay.textContent = isRunning ? 'PAUSA' : 'REANUDAR';
-                btnPlay.classList.toggle('active', isRunning);
+                if (!wasRunning) {
+                    const isGridStart = currentLap === 1 && cars.some(c => c.speed === 0);
+                    if (isGridStart) {
+                        logRaceEvent('green', '🚦 FIA: ¡SEMÁFOROS APAGADOS! LARGADA OFICIAL DEL GRAN PREMIO DE MÓNACO 2026');
+                        const flagBadge = document.getElementById('trackFlagBadge');
+                        if (flagBadge) {
+                            flagBadge.textContent = 'BANDERA: VERDE';
+                            flagBadge.style.color = '#00D2BE';
+                        }
+                    } else {
+                        logRaceEvent('green', '▶ SIMULACIÓN REANUDADA POR EL OPERADOR');
+                    }
+                } else {
+                    logRaceEvent('yellow', '⏸ SIMULACIÓN EN PAUSA // TELEMETRÍA CONGELADA');
+                }
+                updatePlayButtonUI();
+            });
+        }
+
+        if (btnReset) {
+            btnReset.addEventListener('click', () => {
+                resetSimulation();
+                updatePlayButtonUI();
+                logRaceEvent('green', '🔄 PARRILLA DE SALIDA REINICIADA // LISTO PARA NUEVA LARGADA');
             });
         }
 

@@ -619,6 +619,36 @@ body.f1-theme {
     background: var(--c-carbon-card-hover);
     color: #fff;
 }
+.sim-ctrl-btn.btn-sim-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(225, 6, 0, 0.16);
+    border: 1px solid rgba(225, 6, 0, 0.5);
+    color: #FF2B24;
+}
+.sim-ctrl-btn.btn-sim-start:hover {
+    background: #E10600;
+    color: #FFFFFF;
+}
+.sim-ctrl-btn.btn-sim-start.is-running {
+    background: rgba(255, 184, 0, 0.15);
+    border-color: rgba(255, 184, 0, 0.45);
+    color: #FFB800;
+}
+.sim-ctrl-btn.btn-sim-start.is-running:hover {
+    background: #FFB800;
+    color: #08090C;
+}
+.sim-ctrl-btn.btn-sim-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+.sim-ctrl-btn.btn-sim-reset:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+}
 
 /* ═══════════════════════════════════════════════════════════════
    MODULE 1: SIMULADOR FÍSICO 2026 & TELEMETRÍA EN VIVO
