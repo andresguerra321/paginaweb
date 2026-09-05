@@ -487,9 +487,24 @@
         { time: '14:30:00', type: 'green', text: 'FIA: PROCEDIMIENTO DE SALIDA COMPLETADO // PARRILLA 2026 LISTA' },
         { time: '14:30:30', type: 'green', text: 'LISTO PARA LARGADA // PRESIONA "INICIAR CARRERA" PARA COMENZAR' }
     ];
+    const recentEventTimestamps = {};
+    const overtakeCooldowns = {};
 
     function logRaceEvent(type, text) {
         const now = new Date();
+        const nowMs = now.getTime();
+
+        // 1. Never allow duplicate notifications with the exact same text within 3.5 seconds
+        if (recentEventTimestamps[text] && (nowMs - recentEventTimestamps[text]) < 3500) {
+            return;
+        }
+
+        // 2. Never allow identical text to appear consecutively in the feed
+        if (raceControlEvents.length > 0 && raceControlEvents[0].text === text) {
+            return;
+        }
+        recentEventTimestamps[text] = nowMs;
+
         const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
         raceControlEvents.unshift({ time: timeStr, type, text });
         if (raceControlEvents.length > 8) raceControlEvents.pop();
@@ -557,7 +572,8 @@
             longGForce: 0.0,
             isBrakingHard: false,
             ersDeployTimer: 0,
-            lockupTimer: 0
+            lockupTimer: 0,
+            currentRank: index + 1
         };
     }
 
@@ -759,11 +775,6 @@
                     car.activeAero = 'REBUFO + OVERTAKE (DRS)';
                     car.targetLaneOffset = -7; // Trailing car darts to inside line
                     carAhead.targetLaneOffset = 5; // Leading car covers outside line
-
-                    // Check if overtake succeeded
-                    if (car.speed > carAhead.speed && minGap < 0.012) {
-                        logRaceEvent('overtake', `ADELANTAMIENTO: ${car.id} SUPERA A ${carAhead.id} EN ${trackPt.segmentName.toUpperCase()}`);
-                    }
                 } else {
                     // In corners: Car ahead blocks apex, trailing car must match pace
                     if (minGap < 0.015) {
@@ -867,24 +878,64 @@
             }
         });
 
-        // Always calculate current race lap from the maximum lap achieved by the leader
-        currentLap = Math.min(TOTAL_LAPS, Math.max(1, ...cars.map(c => c.lapCount)));
+        // 1. Snapshot previous standings positions
+        const prevRanks = new Map();
+        cars.forEach((c, idx) => {
+            prevRanks.set(c.id, c.currentRank || (idx + 1));
+        });
 
-        // Re-sort Standings by Laps and Track Progress
+        // 2. Re-sort Standings by Laps and Track Progress (True race progression order)
         cars.sort((a, b) => {
             const scoreA = a.lapCount + a.trackProgress;
             const scoreB = b.lapCount + b.trackProgress;
             return scoreB - scoreA;
         });
 
-        // Update gap to leader
+        // 3. Always calculate current race lap from the maximum lap achieved by the leader
+        currentLap = Math.min(TOTAL_LAPS, Math.max(1, ...cars.map(c => c.lapCount)));
+
+        // 4. Update gap to leader and detect legitimate on-track overtakes
         const leader = cars[0];
+        const nowMs = Date.now();
+
         cars.forEach((car, idx) => {
+            const newRank = idx + 1;
+            const oldRank = prevRanks.get(car.id) || newRank;
+            car.currentRank = newRank;
+
             if (idx === 0) {
                 car.gapToLeader = 0;
             } else {
                 const gapProgress = (leader.lapCount + leader.trackProgress) - (car.lapCount + car.trackProgress);
                 car.gapToLeader = Math.max(0.1, gapProgress * 78.5);
+            }
+
+            // Genuine on-track overtake detection:
+            // - Car gained at least 1 position (newRank < oldRank)
+            // - Race has completed the initial standing grid launch (raceTicks > 180, ~3s)
+            // - Car is actively on track, not in pit lane
+            if (newRank < oldRank && raceTicks > 180 && !car.inPitLane) {
+                // Find the displaced car that was overtaken
+                const carPassed = cars.find(other => {
+                    if (other === car || other.inPitLane) return false;
+                    const otherOld = prevRanks.get(other.id);
+                    return otherOld && otherOld < oldRank && other.currentRank > otherOld;
+                });
+
+                if (carPassed) {
+                    const matchupKey = `${car.id}_${carPassed.id}`;
+                    const reverseMatchupKey = `${carPassed.id}_${car.id}`;
+                    const lastOvertake = overtakeCooldowns[matchupKey] || 0;
+                    const lastReverse = overtakeCooldowns[reverseMatchupKey] || 0;
+
+                    // Require at least 4.5s between repeated passes between the same pair
+                    if (nowMs - lastOvertake > 4500 && nowMs - lastReverse > 2500) {
+                        overtakeCooldowns[matchupKey] = nowMs;
+                        const trackPt = getTrackPointAt(car.trackProgress);
+                        const cornerName = trackPt.segmentName ? trackPt.segmentName.toUpperCase() : 'RECTA PRINCIPAL';
+                        logRaceEvent('overtake', `ADELANTAMIENTO: ${car.id} SUPERA A ${carPassed.id} POR LA P${newRank} EN ${cornerName}`);
+                    }
+                }
             }
         });
     }
@@ -1449,8 +1500,10 @@
         // Clear particles
         particles.length = 0;
 
-        // Reset Race Control Feed
+        // Reset Race Control Feed & Cooldowns
         raceControlEvents.length = 0;
+        Object.keys(recentEventTimestamps).forEach(k => delete recentEventTimestamps[k]);
+        Object.keys(overtakeCooldowns).forEach(k => delete overtakeCooldowns[k]);
         raceControlEvents.push(
             { time: '14:30:00', type: 'green', text: 'FIA: PROCEDIMIENTO DE SALIDA COMPLETADO // PARRILLA 2026 LISTA' },
             { time: '14:30:30', type: 'green', text: 'LISTO PARA LARGADA // PRESIONA "INICIAR CARRERA" PARA COMENZAR' }
