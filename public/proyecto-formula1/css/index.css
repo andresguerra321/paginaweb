@@ -767,7 +767,8 @@ body.f1-theme {
 .track-canvas-wrapper {
     flex: 1;
     position: relative;
-    min-height: 380px;
+    min-height: 340px;
+    height: clamp(340px, 48vh, 520px);
     background: radial-gradient(circle at center, #151821 0%, #0c0e13 100%);
 }
 #trackCanvas {
@@ -1780,12 +1781,15 @@ body.f1-theme {
     color: var(--c-titanium-300);
 }
 .f1-driver-pill-avatar {
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
-    background: #111;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    object-position: center 8%;
+    background: #15151e;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
 }
 .f1-driver-pill-chip strong {
     font-family: var(--font-display);
@@ -1876,6 +1880,15 @@ body.f1-theme {
     .telemetry-stage-grid {
         grid-template-columns: 1fr;
     }
+    .track-canvas-panel {
+        order: 1;
+    }
+    .cockpit-hud-panel {
+        order: 2;
+    }
+    .timing-tower-panel {
+        order: 3;
+    }
     .standings-grid {
         grid-template-columns: 1fr;
     }
@@ -1891,6 +1904,44 @@ body.f1-theme {
 }
 
 @media (max-width: 640px) {
+    .sim-btn-group {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        justify-content: flex-start;
+    }
+    .sim-ctrl-btn {
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 7px 8px;
+        font-size: 10px;
+    }
+    .track-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    .track-floating-hud {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .track-stat-badge {
+        font-size: 9.5px;
+        padding: 4px 8px;
+    }
+    .situation-action-btns {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+    }
+    .action-trigger-btn {
+        justify-content: center;
+        padding: 8px 4px;
+        font-size: 9px;
+    }
     .race-cards-grid {
         grid-template-columns: 1fr;
     }
@@ -1902,10 +1953,31 @@ body.f1-theme {
         text-align: center;
     }
     .h2h-metric-row {
-        grid-template-columns: 60px 1fr 100px 1fr 60px;
-        font-size: 10px;
+        grid-template-columns: 50px 1fr 80px 1fr 50px;
+        font-size: 9.5px;
     }
     .hero-headline {
         font-size: 26px;
+    }
+    .f1-team-drivers-row {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .situation-action-btns {
+        grid-template-columns: 1fr;
+    }
+    .track-canvas-wrapper {
+        min-height: 290px;
+        height: 320px;
+    }
+    .cockpit-telemetry-cluster {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .f1-driver-pill-chip {
+        width: 100%;
+        justify-content: flex-start;
     }
 }

@@ -420,10 +420,6 @@
         ctx.fillRect(-18.5, -7.8, 3.0, 15.6);
 
         ctx.fillStyle = livery.carbon || '#08090C';
-        ctx.fillRect(-17.4, -7.4, 1.1, 14.8);
-
-        // Rear Wing Endplates
-        ctx.fillStyle = livery.endplate;
         ctx.fillRect(-19.6, -8.3, 4.2, 1.0);
         ctx.fillRect(-19.6, 7.3, 4.2, 1.0);
 
@@ -446,20 +442,21 @@
     // Closed normalized spline points (0.0 to 1.0) with segment types:
     // S = Straight (Active Aero / Top Speed), C = Corner (Braking / Apex Speed), H = Hairpin
     const TRACK_POINTS = [
-        { x: 0.15, y: 0.85, type: 'S', maxSpeed: 330, name: 'Pit Straight' },
-        { x: 0.35, y: 0.85, type: 'C', maxSpeed: 110, name: 'Sainte Dévote' },
-        { x: 0.48, y: 0.70, type: 'S', maxSpeed: 290, name: 'Beau Rivage' },
-        { x: 0.62, y: 0.48, type: 'C', maxSpeed: 145, name: 'Massenet' },
-        { x: 0.75, y: 0.40, type: 'C', maxSpeed: 125, name: 'Casino' },
-        { x: 0.84, y: 0.46, type: 'C', maxSpeed: 95,  name: 'Mirabeau' },
-        { x: 0.88, y: 0.58, type: 'H', maxSpeed: 60,  name: 'Loews Hairpin' },
-        { x: 0.82, y: 0.70, type: 'C', maxSpeed: 85,  name: 'Portier' },
-        { x: 0.88, y: 0.82, type: 'S', maxSpeed: 315, name: 'Tunnel Exit' },
-        { x: 0.78, y: 0.88, type: 'C', maxSpeed: 80,  name: 'Nouvelle Chicane' },
-        { x: 0.62, y: 0.90, type: 'C', maxSpeed: 170, name: 'Tabac' },
-        { x: 0.48, y: 0.94, type: 'C', maxSpeed: 195, name: 'Swimming Pool' },
-        { x: 0.32, y: 0.92, type: 'C', maxSpeed: 75,  name: 'La Rascasse' },
-        { x: 0.20, y: 0.90, type: 'C', maxSpeed: 95,  name: 'Anthony Noghès' }
+        { x: 0.22, y: 0.78, type: 'S', maxSpeed: 330, name: 'Recta Principal' },
+        { x: 0.38, y: 0.78, type: 'S', maxSpeed: 335, name: 'Línea de Meta' },
+        { x: 0.52, y: 0.78, type: 'C', maxSpeed: 110, name: 'Sainte Dévote' },
+        { x: 0.62, y: 0.54, type: 'S', maxSpeed: 295, name: 'Beau Rivage' },
+        { x: 0.72, y: 0.30, type: 'C', maxSpeed: 155, name: 'Massenet' },
+        { x: 0.80, y: 0.16, type: 'C', maxSpeed: 130, name: 'Casino Square' },
+        { x: 0.89, y: 0.25, type: 'C', maxSpeed: 95,  name: 'Mirabeau' },
+        { x: 0.92, y: 0.42, type: 'H', maxSpeed: 55,  name: 'Loews Hairpin' },
+        { x: 0.84, y: 0.58, type: 'C', maxSpeed: 85,  name: 'Portier' },
+        { x: 0.89, y: 0.74, type: 'S', maxSpeed: 320, name: 'Túnel de Mónaco' },
+        { x: 0.76, y: 0.85, type: 'C', maxSpeed: 85,  name: 'Nouvelle Chicane' },
+        { x: 0.60, y: 0.88, type: 'C', maxSpeed: 175, name: 'Tabac' },
+        { x: 0.42, y: 0.88, type: 'C', maxSpeed: 195, name: 'Piscine' },
+        { x: 0.25, y: 0.86, type: 'C', maxSpeed: 75,  name: 'La Rascasse' },
+        { x: 0.12, y: 0.78, type: 'C', maxSpeed: 95,  name: 'Anthony Noghès' }
     ];
 
     /* ═══════════════════════════════════════════════════════════════
@@ -544,10 +541,11 @@
     // Build physical state for each car positioned on the official standing grid
     function createInitialCarState(driver, index) {
         const isInside = index % 2 === 0;
-        const gridSlotProgress = 0.075 - (index * 0.0075);
+        const gridSlotProgress = 0.105 - (index * 0.0130);
         return {
             ...driver,
-            trackProgress: Math.max(0.015, gridSlotProgress),
+            gridIndex: index,
+            trackProgress: Math.max(0.012, gridSlotProgress),
             speed: 0, // Stationary on starting grid
             targetSpeed: 0,
             throttle: 0,
@@ -567,8 +565,8 @@
             lastSectorTime: '--.---',
             currentSector: 1,
             activeAero: 'GRID MODE',
-            laneOffset: isInside ? -3.5 : 3.5, // 2-by-2 grid staggered formation
-            targetLaneOffset: isInside ? -3.5 : 3.5,
+            laneOffset: isInside ? -5.5 : 5.5, // 2-by-2 official FIA grid stagger
+            targetLaneOffset: isInside ? -5.5 : 5.5,
             longGForce: 0.0,
             isBrakingHard: false,
             ersDeployTimer: 0,
@@ -628,15 +626,15 @@
         }
 
         cars.forEach((car) => {
-            // Sector calculation
-            car.currentSector = car.trackProgress < 0.35 ? 1 : (car.trackProgress < 0.72 ? 2 : 3);
+            // Sector calculation (Monaco 3-sector split)
+            car.currentSector = car.trackProgress < 0.30 ? 1 : (car.trackProgress < 0.72 ? 2 : 3);
 
             // ═══════════════════════════════════════════════════════════
             // PIT STOP SYSTEM & PIT LANE DETOUR
             // ═══════════════════════════════════════════════════════════
-            // Trigger pit stop when reaching pit entrance (between 0.93 and 0.98)
+            // Trigger pit stop when reaching pit entrance
             if (car.wantsPit && !car.inPitLane) {
-                if (car.trackProgress >= 0.92 || car.trackProgress <= 0.03) {
+                if (car.trackProgress >= 0.93 || car.trackProgress <= 0.02) {
                     car.inPitLane = true;
                     car.pitState = 'IN_LANE';
                     car.wantsPit = false;
@@ -645,14 +643,14 @@
             }
 
             if (car.inPitLane) {
-                car.targetLaneOffset = 20; // Detour along pit lane line
+                car.targetLaneOffset = 18; // Detour along pit lane line
 
                 if (car.pitState === 'IN_LANE') {
                     // Slow down to 60 km/h pit limiter
                     car.targetSpeed = 60;
                     car.activeAero = 'PIT LIMITER 60 KM/H';
-                    // Stop at the pit box location (around progress 0.02 - 0.05)
-                    if (car.trackProgress >= 0.01 && car.trackProgress <= 0.06) {
+                    // Stop at the pit box location
+                    if (car.trackProgress >= 0.02 && car.trackProgress <= 0.06) {
                         car.pitState = 'STOPPED';
                         car.pitTimer = 2.4; // 2.4s stationary tire change
                         car.speed = 0;
@@ -688,8 +686,8 @@
                 } else if (car.pitState === 'EXITING') {
                     car.targetSpeed = 60;
                     car.activeAero = 'PIT EXIT ACELERACIÓN';
-                    // Merge back onto track at Turn 1 (progress > 0.12)
-                    if (car.trackProgress > 0.10 && car.trackProgress < 0.20) {
+                    // Merge back onto track at Turn 1 (progress > 0.11)
+                    if (car.trackProgress > 0.11 && car.trackProgress < 0.16) {
                         car.inPitLane = false;
                         car.pitState = 'NONE';
                         car.targetLaneOffset = 0;
@@ -750,7 +748,13 @@
             // TRAFFIC, SLIPSTREAM & LATERAL OVERTAKE LINE SPLITTING
             // ═══════════════════════════════════════════════════════════
             if (!car.inPitLane) {
-                car.targetLaneOffset = 0; // Default racing groove
+                // If on opening sprint from grid to Turn 1 Sainte Dévote, maintain staggered grid lanes
+                if (currentLap === 1 && car.trackProgress < 0.11 && raceTicks < 240) {
+                    const isInside = (car.gridIndex !== undefined ? car.gridIndex : 0) % 2 === 0;
+                    car.targetLaneOffset = isInside ? -5.5 : 5.5;
+                } else {
+                    car.targetLaneOffset = 0; // Default racing groove
+                }
             }
 
             // Find car immediately ahead
@@ -970,7 +974,7 @@
 
         // 1. Draw Circuit Base Track
         ctx.beginPath();
-        const steps = 220;
+        const steps = 260;
         for (let i = 0; i <= steps; i++) {
             const pt = getTrackPointAt(i / steps);
             const cx = pt.x * width;
@@ -1004,17 +1008,70 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
+        // 1b. FIA 2-by-2 Staggered Starting Grid Markings
+        for (let k = 0; k < 8; k++) {
+            const boxProg = 0.105 - (k * 0.0130);
+            const boxIsInside = k % 2 === 0;
+            const boxLane = boxIsInside ? -5.5 : 5.5;
+            const pt = getTrackPointAt(boxProg);
+            const nextPt = getTrackPointAt(boxProg + 0.002);
+            const angle = Math.atan2((nextPt.y - pt.y) * height, (nextPt.x - pt.x) * width);
+            const nx = -Math.sin(angle);
+            const ny = Math.cos(angle);
+            const bx = pt.x * width + nx * boxLane;
+            const by = pt.y * height + ny * boxLane;
+
+            ctx.save();
+            ctx.translate(bx, by);
+            ctx.rotate(angle);
+
+            // Grid Box boundary outline (FIA White)
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(-12, -5, 24, 10);
+
+            // Yellow front stop line
+            ctx.strokeStyle = '#FFD700';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(12, -5);
+            ctx.lineTo(12, 5);
+            ctx.stroke();
+
+            // Grid Box Position Number
+            ctx.font = '700 7px "JetBrains Mono", monospace';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.fillText(`P${k + 1}`, -10, 3);
+
+            ctx.restore();
+        }
+
+        // 1c. Official Checkered Start/Finish Line (Línea de Meta) at progress 0.088
+        const finishPt = getTrackPointAt(0.088);
+        const finishNextPt = getTrackPointAt(0.090);
+        const finishAngle = Math.atan2((finishNextPt.y - finishPt.y) * height, (finishNextPt.x - finishPt.x) * width);
+        const fx = finishPt.x * width;
+        const fy = finishPt.y * height;
+        ctx.save();
+        ctx.translate(fx, fy);
+        ctx.rotate(finishAngle);
+        for (let c = -9; c < 9; c += 3) {
+            ctx.fillStyle = (Math.floor(c / 3) % 2 === 0) ? '#FFFFFF' : '#181b24';
+            ctx.fillRect(-2.5, c, 5, 3);
+        }
+        ctx.restore();
+
         // 2. Draw Pit Lane Detour (Parallel line along pit straight)
         ctx.beginPath();
-        for (let p = 0.93; p <= 1.0; p += 0.005) {
+        for (let p = 0.94; p <= 1.0; p += 0.005) {
             const pt = getTrackPointAt(p);
             const nextPt = getTrackPointAt(p + 0.003);
             const angle = Math.atan2((nextPt.y - pt.y) * height, (nextPt.x - pt.x) * width);
             const nx = -Math.sin(angle);
             const ny = Math.cos(angle);
-            const px = pt.x * width + nx * 20;
-            const py = pt.y * height + ny * 20;
-            if (p === 0.93) ctx.moveTo(px, py);
+            const px = pt.x * width + nx * 18;
+            const py = pt.y * height + ny * 18;
+            if (p === 0.94) ctx.moveTo(px, py);
             else ctx.lineTo(px, py);
         }
         for (let p = 0.0; p <= 0.12; p += 0.005) {
@@ -1023,8 +1080,8 @@
             const angle = Math.atan2((nextPt.y - pt.y) * height, (nextPt.x - pt.x) * width);
             const nx = -Math.sin(angle);
             const ny = Math.cos(angle);
-            const px = pt.x * width + nx * 20;
-            const py = pt.y * height + ny * 20;
+            const px = pt.x * width + nx * 18;
+            const py = pt.y * height + ny * 18;
             ctx.lineTo(px, py);
         }
         ctx.strokeStyle = 'rgba(255, 184, 0, 0.45)';
@@ -1034,26 +1091,33 @@
         ctx.setLineDash([]);
 
         // Pit Box Marking
-        const pitBoxPt = getTrackPointAt(0.035);
-        const pitNextPt = getTrackPointAt(0.038);
+        const pitBoxPt = getTrackPointAt(0.040);
+        const pitNextPt = getTrackPointAt(0.043);
         const pitAngle = Math.atan2((pitNextPt.y - pitBoxPt.y) * height, (pitNextPt.x - pitBoxPt.x) * width);
         const pitNx = -Math.sin(pitAngle);
         const pitNy = Math.cos(pitAngle);
-        const pitBoxX = pitBoxPt.x * width + pitNx * 20;
-        const pitBoxY = pitBoxPt.y * height + pitNy * 20;
+        const pitBoxX = pitBoxPt.x * width + pitNx * 18;
+        const pitBoxY = pitBoxPt.y * height + pitNy * 18;
         ctx.fillStyle = '#FFB800';
         ctx.fillRect(pitBoxX - 4, pitBoxY - 3, 8, 6);
 
-        // 3. Draw Active DRS / Aero Zones
+        // 3. Draw Active DRS / Aero Zones (Pit Straight)
         ctx.strokeStyle = 'rgba(0, 210, 190, 0.45)';
         ctx.lineWidth = 4;
         ctx.beginPath();
-        for (let i = 0; i <= 28; i++) {
-            const pt = getTrackPointAt(i / 220);
+        let drsStarted = false;
+        for (let p = 0.98; p <= 1.0; p += 0.003) {
+            const pt = getTrackPointAt(p);
             const cx = pt.x * width;
             const cy = pt.y * height;
-            if (i === 0) ctx.moveTo(cx, cy);
+            if (!drsStarted) { ctx.moveTo(cx, cy); drsStarted = true; }
             else ctx.lineTo(cx, cy);
+        }
+        for (let p = 0.0; p <= 0.105; p += 0.003) {
+            const pt = getTrackPointAt(p);
+            const cx = pt.x * width;
+            const cy = pt.y * height;
+            ctx.lineTo(cx, cy);
         }
         ctx.stroke();
 
@@ -1154,25 +1218,36 @@
             ctx.restore();
 
             // 8. Overhead Driver Badge Tag & Live Speed Indicator
-            const tagX = cx + 11;
-            const tagY = cy - 8;
-            ctx.font = '700 8.5px "JetBrains Mono", monospace';
-            const speedText = `${Math.round(car.speed)}`;
-            
-            // Badge background pill
-            ctx.fillStyle = 'rgba(11, 14, 20, 0.85)';
-            ctx.fillRect(tagX - 2, tagY - 8, 48, 11);
-            ctx.strokeStyle = car.id === activeDriverId ? '#E10600' : 'rgba(255, 255, 255, 0.15)';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(tagX - 2, tagY - 8, 48, 11);
+            // Alternating placement: odd rank / inside lane placed above with leader line, even rank below with leader line
+            const isUpper = car.laneOffset < 0 || (car.currentRank % 2 !== 0);
+            const tagOffsetY = isUpper ? -23 : 18;
+            const tagX = Math.round(cx - 22);
+            const tagY = Math.round(cy + tagOffsetY);
 
-            // Team color dot
+            // Subtle vertical leader line connecting car to badge
+            ctx.strokeStyle = car.id === activeDriverId ? 'rgba(225, 6, 0, 0.85)' : 'rgba(255, 255, 255, 0.25)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(cx, isUpper ? cy - 7 : cy + 7);
+            ctx.lineTo(cx, isUpper ? tagY + 12 : tagY);
+            ctx.stroke();
+
+            // Badge background pill
+            ctx.fillStyle = 'rgba(11, 14, 20, 0.88)';
+            ctx.fillRect(tagX, tagY, 44, 12);
+            ctx.strokeStyle = car.id === activeDriverId ? '#E10600' : 'rgba(255, 255, 255, 0.18)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(tagX, tagY, 44, 12);
+
+            // Team color dot/stripe
             ctx.fillStyle = car.color;
-            ctx.fillRect(tagX, tagY - 6, 2.5, 7);
+            ctx.fillRect(tagX + 2, tagY + 2.5, 2.5, 7);
 
             // Driver Code & Speed text
+            ctx.font = '700 8.5px "JetBrains Mono", monospace';
             ctx.fillStyle = car.id === activeDriverId ? '#FFFFFF' : '#C8CED9';
-            ctx.fillText(`${car.id} ${speedText}`, tagX + 5, tagY);
+            const speedText = Math.round(car.speed);
+            ctx.fillText(`${car.id} ${speedText}`, tagX + 7, tagY + 9);
         });
     }
 
@@ -1467,8 +1542,9 @@
             const car = cars.find(c => c.id === driver.id);
             if (car) {
                 const isInside = index % 2 === 0;
-                const gridSlot = 0.075 - (index * 0.0075);
-                car.trackProgress = Math.max(0.015, gridSlot);
+                const gridSlot = 0.105 - (index * 0.0130);
+                car.gridIndex = index;
+                car.trackProgress = Math.max(0.012, gridSlot);
                 car.speed = 0;
                 car.targetSpeed = 0;
                 car.throttle = 0;
@@ -1488,12 +1564,13 @@
                 car.lastSectorTime = '--.---';
                 car.currentSector = 1;
                 car.activeAero = 'GRID MODE';
-                car.laneOffset = isInside ? -3.5 : 3.5;
-                car.targetLaneOffset = isInside ? -3.5 : 3.5;
+                car.laneOffset = isInside ? -5.5 : 5.5;
+                car.targetLaneOffset = isInside ? -5.5 : 5.5;
                 car.longGForce = 0.0;
                 car.isBrakingHard = false;
                 car.ersDeployTimer = 0;
                 car.lockupTimer = 0;
+                car.currentRank = index + 1;
             }
         });
 
