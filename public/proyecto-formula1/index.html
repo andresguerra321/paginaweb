@@ -197,13 +197,16 @@
                     </div>
                 </div>
 
-                <!-- Col 2: Track Vector Canvas -->
+                <!-- Col 2: Track Vector Canvas & Race Control -->
                 <div class="track-canvas-panel">
                     <div class="track-toolbar">
                         <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #fff;">
                             TRAZADO VECTORIAL EN VIVO // CIRCUIT DE MONACO
                         </span>
-                        <span class="badge-tech aston">DRS / ACTIVE AERO HABILITADO</span>
+                        <div class="flex-row gap-1" style="align-items: center;">
+                            <span class="badge-tech aston" id="liveAeroStatusBadge">DRS / ACTIVE AERO HABILITADO</span>
+                            <span class="badge-tech ferrari" id="liveAttackStatusBadge" style="display: none;">MODO ATAQUE 350KW</span>
+                        </div>
                     </div>
 
                     <div class="track-canvas-wrapper">
@@ -211,8 +214,47 @@
                         
                         <div class="track-floating-hud">
                             <div class="track-stat-badge" id="trackLapBadge">VUELTA 1/53</div>
-                            <div class="track-stat-badge">BANDERA: VERDE</div>
-                            <div class="track-stat-badge">REBUFO &lt; 0.8S ACTIVO</div>
+                            <div class="track-stat-badge" id="trackFlagBadge">BANDERA: VERDE</div>
+                            <div class="track-stat-badge" id="trackPaceDeltaBadge">RITMO EN VIVO // 60 FPS</div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Race Situation Controller Bar -->
+                    <div class="race-situation-bar">
+                        <div class="situation-status-chip green" id="raceStateBadge">
+                            <span class="status-pulse-dot" id="raceStateDot"></span>
+                            <span id="raceStateText">PISTA LIBRE // BANDERA VERDE</span>
+                        </div>
+                        <div class="situation-action-btns">
+                            <button type="button" class="action-trigger-btn ers-btn" id="btnTriggerERS" title="Despliega 350 kW de MGU-K en el coche activo">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                <span>MODO ATAQUE ERS</span>
+                            </button>
+                            <button type="button" class="action-trigger-btn box-btn" id="btnTriggerBox" title="Ordena parada en boxes inmediata al coche activo">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                                <span>BOX BOX BOX</span>
+                            </button>
+                            <button type="button" class="action-trigger-btn incident-btn" id="btnTriggerIncident" title="Activa bandera amarilla en sector o Virtual Safety Car">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                                <span>INCIDENTE / VSC</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Live Race Control Radio & Event Feed -->
+                    <div class="race-control-log">
+                        <div class="race-control-header">
+                            <div class="flex-row gap-2" style="align-items: center;">
+                                <span class="live-dot-pulse"></span>
+                                <span>FIA RACE CONTROL & COMUNICACIÓN DE EQUIPO</span>
+                            </div>
+                            <span id="raceControlClock">T+ 00:00</span>
+                        </div>
+                        <div class="race-control-messages" id="raceControlList">
+                            <div class="race-event-item green">
+                                <span class="event-time">VTA 1</span>
+                                <span class="event-desc">🟢 PISTA LIBRE // SALIDA LIMPIA EN EL GRAN PREMIO DE MÓNACO 2026</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -253,7 +295,7 @@
                         </div>
                     </div>
 
-                    <!-- Gear & Speed Gauge -->
+                    <!-- Gear & Speed & G-Force Gauge -->
                     <div class="gearbox-gauge">
                         <div class="gear-display">
                             <div class="gear-num" id="hudGearVal">6</div>
@@ -262,6 +304,10 @@
                         <div class="speed-display">
                             <div class="speed-val" id="hudSpeedVal">284</div>
                             <div class="speed-lbl">KM/H // VELOCIDAD</div>
+                        </div>
+                        <div class="gforce-display">
+                            <div class="gforce-val" id="hudGforceVal">+1.4G</div>
+                            <div class="gforce-lbl">LONG. G-FORCE</div>
                         </div>
                     </div>
 
