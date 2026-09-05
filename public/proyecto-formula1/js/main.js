@@ -43,14 +43,14 @@
        1B. 2D TOP-DOWN F1 2026 CAR SPRITE ASSETS (OpenGameArt / itch.io style)
        ═══════════════════════════════════════════════════════════════ */
     const DRIVER_SPRITES = {
-        'VER': 'img/cars/topdown/topdown-redbull.svg',
-        'LEC': 'img/cars/topdown/topdown-ferrari.svg',
-        'HAM': 'img/cars/topdown/topdown-ferrari-44.svg',
-        'NOR': 'img/cars/topdown/topdown-mclaren.svg',
-        'PIA': 'img/cars/topdown/topdown-mclaren-81.svg',
-        'RUS': 'img/cars/topdown/topdown-mercedes.svg',
-        'ALO': 'img/cars/topdown/topdown-astonmartin.svg',
-        'ALB': 'img/cars/topdown/topdown-williams.svg'
+        'VER': 'img/cars/topdown/topdown-redbull.png',
+        'LEC': 'img/cars/topdown/topdown-ferrari.png',
+        'HAM': 'img/cars/topdown/topdown-ferrari-44.png',
+        'NOR': 'img/cars/topdown/topdown-mclaren.png',
+        'PIA': 'img/cars/topdown/topdown-mclaren-81.png',
+        'RUS': 'img/cars/topdown/topdown-mercedes.png',
+        'ALO': 'img/cars/topdown/topdown-astonmartin.png',
+        'ALB': 'img/cars/topdown/topdown-williams.png'
     };
 
     // Preload top-down car sprite textures into memory
@@ -685,16 +685,18 @@
             ctx.rotate(angle);
 
             // Ground Effect / Diffuser Shadow
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
-            ctx.fillRect(-10, -5, 20, 10);
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+            ctx.beginPath();
+            ctx.ellipse(0, 0, 18, 8, 0, 0, Math.PI * 2);
+            ctx.fill();
 
             // Active Driver Tracking Reticle
             if (car.id === activeDriverId) {
                 ctx.beginPath();
-                ctx.arc(0, 0, 14, 0, Math.PI * 2);
+                ctx.arc(0, 0, 22, 0, Math.PI * 2);
                 ctx.strokeStyle = '#E10600';
-                ctx.lineWidth = 1.5;
-                ctx.setLineDash([3, 3]);
+                ctx.lineWidth = 1.6;
+                ctx.setLineDash([4, 3]);
                 ctx.stroke();
                 ctx.setLineDash([]);
             }
@@ -702,20 +704,20 @@
             // ERS Attack Mode Aura Halo
             if (car.ersDeployTimer > 0) {
                 ctx.beginPath();
-                ctx.arc(0, 0, 13, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(0, 240, 255, 0.8)';
-                ctx.lineWidth = 2;
+                ctx.arc(0, 0, 20, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(0, 240, 255, 0.85)';
+                ctx.lineWidth = 2.2;
                 ctx.stroke();
             }
 
             // ── TOP-DOWN 2D F1 2026 MONOPLAZA SPRITE ──
             const spriteImg = carSpriteImages[car.id];
-            const carLength = 34; // Length along track line
-            const carWidth = 13.6; // Width across track (120/300 aspect ratio)
+            const carLength = 38; // Length along track line (proportional to F1 2026 scale)
+            const carWidth = 15.2; // Width across track (240x600 aspect ratio)
 
-            if (spriteImg && spriteImg.complete && spriteImg.naturalWidth > 0) {
+            if (spriteImg && (spriteImg.complete || spriteImg.naturalWidth > 0)) {
                 ctx.save();
-                // Rotate +90deg (PI/2) so the top-down SVG nose (pointing UP) aligns with +X forward motion
+                // Rotate +90deg (PI/2) so the top-down SVG/PNG nose (pointing UP) aligns with +X forward motion
                 ctx.rotate(Math.PI / 2);
                 ctx.drawImage(spriteImg, -carWidth / 2, -carLength / 2, carWidth, carLength);
                 ctx.restore();
@@ -723,67 +725,67 @@
                 // High-contrast vector monoplaza fallback while image textures load
                 const compoundColor = car.compound === 'SOFT' ? '#E10600' : (car.compound === 'MEDIUM' ? '#FFB800' : '#FFFFFF');
                 ctx.fillStyle = '#111318';
-                ctx.fillRect(4, -7, 5, 3);
-                ctx.fillRect(4, 4, 5, 3);
-                ctx.fillRect(-8, -8, 6, 4);
-                ctx.fillRect(-8, 4, 6, 4);
+                ctx.fillRect(6, -8, 6, 3.5);
+                ctx.fillRect(6, 4.5, 6, 3.5);
+                ctx.fillRect(-10, -9, 7, 4.2);
+                ctx.fillRect(-10, 4.8, 7, 4.2);
 
                 ctx.fillStyle = compoundColor;
-                ctx.fillRect(5, -6, 3, 1);
-                ctx.fillRect(5, 5, 3, 1);
-                ctx.fillRect(-7, -7, 4, 1.2);
-                ctx.fillRect(-7, 5.8, 4, 1.2);
+                ctx.fillRect(7, -7, 4, 1.2);
+                ctx.fillRect(7, 5.8, 4, 1.2);
+                ctx.fillRect(-9, -8, 5, 1.4);
+                ctx.fillRect(-9, 6.6, 5, 1.4);
 
                 ctx.fillStyle = '#0B0D12';
-                ctx.fillRect(9, -6, 2, 12);
+                ctx.fillRect(12, -7, 2.5, 14);
                 ctx.fillStyle = car.color;
-                ctx.fillRect(10, -7, 1.5, 2.5);
-                ctx.fillRect(10, 4.5, 1.5, 2.5);
+                ctx.fillRect(13, -8, 2, 3);
+                ctx.fillRect(13, 5, 2, 3);
 
                 ctx.fillStyle = car.color;
                 ctx.beginPath();
-                ctx.moveTo(10, 0);
-                ctx.lineTo(4, -2.5);
-                ctx.lineTo(-3, -4.5);
-                ctx.lineTo(-7, -3.5);
-                ctx.lineTo(-7, 3.5);
-                ctx.lineTo(-3, 4.5);
-                ctx.lineTo(4, 2.5);
+                ctx.moveTo(13, 0);
+                ctx.lineTo(5, -3.5);
+                ctx.lineTo(-4, -5.5);
+                ctx.lineTo(-9, -4.5);
+                ctx.lineTo(-9, 4.5);
+                ctx.lineTo(-4, 5.5);
+                ctx.lineTo(5, 3.5);
                 ctx.closePath();
                 ctx.fill();
 
                 ctx.fillStyle = '#060709';
-                ctx.fillRect(-1, -1.5, 4, 3);
+                ctx.fillRect(-1.5, -2, 5, 4);
                 ctx.fillStyle = '#FFFFFF';
                 ctx.beginPath();
-                ctx.arc(0.5, 0, 1.6, 0, Math.PI * 2);
+                ctx.arc(0.8, 0, 2, 0, Math.PI * 2);
                 ctx.fill();
 
                 ctx.strokeStyle = 'rgba(220, 225, 235, 0.85)';
-                ctx.lineWidth = 1;
+                ctx.lineWidth = 1.2;
                 ctx.beginPath();
-                ctx.arc(0.5, 0, 2.5, -Math.PI * 0.5, Math.PI * 0.5);
+                ctx.arc(0.8, 0, 3, -Math.PI * 0.5, Math.PI * 0.5);
                 ctx.stroke();
 
                 ctx.fillStyle = '#0B0D12';
-                ctx.fillRect(-9, -6, 2, 12);
+                ctx.fillRect(-11, -7, 2.5, 14);
                 ctx.fillStyle = car.color;
-                ctx.fillRect(-9.5, -7, 2, 2);
-                ctx.fillRect(-9.5, 5, 2, 2);
+                ctx.fillRect(-12, -8, 2.5, 2.5);
+                ctx.fillRect(-12, 5.5, 2.5, 2.5);
             }
 
             // Rear Rain/Brake LED Light (Illuminates bright red under braking over the rear diffuser)
             if (car.isBrakingHard) {
                 ctx.fillStyle = '#FF1801';
                 ctx.shadowColor = '#FF1801';
-                ctx.shadowBlur = 9;
+                ctx.shadowBlur = 10;
                 ctx.beginPath();
-                ctx.arc(-carLength / 2 + 1.5, 0, 2.4, 0, Math.PI * 2);
+                ctx.arc(-carLength / 2 + 1.8, 0, 2.5, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.shadowBlur = 0;
             } else {
                 ctx.fillStyle = '#660505';
-                ctx.fillRect(-carLength / 2 + 1, -0.9, 1.6, 1.8);
+                ctx.fillRect(-carLength / 2 + 1, -1, 1.8, 2);
             }
 
             ctx.restore();
