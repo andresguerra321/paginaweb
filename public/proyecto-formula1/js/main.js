@@ -40,7 +40,7 @@
     ];
 
     /* ═══════════════════════════════════════════════════════════════
-       1B. 2D TOP-DOWN F1 2026 CAR SPRITE ASSETS (OpenGameArt / itch.io style)
+       1B. 2D TOP-DOWN F1 MONOPLAZA LIVERIES & ASSETS (FIA Standard / GitHub)
        ═══════════════════════════════════════════════════════════════ */
     const DRIVER_SPRITES = {
         'VER': 'img/cars/topdown/topdown-redbull.png',
@@ -60,6 +60,385 @@
         img.src = src;
         carSpriteImages[id] = img;
     });
+
+    // Official Formula 1 Liveries & Colors (Front Wing, Monocoque, Halo, Helmet, Endplates)
+    const F1_OFFICIAL_LIVERIES = {
+        'VER': {
+            primary: '#101C3D',       // Red Bull Dark Navy Blue
+            secondary: '#E10600',     // Red Bull Racing Red
+            accent: '#FFC800',        // Yellow Nose Tip & Bull
+            carbon: '#0B0D12',        // Matte Carbon Floor
+            endplate: '#FFC800',      // Yellow Endplates
+            halo: '#101C3D',          // Navy Halo
+            helmetBase: '#FF6B00',    // Max Gold/Orange Dutch Lion Helmet
+            helmetAccent: '#101C3D',
+            visor: '#00F0FF',
+            number: '1',
+            numColor: '#FFC800'
+        },
+        'LEC': {
+            primary: '#E80020',       // Scuderia Rosso Corsa
+            secondary: '#FFFFFF',     // Italian Racing White
+            accent: '#FFE500',        // Modena Yellow
+            carbon: '#08090C',
+            endplate: '#FFFFFF',
+            halo: '#08090C',
+            helmetBase: '#E80020',    // Charles Red & White Helmet
+            helmetAccent: '#FFFFFF',
+            visor: '#111318',
+            number: '16',
+            numColor: '#FFFFFF'
+        },
+        'HAM': {
+            primary: '#E80020',       // Scuderia Rosso Corsa
+            secondary: '#08090C',     // Carbon Black Details
+            accent: '#E1FF00',        // Neon Fluorescent Yellow (Lewis Signature)
+            carbon: '#08090C',
+            endplate: '#E1FF00',
+            halo: '#E1FF00',
+            helmetBase: '#E1FF00',    // Neon Yellow Helmet
+            helmetAccent: '#6B21A8',  // Purple Crown Accent
+            visor: '#111318',
+            number: '44',
+            numColor: '#E1FF00'
+        },
+        'NOR': {
+            primary: '#FF8000',       // Papaya Orange
+            secondary: '#0A0C10',     // Anthracite Carbon
+            accent: '#00A0DE',        // McLaren Light Blue
+            carbon: '#0A0C10',
+            endplate: '#FF8000',
+            halo: '#0A0C10',
+            helmetBase: '#CCFF00',    // Fluorescent Lime-Yellow Helmet
+            helmetAccent: '#111318',
+            visor: '#111318',
+            number: '4',
+            numColor: '#FFFFFF'
+        },
+        'PIA': {
+            primary: '#FF8000',       // Papaya Orange
+            secondary: '#0A0C10',     // Anthracite Carbon
+            accent: '#00A0DE',
+            carbon: '#0A0C10',
+            endplate: '#00A0DE',
+            halo: '#0A0C10',
+            helmetBase: '#0055B8',    // Aussie Blue Helmet
+            helmetAccent: '#FFD700',
+            visor: '#111318',
+            number: '81',
+            numColor: '#FFFFFF'
+        },
+        'RUS': {
+            primary: '#D0D5DE',       // Silver Arrows Metallic
+            secondary: '#0B0D12',     // Obsidian Carbon
+            accent: '#27F4D2',        // Petronas Turquoise
+            carbon: '#0B0D12',
+            endplate: '#27F4D2',
+            halo: '#0B0D12',
+            helmetBase: '#1E3A8A',    // Deep Blue Helmet
+            helmetAccent: '#E10600',
+            visor: '#27F4D2',
+            number: '63',
+            numColor: '#27F4D2'
+        },
+        'ALO': {
+            primary: '#00594F',       // British Racing Green
+            secondary: '#003A33',     // Dark Emerald
+            accent: '#D4FF00',        // Fluorescent Lime Accent
+            carbon: '#08090C',
+            endplate: '#D4FF00',
+            halo: '#00594F',
+            helmetBase: '#0284C7',    // Asturias Blue Helmet
+            helmetAccent: '#FFCC00',
+            visor: '#111318',
+            number: '14',
+            numColor: '#D4FF00'
+        },
+        'ALB': {
+            primary: '#041E42',       // Williams Deep Navy
+            secondary: '#002B7F',     // Royal Blue
+            accent: '#00A0DE',        // Electric Cyan
+            carbon: '#08090C',
+            endplate: '#00A0DE',
+            halo: '#041E42',
+            helmetBase: '#DC2626',    // Red / Blue Helmet
+            helmetAccent: '#041E42',
+            visor: '#00A0DE',
+            number: '23',
+            numColor: '#00A0DE'
+        }
+    };
+
+    function getDriverLivery(car) {
+        if (F1_OFFICIAL_LIVERIES[car.id]) {
+            return F1_OFFICIAL_LIVERIES[car.id];
+        }
+        return {
+            primary: car.color || '#E10600',
+            secondary: '#0B0D12',
+            accent: '#FFFFFF',
+            carbon: '#0B0D12',
+            endplate: car.color || '#E10600',
+            halo: '#151922',
+            helmetBase: '#FFFFFF',
+            helmetAccent: car.color || '#E10600',
+            visor: '#111318',
+            number: String(car.num || ''),
+            numColor: '#FFFFFF'
+        };
+    }
+
+    function drawRoundRect(ctx, x, y, w, h, r) {
+        if (ctx.roundRect) {
+            ctx.beginPath();
+            ctx.roundRect(x, y, w, h, r);
+            ctx.fill();
+        } else {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.arcTo(x + w, y, x + w, y + r, r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+            ctx.lineTo(x + r, y + h);
+            ctx.arcTo(x, y + h, x, y + h - r, r);
+            ctx.lineTo(x, y + r);
+            ctx.arcTo(x, y, x + r, y, r);
+            ctx.closePath();
+            ctx.fill();
+        }
+    }
+
+    /**
+     * Renders an authentic top-down open-wheel Formula 1 monoplaza vector directly to Canvas 2D
+     * Scaled and aligned in car coordinate space (+X = Forward, -X = Rear, -Y = Left, +Y = Right)
+     */
+    function drawF1MonoplazaTopDown(ctx, car) {
+        const livery = getDriverLivery(car);
+        const compoundColor = car.compound === 'SOFT' ? '#E10600' : (car.compound === 'MEDIUM' ? '#FFB800' : '#E5E7EB');
+
+        // 1. Carbon Floor & Venturi Aerodynamic Tunnels
+        ctx.fillStyle = livery.carbon || '#0A0C10';
+        ctx.beginPath();
+        ctx.moveTo(9, -4.8);
+        ctx.lineTo(9, 4.8);
+        ctx.lineTo(7.5, 7.4);
+        ctx.lineTo(-13.5, 7.4);
+        ctx.lineTo(-15, 4.5);
+        ctx.lineTo(-15, -4.5);
+        ctx.lineTo(-13.5, -7.4);
+        ctx.lineTo(7.5, -7.4);
+        ctx.closePath();
+        ctx.fill();
+
+        // Floor Edge Aerodynamic Strakes
+        ctx.fillStyle = livery.accent;
+        ctx.fillRect(-6, -7.4, 9, 0.6);
+        ctx.fillRect(-6, 6.8, 9, 0.6);
+
+        // 2. Open-Wheel Carbon Suspension Wishbones
+        ctx.strokeStyle = '#181B22';
+        ctx.lineWidth = 1.3;
+        // Front Wishbones (Pull-rod / Push-rod)
+        ctx.beginPath();
+        ctx.moveTo(9.5, -2.2); ctx.lineTo(12, -6.8);
+        ctx.moveTo(6.5, -2.4); ctx.lineTo(8.5, -6.8);
+        ctx.moveTo(9.5, 2.2); ctx.lineTo(12, 6.8);
+        ctx.moveTo(6.5, 2.4); ctx.lineTo(8.5, 6.8);
+        // Rear Wishbones
+        ctx.moveTo(-10.5, -2.8); ctx.lineTo(-13.5, -6.8);
+        ctx.moveTo(-14.5, -2.4); ctx.lineTo(-15.5, -6.8);
+        ctx.moveTo(-10.5, 2.8); ctx.lineTo(-13.5, 6.8);
+        ctx.moveTo(-14.5, 2.4); ctx.lineTo(-15.5, 6.8);
+        ctx.stroke();
+
+        // 3. Four Open Wheels (Pirelli Slicks with Compound Color Band)
+        // Front-Left Wheel
+        ctx.fillStyle = '#0F1116';
+        drawRoundRect(ctx, 7.5, -9.0, 8.0, 3.6, 1.0);
+        ctx.fillStyle = compoundColor;
+        ctx.fillRect(8.5, -7.4, 6.0, 0.8);
+        ctx.fillStyle = '#374151';
+        ctx.beginPath(); ctx.arc(11.5, -7.2, 1.0, 0, Math.PI * 2); ctx.fill();
+
+        // Front-Right Wheel
+        ctx.fillStyle = '#0F1116';
+        drawRoundRect(ctx, 7.5, 5.4, 8.0, 3.6, 1.0);
+        ctx.fillStyle = compoundColor;
+        ctx.fillRect(8.5, 6.6, 6.0, 0.8);
+        ctx.fillStyle = '#374151';
+        ctx.beginPath(); ctx.arc(11.5, 7.2, 1.0, 0, Math.PI * 2); ctx.fill();
+
+        // Rear-Left Wheel (Wider rear slicks)
+        ctx.fillStyle = '#0F1116';
+        drawRoundRect(ctx, -17.5, -9.4, 9.0, 4.2, 1.2);
+        ctx.fillStyle = compoundColor;
+        ctx.fillRect(-16.5, -7.5, 7.0, 0.9);
+        ctx.fillStyle = '#374151';
+        ctx.beginPath(); ctx.arc(-13.0, -7.3, 1.1, 0, Math.PI * 2); ctx.fill();
+
+        // Rear-Right Wheel
+        ctx.fillStyle = '#0F1116';
+        drawRoundRect(ctx, -17.5, 5.2, 9.0, 4.2, 1.2);
+        ctx.fillStyle = compoundColor;
+        ctx.fillRect(-16.5, 6.6, 7.0, 0.9);
+        ctx.fillStyle = '#374151';
+        ctx.beginPath(); ctx.arc(-13.0, 7.3, 1.1, 0, Math.PI * 2); ctx.fill();
+
+        // 4. Front Wing Assembly (Aerodynamic swept mainplane with Endplates)
+        ctx.fillStyle = livery.primary;
+        ctx.beginPath();
+        ctx.moveTo(17, -8.6);
+        ctx.quadraticCurveTo(20.5, 0, 17, 8.6);
+        ctx.lineTo(15, 8.6);
+        ctx.quadraticCurveTo(18.5, 0, 15, -8.6);
+        ctx.closePath();
+        ctx.fill();
+
+        // Flap slot gap
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 0.6;
+        ctx.beginPath();
+        ctx.moveTo(16, -8.4);
+        ctx.quadraticCurveTo(19.5, 0, 16, 8.4);
+        ctx.stroke();
+
+        // Front Wing Endplates
+        ctx.fillStyle = livery.endplate;
+        ctx.fillRect(14.8, -9.2, 5.5, 1.0);
+        ctx.fillRect(14.8, 8.2, 5.5, 1.0);
+
+        // 5. Monocoque Chassis & Sculpted Sidepods (Coke-Bottle Undercut)
+        ctx.fillStyle = livery.primary;
+        ctx.beginPath();
+        ctx.moveTo(20.0, 0);               // Nose Tip
+        ctx.lineTo(18.5, 1.3);
+        ctx.lineTo(10.5, 1.9);
+        ctx.lineTo(4.5, 2.5);
+        ctx.lineTo(2.5, 6.0);              // Right sidepod shoulder
+        ctx.quadraticCurveTo(-0.5, 6.6, -4.5, 6.0);
+        ctx.quadraticCurveTo(-10.0, 4.8, -14.5, 2.3); // Undercut to rear
+        ctx.lineTo(-16.5, 2.3);
+        ctx.lineTo(-16.5, -2.3);
+        ctx.lineTo(-14.5, -2.3);
+        ctx.quadraticCurveTo(-10.0, -4.8, -4.5, -6.0);
+        ctx.quadraticCurveTo(-0.5, -6.6, 2.5, -6.0);  // Left sidepod shoulder
+        ctx.lineTo(4.5, -2.5);
+        ctx.lineTo(10.5, -1.9);
+        ctx.lineTo(18.5, -1.3);
+        ctx.closePath();
+        ctx.fill();
+
+        // Livery Nosecone Tip Accent
+        ctx.fillStyle = livery.accent;
+        ctx.beginPath();
+        ctx.moveTo(20.0, 0);
+        ctx.lineTo(17.2, 1.4);
+        ctx.lineTo(15.8, 0);
+        ctx.lineTo(17.2, -1.4);
+        ctx.closePath();
+        ctx.fill();
+
+        // Radiator Sidepod Cooling Inlets
+        ctx.fillStyle = '#060709';
+        ctx.beginPath();
+        ctx.moveTo(2.5, -5.8); ctx.lineTo(0.5, -5.6); ctx.lineTo(0.5, -3.2); ctx.lineTo(2.5, -3.0);
+        ctx.closePath(); ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(2.5, 5.8); ctx.lineTo(0.5, 5.6); ctx.lineTo(0.5, 3.2); ctx.lineTo(2.5, 3.0);
+        ctx.closePath(); ctx.fill();
+
+        // Livery Secondary Color Stripes
+        ctx.fillStyle = livery.secondary;
+        ctx.fillRect(7.5, -0.5, 5.0, 1.0);  // Center nose stripe
+        ctx.fillRect(-3.0, -5.0, 4.8, 0.8); // Left sidepod livery streak
+        ctx.fillRect(-3.0, 4.2, 4.8, 0.8);  // Right sidepod livery streak
+
+        // 6. Driver Number Decal on Nosecone
+        ctx.fillStyle = livery.numColor;
+        ctx.font = '900 3.5px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(livery.number, 13.0, 0);
+
+        // 7. Cockpit Tub & Driver Helmet
+        ctx.fillStyle = '#07080B';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 4.5, 2.1, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Driver Helmet
+        ctx.fillStyle = livery.helmetBase;
+        ctx.beginPath();
+        ctx.arc(0.4, 0, 1.7, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = livery.helmetAccent;
+        ctx.beginPath();
+        ctx.arc(0.1, 0, 0.8, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Visor facing forward (+X)
+        ctx.fillStyle = livery.visor;
+        ctx.beginPath();
+        ctx.arc(0.9, 0, 1.1, -Math.PI * 0.45, Math.PI * 0.45);
+        ctx.fill();
+
+        // 8. Titanium Halo Safety Arch
+        ctx.strokeStyle = '#181C24';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(3.0, 0);
+        ctx.lineTo(1.6, 0);
+        ctx.stroke();
+
+        ctx.strokeStyle = livery.halo;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(0.1, 0, 2.3, -Math.PI * 0.52, Math.PI * 0.52);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.lineWidth = 0.6;
+        ctx.beginPath();
+        ctx.arc(0.1, 0, 2.3, -Math.PI * 0.48, Math.PI * 0.48);
+        ctx.stroke();
+
+        // 9. Engine Airbox Intake, T-Cam & Shark Fin Spine
+        ctx.fillStyle = '#0A0B0E';
+        ctx.fillRect(-2.4, -1.1, 1.8, 2.2);
+
+        const isPrimaryDriver = (livery.number === '1' || livery.number === '16' || livery.number === '4' || livery.number === '63' || livery.number === '14' || livery.number === '23');
+        ctx.fillStyle = isPrimaryDriver ? '#111317' : '#FFE500';
+        ctx.fillRect(-1.4, -0.5, 0.9, 1.0);
+
+        ctx.fillStyle = livery.secondary;
+        ctx.fillRect(-13.5, -0.4, 10.5, 0.8);
+
+        // 10. Rear Wing Assembly & DRS Flap
+        ctx.fillStyle = livery.primary;
+        ctx.fillRect(-18.5, -7.8, 3.0, 15.6);
+
+        ctx.fillStyle = livery.carbon || '#08090C';
+        ctx.fillRect(-17.4, -7.4, 1.1, 14.8);
+
+        // Rear Wing Endplates
+        ctx.fillStyle = livery.endplate;
+        ctx.fillRect(-19.6, -8.3, 4.2, 1.0);
+        ctx.fillRect(-19.6, 7.3, 4.2, 1.0);
+
+        // 11. Rear FIA Rain/Brake LED Light
+        if (car.isBrakingHard) {
+            ctx.fillStyle = '#FF1801';
+            ctx.shadowColor = '#FF1801';
+            ctx.shadowBlur = 12;
+            ctx.fillRect(-19.5, -0.8, 1.4, 1.6);
+            ctx.shadowBlur = 0;
+        } else {
+            ctx.fillStyle = '#660505';
+            ctx.fillRect(-19.5, -0.7, 1.1, 1.4);
+        }
+    }
 
     /* ═══════════════════════════════════════════════════════════════
        2. CIRCUIT TOPOLOGY & CORNER DATA (Mónaco GP Simulation)
@@ -718,83 +1097,8 @@
                 ctx.stroke();
             }
 
-            // ── TOP-DOWN 2D F1 2026 MONOPLAZA SPRITE ──
-            const spriteImg = carSpriteImages[car.id];
-            const carLength = 38; // Length along track line (proportional to F1 2026 scale)
-            const carWidth = 15.2; // Width across track (240x600 aspect ratio)
-
-            if (spriteImg && (spriteImg.complete || spriteImg.naturalWidth > 0)) {
-                ctx.save();
-                // Rotate +90deg (PI/2) so the top-down SVG/PNG nose (pointing UP) aligns with +X forward motion
-                ctx.rotate(Math.PI / 2);
-                ctx.drawImage(spriteImg, -carWidth / 2, -carLength / 2, carWidth, carLength);
-                ctx.restore();
-            } else {
-                // High-contrast vector monoplaza fallback while image textures load
-                const compoundColor = car.compound === 'SOFT' ? '#E10600' : (car.compound === 'MEDIUM' ? '#FFB800' : '#FFFFFF');
-                ctx.fillStyle = '#111318';
-                ctx.fillRect(6, -8, 6, 3.5);
-                ctx.fillRect(6, 4.5, 6, 3.5);
-                ctx.fillRect(-10, -9, 7, 4.2);
-                ctx.fillRect(-10, 4.8, 7, 4.2);
-
-                ctx.fillStyle = compoundColor;
-                ctx.fillRect(7, -7, 4, 1.2);
-                ctx.fillRect(7, 5.8, 4, 1.2);
-                ctx.fillRect(-9, -8, 5, 1.4);
-                ctx.fillRect(-9, 6.6, 5, 1.4);
-
-                ctx.fillStyle = '#0B0D12';
-                ctx.fillRect(12, -7, 2.5, 14);
-                ctx.fillStyle = car.color;
-                ctx.fillRect(13, -8, 2, 3);
-                ctx.fillRect(13, 5, 2, 3);
-
-                ctx.fillStyle = car.color;
-                ctx.beginPath();
-                ctx.moveTo(13, 0);
-                ctx.lineTo(5, -3.5);
-                ctx.lineTo(-4, -5.5);
-                ctx.lineTo(-9, -4.5);
-                ctx.lineTo(-9, 4.5);
-                ctx.lineTo(-4, 5.5);
-                ctx.lineTo(5, 3.5);
-                ctx.closePath();
-                ctx.fill();
-
-                ctx.fillStyle = '#060709';
-                ctx.fillRect(-1.5, -2, 5, 4);
-                ctx.fillStyle = '#FFFFFF';
-                ctx.beginPath();
-                ctx.arc(0.8, 0, 2, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.strokeStyle = 'rgba(220, 225, 235, 0.85)';
-                ctx.lineWidth = 1.2;
-                ctx.beginPath();
-                ctx.arc(0.8, 0, 3, -Math.PI * 0.5, Math.PI * 0.5);
-                ctx.stroke();
-
-                ctx.fillStyle = '#0B0D12';
-                ctx.fillRect(-11, -7, 2.5, 14);
-                ctx.fillStyle = car.color;
-                ctx.fillRect(-12, -8, 2.5, 2.5);
-                ctx.fillRect(-12, 5.5, 2.5, 2.5);
-            }
-
-            // Rear Rain/Brake LED Light (Illuminates bright red under braking over the rear diffuser)
-            if (car.isBrakingHard) {
-                ctx.fillStyle = '#FF1801';
-                ctx.shadowColor = '#FF1801';
-                ctx.shadowBlur = 10;
-                ctx.beginPath();
-                ctx.arc(-carLength / 2 + 1.8, 0, 2.5, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.shadowBlur = 0;
-            } else {
-                ctx.fillStyle = '#660505';
-                ctx.fillRect(-carLength / 2 + 1, -1, 1.8, 2);
-            }
+            // ── OFFICIAL TOP-DOWN 2D F1 OPEN-WHEEL MONOPLAZA VECTORS ──
+            drawF1MonoplazaTopDown(ctx, car);
 
             ctx.restore();
 
