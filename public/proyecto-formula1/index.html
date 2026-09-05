@@ -269,6 +269,9 @@
                                 <span style="font-family: var(--font-mono); font-size: 10px; color: #8E95A5;" id="hudDriverTeam">Red Bull Ford · F1 2026</span>
                             </div>
                         </div>
+                        <div class="hud-topdown-preview-box" id="hudTopdownBox" title="Sprite Cenital Top-Down (F1 2D Asset)">
+                            <img id="hudTopdownImg" class="hud-topdown-img" src="img/cars/topdown/topdown-redbull.svg" alt="Monoplaza Top-Down" />
+                        </div>
                         <span class="badge-tech ferrari" id="hudAeroMode">CORNER MODE</span>
                     </div>
 
@@ -924,7 +927,10 @@
                     <div class="section-kicker">MÓDULO 07 // INGENIERÍA DE ESCUDERÍAS</div>
                     <span>CENTRO TÉCNICO DE CONSTRUCTORES 2026</span>
                 </div>
-                <span class="section-meta">NORMAS FIA 2026</span>
+                <div class="sim-btn-group" id="teamCarViewToggle">
+                    <button type="button" class="sim-ctrl-btn active" id="btnCarViewProfile">PERFIL LATERAL</button>
+                    <button type="button" class="sim-ctrl-btn" id="btnCarViewTopDown">VISTA CENITAL 2D (TOP-DOWN)</button>
+                </div>
             </div>
 
             <div class="f1-official-teams-grid">
@@ -952,7 +958,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/ferrari-car.svg" alt="Ferrari SF-26 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/ferrari-car.svg" data-profile="img/cars/ferrari-car.svg" data-topdown="img/cars/topdown/topdown-ferrari.svg" alt="Ferrari SF-26 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>FERRARI 066/12 (350 KW)</strong></span>
@@ -986,7 +992,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/redbull-car.svg" alt="Red Bull RB22 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/redbull-car.svg" data-profile="img/cars/redbull-car.svg" data-topdown="img/cars/topdown/topdown-redbull.svg" alt="Red Bull RB22 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>RED BULL FORD DM-01</strong></span>
@@ -1020,7 +1026,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/mclaren-car.svg" alt="McLaren MCL40 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/mclaren-car.svg" data-profile="img/cars/mclaren-car.svg" data-topdown="img/cars/topdown/topdown-mclaren.svg" alt="McLaren MCL40 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>MERCEDES-AMG M17 E</strong></span>
@@ -1054,7 +1060,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/mercedes-car.svg" alt="Mercedes W17 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/mercedes-car.svg" data-profile="img/cars/mercedes-car.svg" data-topdown="img/cars/topdown/topdown-mercedes.svg" alt="Mercedes W17 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>MERCEDES-AMG M17 E</strong></span>
@@ -1088,7 +1094,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/astonmartin-car.svg" alt="Aston Martin AMR26 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/astonmartin-car.svg" data-profile="img/cars/astonmartin-car.svg" data-topdown="img/cars/topdown/topdown-astonmartin.svg" alt="Aston Martin AMR26 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>HONDA RA626H (350 KW)</strong></span>
@@ -1122,7 +1128,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/williams-car.svg" alt="Williams FW48 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/williams-car.svg" data-profile="img/cars/williams-car.svg" data-topdown="img/cars/topdown/topdown-williams.svg" alt="Williams FW48 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>MERCEDES-AMG M17 E</strong></span>

@@ -40,6 +40,28 @@
     ];
 
     /* ═══════════════════════════════════════════════════════════════
+       1B. 2D TOP-DOWN F1 2026 CAR SPRITE ASSETS (OpenGameArt / itch.io style)
+       ═══════════════════════════════════════════════════════════════ */
+    const DRIVER_SPRITES = {
+        'VER': 'img/cars/topdown/topdown-redbull.svg',
+        'LEC': 'img/cars/topdown/topdown-ferrari.svg',
+        'HAM': 'img/cars/topdown/topdown-ferrari-44.svg',
+        'NOR': 'img/cars/topdown/topdown-mclaren.svg',
+        'PIA': 'img/cars/topdown/topdown-mclaren-81.svg',
+        'RUS': 'img/cars/topdown/topdown-mercedes.svg',
+        'ALO': 'img/cars/topdown/topdown-astonmartin.svg',
+        'ALB': 'img/cars/topdown/topdown-williams.svg'
+    };
+
+    // Preload top-down car sprite textures into memory
+    const carSpriteImages = {};
+    Object.entries(DRIVER_SPRITES).forEach(([id, src]) => {
+        const img = new Image();
+        img.src = src;
+        carSpriteImages[id] = img;
+    });
+
+    /* ═══════════════════════════════════════════════════════════════
        2. CIRCUIT TOPOLOGY & CORNER DATA (Mónaco GP Simulation)
        ═══════════════════════════════════════════════════════════════ */
     // Closed normalized spline points (0.0 to 1.0) with segment types:
@@ -686,79 +708,82 @@
                 ctx.stroke();
             }
 
-            // ── F1 2026 MONOPLAZA VECTORIAL BODY ──
+            // ── TOP-DOWN 2D F1 2026 MONOPLAZA SPRITE ──
+            const spriteImg = carSpriteImages[car.id];
+            const carLength = 34; // Length along track line
+            const carWidth = 13.6; // Width across track (120/300 aspect ratio)
 
-            // 1. Four Open Wheels with Compound Sidewall Color
-            const compoundColor = car.compound === 'SOFT' ? '#E10600' : (car.compound === 'MEDIUM' ? '#FFB800' : '#FFFFFF');
-            ctx.fillStyle = '#111318'; // Black rubber
-            // Front Left & Right
-            ctx.fillRect(4, -7, 5, 3);
-            ctx.fillRect(4, 4, 5, 3);
-            // Rear Left & Right
-            ctx.fillRect(-8, -8, 6, 4);
-            ctx.fillRect(-8, 4, 6, 4);
+            if (spriteImg && spriteImg.complete && spriteImg.naturalWidth > 0) {
+                ctx.save();
+                // Rotate +90deg (PI/2) so the top-down SVG nose (pointing UP) aligns with +X forward motion
+                ctx.rotate(Math.PI / 2);
+                ctx.drawImage(spriteImg, -carWidth / 2, -carLength / 2, carWidth, carLength);
+                ctx.restore();
+            } else {
+                // High-contrast vector monoplaza fallback while image textures load
+                const compoundColor = car.compound === 'SOFT' ? '#E10600' : (car.compound === 'MEDIUM' ? '#FFB800' : '#FFFFFF');
+                ctx.fillStyle = '#111318';
+                ctx.fillRect(4, -7, 5, 3);
+                ctx.fillRect(4, 4, 5, 3);
+                ctx.fillRect(-8, -8, 6, 4);
+                ctx.fillRect(-8, 4, 6, 4);
 
-            // Sidewall Compound Ring
-            ctx.fillStyle = compoundColor;
-            ctx.fillRect(5, -6, 3, 1);
-            ctx.fillRect(5, 5, 3, 1);
-            ctx.fillRect(-7, -7, 4, 1.2);
-            ctx.fillRect(-7, 5.8, 4, 1.2);
+                ctx.fillStyle = compoundColor;
+                ctx.fillRect(5, -6, 3, 1);
+                ctx.fillRect(5, 5, 3, 1);
+                ctx.fillRect(-7, -7, 4, 1.2);
+                ctx.fillRect(-7, 5.8, 4, 1.2);
 
-            // 2. Front Wing with Endplates
-            ctx.fillStyle = '#0B0D12';
-            ctx.fillRect(9, -6, 2, 12);
-            ctx.fillStyle = car.color;
-            ctx.fillRect(10, -7, 1.5, 2.5);
-            ctx.fillRect(10, 4.5, 1.5, 2.5);
+                ctx.fillStyle = '#0B0D12';
+                ctx.fillRect(9, -6, 2, 12);
+                ctx.fillStyle = car.color;
+                ctx.fillRect(10, -7, 1.5, 2.5);
+                ctx.fillRect(10, 4.5, 1.5, 2.5);
 
-            // 3. Monoplaza Main Chassis & Sidepods
-            ctx.fillStyle = car.color;
-            ctx.beginPath();
-            ctx.moveTo(10, 0); // Nose tip
-            ctx.lineTo(4, -2.5);
-            ctx.lineTo(-3, -4.5); // Left sidepod
-            ctx.lineTo(-7, -3.5);
-            ctx.lineTo(-7, 3.5);
-            ctx.lineTo(-3, 4.5); // Right sidepod
-            ctx.lineTo(4, 2.5);
-            ctx.closePath();
-            ctx.fill();
+                ctx.fillStyle = car.color;
+                ctx.beginPath();
+                ctx.moveTo(10, 0);
+                ctx.lineTo(4, -2.5);
+                ctx.lineTo(-3, -4.5);
+                ctx.lineTo(-7, -3.5);
+                ctx.lineTo(-7, 3.5);
+                ctx.lineTo(-3, 4.5);
+                ctx.lineTo(4, 2.5);
+                ctx.closePath();
+                ctx.fill();
 
-            // 4. Cockpit opening & Driver Helmet
-            ctx.fillStyle = '#060709';
-            ctx.fillRect(-1, -1.5, 4, 3); // Cockpit
-            ctx.fillStyle = '#FFFFFF'; // Driver Helmet
-            ctx.beginPath();
-            ctx.arc(0.5, 0, 1.6, 0, Math.PI * 2);
-            ctx.fill();
+                ctx.fillStyle = '#060709';
+                ctx.fillRect(-1, -1.5, 4, 3);
+                ctx.fillStyle = '#FFFFFF';
+                ctx.beginPath();
+                ctx.arc(0.5, 0, 1.6, 0, Math.PI * 2);
+                ctx.fill();
 
-            // 5. Halo Titanium Safety Structure
-            ctx.strokeStyle = 'rgba(220, 225, 235, 0.85)';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.arc(0.5, 0, 2.5, -Math.PI * 0.5, Math.PI * 0.5);
-            ctx.stroke();
+                ctx.strokeStyle = 'rgba(220, 225, 235, 0.85)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(0.5, 0, 2.5, -Math.PI * 0.5, Math.PI * 0.5);
+                ctx.stroke();
 
-            // 6. Rear Wing Assembly
-            ctx.fillStyle = '#0B0D12';
-            ctx.fillRect(-9, -6, 2, 12);
-            ctx.fillStyle = car.color;
-            ctx.fillRect(-9.5, -7, 2, 2);
-            ctx.fillRect(-9.5, 5, 2, 2);
+                ctx.fillStyle = '#0B0D12';
+                ctx.fillRect(-9, -6, 2, 12);
+                ctx.fillStyle = car.color;
+                ctx.fillRect(-9.5, -7, 2, 2);
+                ctx.fillRect(-9.5, 5, 2, 2);
+            }
 
-            // 7. Rear Rain/Brake LED Light (Illuminates bright red under braking)
+            // Rear Rain/Brake LED Light (Illuminates bright red under braking over the rear diffuser)
             if (car.isBrakingHard) {
                 ctx.fillStyle = '#FF1801';
                 ctx.shadowColor = '#FF1801';
-                ctx.shadowBlur = 8;
+                ctx.shadowBlur = 9;
                 ctx.beginPath();
-                ctx.arc(-9, 0, 2.2, 0, Math.PI * 2);
+                ctx.arc(-carLength / 2 + 1.5, 0, 2.4, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.shadowBlur = 0;
             } else {
                 ctx.fillStyle = '#660505';
-                ctx.fillRect(-9, -0.8, 1.5, 1.6);
+                ctx.fillRect(-carLength / 2 + 1, -0.9, 1.6, 1.8);
             }
 
             ctx.restore();
@@ -839,6 +864,13 @@
         if (driverNameEl) driverNameEl.textContent = car.name;
         if (driverTeamEl) driverTeamEl.textContent = `${car.team} · F1 2026`;
         if (driverNumEl) driverNumEl.textContent = car.num;
+
+        // Top-Down Sprite Preview in HUD
+        const topdownImgEl = document.getElementById('hudTopdownImg');
+        if (topdownImgEl && DRIVER_SPRITES[car.id]) {
+            topdownImgEl.src = DRIVER_SPRITES[car.id];
+            topdownImgEl.alt = `${car.name} (${car.team}) Top-Down F1 2026`;
+        }
 
         // Speed & Gear
         const speedValEl = document.getElementById('hudSpeedVal');
@@ -1095,6 +1127,42 @@
                     setRaceState('GREEN', 'PISTA DESPEJADA // BANDERA VERDE // DRS REHABILITADO');
                 }
             });
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // ESCUDERÍAS CAR VIEW TOGGLE (PERFIL LATERAL vs VISTA CENITAL 2D)
+        // ═══════════════════════════════════════════════════════════
+        const btnCarViewProfile = document.getElementById('btnCarViewProfile');
+        const btnCarViewTopDown = document.getElementById('btnCarViewTopDown');
+
+        function setCarView(mode) {
+            const stages = document.querySelectorAll('.f1-team-car-stage');
+            const carImgs = document.querySelectorAll('.f1-team-car-img');
+
+            if (mode === 'topdown') {
+                if (btnCarViewTopDown) btnCarViewTopDown.classList.add('active');
+                if (btnCarViewProfile) btnCarViewProfile.classList.remove('active');
+                stages.forEach(st => st.classList.add('view-topdown'));
+                carImgs.forEach(img => {
+                    const topdownSrc = img.getAttribute('data-topdown');
+                    if (topdownSrc) img.src = topdownSrc;
+                });
+            } else {
+                if (btnCarViewProfile) btnCarViewProfile.classList.add('active');
+                if (btnCarViewTopDown) btnCarViewTopDown.classList.remove('active');
+                stages.forEach(st => st.classList.remove('view-topdown'));
+                carImgs.forEach(img => {
+                    const profileSrc = img.getAttribute('data-profile');
+                    if (profileSrc) img.src = profileSrc;
+                });
+            }
+        }
+
+        if (btnCarViewProfile) {
+            btnCarViewProfile.addEventListener('click', () => setCarView('profile'));
+        }
+        if (btnCarViewTopDown) {
+            btnCarViewTopDown.addEventListener('click', () => setCarView('topdown'));
         }
 
         // ═══════════════════════════════════════════════════════════

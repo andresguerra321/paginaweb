@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 300" width="100%" height="100%">
+  <defs>
+    <!-- Aston Martin British Racing Green Gradients -->
+    <linearGradient id="am-green" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#004D44" />
+      <stop offset="35%" stop-color="#006F62" />
+      <stop offset="70%" stop-color="#008E7E" />
+      <stop offset="100%" stop-color="#004D44" />
+    </linearGradient>
+    <linearGradient id="carbon-dark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#08090C" />
+      <stop offset="50%" stop-color="#14171E" />
+      <stop offset="100%" stop-color="#08090C" />
+    </linearGradient>
+    <linearGradient id="tire-rubber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1C1F26" />
+      <stop offset="30%" stop-color="#0D0E12" />
+      <stop offset="70%" stop-color="#0D0E12" />
+      <stop offset="100%" stop-color="#1C1F26" />
+    </linearGradient>
+    <filter id="car-shadow" x="-20%" y="-10%" width="140%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#000" flood-opacity="0.65" />
+    </filter>
+  </defs>
+
+  <ellipse cx="60" cy="160" rx="52" ry="125" fill="#000000" opacity="0.45" />
+
+  <g filter="url(#car-shadow)">
+    <!-- 1. Front Suspension Wishbones -->
+    <path d="M48 60 L20 62 M48 68 L20 66" stroke="#1A1D24" stroke-width="2.2" stroke-linecap="round" />
+    <path d="M48 64 L20 74" stroke="#111317" stroke-width="1.8" stroke-linecap="round" />
+    <path d="M72 60 L100 62 M72 68 L100 66" stroke="#1A1D24" stroke-width="2.2" stroke-linecap="round" />
+    <path d="M72 64 L100 74" stroke="#111317" stroke-width="1.8" stroke-linecap="round" />
+
+    <!-- 2. Rear Suspension Wishbones -->
+    <path d="M44 218 L22 222 M44 232 L22 230" stroke="#1A1D24" stroke-width="2.4" stroke-linecap="round" />
+    <path d="M44 225 L22 238" stroke="#111317" stroke-width="2" stroke-linecap="round" />
+    <path d="M76 218 L98 222 M76 232 L98 230" stroke="#1A1D24" stroke-width="2.4" stroke-linecap="round" />
+    <path d="M76 225 L98 238" stroke="#111317" stroke-width="2" stroke-linecap="round" />
+
+    <!-- 3. Four Open Wheels (Pirelli Slicks with Yellow Medium Stripes) -->
+    <rect x="2" y="44" width="20" height="44" rx="5" fill="url(#tire-rubber)" stroke="#000" stroke-width="1" />
+    <line x1="8" y1="46" x2="8" y2="86" stroke="#FFB800" stroke-width="1.6" />
+    <circle cx="12" cy="66" r="3.5" fill="#303542" />
+
+    <rect x="98" y="44" width="20" height="44" rx="5" fill="url(#tire-rubber)" stroke="#000" stroke-width="1" />
+    <line x1="112" y1="46" x2="112" y2="86" stroke="#FFB800" stroke-width="1.6" />
+    <circle cx="108" cy="66" r="3.5" fill="#303542" />
+
+    <rect x="0" y="202" width="24" height="50" rx="6" fill="url(#tire-rubber)" stroke="#000" stroke-width="1" />
+    <line x1="7" y1="205" x2="7" y2="249" stroke="#FFB800" stroke-width="1.8" />
+    <circle cx="12" cy="227" r="4" fill="#303542" />
+
+    <rect x="96" y="202" width="24" height="50" rx="6" fill="url(#tire-rubber)" stroke="#000" stroke-width="1" />
+    <line x1="113" y1="205" x2="113" y2="249" stroke="#FFB800" stroke-width="1.8" />
+    <circle cx="108" cy="227" r="4" fill="#303542" />
+
+    <!-- 4. Carbon Floor with Acid Lime Pinstripe -->
+    <path d="M22 108 L18 195 L34 235 L86 235 L102 195 L98 108 Z" fill="url(#carbon-dark)" />
+    <path d="M18 115 L14 185 L18 190 Z" fill="#CEDC00" />
+    <path d="M102 115 L106 185 L102 190 Z" fill="#CEDC00" />
+
+    <!-- 5. Front Wing Assembly -->
+    <path d="M6 22 Q60 14 114 22 L112 36 Q60 26 8 36 Z" fill="url(#am-green)" stroke="#111" stroke-width="1" />
+    <path d="M8 27 Q60 19 112 27 L110 33 Q60 24 10 33 Z" fill="#CEDC00" />
+    <rect x="5" y="16" width="3" height="26" rx="1" fill="#CEDC00" />
+    <rect x="112" y="16" width="3" height="26" rx="1" fill="#CEDC00" />
+
+    <!-- 6. Monocoque Chassis & Sculpted Sidepods -->
+    <path d="M54 22 L66 22 
+             L68 52 Q72 82 72 95 
+             L94 105 Q100 135 96 175 
+             Q90 205 76 222 
+             L74 246 L46 246 
+             L44 222 Q30 205 24 175 
+             Q20 135 26 105 
+             L48 95 Q48 82 52 52 Z" 
+          fill="url(#am-green)" />
+
+    <!-- Acid Lime Flow Streaks -->
+    <path d="M30 115 L44 112" stroke="#CEDC00" stroke-width="1.8" />
+    <path d="M90 115 L76 112" stroke="#CEDC00" stroke-width="1.8" />
+
+    <!-- Driver Number #14 (Fernando Alonso) -->
+    <text x="60" y="78" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="900" fill="#CEDC00" text-anchor="middle">14</text>
+
+    <!-- 8. Cockpit Tub & Driver Helmet -->
+    <ellipse cx="60" cy="132" rx="10" ry="24" fill="#07080B" />
+    <!-- Fernando Alonso Spanish/Asturian Helmet (Blue, Yellow, Red) -->
+    <circle cx="60" cy="128" r="8" fill="#00A0DE" stroke="#000" stroke-width="1" />
+    <rect x="55" y="127" width="10" height="2.5" fill="#FFD000" />
+    <rect x="55" y="129.5" width="10" height="1" fill="#E10600" />
+    <path d="M54 123 Q60 119 66 123" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none" />
+
+    <!-- 9. Titanium Halo Safety Arc -->
+    <line x1="60" y1="108" x2="60" y2="120" stroke="#1A1D24" stroke-width="3" stroke-linecap="round" />
+    <path d="M49 138 Q48 108 60 106 Q72 108 71 138" fill="none" stroke="#242834" stroke-width="3.5" stroke-linecap="round" />
+    <path d="M50 138 Q49 109 60 107 Q71 109 70 138" fill="none" stroke="#CEDC00" stroke-width="1.8" stroke-linecap="round" />
+
+    <!-- 10. Engine Airbox & Shark Fin -->
+    <polygon points="54,146 66,146 63,158 57,158" fill="#0A0B0E" />
+    <rect x="56" y="145" width="8" height="3" rx="1" fill="#CEDC00" />
+    <path d="M59 158 L61 158 L61 240 L59 240 Z" fill="#CEDC00" />
+
+    <!-- 12. Rear Wing Assembly & DRS Actuator -->
+    <rect x="14" y="260" width="92" height="15" rx="2" fill="url(#am-green)" stroke="#000" stroke-width="1" />
+    <line x1="16" y1="267" x2="104" y2="267" stroke="#090B0E" stroke-width="1.5" />
+    <rect x="57" y="258" width="6" height="8" rx="1" fill="#CEDC00" />
+    <rect x="12" y="252" width="3.5" height="28" rx="1" fill="#CEDC00" />
+    <rect x="104.5" y="252" width="3.5" height="28" rx="1" fill="#CEDC00" />
+
+    <!-- 13. Rear FIA Rain/Brake LED Light Beacon -->
+    <rect x="58" y="280" width="4" height="3" rx="0.5" fill="#E10600" />
+    <circle cx="60" cy="281.5" r="1.2" fill="#FFFFFF" />
+  </g>
+</svg>

@@ -974,6 +974,42 @@ body.f1-theme {
     color: var(--c-titanium-100);
 }
 
+.hud-topdown-preview-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid var(--c-titanium-border);
+    border-radius: var(--radius-xs);
+    overflow: hidden;
+    padding: 2px;
+    cursor: pointer;
+    transition: all var(--anim-fast);
+}
+.hud-topdown-preview-box:hover {
+    border-color: var(--c-ferrari-red);
+    box-shadow: 0 0 10px rgba(225, 6, 0, 0.3);
+}
+.hud-topdown-img {
+    height: 48px;
+    width: auto;
+    transform: rotate(90deg);
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.8));
+    transition: transform 0.25s ease;
+}
+
+/* Escuderías Top-Down 2D Switcher */
+.f1-team-car-stage.view-topdown {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0.45) 75%);
+}
+.f1-team-car-stage.view-topdown .f1-team-car-img {
+    transform: rotate(90deg) scale(0.85);
+    max-height: 175px;
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.75));
+}
+
 /* 13-Segment LED Shift Lights */
 .shift-lights-bar {
     display: grid;
