@@ -220,46 +220,177 @@
         <section id="about" class="section-wrapper">
             <div class="container">
                 <div class="section-header reveal">
-                    <h2 class="section-title" data-i18n="about_label_title">Soberanía Tecnológica &amp; Arquitectura SaaS</h2>
+                    <h2 class="section-title" data-i18n="about_label_title">Soberanía Tecnológica &amp; SaaS</h2>
                     <p class="section-description" data-i18n="about_p1">
-                        Diseño y construyo plataformas a medida y flujos de automatización que eliminan suscripciones mensuales rígidas. Tu empresa controla el código y los datos al 100%.
+                        Software propietario y flujos autónomos. Control total de código, datos e infraestructura.
                     </p>
                 </div>
 
                 <div class="bento-grid">
-                    <!-- Bento Card 1: Soberanía Tecnológica (Span 7) -->
-                    <div class="bento-col-7 bento-card reveal">
-                        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;" data-i18n="about_p1_title">Soberanía Tecnológica Total</h3>
-                        <p data-i18n="about_p1_desc">Código fuente e infraestructura de tu propiedad. Sin comisiones recurrentes ni lock-in de proveedores.</p>
-                        <div class="bento-stat-strip">
-                            <div class="bento-stat-item">
-                                <span class="bento-stat-value" style="color: var(--accent-emerald);">0%</span>
-                                <p class="bento-stat-label" data-i18n="about_stat_1">Comisiones Recurrentes</p>
+                    <!-- Bento Card 1: Soberanía Tecnológica (Span 6) -->
+                    <div class="bento-col-6 bento-card bento-sovereignty-card reveal">
+                        <div class="bento-card-main">
+                            <div class="bento-card-header">
+                                <span class="hero-chip" data-i18n="about_p1_chip">Control Total</span>
+                                <span class="bento-concept-badge" data-i18n="about_p1_badge">Soberanía Digital</span>
                             </div>
-                            <div class="bento-stat-divider" aria-hidden="true"></div>
-                            <div class="bento-stat-item">
-                                <span class="bento-stat-value" style="color: var(--accent-cyan);">100%</span>
-                                <p class="bento-stat-label" data-i18n="about_stat_2">Propiedad del Código</p>
+                            <h3 class="section-title" data-i18n="about_p1_title">Soberanía Tecnológica</h3>
+                            <p data-i18n="about_p1_desc">Código fuente e infraestructura bajo tu control exclusivo, sin licencias mensuales.</p>
+                        </div>
+
+                        <!-- Live Glass Architecture Stage (Code </> + Smooth Connection + Minimalist Server) -->
+                        <div class="sovereignty-diagram-glass" role="region" aria-label="Diagrama interactivo: Código propio conectado directamente a infraestructura dedicada sin intermediarios">
+                            <div class="diag-ambient-glow glow-cyan" aria-hidden="true"></div>
+                            <div class="diag-ambient-glow glow-emerald" aria-hidden="true"></div>
+
+                            <!-- Connection SVG Beam -->
+                            <svg class="diag-connector-svg" viewBox="0 0 260 20" fill="none" preserveAspectRatio="none" aria-hidden="true">
+                                <defs>
+                                    <linearGradient id="diagFlowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.15"/>
+                                        <stop offset="25%" stop-color="#38BDF8" stop-opacity="0.95"/>
+                                        <stop offset="75%" stop-color="#10B981" stop-opacity="0.95"/>
+                                        <stop offset="100%" stop-color="#10B981" stop-opacity="0.15"/>
+                                    </linearGradient>
+                                </defs>
+                                <line x1="20" y1="10" x2="240" y2="10" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5" stroke-dasharray="4 4" />
+                                <line class="diag-line-flow" x1="20" y1="10" x2="240" y2="10" stroke="url(#diagFlowGrad)" stroke-width="2.2" stroke-linecap="round" />
+                            </svg>
+
+                            <!-- Interactive Nodes -->
+                            <div class="diag-nodes-stage">
+                                <!-- Node 1: Símbolo </> -->
+                                <div class="diag-node diag-node-code">
+                                    <div class="diag-node-badge">
+                                        <span class="diag-status-dot pulse-cyan"></span>
+                                        <span class="diag-badge-text" data-i18n="about_diag_code_badge">CÓDIGO PROPIO</span>
+                                    </div>
+                                    <div class="diag-node-icon-wrap code-glow">
+                                        <span class="diag-code-symbol">&lt;/&gt;</span>
+                                    </div>
+                                    <div class="diag-node-meta">
+                                        <span class="diag-node-title" data-i18n="about_diag_code_title">Software Propio</span>
+                                        <span class="diag-node-sub" data-i18n="about_diag_code_sub">Sin Intermediarios</span>
+                                    </div>
+                                </div>
+
+                                <!-- Center Pill: Direct Connection -->
+                                <div class="diag-center-pill">
+                                    <span class="diag-pill-icon" aria-hidden="true">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="13 17 18 12 13 7"></polyline>
+                                            <polyline points="6 17 11 12 6 7"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span class="diag-pill-text" data-i18n="about_diag_direct">Directo</span>
+                                </div>
+
+                                <!-- Node 2: Servidor Minimalista -->
+                                <div class="diag-node diag-node-server">
+                                    <div class="diag-node-badge">
+                                        <span class="diag-status-dot pulse-emerald"></span>
+                                        <span class="diag-badge-text" data-i18n="about_diag_server_badge">DEDICADO</span>
+                                    </div>
+                                    <div class="diag-node-icon-wrap server-glow">
+                                        <svg class="diag-server-svg" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                                            <!-- Blade 1 -->
+                                            <rect x="3" y="3.5" width="22" height="5.5" rx="1.8" fill="rgba(10, 18, 30, 0.9)" stroke="rgba(56, 189, 248, 0.45)" stroke-width="1"/>
+                                            <circle cx="6.5" cy="6.2" r="1.1" fill="#10B981"/>
+                                            <circle cx="10" cy="6.2" r="0.9" fill="rgba(255,255,255,0.4)"/>
+                                            <line x1="14" y1="6.2" x2="21" y2="6.2" stroke="rgba(255,255,255,0.25)" stroke-width="1" stroke-linecap="round"/>
+                                            <!-- Blade 2 -->
+                                            <rect x="3" y="11.2" width="22" height="5.5" rx="1.8" fill="rgba(10, 18, 30, 0.9)" stroke="rgba(16, 185, 129, 0.45)" stroke-width="1"/>
+                                            <circle cx="6.5" cy="14" r="1.1" fill="#38BDF8"/>
+                                            <circle cx="10" cy="14" r="0.9" fill="rgba(255,255,255,0.4)"/>
+                                            <line x1="14" y1="14" x2="21" y2="14" stroke="rgba(255,255,255,0.25)" stroke-width="1" stroke-linecap="round"/>
+                                            <!-- Blade 3 -->
+                                            <rect x="3" y="19" width="22" height="5.5" rx="1.8" fill="rgba(10, 18, 30, 0.9)" stroke="rgba(56, 189, 248, 0.45)" stroke-width="1"/>
+                                            <circle cx="6.5" cy="21.7" r="1.1" fill="#10B981"/>
+                                            <circle cx="10" cy="21.7" r="0.9" fill="rgba(255,255,255,0.4)"/>
+                                            <line x1="14" y1="21.7" x2="21" y2="21.7" stroke="rgba(255,255,255,0.25)" stroke-width="1" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="diag-node-meta">
+                                        <span class="diag-node-title" data-i18n="about_diag_server_title">Servidor Privado</span>
+                                        <span class="diag-node-sub" data-i18n="about_diag_server_sub">Control Absoluto</span>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        <!-- Clean Symmetric Tags Row (Replaces redundant 0%/100% KPI grid) -->
+                        <div class="bento-tags-row">
+                            <span class="bento-tag" data-i18n="about_tag_repo">Propiedad Intelectual</span>
+                            <span class="bento-tag" data-i18n="about_tag_infra">Infraestructura Dedicada</span>
+                            <span class="bento-tag" data-i18n="about_tag_zero">Cero Dependencias</span>
                         </div>
                     </div>
 
-                    <!-- Bento Card 2: Resiliencia & Concurrencia (Span 5) -->
-                    <div class="bento-col-5 bento-card reveal">
-                        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;" data-i18n="about_p3_title">Resiliencia &amp; Alta Concurrencia</h3>
-                        <p data-i18n="about_p3_desc">Backends con consistencia transaccional diseñados para soportar alta carga y escalabilidad sin cuellos de botella.</p>
+                    <!-- Bento Card 2: Diagrama Conceptual Soberanía Tecnológica (Span 6) -->
+                    <div class="bento-col-6 bento-card bento-concept-card reveal">
+                        <div class="bento-card-main">
+                            <div class="bento-card-header">
+                                <span class="hero-chip" data-i18n="about_arch_chip">Arquitectura</span>
+                                <span class="bento-concept-badge" data-i18n="about_arch_badge">Cloud Dedicada</span>
+                            </div>
+                            <h3 class="section-title" data-i18n="about_arch_title">Arquitectura Desacoplada</h3>
+                            <p class="bento-concept-sub" data-i18n="about_arch_desc">Bases de datos independientes y cómputo distribuido sin dependencias de terceros.</p>
+                        </div>
+                        <div class="bento-concept-frame" id="conceptDiagramTrigger" role="button" tabindex="0" aria-label="Ampliar diagrama de arquitectura">
+                            <img src="img/about/soberania-schematic.webp" 
+                                 alt="Diagrama conceptual ilustrativo de Soberanía Tecnológica e Infraestructura Propietaria" 
+                                 width="800" 
+                                 height="450" 
+                                 loading="lazy" 
+                                 class="bento-concept-img">
+                            <div class="bento-concept-overlay" aria-hidden="true">
+                                <span class="bento-concept-hint">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                                    <span data-i18n="about_arch_expand">Ver Detalle</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Clean Symmetric Tags Row (Replaces redundant 100%/<50ms KPI grid) -->
+                        <div class="bento-tags-row">
+                            <span class="bento-tag" data-i18n="about_tag_db">PostgreSQL Aislado</span>
+                            <span class="bento-tag" data-i18n="about_tag_api">APIs REST / Webhooks</span>
+                            <span class="bento-tag" data-i18n="about_tag_edge">Latencia Edge &lt; 50ms</span>
+                        </div>
                     </div>
 
                     <!-- Bento Card 3: Automatización & Agentes IA (Span 6) -->
                     <div class="bento-col-6 bento-card reveal">
-                        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;" data-i18n="about_p2_title">Automatización &amp; Agentes IA</h3>
-                        <p data-i18n="about_p2_desc">Pipelines autónomos en WhatsApp y n8n conectados a tu base de datos y CRM para operaciones 24/7 sin fallos.</p>
+                        <div class="bento-card-main">
+                            <div class="bento-card-header">
+                                <span class="hero-chip" data-i18n="about_p2_chip">Automatización</span>
+                                <span class="bento-tag" style="color: var(--accent-cyan);" data-i18n="about_p2_badge">● 24/7 Autónomo</span>
+                            </div>
+                            <h3 class="section-title" data-i18n="about_p2_title">Automatización &amp; IA</h3>
+                            <p data-i18n="about_p2_desc">Pipelines en WhatsApp y n8n conectados a tu CRM 24/7.</p>
+                        </div>
+                        <div class="bento-tags-row">
+                            <span class="bento-tag">WhatsApp API</span>
+                            <span class="bento-tag">Workflows n8n</span>
+                            <span class="bento-tag">Sync CRM</span>
+                        </div>
                     </div>
 
                     <!-- Bento Card 4: Arquitectura Enterprise (Span 6) -->
                     <div class="bento-col-6 bento-card reveal">
-                        <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.75rem;" data-i18n="about_node_title">Arquitectura &amp; Ecosistemas SaaS</h3>
-                        <p data-i18n="about_p2">Next.js, Node.js y Python conectados a WhatsApp Cloud API y n8n para operaciones continuas 24/7 sin fallos.</p>
+                        <div class="bento-card-main">
+                            <div class="bento-card-header">
+                                <span class="hero-chip" data-i18n="about_node_chip">Stack Core</span>
+                                <span class="bento-tag" style="color: var(--accent-emerald);" data-i18n="about_node_badge">● Alta Concurrencia</span>
+                            </div>
+                            <h3 class="section-title" data-i18n="about_node_title">Stack Core &amp; Alta Concurrencia</h3>
+                            <p data-i18n="about_p2">Backends resilientes, consistencia transaccional y microservicios escalables.</p>
+                        </div>
+                        <div class="bento-tags-row">
+                            <span class="bento-tag">Next.js / Node</span>
+                            <span class="bento-tag">Python FastAPI</span>
+                            <span class="bento-tag">PostgreSQL ACID</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -273,7 +404,7 @@
                 <div class="section-header reveal">
                     <h2 class="section-title" data-i18n="social_proof_title">Ingeniería Probada en Entornos Reales</h2>
                     <p class="section-description" data-i18n="social_proof_sub">
-                        Código modular testeado bajo tráfico real, arquitecturas escalables y soberanía tecnológica total sin dependencias frágiles.
+                        Código testeado bajo tráfico real, tipado estricto y alta disponibilidad.
                     </p>
                 </div>
 
@@ -282,11 +413,11 @@
                     <div class="bento-col-6 bento-card reveal">
                         <div>
                             <div class="bento-card-header">
-                                <span class="hero-chip" data-i18n="sp_r1_tag">Calidad de Código</span>
+                                <span class="hero-chip" data-i18n="sp_r1_tag">Tipado Estricto</span>
                                 <span class="hero-chip">TypeScript</span>
                             </div>
-                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r1_title">Despliegues continuos, tipado estricto y cero regresiones</h3>
-                            <p data-i18n="sp_r1_quote">Tipado estricto con TypeScript, pruebas continuas y despliegues sin regresiones en producción.</p>
+                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r1_title">Calidad de Código &amp; CI/CD</h3>
+                            <p data-i18n="sp_r1_quote">Pruebas continuas y despliegues reproducibles sin regresiones.</p>
                         </div>
                     </div>
 
@@ -297,8 +428,8 @@
                                 <span class="hero-chip" data-i18n="sp_r2_tag">Alta Concurrencia</span>
                                 <span class="hero-chip" style="color: var(--accent-emerald);">99.9% Uptime</span>
                             </div>
-                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r2_title">Arquitecturas resilientes preparadas para alta carga</h3>
-                            <p data-i18n="sp_r2_quote">Arquitecturas cloud y backends asíncronos diseñados para absorber picos de tráfico sin cuellos de botella.</p>
+                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r2_title">Rendimiento &amp; Escala</h3>
+                            <p data-i18n="sp_r2_quote">Backends asíncronos preparados para absorber picos de tráfico.</p>
                         </div>
                     </div>
 
@@ -306,11 +437,11 @@
                     <div class="bento-col-6 bento-card reveal">
                         <div>
                             <div class="bento-card-header">
-                                <span class="hero-chip" data-i18n="sp_r3_tag">Automatización Oficial</span>
+                                <span class="hero-chip" data-i18n="sp_r3_tag">Soberanía Digital</span>
                                 <span class="hero-chip">WhatsApp Cloud</span>
                             </div>
-                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r3_title">Integración certificada con WhatsApp Business Cloud API</h3>
-                            <p data-i18n="sp_r3_quote">Código e infraestructura 100% de tu propiedad. Sin comisiones recurrentes ni dependencia de terceros.</p>
+                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r3_title">Meta Cloud API Oficial</h3>
+                            <p data-i18n="sp_r3_quote">Conexión directa sin intermediarios ni pasarelas de terceros.</p>
                         </div>
                     </div>
 
@@ -318,11 +449,11 @@
                     <div class="bento-col-6 bento-card reveal">
                         <div>
                             <div class="bento-card-header">
-                                <span class="hero-chip" data-i18n="sp_r4_tag">Seguridad &amp; Aislamiento</span>
+                                <span class="hero-chip" data-i18n="sp_r4_tag">Seguridad Aislada</span>
                                 <span class="hero-chip">TLS / JWT</span>
                             </div>
-                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r4_title">Aislamiento de datos multi-tenant y cifrado de extremo a extremo</h3>
-                            <p data-i18n="sp_r4_quote">Bases de datos aisladas por cliente, autenticación criptográfica y cifrado TLS de extremo a extremo.</p>
+                            <h3 class="section-title" style="font-size: 1.35rem; margin-bottom: 0.75rem;" data-i18n="sp_r4_title">Aislamiento Multi-tenant</h3>
+                            <p data-i18n="sp_r4_quote">Bases de datos segregadas por cliente y cifrado TLS criptográfico.</p>
                         </div>
                     </div>
                 </div>
@@ -335,7 +466,7 @@
         <section id="services" class="section-wrapper">
             <div class="container">
                 <div class="section-header reveal">
-                    <h2 class="section-title" data-i18n="services_title">Servicios &amp; Sistemas en Producción</h2>
+                    <h2 class="section-title" data-i18n="services_title">Servicios Principales</h2>
                 </div>
 
                 <div class="bento-grid">
@@ -352,7 +483,7 @@
                             <div class="project-details">
                                 <h3 class="section-title" style="font-size: 1.85rem;" data-i18n="proj_1_unified_title">Suite Empresarial de IA</h3>
                                 <p data-i18n="proj_1_unified_desc">
-                                    Asistente conversacional con IA y terminal de pedidos DeliveryBot. Respuestas inmediatas 24/7 y cobros automáticos.
+                                    Asistente conversacional IA y terminal de pedidos. Atención 24/7 y cobros automáticos.
                                 </p>
                                 <div class="project-tags-row">
                                     <span class="project-tag">Groq AI</span>
@@ -362,7 +493,7 @@
                                 </div>
                                 <div>
                                     <a href="proyecto-bot-whatsapp/index.html" class="btn-island" data-i18n="project_btn_view_unified">
-                                        Explorar Ecosistema <span class="btn-island-icon">↗</span>
+                                        Explorar Ecosistema ↗
                                     </a>
                                 </div>
                             </div>
@@ -376,7 +507,7 @@
                         </div>
                         <h3 class="section-title" style="font-size: 1.5rem;" data-i18n="serv_2_title">Desarrollo Web &amp; SaaS</h3>
                         <p data-i18n="serv_2_desc">
-                            Plataformas a medida, paneles de administración y backends de alto rendimiento en Next.js y Node.js.
+                            Paneles administrativos, APIs y plataformas web de alto rendimiento.
                         </p>
                         <div class="project-tags-row">
                             <span class="project-tag">React / Next.js</span>
@@ -395,9 +526,9 @@
                         <div class="project-media-frame" style="max-height: 240px;">
                             <img src="img/projects/formula1/f1-sim-pro-logo.jpg" alt="F1 Sim Pro Motorsport" loading="lazy">
                         </div>
-                        <h3 class="section-title" style="font-size: 1.5rem;" data-i18n="serv_3_title">F1 Sim Pro — Motor Concurrente &amp; Algoritmos Java</h3>
+                        <h3 class="section-title" style="font-size: 1.5rem;" data-i18n="serv_3_title">F1 Sim Pro — Motor de Telemetría</h3>
                         <p data-i18n="serv_3_desc">
-                            Simulador de telemetría y física a 60 FPS con Java 17, algoritmos concurrentes y modelos estocásticos.
+                            Simulador a 60 FPS con algoritmos concurrentes y Java 17.
                         </p>
                         <div class="project-tags-row">
                             <span class="project-tag">Java 17 Concurrente</span>
@@ -426,157 +557,337 @@
                 <div class="matrix-grid">
                     <!-- Step 1 -->
                     <div class="bento-card reveal">
-                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step1_title">Diagnóstico Inicial</h3>
-                        <p data-i18n="wf_step1_desc">Analizamos tus cuellos de botella operativos y oportunidades de automatización.</p>
+                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step1_title">1. Diagnóstico</h3>
+                        <p data-i18n="wf_step1_desc">Auditoría de procesos y cálculo de ROI.</p>
                     </div>
 
                     <!-- Step 2 -->
                     <div class="bento-card reveal">
-                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step2_title">Propuesta &amp; Arquitectura</h3>
-                        <p data-i18n="wf_step2_desc">Diseñamos la solución técnica orientada al máximo retorno de inversión (ROI).</p>
+                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step2_title">2. Arquitectura</h3>
+                        <p data-i18n="wf_step2_desc">Diseño modular de sistemas, APIs y base de datos.</p>
                     </div>
 
                     <!-- Step 3 -->
                     <div class="bento-card reveal">
-                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step3_title">Desarrollo Ágil</h3>
-                        <p data-i18n="wf_step3_desc">Construimos e iteramos rápidamente usando tecnologías sólidas y tipado estricto.</p>
+                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step3_title">3. Desarrollo</h3>
+                        <p data-i18n="wf_step3_desc">Construcción ágil con tipado estricto y testing.</p>
                     </div>
 
                     <!-- Step 4 -->
                     <div class="bento-card reveal">
-                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step4_title">Despliegue &amp; Soporte</h3>
-                        <p data-i18n="wf_step4_desc">Lanzamos el sistema a producción y aseguramos su estabilidad continua 24/7.</p>
+                        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="wf_step4_title">4. Despliegue</h3>
+                        <p data-i18n="wf_step4_desc">Lanzamiento a producción y monitorización 24/7.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ============================================================
-             CAPACIDADES TÉCNICAS (Clean Matrix)
+             CAPACIDADES CORE (Refined 4-Column Dark Glass Grid)
              ============================================================ -->
         <section id="skills" class="section-wrapper">
             <div class="container">
-                <div class="section-header reveal">
-                    <h2 class="section-title" data-i18n="skills_title">Stack &amp; Arquitectura</h2>
+                <div class="capabilities-header reveal">
+                    <h2 class="capabilities-title" data-i18n="skills_title">
+                        Capacidades <span class="capabilities-title-accent">Core</span>
+                    </h2>
+                    <div class="capabilities-accent-line"></div>
                 </div>
 
-                <div class="matrix-grid">
-                    <!-- Domain 1 -->
-                    <div class="bento-card matrix-card reveal">
-                        <div class="matrix-header">
-                            <h3 data-i18n="cat_scripting">Scripting &amp; Runtimes</h3>
+                <div class="capabilities-grid">
+                    <!-- Column 1: Scripting & Lenguajes -->
+                    <div class="capability-card reveal">
+                        <div class="capability-card-header">
+                            <div class="capability-header-top">
+                                <div class="capability-cat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <polyline points="16 18 22 12 16 6"></polyline>
+                                        <polyline points="8 6 2 12 8 18"></polyline>
+                                    </svg>
+                                </div>
+                                <h3 class="capability-cat-title" data-i18n="cat_scripting">Scripting &amp; Lenguajes</h3>
+                            </div>
+                            <p class="capability-cat-sub" data-i18n="cat_scripting_sub">Backend &amp; Runtimes</p>
                         </div>
-                        <div class="matrix-items-list">
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>TypeScript / Node.js</span>
-                                    <span class="matrix-badge">Strict</span>
+                        <div class="capability-divider"></div>
+                        <div class="capability-items-list">
+                            <!-- Item 1: TypeScript & Node.js -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="4"></rect>
+                                        <path d="M8 8v8"></path>
+                                        <path d="M16 8h-4v4h3a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5H12"></path>
+                                    </svg>
                                 </div>
-                                <span class="matrix-item-desc">APIs asíncronas, microservicios, tipado estricto</span>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">TypeScript &amp; Node.js</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_ts">
+                                        <span class="cap-tag accent">APIs</span>
+                                        <span class="cap-tag">Microservicios</span>
+                                        <span class="cap-tag">Tipado</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>Python 3</span>
-                                    <span class="matrix-badge">Async</span>
+                            <!-- Item 2: Python 3 -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 9H7a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h2v-2a2 2 0 0 1 2-2h4a2 2 0 0 0 2-2V9a3 3 0 0 0-3-3h-2v2a1 1 0 0 1-1 1z"></path>
+                                        <path d="M12 15h5a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3h-2v2a2 2 0 0 1-2 2h-4a2 2 0 0 0-2 2v2a3 3 0 0 0 3 3h2v-2a1 1 0 0 1 1-1z"></path>
+                                        <circle cx="9" cy="6.5" r=".75" fill="currentColor"></circle>
+                                        <circle cx="15" cy="17.5" r=".75" fill="currentColor"></circle>
+                                    </svg>
                                 </div>
-                                <span class="matrix-item-desc">Pipelines de datos, IA, procesamiento de lenguaje natural</span>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">Python 3</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_py">
+                                        <span class="cap-tag accent">Pipelines</span>
+                                        <span class="cap-tag">Modelos IA</span>
+                                        <span class="cap-tag">NLP</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>Java 17</span>
-                                    <span class="matrix-badge">LTS</span>
+                            <!-- Item 3: Java 17 -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                                        <line x1="6" y1="1" x2="6" y2="4"></line>
+                                        <line x1="10" y1="1" x2="10" y2="4"></line>
+                                        <line x1="14" y1="1" x2="14" y2="4"></line>
+                                    </svg>
                                 </div>
-                                <span class="matrix-item-desc">Concurrencia, ExecutorService, POO enterprise</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Domain 2 -->
-                    <div class="bento-card matrix-card reveal">
-                        <div class="matrix-header">
-                            <h3 data-i18n="cat_frameworks">Frameworks &amp; UI</h3>
-                        </div>
-                        <div class="matrix-items-list">
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>React / Next.js</span>
-                                    <span class="matrix-badge">App Router</span>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">Java 17</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_java">
+                                        <span class="cap-tag accent">Concurrencia</span>
+                                        <span class="cap-tag">Multithreading</span>
+                                        <span class="cap-tag">POO</span>
+                                    </div>
                                 </div>
-                                <span class="matrix-item-desc">Server Components, SSR de alta fidelidad, SEO</span>
-                            </div>
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>FastAPI / Express</span>
-                                    <span class="matrix-badge">REST</span>
-                                </div>
-                                <span class="matrix-item-desc">Microservicios ligeros, OpenAPI y autenticación JWT</span>
-                            </div>
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>Modern Vanilla CSS</span>
-                                    <span class="matrix-badge">Design Systems</span>
-                                </div>
-                                <span class="matrix-item-desc">Arquitecturas Bento, microinteracciones fluidas</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Domain 3 -->
-                    <div class="bento-card matrix-card reveal">
-                        <div class="matrix-header">
-                            <h3>IA &amp; Automatizaciones</h3>
-                        </div>
-                        <div class="matrix-items-list">
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>WhatsApp Cloud API</span>
-                                    <span class="matrix-badge">Meta Oficial</span>
-                                </div>
-                                <span class="matrix-item-desc">Asistentes conversacionales, DeliveryBot, Webhooks</span>
-                            </div>
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>n8n Workflows</span>
-                                    <span class="matrix-badge">Self-hosted</span>
-                                </div>
-                                <span class="matrix-item-desc">Orquestación de pipelines, CRMs y pagos automatizados</span>
-                            </div>
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>Groq &amp; LLM Orchestration</span>
-                                    <span class="matrix-badge">Ultra Low Latency</span>
-                                </div>
-                                <span class="matrix-item-desc">Inferencia de lenguaje a velocidad sub-segundo</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Domain 4 -->
-                    <div class="bento-card matrix-card reveal">
-                        <div class="matrix-header">
-                            <h3 data-i18n="cat_backend">Cloud &amp; Seguridad</h3>
+                    <!-- Column 2: Ecosistema & UI -->
+                    <div class="capability-card reveal">
+                        <div class="capability-card-header">
+                            <div class="capability-header-top">
+                                <div class="capability-cat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                                    </svg>
+                                </div>
+                                <h3 class="capability-cat-title" data-i18n="cat_frameworks">Ecosistema &amp; UI</h3>
+                            </div>
+                            <p class="capability-cat-sub" data-i18n="cat_frameworks_sub">Frontend &amp; Arquitectura</p>
                         </div>
-                        <div class="matrix-items-list">
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>PostgreSQL &amp; MongoDB</span>
-                                    <span class="matrix-badge">ACID</span>
+                        <div class="capability-divider"></div>
+                        <div class="capability-items-list">
+                            <!-- Item 1: React / Next.js -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"></ellipse>
+                                        <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(90 12 12)"></ellipse>
+                                        <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(150 12 12)"></ellipse>
+                                        <circle cx="12" cy="12" r="1.5" fill="currentColor"></circle>
+                                    </svg>
                                 </div>
-                                <span class="matrix-item-desc">Esquemas multi-tenant aislados, consistencia transaccional</span>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">React / Next.js</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_react">
+                                        <span class="cap-tag accent">Server Components</span>
+                                        <span class="cap-tag">SSR</span>
+                                        <span class="cap-tag">SEO</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>Docker &amp; CI/CD</span>
-                                    <span class="matrix-badge">DevOps</span>
+                            <!-- Item 2: FastAPI / Express -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                    </svg>
                                 </div>
-                                <span class="matrix-item-desc">Despliegues reproducibles, pipelines de testing continuo</span>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">FastAPI / Express</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_fastapi">
+                                        <span class="cap-tag accent">REST APIs</span>
+                                        <span class="cap-tag">OpenAPI</span>
+                                        <span class="cap-tag">Auth JWT</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="matrix-item">
-                                <div class="matrix-item-title">
-                                    <span>Cloudflare Workers</span>
-                                    <span class="matrix-badge">Edge</span>
+                            <!-- Item 3: Modern Vanilla CSS -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"></path>
+                                        <circle cx="7.5" cy="11.5" r="1" fill="currentColor"></circle>
+                                        <circle cx="12" cy="7.5" r="1" fill="currentColor"></circle>
+                                        <circle cx="16.5" cy="11.5" r="1" fill="currentColor"></circle>
+                                    </svg>
                                 </div>
-                                <span class="matrix-item-desc">Serverless global, protección DDoS y CDN distribuida</span>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">Modern Vanilla CSS</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_css">
+                                        <span class="cap-tag accent">Bento UI</span>
+                                        <span class="cap-tag">Design Systems</span>
+                                        <span class="cap-tag">Motion</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: IA & Automatizaciones -->
+                    <div class="capability-card reveal">
+                        <div class="capability-card-header">
+                            <div class="capability-header-top">
+                                <div class="capability-cat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"></path>
+                                        <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="capability-cat-title" data-i18n="cat_automation">IA &amp; Automatizaciones</h3>
+                            </div>
+                            <p class="capability-cat-sub" data-i18n="cat_automation_sub">Agentes &amp; Workflows</p>
+                        </div>
+                        <div class="capability-divider"></div>
+                        <div class="capability-items-list">
+                            <!-- Item 1: WhatsApp Cloud API -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                    </svg>
+                                </div>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">WhatsApp Cloud API</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_wa">
+                                        <span class="cap-tag accent">Chatbots</span>
+                                        <span class="cap-tag">Webhooks</span>
+                                        <span class="cap-tag">DeliveryBot</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Item 2: n8n Workflows -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="18" cy="5" r="3"></circle>
+                                        <circle cx="6" cy="12" r="3"></circle>
+                                        <circle cx="18" cy="19" r="3"></circle>
+                                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                                    </svg>
+                                </div>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">n8n Workflows</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_n8n">
+                                        <span class="cap-tag accent">Pipelines</span>
+                                        <span class="cap-tag">CRMs</span>
+                                        <span class="cap-tag">Integraciones</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Item 3: Groq & LLM Orchestration -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                                    </svg>
+                                </div>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">Groq &amp; LLMs</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_groq">
+                                        <span class="cap-tag accent">Inferencia Rápida</span>
+                                        <span class="cap-tag">RAG</span>
+                                        <span class="cap-tag">LLMs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 4: Arquitectura Backend -->
+                    <div class="capability-card reveal">
+                        <div class="capability-card-header">
+                            <div class="capability-header-top">
+                                <div class="capability-cat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <rect x="2" y="2" width="20" height="8" rx="2"></rect>
+                                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                                    </svg>
+                                </div>
+                                <h3 class="capability-cat-title" data-i18n="cat_backend">Arquitectura Backend</h3>
+                            </div>
+                            <p class="capability-cat-sub" data-i18n="cat_backend_sub">Infraestructura &amp; Cloud</p>
+                        </div>
+                        <div class="capability-divider"></div>
+                        <div class="capability-items-list">
+                            <!-- Item 1: PostgreSQL & MongoDB -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                                    </svg>
+                                </div>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">PostgreSQL &amp; MongoDB</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_db">
+                                        <span class="cap-tag accent">ACID</span>
+                                        <span class="cap-tag">Multi-tenant</span>
+                                        <span class="cap-tag">NoSQL</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Item 2: Docker & CI/CD -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 13h20"></path>
+                                        <path d="M20 13a8 8 0 0 1-16 0"></path>
+                                        <rect x="6" y="9" width="3" height="3"></rect>
+                                        <rect x="10" y="9" width="3" height="3"></rect>
+                                        <rect x="14" y="9" width="3" height="3"></rect>
+                                        <rect x="10" y="5" width="3" height="3"></rect>
+                                    </svg>
+                                </div>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">Docker &amp; CI/CD</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_docker">
+                                        <span class="cap-tag accent">Contenedores</span>
+                                        <span class="cap-tag">CI/CD</span>
+                                        <span class="cap-tag">DevOps</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Item 3: Cloudflare Workers -->
+                            <div class="capability-item">
+                                <div class="cap-item-icon-wrap" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    </svg>
+                                </div>
+                                <div class="cap-item-content">
+                                    <span class="cap-item-title">Cloudflare Workers</span>
+                                    <div class="cap-item-tags" data-i18n="cap_tags_cf">
+                                        <span class="cap-tag accent">Edge</span>
+                                        <span class="cap-tag">Serverless</span>
+                                        <span class="cap-tag">CDN</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -598,8 +909,8 @@
                     <div class="bento-card timeline-row reveal">
                         <span class="timeline-date" data-i18n="item1_date">Nov 2025</span>
                         <div class="timeline-card-content">
-                            <h3 data-i18n="item1_title">Lanzamiento Suite Empresarial IA &amp; WhatsApp Bot</h3>
-                            <p data-i18n="item1_desc">Despliegue en producción de terminales de pedidos y asistentes conversacionales con Meta Cloud API y n8n.</p>
+                            <h3 data-i18n="item1_title">Suite IA &amp; WhatsApp Bot</h3>
+                            <p data-i18n="item1_desc">Terminal de pedidos y bots conversacionales con Meta Cloud API y n8n.</p>
                             <div class="timeline-tags">
                                 <span class="hero-chip">Meta Cloud API</span>
                                 <span class="hero-chip">n8n</span>
@@ -612,8 +923,8 @@
                     <div class="bento-card timeline-row reveal">
                         <span class="timeline-date" data-i18n="item2_date">Ene 2026</span>
                         <div class="timeline-card-content">
-                            <h3 data-i18n="item2_title">Arquitectura Concurrente F1 Sim Pro</h3>
-                            <p data-i18n="item2_desc">Motor de simulación física y telemetría en tiempo real basado en modelos multihilo y sincronización a 60 FPS.</p>
+                            <h3 data-i18n="item2_title">F1 Sim Pro — Motor Concurrente</h3>
+                            <p data-i18n="item2_desc">Simulación física y telemetría a 60 FPS con Java 17 y multithreading.</p>
                             <div class="timeline-tags">
                                 <span class="hero-chip">Java 17</span>
                                 <span class="hero-chip">Multithreading</span>
@@ -626,8 +937,8 @@
                     <div class="bento-card timeline-row reveal">
                         <span class="timeline-date" data-i18n="item3_date">Mar 2026</span>
                         <div class="timeline-card-content">
-                            <h3 data-i18n="item3_title">Sistemas Propietarios &amp; Ecosistemas Web</h3>
-                            <p data-i18n="item3_desc">Consolidación de AG Private Engineering para desarrollo de software propietario sin costes de agencia.</p>
+                            <h3 data-i18n="item3_title">Software Propietario &amp; SaaS</h3>
+                            <p data-i18n="item3_desc">Ecosistemas web a medida en Next.js, 100% de tu propiedad y sin comisiones.</p>
                             <div class="timeline-tags">
                                 <span class="hero-chip">Next.js</span>
                                 <span class="hero-chip">SaaS Propietario</span>
@@ -674,8 +985,7 @@
                 <div class="bento-card contact-card reveal">
                     <h2 class="section-title" data-i18n="contact_heading">Hablemos de tu Proyecto</h2>
                     <p class="section-description" data-i18n="contact_sub">
-                        Ingeniería de software a medida, automatizaciones e infraestructura cloud.<br>
-                        Trato directo con el desarrollador, sin intermediarios ni costes inflados de agencia.
+                        Diseñemos una arquitectura sólida para escalar tu empresa sin dependencias técnicas.
                     </p>
                     <div class="contact-actions-grid">
                         <a href="mailto:andres.guerra@gmail.com" class="contact-link-pill">
@@ -708,6 +1018,24 @@
             <p data-i18n="footer_rights">&copy; 2026 AG Private Engineering — Andrés Felipe Guerra. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <!-- Diagram Lightbox Modal (High-res Architecture & Vault Inspection) -->
+    <div class="diagram-lightbox-backdrop" id="diagramLightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visualizador de Esquemas e Ilustraciones">
+        <div class="diagram-lightbox-card">
+            <button type="button" class="diagram-lightbox-close" id="closeDiagramLightbox" aria-label="Cerrar modal">&times;</button>
+            <div class="diagram-lightbox-media">
+                <img id="diagramLightboxImg" src="img/about/soberania-schematic.webp" alt="Diagrama Conceptual de Soberanía Tecnológica e Infraestructura Propietaria" class="diagram-lightbox-img">
+            </div>
+            <div class="diagram-lightbox-caption">
+                <div class="diagram-lightbox-tags">
+                    <span id="diagramLightboxChip" class="hero-chip" data-i18n="about_arch_chip">Esquema de Arquitectura</span>
+                    <span id="diagramLightboxBadge" class="bento-concept-badge" data-i18n="about_arch_badge">100% Propietario</span>
+                </div>
+                <h3 id="diagramLightboxTitle" class="diagram-lightbox-title" data-i18n="about_arch_title">Ecosistema Desacoplado &amp; Soberanía</h3>
+                <p id="diagramLightboxDesc" class="diagram-lightbox-desc" data-i18n="about_arch_desc">Infraestructura dedicada: base de datos, APIs directas y cómputo edge sin intermediarios ni rentas SaaS.</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Interactive Logic & i18n Modules -->
     <script src="js/app.js" defer></script>

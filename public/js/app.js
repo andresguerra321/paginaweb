@@ -268,6 +268,107 @@
             }
         }
 
+        /* ------------------------------------------------------------
+           8. ARCHITECTURE & VAULT LIGHTBOX MODAL
+           ------------------------------------------------------------ */
+        const diagramTrigger = document.getElementById('conceptDiagramTrigger');
+        const vaultTrigger = document.getElementById('sovereigntyVaultTrigger');
+        const diagramLightbox = document.getElementById('diagramLightbox');
+        const closeDiagramBtn = document.getElementById('closeDiagramLightbox');
+        const lightboxImg = document.getElementById('diagramLightboxImg');
+        const lightboxChip = document.getElementById('diagramLightboxChip');
+        const lightboxBadge = document.getElementById('diagramLightboxBadge');
+        const lightboxTitle = document.getElementById('diagramLightboxTitle');
+        const lightboxDesc = document.getElementById('diagramLightboxDesc');
+
+        const lightboxPresets = {
+            schematic: {
+                src: 'img/about/soberania-schematic.webp',
+                alt: 'Diagrama Conceptual de Soberanía Tecnológica e Infraestructura Propietaria',
+                chipKey: 'about_arch_chip',
+                badgeKey: 'about_arch_badge',
+                titleKey: 'about_arch_title',
+                descKey: 'about_arch_desc'
+            },
+            vault: {
+                src: 'img/about/soberania-vault.webp',
+                alt: 'Ilustración Conceptual de Bóveda Digital Soberana, 100% Propiedad del Código y 0% Lock-in',
+                chipKey: 'about_p1_chip',
+                badgeKey: 'about_p1_badge',
+                titleKey: 'about_p1_title',
+                descKey: 'about_p1_desc'
+            }
+        };
+
+        function setLightboxData(presetKey) {
+            const preset = lightboxPresets[presetKey];
+            if (!preset) return;
+            if (lightboxImg) {
+                lightboxImg.src = preset.src;
+                lightboxImg.alt = preset.alt;
+            }
+            if (lightboxChip) lightboxChip.setAttribute('data-i18n', preset.chipKey);
+            if (lightboxBadge) lightboxBadge.setAttribute('data-i18n', preset.badgeKey);
+            if (lightboxTitle) lightboxTitle.setAttribute('data-i18n', preset.titleKey);
+            if (lightboxDesc) lightboxDesc.setAttribute('data-i18n', preset.descKey);
+
+            if (window.i18nEngine && typeof window.i18nEngine.setLanguage === 'function') {
+                window.i18nEngine.setLanguage(window.i18nEngine.getLanguage());
+            }
+        }
+
+        function openLightbox(presetKey = 'schematic') {
+            if (!diagramLightbox) return;
+            setLightboxData(presetKey);
+            diagramLightbox.classList.add('active');
+            diagramLightbox.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            if (!diagramLightbox) return;
+            diagramLightbox.classList.remove('active');
+            diagramLightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        if (diagramTrigger && diagramLightbox) {
+            diagramTrigger.addEventListener('click', () => openLightbox('schematic'));
+            diagramTrigger.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openLightbox('schematic');
+                }
+            });
+        }
+
+        if (vaultTrigger && diagramLightbox) {
+            vaultTrigger.addEventListener('click', () => openLightbox('vault'));
+            vaultTrigger.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openLightbox('vault');
+                }
+            });
+        }
+
+        if (closeDiagramBtn && diagramLightbox) {
+            closeDiagramBtn.addEventListener('click', closeLightbox);
+        }
+
+        if (diagramLightbox) {
+            diagramLightbox.addEventListener('click', function (e) {
+                if (e.target === diagramLightbox) {
+                    closeLightbox();
+                }
+            });
+            window.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && diagramLightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+        }
+
         playHeroEntrance();
     }
 })();

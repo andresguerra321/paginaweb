@@ -51,9 +51,11 @@ main.perf-reveal {
     top: 0;
     left: 0;
     height: 2px;
-    width: 0%;
-    background: #6366F1;
-    transition: width 0.1s linear;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: #2563EB;
+    transition: transform 0.1s linear;
 }
 
 /* Minimal Center Content */
@@ -66,12 +68,11 @@ main.perf-reveal {
 }
 
 .minimal-loader-logo {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
     font-weight: 800;
     font-size: 1.8rem;
-    color: #F2F2F2;
-    letter-spacing: 3px;
-    opacity: 0.9;
+    color: #F8FAFC;
+    letter-spacing: 2px;
 }
 
 .minimal-loader-logo span {
