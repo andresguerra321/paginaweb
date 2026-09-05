@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="redbull-body" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#040A14" />
+      <stop offset="35%" stop-color="#09162A" />
+      <stop offset="80%" stop-color="#0E2342" />
+      <stop offset="100%" stop-color="#0A182E" />
+    </linearGradient>
+    <linearGradient id="carbon-floor-rb" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#060709" />
+      <stop offset="50%" stop-color="#12151C" />
+      <stop offset="100%" stop-color="#090A0D" />
+    </linearGradient>
+    <linearGradient id="tire-tread-rb" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#242832" />
+      <stop offset="50%" stop-color="#111317" />
+      <stop offset="100%" stop-color="#090A0D" />
+    </linearGradient>
+    <radialGradient id="rb-wheel" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1E2430" />
+      <stop offset="60%" stop-color="#0C0E14" />
+      <stop offset="100%" stop-color="#050608" />
+    </radialGradient>
+    <filter id="car-shadow-rb" x="-5%" y="-5%" width="115%" height="125%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.75" />
+    </filter>
+  </defs>
+
+  <ellipse cx="300" cy="138" rx="275" ry="8" fill="#000" opacity="0.6" />
+
+  <g filter="url(#car-shadow-rb)">
+    <!-- Floor & Diffuser -->
+    <path d="M75 118 L125 128 L430 128 L475 125 L475 130 L115 132 L68 123 Z" fill="url(#carbon-floor-rb)" />
+    <path d="M68 123 L85 112 L95 126 Z" fill="#040508" />
+
+    <!-- Rear Wing -->
+    <path d="M48 52 L95 48 L108 85 L65 92 Z" fill="#080C14" stroke="#E10600" stroke-width="1.5" />
+    <path d="M52 54 L98 50 L96 58 L54 62 Z" fill="#E10600" />
+    <path d="M54 64 L96 60 L94 67 L56 70 Z" fill="#0A182E" />
+    <rect x="72" y="46" width="6" height="7" rx="1.5" fill="#FFD200" />
+    <path d="M96 56 C88 72, 92 88, 112 108 L118 108 C102 88, 98 72, 104 56 Z" fill="#121722" />
+
+    <!-- Shark Fin & Engine Cover -->
+    <path d="M112 106 L108 68 C155 64, 210 52, 285 40 L285 54 C230 65, 175 78, 140 106 Z" fill="#091322" />
+    <path d="M108 68 L285 40 L285 43 L110 70 Z" fill="#FFD200" />
+    <!-- Red Bull Charging Bull Graphic Stroke -->
+    <circle cx="215" cy="74" r="14" fill="#FFD200" opacity="0.9" />
+    <path d="M185 86 C210 75, 245 74, 275 80" stroke="#E10600" stroke-width="5" stroke-linecap="round" />
+
+    <!-- Airbox & T-Cam -->
+    <path d="M272 48 C272 38, 292 36, 305 38 C318 40, 322 48, 322 62 L275 62 Z" fill="#0A182E" />
+    <ellipse cx="295" cy="46" rx="9" ry="6" fill="#050608" stroke="#FFD200" stroke-width="1.5" />
+    <rect x="290" y="31" width="10" height="6" rx="1" fill="#FF1E14" />
+
+    <!-- Bodywork & Sidepods -->
+    <path d="M135 108 C170 82, 230 76, 310 74 C345 74, 380 72, 400 80 C418 87, 430 102, 432 118 L380 120 C340 120, 270 122, 210 120 C170 119, 145 116, 135 108 Z" fill="url(#redbull-body)" />
+    <path d="M270 120 C330 121, 380 118, 412 108 C405 98, 385 92, 350 94 C300 96, 250 108, 220 120 Z" fill="#04070D" opacity="0.7" />
+    <path d="M255 90 C315 86, 365 86, 405 92" stroke="#E10600" stroke-width="3" stroke-linecap="round" />
+    <path d="M265 96 C320 92, 365 92, 395 97" stroke="#FFD200" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Cockpit, Helmet (Verstappen) & Halo -->
+    <path d="M312 62 C325 62, 355 64, 375 75 L320 75 Z" fill="#050608" />
+    <circle cx="340" cy="62" r="8" fill="#0E2342" />
+    <path d="M336 60 L346 60 L344 64 L337 64 Z" fill="#FFD200" />
+    <circle cx="340" cy="62" r="8" fill="none" stroke="#E10600" stroke-width="1.2" />
+    <path d="M316 62 C328 56, 362 58, 376 72 C376 75, 372 76, 368 74 C356 65, 332 63, 318 67 Z" fill="#0E1624" stroke="#1E2B40" stroke-width="1.2" />
+    <path d="M374 72 L388 78 L386 82 L372 75 Z" fill="#0E1624" />
+    <rect x="368" y="72" width="6" height="3" rx="1" fill="#0E2342" stroke="#E10600" stroke-width="0.8" />
+
+    <!-- Nosecone & Yellow Tip -->
+    <path d="M395 76 C425 80, 475 95, 545 116 L545 120 C520 118, 470 114, 425 106 C408 102, 398 90, 395 76 Z" fill="url(#redbull-body)" />
+    <!-- Iconic Red Bull Yellow Nosecone -->
+    <path d="M515 108 C530 112, 550 118, 562 121 L560 124 L520 115 Z" fill="#FFD200" />
+    <path d="M540 115 L562 121 L560 124 L538 119 Z" fill="#E10600" />
+
+    <!-- Front Wing Assembly -->
+    <path d="M500 124 L576 126 L574 130 L496 128 Z" fill="#0B1E3B" />
+    <path d="M508 121 L572 123 L571 125 L506 123 Z" fill="#FFD200" />
+    <path d="M515 118 L568 120 L567 122 L514 120 Z" fill="#E10600" />
+    <path d="M552 112 C564 114, 576 120, 580 131 L572 132 C568 124, 560 119, 550 116 Z" fill="#060C16" stroke="#FFD200" stroke-width="1.2" />
+
+    <!-- Wheels & Pirelli Tires -->
+    <g>
+      <circle cx="115" cy="105" r="28" fill="url(#tire-tread-rb)" stroke="#000" stroke-width="2" />
+      <circle cx="115" cy="105" r="24.5" fill="none" stroke="#FFD200" stroke-width="1.8" />
+      <circle cx="115" cy="105" r="17" fill="url(#rb-wheel)" stroke="#1F2838" stroke-width="1.5" />
+      <circle cx="115" cy="105" r="11" fill="none" stroke="#E10600" stroke-width="1" stroke-dasharray="3, 3" />
+      <circle cx="115" cy="105" r="4.5" fill="#FFD200" stroke="#FFF" stroke-width="0.8" />
+    </g>
+
+    <line x1="430" y1="94" x2="480" y2="104" stroke="#161F2C" stroke-width="2.5" />
+    <line x1="435" y1="108" x2="482" y2="108" stroke="#161F2C" stroke-width="2.2" />
+
+    <g>
+      <circle cx="485" cy="105" r="28" fill="url(#tire-tread-rb)" stroke="#000" stroke-width="2" />
+      <circle cx="485" cy="105" r="24.5" fill="none" stroke="#FFD200" stroke-width="1.8" />
+      <circle cx="485" cy="105" r="17" fill="url(#rb-wheel)" stroke="#1F2838" stroke-width="1.5" />
+      <circle cx="485" cy="105" r="11" fill="none" stroke="#E10600" stroke-width="1" stroke-dasharray="3, 3" />
+      <circle cx="485" cy="105" r="4.5" fill="#FFD200" stroke="#FFF" stroke-width="0.8" />
+      <path d="M462 82 C462 76, 474 74, 485 75 L484 78 C476 77, 466 79, 465 84 Z" fill="#080E18" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Ferrari Livery Gradients -->
+    <linearGradient id="ferrari-body" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9A0014" />
+      <stop offset="35%" stop-color="#E80020" />
+      <stop offset="85%" stop-color="#FF1A35" />
+      <stop offset="100%" stop-color="#E80020" />
+    </linearGradient>
+    <linearGradient id="carbon-floor" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#08090C" />
+      <stop offset="50%" stop-color="#14171E" />
+      <stop offset="100%" stop-color="#0A0C10" />
+    </linearGradient>
+    <linearGradient id="tire-tread" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#242832" />
+      <stop offset="50%" stop-color="#111317" />
+      <stop offset="100%" stop-color="#090A0D" />
+    </linearGradient>
+    <radialGradient id="ferrari-wheel" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2A2E38" />
+      <stop offset="60%" stop-color="#14161C" />
+      <stop offset="100%" stop-color="#08090B" />
+    </radialGradient>
+    <filter id="car-shadow" x="-5%" y="-5%" width="115%" height="125%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.75" />
+    </filter>
+  </defs>
+
+  <!-- Ground Ambient Shadow -->
+  <ellipse cx="300" cy="138" rx="275" ry="8" fill="#000" opacity="0.6" />
+
+  <g filter="url(#car-shadow)">
+    <!-- 1. Underbody Venturi Floor & Diffuser -->
+    <path d="M75 118 L125 128 L430 128 L475 125 L475 130 L115 132 L68 123 Z" fill="url(#carbon-floor)" />
+    <!-- Diffuser strakes -->
+    <path d="M68 123 L85 112 L95 126 Z" fill="#060709" />
+    <path d="M85 125 L102 115 L108 127 Z" fill="#060709" />
+
+    <!-- 2. Rear Wing Assembly (2026 Spec with Swan-Neck Pylons) -->
+    <!-- Rear Wing Endplate -->
+    <path d="M48 52 L95 48 L108 85 L65 92 Z" fill="#0D0E12" stroke="#E80020" stroke-width="1.5" />
+    <!-- Rear Wing Mainplane & Active DRS Flap -->
+    <path d="M52 54 L98 50 L96 58 L54 62 Z" fill="url(#ferrari-body)" />
+    <path d="M54 64 L96 60 L94 67 L56 70 Z" fill="#E80020" />
+    <!-- DRS Actuator Pod -->
+    <rect x="72" y="46" width="6" height="7" rx="1.5" fill="#E5E7EB" />
+    <!-- Swan Neck Pylons -->
+    <path d="M96 56 C88 72, 92 88, 112 108 L118 108 C102 88, 98 72, 104 56 Z" fill="#181B22" />
+
+    <!-- 3. Engine Cover, Shark Fin & Airbox -->
+    <!-- Shark Fin Spine -->
+    <path d="M112 106 L108 68 C155 64, 210 52, 285 40 L285 54 C230 65, 175 78, 140 106 Z" fill="#0E1015" />
+    <path d="M108 68 L285 40 L285 43 L110 70 Z" fill="#E80020" />
+    <!-- Italian Tricolore Accent on Shark Fin -->
+    <rect x="180" y="68" width="24" height="2" fill="#009246" />
+    <rect x="204" y="68" width="24" height="2" fill="#FFFFFF" />
+    <rect x="228" y="68" width="24" height="2" fill="#CE2B37" />
+
+    <!-- Roll Hoop & Engine Airbox Intake -->
+    <path d="M272 48 C272 38, 292 36, 305 38 C318 40, 322 48, 322 62 L275 62 Z" fill="#0D0F14" />
+    <ellipse cx="295" cy="46" rx="9" ry="6" fill="#050608" stroke="#E80020" stroke-width="1.5" />
+    <!-- T-Cam Camera on Top -->
+    <rect x="290" y="31" width="10" height="6" rx="1" fill="#FFD200" />
+
+    <!-- 4. Main Bodywork & Sculpted Sidepods (2026 Compact Aero) -->
+    <path d="M135 108 C170 82, 230 76, 310 74 C345 74, 380 72, 400 80 C418 87, 430 102, 432 118 L380 120 C340 120, 270 122, 210 120 C170 119, 145 116, 135 108 Z" fill="url(#ferrari-body)" />
+    <!-- Sidepod Undercut Shadow / Airflow Tunnel -->
+    <path d="M270 120 C330 121, 380 118, 412 108 C405 98, 385 92, 350 94 C300 96, 250 108, 220 120 Z" fill="#08090C" opacity="0.6" />
+    <!-- Ferrari Yellow Accent Streak -->
+    <path d="M260 90 C320 86, 370 86, 405 92" stroke="#FFD200" stroke-width="2" stroke-linecap="round" />
+    <!-- White Scuderia Accent Line -->
+    <path d="M275 94 C325 90, 365 90, 395 96" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+
+    <!-- 5. Cockpit, Driver & Halo Ring -->
+    <!-- Cockpit Opening -->
+    <path d="M312 62 C325 62, 355 64, 375 75 L320 75 Z" fill="#050608" />
+    <!-- Driver Helmet (Leclerc / Red & White) -->
+    <circle cx="340" cy="62" r="8" fill="#E80020" />
+    <path d="M336 60 L346 60 L344 64 L337 64 Z" fill="#111" /> <!-- Visor -->
+    <circle cx="340" cy="62" r="8" fill="none" stroke="#FFF" stroke-width="1.2" />
+
+    <!-- Halo Safety Device -->
+    <path d="M316 62 C328 56, 362 58, 376 72 C376 75, 372 76, 368 74 C356 65, 332 63, 318 67 Z" fill="#151820" stroke="#252934" stroke-width="1.2" />
+    <path d="M374 72 L388 78 L386 82 L372 75 Z" fill="#151820" /> <!-- Front Central Strut -->
+
+    <!-- Aero Rear View Mirror -->
+    <rect x="368" y="72" width="6" height="3" rx="1" fill="#E80020" stroke="#000" stroke-width="0.5" />
+
+    <!-- 6. Nosecone & Front Bulkhead -->
+    <path d="M395 76 C425 80, 475 95, 545 116 L545 120 C520 118, 470 114, 425 106 C408 102, 398 90, 395 76 Z" fill="url(#ferrari-body)" />
+    <!-- Nose Carbon Tip -->
+    <path d="M540 115 L562 121 L560 124 L538 119 Z" fill="#0B0D11" />
+    <!-- Shell / Scuderia Badge on Nose -->
+    <polygon points="468,98 474,96 478,101 472,103" fill="#FFD200" />
+
+    <!-- Front Wing Assembly (2026 Swept Multi-Element Wing) -->
+    <!-- Mainplane & Flaps -->
+    <path d="M500 124 L576 126 L574 130 L496 128 Z" fill="#E80020" />
+    <path d="M508 121 L572 123 L571 125 L506 123 Z" fill="#0E1015" />
+    <path d="M515 118 L568 120 L567 122 L514 120 Z" fill="#E80020" />
+    <!-- Front Wing Swept Endplate -->
+    <path d="M552 112 C564 114, 576 120, 580 131 L572 132 C568 124, 560 119, 550 116 Z" fill="#0C0E12" stroke="#E80020" stroke-width="1.2" />
+
+    <!-- 7. Wheels & Pirelli 18-Inch Low Profile Tires -->
+    
+    <!-- REAR WHEEL (Center: 115, 105) -->
+    <g>
+      <!-- Tire Outer Rubber -->
+      <circle cx="115" cy="105" r="28" fill="url(#tire-tread)" stroke="#000" stroke-width="2" />
+      <!-- Pirelli Soft Red Compound Pinstripe -->
+      <circle cx="115" cy="105" r="24.5" fill="none" stroke="#FF1A35" stroke-width="1.8" />
+      <!-- Wheel Rim Disc (2026 Carbon Aero Cover) -->
+      <circle cx="115" cy="105" r="17" fill="url(#ferrari-wheel)" stroke="#222632" stroke-width="1.5" />
+      <!-- Concentric Aero Ridges -->
+      <circle cx="115" cy="105" r="11" fill="none" stroke="#3A3F4D" stroke-width="1" stroke-dasharray="3, 3" />
+      <!-- Center Nut (Ferrari Red) -->
+      <circle cx="115" cy="105" r="4.5" fill="#E80020" stroke="#FFF" stroke-width="0.8" />
+    </g>
+
+    <!-- FRONT SUSPENSION WISHBONES -->
+    <line x1="430" y1="94" x2="480" y2="104" stroke="#1E222A" stroke-width="2.5" />
+    <line x1="435" y1="108" x2="482" y2="108" stroke="#1E222A" stroke-width="2.2" />
+    <line x1="425" y1="116" x2="475" y2="110" stroke="#14171E" stroke-width="2" />
+
+    <!-- FRONT WHEEL (Center: 485, 105) -->
+    <g>
+      <!-- Tire Outer Rubber -->
+      <circle cx="485" cy="105" r="28" fill="url(#tire-tread)" stroke="#000" stroke-width="2" />
+      <!-- Pirelli Soft Red Compound Pinstripe -->
+      <circle cx="485" cy="105" r="24.5" fill="none" stroke="#FF1A35" stroke-width="1.8" />
+      <!-- Wheel Rim Disc (2026 Carbon Aero Cover) -->
+      <circle cx="485" cy="105" r="17" fill="url(#ferrari-wheel)" stroke="#222632" stroke-width="1.5" />
+      <!-- Concentric Aero Ridges -->
+      <circle cx="485" cy="105" r="11" fill="none" stroke="#3A3F4D" stroke-width="1" stroke-dasharray="3, 3" />
+      <!-- Center Nut (Ferrari Red) -->
+      <circle cx="485" cy="105" r="4.5" fill="#E80020" stroke="#FFF" stroke-width="0.8" />
+      <!-- Front Wheel Deflector Fin -->
+      <path d="M462 82 C462 76, 474 74, 485 75 L484 78 C476 77, 466 79, 465 84 Z" fill="#0E1015" />
+    </g>
+  </g>
+</svg>
