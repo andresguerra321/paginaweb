@@ -1,1456 +1,681 @@
 /**
- * F1 SIM PRO — Core Simulation Engine & UI Controller
- * ===================================================
- * High-precision concurrent statistical racing engine.
- * Computes telemetry, driver attributes, tire degradation,
- * live SVG track animation with directional vehicle heading,
- * precomputed lookup table, and interactive cockpit HUD.
+ * ═══════════════════════════════════════════════════════════════════
+ * F1 SIM PRO — OFFICIAL FORMULA 1 2026 MOTOR DE SIMULACIÓN FÍSICA
+ * • Física no lineal a 60 FPS con aceleración, frenadas G y V_apex
+ * • Aerodinámica activa F1 2026 (Straight Mode vs Corner Mode)
+ * • Modelo térmico Pirelli de 4 ruedas & degradación de neumáticos
+ * • Paradas en boxes (Pit Stops) & adelantamientos con rebufo
+ * • Telemetría multicanal conmutable por piloto
+ * • Comparador cara a cara interactivo (Head-to-Head)
+ * • Cuenta regresiva en vivo del calendario 2026
+ * ═══════════════════════════════════════════════════════════════════
  */
 
-(function () {
+(function() {
     'use strict';
 
-    // ═══════════════════════════════════════
-    // DRIVER & VEHICLE DATABASE (In-Memory Engine)
-    // ═══════════════════════════════════════
+    /* ═══════════════════════════════════════════════════════════════
+       1. DATABASE: 2026 GRID, DRIVERS & CONSTRUCTORS
+       ═══════════════════════════════════════════════════════════════ */
     const DRIVERS_DB = [
-        { 
-            id: 1, codigo: 'VER', numero: 1, nombre: 'Max Verstappen', 
-            equipo: 'RED_BULL', equipoNombre: 'Red Bull Racing',
-            habilidad: 98, experiencia: 92, gestionNeumaticos: 94, probabilidadError: 0.02,
-            victorias: 58, podios: 104, puntos: 2580, vehiculo: 'RB20' 
-        },
-        { 
-            id: 2, codigo: 'LEC', numero: 16, nombre: 'Charles Leclerc', 
-            equipo: 'FERRARI', equipoNombre: 'Scuderia Ferrari',
-            habilidad: 95, experiencia: 88, gestionNeumaticos: 90, probabilidadError: 0.04,
-            victorias: 6, podios: 36, puntos: 1250, vehiculo: 'SF-24' 
-        },
-        { 
-            id: 3, codigo: 'NOR', numero: 4, nombre: 'Lando Norris', 
-            equipo: 'MCLAREN', equipoNombre: 'McLaren F1 Team',
-            habilidad: 94, experiencia: 85, gestionNeumaticos: 89, probabilidadError: 0.03,
-            victorias: 3, podios: 21, puntos: 840, vehiculo: 'MCL38' 
-        },
-        { 
-            id: 4, codigo: 'HAM', numero: 44, nombre: 'Lewis Hamilton', 
-            equipo: 'MERCEDES', equipoNombre: 'Mercedes-AMG PETRONAS',
-            habilidad: 93, experiencia: 99, gestionNeumaticos: 96, probabilidadError: 0.02,
-            victorias: 105, podios: 201, puntos: 4780, vehiculo: 'W15' 
-        },
-        { 
-            id: 5, codigo: 'SAI', numero: 55, nombre: 'Carlos Sainz', 
-            equipo: 'FERRARI', equipoNombre: 'Scuderia Ferrari',
-            habilidad: 91, experiencia: 90, gestionNeumaticos: 93, probabilidadError: 0.03,
-            victorias: 3, podios: 22, puntos: 1180, vehiculo: 'SF-24' 
-        },
-        { 
-            id: 6, codigo: 'PIA', numero: 81, nombre: 'Oscar Piastri', 
-            equipo: 'MCLAREN', equipoNombre: 'McLaren F1 Team',
-            habilidad: 90, experiencia: 80, gestionNeumaticos: 87, probabilidadError: 0.04,
-            victorias: 2, podios: 9, puntos: 380, vehiculo: 'MCL38' 
-        },
-        { 
-            id: 7, codigo: 'RUS', numero: 63, nombre: 'George Russell', 
-            equipo: 'MERCEDES', equipoNombre: 'Mercedes-AMG PETRONAS',
-            habilidad: 89, experiencia: 84, gestionNeumaticos: 88, probabilidadError: 0.04,
-            victorias: 2, podios: 14, puntos: 590, vehiculo: 'W15' 
-        },
-        { 
-            id: 8, codigo: 'ALO', numero: 14, nombre: 'Fernando Alonso', 
-            equipo: 'ASTON_MARTIN', equipoNombre: 'Aston Martin Aramco',
-            habilidad: 92, experiencia: 100, gestionNeumaticos: 95, probabilidadError: 0.02,
-            victorias: 32, podios: 106, puntos: 2320, vehiculo: 'AMR24' 
-        }
+        { id: 'VER', num: 1, name: 'Max Verstappen', team: 'Red Bull Ford', color: '#1E41FF', flag: 'NL', pts: 314, wins: 7, poles: 6, qualyPace: 98, racePace: 99, tireCare: 92, speedOffset: 1.04 },
+        { id: 'LEC', num: 16, name: 'Charles Leclerc', team: 'Ferrari HP', color: '#E80020', flag: 'MC', pts: 298, wins: 5, poles: 8, qualyPace: 99, racePace: 96, tireCare: 90, speedOffset: 1.03 },
+        { id: 'NOR', num: 4, name: 'Lando Norris', team: 'McLaren', color: '#FF8000', flag: 'GB', pts: 285, wins: 4, poles: 5, qualyPace: 97, racePace: 97, tireCare: 93, speedOffset: 1.025 },
+        { id: 'HAM', num: 44, name: 'Lewis Hamilton', team: 'Ferrari HP', color: '#E80020', flag: 'GB', pts: 260, wins: 3, poles: 3, qualyPace: 95, racePace: 98, tireCare: 98, speedOffset: 1.02 },
+        { id: 'RUS', num: 63, name: 'George Russell', team: 'Mercedes-AMG', color: '#27F4D2', flag: 'GB', pts: 218, wins: 2, poles: 2, qualyPace: 96, racePace: 94, tireCare: 89, speedOffset: 1.01 },
+        { id: 'PIA', num: 81, name: 'Oscar Piastri', team: 'McLaren', color: '#FF8000', flag: 'AU', pts: 205, wins: 2, poles: 1, qualyPace: 94, racePace: 95, tireCare: 91, speedOffset: 1.005 },
+        { id: 'ALO', num: 14, name: 'Fernando Alonso', team: 'Aston Martin', color: '#006F62', flag: 'ES', pts: 142, wins: 0, poles: 1, qualyPace: 92, racePace: 94, tireCare: 96, speedOffset: 0.995 },
+        { id: 'ALB', num: 23, name: 'Alex Albon', team: 'Williams', color: '#00A0DE', flag: 'TH', pts: 78, wins: 0, poles: 0, qualyPace: 90, racePace: 89, tireCare: 91, speedOffset: 0.98 }
     ];
 
-    const TEAMS_CONFIG = {
-        "RED_BULL": { name: "Red Bull Racing", color: "#3671C6" },
-        "FERRARI": { name: "Scuderia Ferrari", color: "#E80020" },
-        "MERCEDES": { name: "Mercedes-AMG", color: "#27F4D2" },
-        "MCLAREN": { name: "McLaren F1 Team", color: "#FF8000" },
-        "ASTON_MARTIN": { name: "Aston Martin", color: "#229971" }
-    };
+    const TEAMS_DB = [
+        { name: 'Scuderia Ferrari HP', pu: 'Ferrari 066/12 (350kW ERS)', pts: 558, color: '#E80020', wins: 8, gap: 'LÍDER', chassis: 'SF-26' },
+        { name: 'Red Bull Ford Powertrains', pu: 'Red Bull Ford DM-01', pts: 512, color: '#1E41FF', wins: 7, gap: '+46 PTS', chassis: 'RB22' },
+        { name: 'McLaren Formula 1 Team', pu: 'Mercedes-AMG M17 E', pts: 490, color: '#FF8000', wins: 6, gap: '+68 PTS', chassis: 'MCL40' },
+        { name: 'Mercedes-AMG PETRONAS', pu: 'Mercedes-AMG M17 E', pts: 384, color: '#27F4D2', wins: 2, gap: '+174 PTS', chassis: 'W17' },
+        { name: 'Aston Martin Aramco F1', pu: 'Honda RA626H Hybrid', pts: 210, color: '#006F62', wins: 0, gap: '+348 PTS', chassis: 'AMR26' },
+        { name: 'Williams Racing', pu: 'Mercedes-AMG M17 E', pts: 112, color: '#00A0DE', wins: 0, gap: '+446 PTS', chassis: 'FW48' },
+        { name: 'Audi Revolut F1 Team', pu: 'Audi F1 Power Unit 1.6T', pts: 74, color: '#EE0000', wins: 0, gap: '+484 PTS', chassis: 'AU01' },
+        { name: 'BWT Alpine F1 Team', pu: 'Mercedes-AMG M17 E', pts: 52, color: '#0090FF', wins: 0, gap: '+506 PTS', chassis: 'A526' }
+    ];
 
-    // ═══════════════════════════════════════
-    // SOUND SYNTHESIZER (Native Web Audio API)
-    // ═══════════════════════════════════════
-    let audioCtx = null;
+    /* ═══════════════════════════════════════════════════════════════
+       2. CIRCUIT TOPOLOGY & CORNER DATA (Mónaco GP Simulation)
+       ═══════════════════════════════════════════════════════════════ */
+    // Closed normalized spline points (0.0 to 1.0) with segment types:
+    // S = Straight (Active Aero / Top Speed), C = Corner (Braking / Apex Speed), H = Hairpin
+    const TRACK_POINTS = [
+        { x: 0.15, y: 0.85, type: 'S', maxSpeed: 330, name: 'Pit Straight' },
+        { x: 0.35, y: 0.85, type: 'C', maxSpeed: 110, name: 'Sainte Dévote' },
+        { x: 0.48, y: 0.70, type: 'S', maxSpeed: 290, name: 'Beau Rivage' },
+        { x: 0.62, y: 0.48, type: 'C', maxSpeed: 145, name: 'Massenet' },
+        { x: 0.75, y: 0.40, type: 'C', maxSpeed: 125, name: 'Casino' },
+        { x: 0.84, y: 0.46, type: 'C', maxSpeed: 95,  name: 'Mirabeau' },
+        { x: 0.88, y: 0.58, type: 'H', maxSpeed: 60,  name: 'Loews Hairpin' },
+        { x: 0.82, y: 0.70, type: 'C', maxSpeed: 85,  name: 'Portier' },
+        { x: 0.88, y: 0.82, type: 'S', maxSpeed: 315, name: 'Tunnel Exit' },
+        { x: 0.78, y: 0.88, type: 'C', maxSpeed: 80,  name: 'Nouvelle Chicane' },
+        { x: 0.62, y: 0.90, type: 'C', maxSpeed: 170, name: 'Tabac' },
+        { x: 0.48, y: 0.94, type: 'C', maxSpeed: 195, name: 'Swimming Pool' },
+        { x: 0.32, y: 0.92, type: 'C', maxSpeed: 75,  name: 'La Rascasse' },
+        { x: 0.20, y: 0.90, type: 'C', maxSpeed: 95,  name: 'Anthony Noghès' }
+    ];
 
-    function getAudioContext() {
-        if (!audioCtx) {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (AudioContext) audioCtx = new AudioContext();
-        }
-        if (audioCtx && audioCtx.state === 'suspended') {
-            audioCtx.resume().catch(() => {});
-        }
-        return audioCtx;
-    }
+    /* ═══════════════════════════════════════════════════════════════
+       3. SIMULATION STATE & MULTI-CAR PHYSICAL ENTITIES
+       ═══════════════════════════════════════════════════════════════ */
+    let isRunning = true;
+    let simSpeed = 1; // 1x, 2x, 4x
+    let activeDriverId = 'VER';
+    let currentLap = 1;
+    const TOTAL_LAPS = 53;
+    let weatherMode = 'DRY'; // DRY, WET
+    let raceTicks = 0;
 
-    function playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.08) {
-        try {
-            const ctx = getAudioContext();
-            if (!ctx) return;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = type;
-            osc.frequency.setValueAtTime(freq, ctx.currentTime);
-            gain.gain.setValueAtTime(gainVal, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.start();
-            osc.stop(ctx.currentTime + duration);
-        } catch (e) {}
-    }
-
-    function playBeepLight() {
-        playTone(660, 'triangle', 0.18, 0.12);
-    }
-
-    function playLightsOutSound() {
-        playTone(1320, 'square', 0.35, 0.15);
-        setTimeout(() => playTone(880, 'sawtooth', 0.4, 0.1), 100);
-    }
-
-    // ═══════════════════════════════════════
-    // SIMULATION ENGINE STATE
-    // ═══════════════════════════════════════
-    let simDrivers = [];
-    let trackLUT = []; // Precomputed Track Look-Up Table (LUT) for 60fps locked interpolation
-    const BASE_LAP_TIME = 73.5; // Monaco baseline (seconds)
-
-    const state = {
-        isRacing: true, // Active simulation running by default
-        currentLap: 1,
-        totalLaps: 53,
-        speedMultiplier: 1.0, // 1x, 2x, 4x
-        weather: 'SOLEADO',
-        weatherTemp: 28,
-        safetyCarDeployed: false,
-        flag: 'GREEN',
-        activeDriverCode: 'VER',
-        activeDriverPos: 1,
-        deltaHistory: [-0.05, -0.12, -0.08, -0.15, -0.11, -0.09, -0.14, -0.18, -0.12, -0.15],
-        animFrameId: null,
-        telemetryTimer: null,
-        chartInstance: null,
-        lastFrameTime: performance.now(),
-        lang: 'es'
-    };
-
-    // ═══════════════════════════════════════
-    // I18N DICTIONARY
-    // ═══════════════════════════════════════
-    const I18N = {
-        es: {
-            nav_back: 'Volver a Soluciones',
-            nav_sim: 'Simulador',
-            nav_features: 'Características',
-            nav_how: 'Cómo Funciona',
-            nav_status: 'SISTEMA ACTIVO',
-            hero_eyebrow: 'Motor Estadístico de Alta Fidelidad',
-            hero_title: 'Siente la carrera.<br><span class="gradient-text">Simulada por Datos.</span>',
-            hero_subtitle: 'F1 Sim Pro calcula el ritmo de cada monoplaza evaluando la habilidad de los pilotos, la degradación de los compuestos, la carga aerodinámica y eventos de pista en tiempo real.',
-            hero_btn_start: 'Reiniciar Salida',
-            hero_btn_explore: 'Explorar Características',
-            sim_title: 'Mission Control Room',
-            sim_subtitle: 'Interactúa en tiempo real con la carrera. Cambia entre la telemetría gráfica en vivo, la tabla de estadísticas de pilotos, el setup aerodinámico y los principios del motor.',
-            tab_track: 'Pista & Telemetría',
-            tab_stats: 'Estadísticas de Pilotos',
-            tab_config: 'Configuración de Escudería',
-            tab_arch: 'Motor de Simulación',
-            btn_start_race: 'Salida FIA',
-            btn_weather: 'Clima',
-            btn_sc: 'Safety Car',
-            btn_reset: 'Parrilla',
-            waiting_start: 'ESPERANDO INICIO',
-            racing: 'CARRERA EN VIVO',
-            sc_active: 'SAFETY CAR',
-            finished: 'BANDERA A CUADROS',
-            flag_green: 'Bandera Verde',
-            flag_yellow: 'Safety Car Activo',
-            radio_init: 'Simulación en vivo: Monoplazas en batalla en el circuito de Mónaco.',
-            cta_title: '¿Necesitas un Motor Estadístico o Simulador a Medida?',
-            cta_desc: 'Desarrollo algoritmos de cálculo numérico, motores de simulación concurrentes y dashboards de telemetría de alto rendimiento para tu negocio.',
-            cta_btn: 'Contactar por WhatsApp'
-        },
-        en: {
-            nav_back: 'Back to Solutions',
-            nav_sim: 'Simulator',
-            nav_features: 'Features',
-            nav_how: 'How It Works',
-            nav_status: 'SYSTEM ACTIVE',
-            hero_eyebrow: 'High-Fidelity Statistical Engine',
-            hero_title: 'Feel the race.<br><span class="gradient-text">Driven by Data.</span>',
-            hero_subtitle: 'F1 Sim Pro computes each car\'s pace by evaluating driver skill, compound degradation, downforce levels, and live track events in real time.',
-            hero_btn_start: 'Restart Race',
-            hero_btn_explore: 'Explore Features',
-            sim_title: 'Mission Control Room',
-            sim_subtitle: 'Interact in real time with the race. Switch between live telemetry HUD, driver stats matrix, aerodynamic setup, and concurrency architecture.',
-            tab_track: 'Track & Telemetry',
-            tab_stats: 'Driver Statistics',
-            tab_config: 'Team Setup',
-            tab_arch: 'Simulation Engine',
-            btn_start_race: 'FIA Start',
-            btn_weather: 'Weather',
-            btn_sc: 'Safety Car',
-            btn_reset: 'Grid Reset',
-            waiting_start: 'WAITING FOR START',
-            racing: 'RACE LIVE',
-            sc_active: 'SAFETY CAR',
-            finished: 'CHECKERED FLAG',
-            flag_green: 'Green Flag',
-            flag_yellow: 'Safety Car Deployed',
-            radio_init: 'Live simulation: Cars racing on the Circuit de Monaco.',
-            cta_title: 'Need a Custom Statistical Engine or Simulator?',
-            cta_desc: 'I develop high-performance numerical algorithms, concurrent simulation engines, and real-time telemetry dashboards for your enterprise.',
-            cta_btn: 'Contact on WhatsApp'
-        }
-    };
-
-    // ═══════════════════════════════════════
-    // INITIALIZATION
-    // ═══════════════════════════════════════
-    document.addEventListener('DOMContentLoaded', () => {
-        initPageTransition();
-        initNavigation();
-        initTabs();
-        initTrackSVG();
-        buildTrackLookupTable();
-        initDeltaChart();
-        initSimulationDrivers();
-        initSimControls();
-        initSetupForm();
-        initHeroActions();
-
-        renderLeaderboard();
-        updateCockpitHUD(state.activeDriverCode);
-        updateCockpitGauges(240, 80);
-
-        // Start live continuous simulation loop immediately
-        startSimulationEngineLoop();
-        logRadio(I18N[state.lang].radio_init);
+    // Build physical state for each car
+    const cars = DRIVERS_DB.map((driver, index) => {
+        return {
+            ...driver,
+            trackProgress: (1 - (index * 0.04)) % 1.0, // Staggered grid starting positions
+            speed: 180, // km/h
+            targetSpeed: 200,
+            throttle: 0.8,
+            brake: 0,
+            gear: 4,
+            rpm: 10500,
+            batterySOC: 92 - (index * 2), // %
+            tireWear: 8 + (index * 1.5), // %
+            compound: index % 2 === 0 ? 'SOFT' : 'MEDIUM',
+            tireTemps: { fl: 102, fr: 104, rl: 108, rr: 109 },
+            inPit: false,
+            pitTimer: 0,
+            lapCount: 1,
+            gapToLeader: index === 0 ? 0 : index * 0.48,
+            lastSectorTime: '18.420',
+            currentSector: 1,
+            activeAero: 'CORNER'
+        };
     });
 
-    function initPageTransition() {
-        const overlay = document.getElementById('page-transition-overlay');
-        const bar = document.getElementById('minimal-bar');
-        if (!overlay) return;
+    /* ═══════════════════════════════════════════════════════════════
+       4. SPLINE INTERPOLATION & TRACK RENDER ENGINE
+       ═══════════════════════════════════════════════════════════════ */
+    function getTrackPointAt(progress) {
+        const p = ((progress % 1.0) + 1.0) % 1.0;
+        const count = TRACK_POINTS.length;
+        const exactIndex = p * count;
+        const i1 = Math.floor(exactIndex) % count;
+        const i2 = (i1 + 1) % count;
+        const t = exactIndex - Math.floor(exactIndex);
 
-        function dismissF1Loader() {
-            if (overlay) {
-                overlay.style.opacity = '0';
-                setTimeout(() => { if (overlay) overlay.remove(); }, 200);
-            }
-        }
+        // Smooth cubic-like Hermite interpolation
+        const pt1 = TRACK_POINTS[i1];
+        const pt2 = TRACK_POINTS[i2];
+        const smoothT = t * t * (3 - 2 * t);
 
-        // Zero-flash on direct visit or page refresh
-        const isFromInternalTransition = sessionStorage.getItem('ag_transition_active') === 'true';
-        if (!isFromInternalTransition || document.hidden || document.visibilityState === 'hidden') {
-            dismissF1Loader();
-            return;
-        }
-        sessionStorage.removeItem('ag_transition_active');
+        const x = pt1.x + (pt2.x - pt1.x) * smoothT;
+        const y = pt1.y + (pt2.y - pt1.y) * smoothT;
 
-        overlay.classList.add('is-loading');
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += 25;
-            if (bar) bar.style.width = `${progress}%`;
-            if (progress >= 100) {
-                clearInterval(interval);
-                dismissF1Loader();
-            }
-        }, 30);
+        // Current target speed determined by track segment
+        const maxSpeed = pt1.maxSpeed + (pt2.maxSpeed - pt1.maxSpeed) * smoothT;
+        const segmentType = pt1.type;
+        const segmentName = pt1.name;
 
-        setTimeout(() => {
-            clearInterval(interval);
-            dismissF1Loader();
-        }, 350);
-
-        window.addEventListener('pageshow', dismissF1Loader);
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') dismissF1Loader();
-        });
-        window.addEventListener('focus', dismissF1Loader);
+        return { x, y, maxSpeed, segmentType, segmentName };
     }
 
-    // ═══════════════════════════════════════
-    // TRACK SVG & PRECOMPUTED GEOMETRY LUT
-    // ═══════════════════════════════════════
-    function initTrackSVG() {
-        const container = document.getElementById('trackContainer');
-        if (!container) return;
+    /* ═══════════════════════════════════════════════════════════════
+       5. PHYSICAL INTEGRATION LOOP (60 FPS Non-Linear Dynamics)
+       ═══════════════════════════════════════════════════════════════ */
+    function updatePhysics(dt) {
+        if (!isRunning) return;
 
-        // Elegant, non-intersecting authentic Circuit de Monaco path
-        const svgHTML = `
-        <svg viewBox="0 0 800 480" class="circuit-svg" id="f1CircuitSvg">
-            <defs>
-                <filter id="carGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3" result="blur" />
-                    <feMerge>
-                        <feMergeNode in="blur" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
+        raceTicks++;
+        const scaledDt = dt * simSpeed;
 
-            <pattern id="circuitGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="1"/>
-            </pattern>
-            <rect width="100%" height="100%" fill="url(#circuitGrid)" />
-            
-            <!-- Harbor Water Accent -->
-            <path d="M 380 320 C 480 320, 580 330, 680 340 L 680 430 L 380 430 Z" fill="rgba(56, 189, 248, 0.03)" />
-            
-            <!-- Kerbs Outer Base (Monaco Red & White / Track Border) -->
-            <path d="M 450 420 L 580 420 C 630 420, 670 380, 670 330 C 670 270, 630 180, 560 130 C 510 95, 430 80, 360 85 C 290 90, 240 130, 230 180 C 220 220, 160 230, 160 260 C 160 290, 220 295, 290 295 C 380 295, 520 290, 640 295 C 710 300, 750 330, 740 360 C 730 380, 670 375, 600 375 C 500 375, 410 365, 310 365 C 230 365, 190 395, 220 420 C 250 420, 350 420, 450 420 Z" fill="none" stroke="rgba(225,6,0,0.28)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
-            
-            <!-- Asphalt Surface -->
-            <path id="mainTrackPath" d="M 450 420 L 580 420 C 630 420, 670 380, 670 330 C 670 270, 630 180, 560 130 C 510 95, 430 80, 360 85 C 290 90, 240 130, 230 180 C 220 220, 160 230, 160 260 C 160 290, 220 295, 290 295 C 380 295, 520 290, 640 295 C 710 300, 750 330, 740 360 C 730 380, 670 375, 600 375 C 500 375, 410 365, 310 365 C 230 365, 190 395, 220 420 C 250 420, 350 420, 450 420 Z" fill="none" stroke="#080E1C" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
-            
-            <!-- Racing Line -->
-            <path d="M 450 420 L 580 420 C 630 420, 670 380, 670 330 C 670 270, 630 180, 560 130 C 510 95, 430 80, 360 85 C 290 90, 240 130, 230 180 C 220 220, 160 230, 160 260 C 160 290, 220 295, 290 295 C 380 295, 520 290, 640 295 C 710 300, 750 330, 740 360 C 730 380, 670 375, 600 375 C 500 375, 410 365, 310 365 C 230 365, 190 395, 220 420 C 250 420, 350 420, 450 420 Z" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="6 6" stroke-linecap="round"/>
-            
-            <!-- Tunnel Glow Line -->
-            <path d="M 520 290 C 640 295, 710 300, 740 360" fill="none" stroke="rgba(251, 191, 36, 0.45)" stroke-width="4" stroke-linecap="round"/>
-
-            <!-- Start/Finish Line -->
-            <line x1="450" y1="408" x2="450" y2="432" stroke="#ffffff" stroke-width="3.5"/>
-            <text x="450" y="452" fill="rgba(255,255,255,0.75)" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold" text-anchor="middle">SALIDA / META</text>
-            
-            <!-- Landmark Labels -->
-            <text x="615" y="405" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">SAINTE DÉVOTE (T1)</text>
-            <text x="390" y="70" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">CASINO SQUARE (T4)</text>
-            <text x="120" y="245" fill="#A855F7" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">FAIRMONT (T6)</text>
-            <text x="630" y="278" fill="#FBBF24" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">TUNNEL</text>
-            <text x="490" y="358" fill="#FF1801" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="bold">TABAC (T12)</text>
-
-            <!-- Dynamic Cars Layer -->
-            <g id="carsLayer"></g>
-        </svg>
-        `;
-        container.innerHTML = svgHTML;
-    }
-
-    function buildTrackLookupTable() {
-        const path = document.getElementById('mainTrackPath');
-        if (!path) return;
-
-        const totalLength = path.getTotalLength();
-        if (!totalLength || totalLength <= 0) return;
-
-        trackLUT = [];
-        const samples = 1500;
-
-        for (let i = 0; i < samples; i++) {
-            const s = (i / samples) * totalLength;
-            const pt = path.getPointAtLength(s);
-
-            const nextS = ((i + 4) / samples) * totalLength % totalLength;
-            const nextPt = path.getPointAtLength(nextS);
-
-            const dx = nextPt.x - pt.x;
-            const dy = nextPt.y - pt.y;
-            const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-
-            const len = Math.hypot(dx, dy) || 1;
-            const nx = -dy / len;
-            const ny = dx / len;
-
-            // Speed profile modifier along corners (0.65 in tight hairpins, 1.3 in straights)
-            let speedProfile = 1.0;
-            if (i < 200 || (i > 650 && i < 950)) speedProfile = 1.35; // Straights
-            else if (i > 350 && i < 550) speedProfile = 0.70; // Fairmont Hairpin & Mirabeau
-            else if (i > 1050 && i < 1250) speedProfile = 0.85; // Chicane & Tabac
-
-            trackLUT.push({ x: pt.x, y: pt.y, angle, nx, ny, speedProfile });
-        }
-    }
-
-    // ═══════════════════════════════════════
-    // DRIVER SIMULATION MODEL & PERSISTENT SVG CARS
-    // ═══════════════════════════════════════
-    function initSimulationDrivers() {
-        const sorted = [...DRIVERS_DB].sort((a, b) => b.habilidad - a.habilidad);
-
-        simDrivers = sorted.map((driver, index) => {
-            // Staggered grid formation
-            const initialDist = 0.985 - (index * 0.045);
-            // Alternating lateral racing line offset (-5px to +5px)
-            const laneOffset = (index % 2 === 0 ? 1 : -1) * (2 + (index % 3) * 1.5);
-
-            return {
-                ...driver,
-                gridSlot: index + 1,
-                totalDistance: initialDist,
-                lapProgress: initialDist * 100,
-                laneOffset: laneOffset,
-                targetLaneOffset: laneOffset,
-                currentLap: 1,
-                speedKmh: 240,
-                // Calibrated baseline speed for smooth continuous movement (~14s per lap)
-                baseSpeedFactor: 0.00115 + (driver.habilidad * 0.000004),
-                paceModifier: 1.0,
-                tyreWear: 100,
-                bestLapTime: null,
-                lastLapTime: null,
-                gapToLeader: 0.0,
-                isLeader: index === 0
-            };
-        });
-
-        createPersistentCarSVGElements();
-        populateDriverStatsTable(simDrivers);
-    }
-
-    function createPersistentCarSVGElements() {
-        const layer = document.getElementById('carsLayer');
-        if (!layer) return;
-        layer.innerHTML = '';
-
-        simDrivers.forEach(driver => {
-            const teamColor = TEAMS_CONFIG[driver.equipo]?.color || '#ffffff';
-
-            const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-            g.setAttribute("class", "svg-car-marker");
-            g.setAttribute("id", `car-${driver.codigo}`);
-            g.style.cursor = 'pointer';
-
-            g.addEventListener('click', () => {
-                selectDriver(driver.codigo);
-            });
-
-            // 1. Leader Pulse Ring
-            const leaderPulse = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            leaderPulse.setAttribute("cx", "0");
-            leaderPulse.setAttribute("cy", "0");
-            leaderPulse.setAttribute("r", "16");
-            leaderPulse.setAttribute("fill", "none");
-            leaderPulse.setAttribute("stroke", teamColor);
-            leaderPulse.setAttribute("stroke-width", "2");
-            leaderPulse.setAttribute("class", "car-leader-pulse");
-            leaderPulse.style.display = driver.isLeader ? "block" : "none";
-            g.appendChild(leaderPulse);
-
-            // 2. High Speed Aero Wake Trail (Supersonic glow behind rear wing)
-            const aeroGlow = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            aeroGlow.setAttribute("x1", "-7");
-            aeroGlow.setAttribute("y1", "0");
-            aeroGlow.setAttribute("x2", "-30");
-            aeroGlow.setAttribute("y2", "0");
-            aeroGlow.setAttribute("stroke", "#38BDF8");
-            aeroGlow.setAttribute("stroke-width", "6");
-            aeroGlow.setAttribute("stroke-linecap", "round");
-            aeroGlow.setAttribute("class", "car-aero-glow");
-            aeroGlow.setAttribute("opacity", "0");
-            g.appendChild(aeroGlow);
-
-            const aeroTrail = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            aeroTrail.setAttribute("x1", "-7");
-            aeroTrail.setAttribute("y1", "0");
-            aeroTrail.setAttribute("x2", "-24");
-            aeroTrail.setAttribute("y2", "0");
-            aeroTrail.setAttribute("stroke", teamColor);
-            aeroTrail.setAttribute("stroke-width", "2.5");
-            aeroTrail.setAttribute("stroke-linecap", "round");
-            aeroTrail.setAttribute("class", "car-aero-trail");
-            aeroTrail.setAttribute("opacity", "0");
-            g.appendChild(aeroTrail);
-
-            // 3. Halo Glow
-            const halo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            halo.setAttribute("cx", "0");
-            halo.setAttribute("cy", "0");
-            halo.setAttribute("r", "11");
-            halo.setAttribute("fill", teamColor);
-            halo.setAttribute("opacity", "0.35");
-            halo.setAttribute("class", "car-halo-glow");
-            g.appendChild(halo);
-
-            // 4. Directional Vehicle Body (Aerodynamic Capsule Arrow)
-            const body = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            body.setAttribute("d", "M 10 0 L -7 -5.5 L -3.5 0 L -7 5.5 Z");
-            body.setAttribute("fill", teamColor);
-            body.setAttribute("stroke", "#ffffff");
-            body.setAttribute("stroke-width", "1.2");
-            g.appendChild(body);
-
-            // 5. Rear Brake LEDs (Glow intense ruby-red when braking into corners)
-            const brakeL = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            brakeL.setAttribute("cx", "-7");
-            brakeL.setAttribute("cy", "-3.5");
-            brakeL.setAttribute("r", "1.6");
-            brakeL.setAttribute("fill", "#FF1801");
-            brakeL.setAttribute("class", "car-brake-led");
-            brakeL.setAttribute("opacity", "0");
-            g.appendChild(brakeL);
-
-            const brakeR = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            brakeR.setAttribute("cx", "-7");
-            brakeR.setAttribute("cy", "3.5");
-            brakeR.setAttribute("r", "1.6");
-            brakeR.setAttribute("fill", "#FF1801");
-            brakeR.setAttribute("class", "car-brake-led");
-            brakeR.setAttribute("opacity", "0");
-            g.appendChild(brakeR);
-
-            // 6. White Cockpit Center Pip
-            const pip = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            pip.setAttribute("cx", "1");
-            pip.setAttribute("cy", "0");
-            pip.setAttribute("r", "2");
-            pip.setAttribute("fill", "#ffffff");
-            g.appendChild(pip);
-
-            // 7. Dynamic Telemetry Tag Pill: [ VER | 324 ] + DRS badge
-            const tagGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
-            tagGroup.setAttribute("class", "car-tag-group");
-
-            const tagBg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-            tagBg.setAttribute("x", "12");
-            tagBg.setAttribute("y", "-8.5");
-            tagBg.setAttribute("width", "46");
-            tagBg.setAttribute("height", "17");
-            tagBg.setAttribute("rx", "3.5");
-            tagBg.setAttribute("fill", "rgba(4, 8, 20, 0.90)");
-            tagBg.setAttribute("stroke", teamColor);
-            tagBg.setAttribute("stroke-width", "1");
-            tagGroup.appendChild(tagBg);
-
-            const tagText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            tagText.setAttribute("x", "22");
-            tagText.setAttribute("y", "3.5");
-            tagText.setAttribute("text-anchor", "middle");
-            tagText.setAttribute("font-family", "'JetBrains Mono', monospace");
-            tagText.setAttribute("font-size", "8.5");
-            tagText.setAttribute("font-weight", "800");
-            tagText.setAttribute("fill", "#ffffff");
-            tagText.textContent = driver.codigo;
-            tagGroup.appendChild(tagText);
-
-            const tagDivider = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            tagDivider.setAttribute("x1", "32");
-            tagDivider.setAttribute("y1", "-4");
-            tagDivider.setAttribute("x2", "32");
-            tagDivider.setAttribute("y2", "4");
-            tagDivider.setAttribute("stroke", "rgba(255,255,255,0.2)");
-            tagDivider.setAttribute("stroke-width", "1");
-            tagGroup.appendChild(tagDivider);
-
-            const speedText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            speedText.setAttribute("x", "45");
-            speedText.setAttribute("y", "3.5");
-            speedText.setAttribute("text-anchor", "middle");
-            speedText.setAttribute("font-family", "'JetBrains Mono', monospace");
-            speedText.setAttribute("font-size", "7.5");
-            speedText.setAttribute("font-weight", "700");
-            speedText.setAttribute("fill", "#38BDF8");
-            speedText.setAttribute("class", "car-speed-val");
-            speedText.textContent = "240";
-            tagGroup.appendChild(speedText);
-
-            // DRS Active Badge
-            const drsBg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-            drsBg.setAttribute("x", "12");
-            drsBg.setAttribute("y", "-15");
-            drsBg.setAttribute("width", "20");
-            drsBg.setAttribute("height", "6");
-            drsBg.setAttribute("rx", "1.5");
-            drsBg.setAttribute("fill", "#00E676");
-            drsBg.setAttribute("class", "car-drs-badge");
-            drsBg.setAttribute("opacity", "0");
-            tagGroup.appendChild(drsBg);
-
-            const drsTxt = document.createElementNS("http://www.w3.org/2000/svg", "text");
-            drsTxt.setAttribute("x", "22");
-            drsTxt.setAttribute("y", "-10");
-            drsTxt.setAttribute("text-anchor", "middle");
-            drsTxt.setAttribute("font-family", "'JetBrains Mono', monospace");
-            drsTxt.setAttribute("font-size", "5");
-            drsTxt.setAttribute("font-weight", "900");
-            drsTxt.setAttribute("fill", "#040814");
-            drsTxt.setAttribute("class", "car-drs-text");
-            drsTxt.setAttribute("opacity", "0");
-            drsTxt.textContent = "DRS";
-            tagGroup.appendChild(drsTxt);
-
-            g.appendChild(tagGroup);
-            layer.appendChild(g);
-        });
-
-        renderAllCarsOnTrack();
-    }
-
-    function getTrackData(progress) {
-        if (!trackLUT || trackLUT.length === 0) {
-            return { x: 450, y: 420, angle: 0, nx: 0, ny: -1, speedProfile: 1.0 };
-        }
-
-        const p = ((progress % 1) + 1) % 1;
-        const indexFloat = p * trackLUT.length;
-        const idx0 = Math.floor(indexFloat) % trackLUT.length;
-        const idx1 = (idx0 + 1) % trackLUT.length;
-        const t = indexFloat - Math.floor(indexFloat);
-
-        const d0 = trackLUT[idx0];
-        const d1 = trackLUT[idx1];
-
-        // Smooth position interpolation
-        const x = d0.x + (d1.x - d0.x) * t;
-        const y = d0.y + (d1.y - d0.y) * t;
-
-        // Angle interpolation with 360 wrap handling
-        let a0 = d0.angle;
-        let a1 = d1.angle;
-        if (a1 - a0 > 180) a1 -= 360;
-        if (a1 - a0 < -180) a1 += 360;
-        const angle = a0 + (a1 - a0) * t;
-
-        const nx = d0.nx + (d1.nx - d0.nx) * t;
-        const ny = d0.ny + (d1.ny - d0.ny) * t;
-        const speedProfile = d0.speedProfile;
-
-        return { x, y, angle, nx, ny, speedProfile };
-    }
-
-    function renderAllCarsOnTrack() {
-        simDrivers.forEach(driver => {
-            const carEl = document.getElementById(`car-${driver.codigo}`);
-            if (!carEl) return;
-
-            const { x, y, angle, nx, ny } = getTrackData(driver.totalDistance);
-
-            // Apply lateral lane offset
-            const finalX = x + (nx * driver.laneOffset);
-            const finalY = y + (ny * driver.laneOffset);
-
-            carEl.setAttribute("transform", `translate(${finalX.toFixed(2)}, ${finalY.toFixed(2)}) rotate(${angle.toFixed(1)})`);
-
-            // Counter-rotate the tag so driver text stays horizontal
-            const tagGroup = carEl.querySelector('.car-tag-group');
-            if (tagGroup) {
-                tagGroup.setAttribute("transform", `rotate(${(-angle).toFixed(1)})`);
-            }
-
-            // Update leader pulse
-            const pulse = carEl.querySelector('.car-leader-pulse');
-            if (pulse) {
-                pulse.style.display = driver.isLeader ? "block" : "none";
-            }
-
-            // ══════════════════════════════════════════
-            // DYNAMIC SPEED TELEMETRY VISUALIZATION
-            // ══════════════════════════════════════════
-            const spd = driver.speedKmh || 240;
-            const aeroTrail = carEl.querySelector('.car-aero-trail');
-            const aeroGlow = carEl.querySelector('.car-aero-glow');
-            const brakeLeds = carEl.querySelectorAll('.car-brake-led');
-            const speedText = carEl.querySelector('.car-speed-val');
-            const drsBadge = carEl.querySelector('.car-drs-badge');
-            const drsText = carEl.querySelector('.car-drs-text');
-
-            if (speedText) speedText.textContent = spd;
-
-            if (spd > 275) {
-                // High Speed Mode: Extended supersonic wake & DRS
-                const trailLen = Math.min(42, 14 + ((spd - 275) / 65) * 28);
-                if (aeroTrail) {
-                    aeroTrail.setAttribute('x2', `${(-7 - trailLen).toFixed(1)}`);
-                    aeroTrail.setAttribute('opacity', '0.85');
+        cars.forEach((car, index) => {
+            // Check if car is currently in Pit Stop
+            if (car.inPit) {
+                car.pitTimer -= scaledDt;
+                car.speed = 60; // Pit lane speed limiter (60 km/h)
+                car.gear = 2;
+                car.rpm = 4800;
+                car.throttle = 0.2;
+                car.brake = 0;
+                car.activeAero = 'PIT';
+                if (car.pitTimer <= 0) {
+                    car.inPit = false;
+                    car.tireWear = 4; // Fresh tires
+                    car.compound = car.compound === 'SOFT' ? 'MEDIUM' : 'HARD';
+                    car.tireTemps = { fl: 88, fr: 88, rl: 92, rr: 92 };
                 }
-                if (aeroGlow) {
-                    aeroGlow.setAttribute('x2', `${(-7 - trailLen * 1.25).toFixed(1)}`);
-                    aeroGlow.setAttribute('opacity', '0.45');
-                }
-                if (drsBadge) drsBadge.setAttribute('opacity', '1');
-                if (drsText) drsText.setAttribute('opacity', '1');
-                if (speedText) speedText.setAttribute('fill', '#00E676');
-
-                brakeLeds.forEach(led => led.setAttribute('opacity', '0'));
-
-            } else if (spd < 170) {
-                // Heavy Braking Mode: Glowing ruby-red brake LEDs
-                if (aeroTrail) aeroTrail.setAttribute('opacity', '0');
-                if (aeroGlow) aeroGlow.setAttribute('opacity', '0');
-                if (drsBadge) drsBadge.setAttribute('opacity', '0');
-                if (drsText) drsText.setAttribute('opacity', '0');
-                if (speedText) speedText.setAttribute('fill', '#FF5252');
-
-                brakeLeds.forEach(led => {
-                    led.setAttribute('opacity', '1');
-                });
-
-            } else {
-                // Normal Cornering Mode: Clean cyan HUD
-                if (aeroTrail) aeroTrail.setAttribute('opacity', '0');
-                if (aeroGlow) aeroGlow.setAttribute('opacity', '0');
-                if (drsBadge) drsBadge.setAttribute('opacity', '0');
-                if (drsText) drsText.setAttribute('opacity', '0');
-                if (speedText) speedText.setAttribute('fill', '#38BDF8');
-
-                brakeLeds.forEach(led => led.setAttribute('opacity', '0'));
-            }
-        });
-    }
-
-    function resetDriversToGrid() {
-        simDrivers.forEach((driver, index) => {
-            const gridDistance = 0.985 - (index * 0.02);
-            driver.totalDistance = gridDistance;
-            driver.lapProgress = gridDistance * 100;
-            driver.currentLap = 0;
-            driver.speedKmh = 0;
-            driver.tyreWear = 100;
-            driver.paceModifier = 1.0;
-            driver.gapToLeader = 0.0;
-            driver.isLeader = index === 0;
-        });
-
-        renderAllCarsOnTrack();
-        renderLeaderboard();
-    }
-
-    // ═══════════════════════════════════════
-    // REAL-TIME CONTINUOUS PHYSICS LOOP (60 FPS)
-    // ═══════════════════════════════════════
-    function startSimulationEngineLoop() {
-        state.lastFrameTime = performance.now();
-
-        function frame(now) {
-            const dt = Math.min((now - state.lastFrameTime) / 1000, 0.05);
-            state.lastFrameTime = now;
-
-            if (state.isRacing) {
-                advancePhysics(dt);
-            }
-
-            // Direct instant hardware render (0ms latency, 0 CSS transition collision)
-            renderAllCarsOnTrack();
-            updateSimulationRanking();
-
-            state.animFrameId = requestAnimationFrame(frame);
-        }
-
-        state.animFrameId = requestAnimationFrame(frame);
-
-        // Telemetry loop (every 100ms)
-        state.telemetryTimer = setInterval(() => {
-            const activeDriver = simDrivers.find(d => d.codigo === state.activeDriverCode) || simDrivers[0];
-
-            if (!state.isRacing) {
-                updateCockpitGauges(0, 0);
                 return;
             }
 
-            if (state.safetyCarDeployed) {
-                updateCockpitGauges(130, 45);
-            } else {
-                const trackInfo = getTrackData(activeDriver.totalDistance);
-                const targetSpd = Math.floor(activeDriver.speedKmh || (trackInfo.speedProfile * 240));
-                const isFullThrottle = trackInfo.speedProfile > 1.1;
-                updateCockpitGauges(targetSpd, isFullThrottle ? 100 : (trackInfo.speedProfile * 70));
+            // Get current point on track topology
+            const trackPt = getTrackPointAt(car.trackProgress);
+
+            // Calculate Base Speed from Driver Offset & Weather
+            let targetSpeed = trackPt.maxSpeed * car.speedOffset;
+            if (weatherMode === 'WET') targetSpeed *= 0.82;
+
+            // Tire Wear Penalty: When wear > 50%, cornering and speed drops
+            if (car.tireWear > 50) {
+                const gripLoss = (car.tireWear - 50) * 0.006;
+                targetSpeed *= (1 - gripLoss);
             }
 
-            updateDeltaChart();
-            updateHeroTelemetry();
+            // Scheduled Pit Stop at 70% tire wear
+            if (car.tireWear >= 70 && !car.inPit) {
+                car.inPit = true;
+                car.pitTimer = 22; // 22 seconds pit lane loss in Monaco
+                return;
+            }
 
-            if (state.currentLap === 5) logRadio("Presión en los neumáticos estabilizada en ventana óptima.");
-            if (state.currentLap === 12) logRadio("Modo de motor STRAT-2 activado para defender posición.");
-            if (state.currentLap === 20) logRadio("Monitoreando desgaste: 65% de vida útil en juego de blandos.");
-        }, 100);
-    }
-
-    function advancePhysics(dt) {
-        simDrivers.forEach(driver => {
-            const trackInfo = getTrackData(driver.totalDistance);
-
-            let speedMultiplier = driver.paceModifier * state.speedMultiplier * trackInfo.speedProfile;
-
-            if (state.safetyCarDeployed) {
-                speedMultiplier = 0.45 * state.speedMultiplier;
+            // Active Aero F1 2026 Detection:
+            // Straight Mode in straights, Corner Mode in curves
+            if (trackPt.segmentType === 'S' && car.speed > 220) {
+                car.activeAero = 'STRAIGHT MODE (LOW DRAG)';
+                targetSpeed += 15; // 2026 Low Drag Boost
             } else {
-                if (state.weather === 'LLUVIA') {
-                    speedMultiplier *= (0.75 + (driver.experiencia * 0.002));
+                car.activeAero = 'CORNER MODE (HIGH GRIP)';
+            }
+
+            // Check for Slipstream / DRS if following car ahead
+            cars.forEach(otherCar => {
+                if (otherCar !== car) {
+                    const diff = otherCar.trackProgress - car.trackProgress;
+                    if (diff > 0.005 && diff < 0.035 && trackPt.segmentType === 'S') {
+                        targetSpeed += 12; // Rebufo (Slipstream) +12 km/h
+                        car.activeAero = 'OVERTAKE BOOST (DRS+ERS)';
+                    }
                 }
+            });
+
+            // Acceleration and Braking Forces (Non-Linear Newton Dynamics)
+            const speedDiff = targetSpeed - car.speed;
+            if (speedDiff > 0) {
+                // Accelerating out of corner / straight
+                const accelRate = 45 * (car.speed < 150 ? 1.4 : 0.85); // High torque at low gear
+                car.speed += accelRate * scaledDt;
+                car.throttle = Math.min(1.0, car.speed / targetSpeed);
+                car.brake = 0;
+            } else {
+                // Hard Braking zone into corner (Up to 5.2G deceleration)
+                const brakeRate = 85; 
+                car.speed += (speedDiff * 4.5) * scaledDt;
+                car.brake = Math.min(1.0, Math.abs(speedDiff) / 40);
+                car.throttle = 0;
+                
+                // Regenerate MGU-K Hybrid Battery under braking
+                car.batterySOC = Math.min(100, car.batterySOC + 0.15 * scaledDt);
             }
 
-            // Smooth speed calculation (km/h)
-            driver.speedKmh = Math.floor(speedMultiplier * 230 + (driver.habilidad * 0.6));
+            // Clamp Speed Limits
+            car.speed = Math.max(50, Math.min(345, car.speed));
 
-            // Smooth lateral lane convergence
-            driver.laneOffset += (driver.targetLaneOffset - driver.laneOffset) * 0.05;
+            // Gear & RPM Calculations
+            car.gear = Math.max(1, Math.min(8, Math.floor(car.speed / 42) + 1));
+            const baseGearSpeed = (car.gear - 1) * 42;
+            const gearProgress = (car.speed - baseGearSpeed) / 42;
+            car.rpm = Math.floor(9000 + gearProgress * 5500);
 
-            // Distance advance
-            const distanceDelta = driver.baseSpeedFactor * speedMultiplier * (dt * 60);
-            driver.totalDistance += distanceDelta;
-            driver.lapProgress = (driver.totalDistance % 1) * 100;
+            // Tire Wear & Thermals
+            car.tireWear += 0.004 * (car.speed > 200 ? 1.2 : 0.9) * scaledDt;
+            const lateralHeat = car.brake > 0.4 ? 1.8 : 0.4;
+            car.tireTemps.fl = Math.round(98 + (car.speed / 340) * 16 + lateralHeat);
+            car.tireTemps.fr = Math.round(101 + (car.speed / 340) * 18 + lateralHeat);
+            car.tireTemps.rl = Math.round(104 + (car.speed / 340) * 15);
+            car.tireTemps.rr = Math.round(106 + (car.speed / 340) * 17);
 
-            const driverLap = Math.floor(driver.totalDistance) + 1;
-            if (driver.isLeader && driverLap > state.currentLap) {
-                state.currentLap = driverLap;
+            // Advance Track Position
+            // Total track length = 3337 meters. Speed in m/s = km/h / 3.6
+            const speedMps = car.speed / 3.6;
+            const progressDelta = (speedMps * scaledDt) / 3337;
+            const prevProgress = car.trackProgress;
+            car.trackProgress = (car.trackProgress + progressDelta) % 1.0;
 
-                const lapEl = document.getElementById('currentLapCounter');
-                if (lapEl) lapEl.textContent = state.currentLap;
-
-                const heroLapBadge = document.getElementById('heroLapBadge');
-                if (heroLapBadge) heroLapBadge.textContent = `VUELTA ${state.currentLap}/53`;
-
-                if (state.currentLap > state.totalLaps) endRace();
-            }
-        });
-
-        // Overtaking & lateral lane shifting check
-        for (let i = 0; i < simDrivers.length - 1; i++) {
-            const dAhead = simDrivers[i];
-            const dBehind = simDrivers[i + 1];
-            const gap = dAhead.totalDistance - dBehind.totalDistance;
-
-            // If behind car is within 0.015 distance, move to overtaking line
-            if (gap < 0.02 && gap > 0) {
-                dBehind.targetLaneOffset = -dAhead.laneOffset;
-            }
-        }
-    }
-
-    let lastLeaderboardOrder = "";
-
-    function updateSimulationRanking() {
-        simDrivers.sort((a, b) => b.totalDistance - a.totalDistance);
-
-        const leader = simDrivers[0];
-        leader.isLeader = true;
-
-        simDrivers.forEach((driver, idx) => {
-            if (idx > 0) driver.isLeader = false;
-
-            const distanceGap = leader.totalDistance - driver.totalDistance;
-            driver.gapToLeader = Number((distanceGap * BASE_LAP_TIME).toFixed(3));
-
-            if (driver.codigo === state.activeDriverCode) {
-                state.activeDriverPos = idx + 1;
-                const hudPos = document.getElementById('hudPos');
-                if (hudPos) hudPos.textContent = `P${idx + 1}`;
+            // Lap Counter when crossing start/finish line (progress resets)
+            if (car.trackProgress < prevProgress) {
+                car.lapCount++;
+                if (index === 0) currentLap = Math.min(TOTAL_LAPS, car.lapCount);
             }
         });
 
-        const currentOrder = simDrivers.map(d => d.codigo).join(",");
-        if (currentOrder !== lastLeaderboardOrder) {
-            lastLeaderboardOrder = currentOrder;
-            renderLeaderboard();
+        // Re-sort Standings by Track Progress and Laps
+        cars.sort((a, b) => {
+            const scoreA = a.lapCount + a.trackProgress;
+            const scoreB = b.lapCount + b.trackProgress;
+            return scoreB - scoreA;
+        });
+
+        // Calculate deltas to leader
+        const leader = cars[0];
+        cars.forEach((car, idx) => {
+            if (idx === 0) {
+                car.gapToLeader = 0;
+            } else {
+                const gapProgress = (leader.lapCount + leader.trackProgress) - (car.lapCount + car.trackProgress);
+                car.gapToLeader = Math.max(0.1, gapProgress * 78.5); // Approx seconds
+            }
+        });
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       6. CANVAS RENDERER: CIRCUITO Y MONOPLAZAS VECTORIALES
+       ═══════════════════════════════════════════════════════════════ */
+    let canvas, ctx;
+
+    function initCanvas() {
+        canvas = document.getElementById('trackCanvas');
+        if (!canvas) return;
+        ctx = canvas.getContext('2d');
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+    }
+
+    function resizeCanvas() {
+        if (!canvas) return;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * window.devicePixelRatio;
+        canvas.height = rect.height * window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+
+    function renderTrack() {
+        if (!canvas || !ctx) return;
+        const width = canvas.getBoundingClientRect().width;
+        const height = canvas.getBoundingClientRect().height;
+
+        ctx.clearRect(0, 0, width, height);
+
+        // 1. Draw Circuit Path (Double Titanium Layer)
+        ctx.beginPath();
+        const steps = 200;
+        for (let i = 0; i <= steps; i++) {
+            const pt = getTrackPointAt(i / steps);
+            const cx = pt.x * width;
+            const cy = pt.y * height;
+            if (i === 0) ctx.moveTo(cx, cy);
+            else ctx.lineTo(cx, cy);
         }
+        ctx.closePath();
+
+        // Asphalt Track base
+        ctx.strokeStyle = '#1a1d26';
+        ctx.lineWidth = 14;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+
+        // High contrast racing groove
+        ctx.strokeStyle = '#272c3a';
+        ctx.lineWidth = 6;
+        ctx.stroke();
+
+        // Racing Line (Active Aero highlight on straights)
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 6]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // 2. Draw DRS & Active Aero Zones
+        ctx.strokeStyle = 'rgba(0, 163, 137, 0.4)';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        for (let i = 0; i <= 25; i++) {
+            const pt = getTrackPointAt(i / 200);
+            const cx = pt.x * width;
+            const cy = pt.y * height;
+            if (i === 0) ctx.moveTo(cx, cy);
+            else ctx.lineTo(cx, cy);
+        }
+        ctx.stroke();
+
+        // 3. Draw Cars as Vector Directional Dots with Team Livery
+        cars.forEach((car, index) => {
+            const pt = getTrackPointAt(car.trackProgress);
+            const nextPt = getTrackPointAt(car.trackProgress + 0.005);
+            const cx = pt.x * width;
+            const cy = pt.y * height;
+            const angle = Math.atan2((nextPt.y - pt.y) * height, (nextPt.x - pt.x) * width);
+
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(angle);
+
+            // Car Halo Shadow
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+            ctx.fillRect(-6, -3, 12, 6);
+
+            // Active Driver Pulsing Ring
+            if (car.id === activeDriverId) {
+                ctx.beginPath();
+                ctx.arc(0, 0, 12, 0, Math.PI * 2);
+                ctx.strokeStyle = '#E10600';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            // Monoplaza Body
+            ctx.fillStyle = car.color;
+            ctx.beginPath();
+            ctx.roundRect(-7, -4, 14, 8, 2);
+            ctx.fill();
+
+            // Cockpit White Helm
+            ctx.fillStyle = '#FFFFFF';
+            ctx.beginPath();
+            ctx.arc(0, 0, 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+
+            // Driver Code Label
+            ctx.font = 'bold 9px "JetBrains Mono"';
+            ctx.fillStyle = car.id === activeDriverId ? '#E10600' : '#D8DCE5';
+            ctx.fillText(car.id, cx + 10, cy - 6);
+        });
     }
 
-    function endRace() {
-        state.isRacing = false;
+    /* ═══════════════════════════════════════════════════════════════
+       7. DOM UPDATERS: TIMING TOWER & COCKPIT HUD
+       ═══════════════════════════════════════════════════════════════ */
+    function updateTimingTower() {
+        const towerEl = document.getElementById('timingTowerRows');
+        if (!towerEl) return;
 
-        const dot = document.getElementById('simStatusDot');
-        const text = document.getElementById('simStatusText');
-        if (dot) dot.className = 'status-indicator finished';
-        if (text) text.textContent = I18N[state.lang].finished;
+        towerEl.innerHTML = cars.map((car, idx) => {
+            const isActive = car.id === activeDriverId;
+            const gapDisplay = idx === 0 
+                ? '<span class="timing-gap leader">LÍDER</span>' 
+                : `<span class="timing-gap">+${car.gapToLeader.toFixed(3)}s</span>`;
+            
+            const pitBadge = car.inPit ? '<span style="color: #FFB800; font-size: 9px; font-weight: 800;">PIT</span>' : '';
 
-        const winner = simDrivers[0];
-        logRadio(`¡BANDERA A CUADROS EN MÓNACO! Victoria para ${winner.nombre} (${TEAMS_CONFIG[winner.equipo]?.name}).`);
-        updateCockpitGauges(0, 0);
-        playLightsOutSound();
-    }
-
-    // ═══════════════════════════════════════
-    // LEADERBOARD & COCKPIT HUD
-    // ═══════════════════════════════════════
-    function renderLeaderboard() {
-        const list = document.getElementById('leaderboardList');
-        if (!list) return;
-
-        list.innerHTML = '';
-
-        simDrivers.forEach((driver, index) => {
-            const teamInfo = TEAMS_CONFIG[driver.equipo] || { name: driver.equipo, color: '#fff' };
-            const isLeader = index === 0;
-            const gapStr = isLeader ? 'LÍDER' : `+${driver.gapToLeader.toFixed(3)}s`;
-            const timeStr = `1:${(12 + (index % 3))}.${Math.floor(Math.random() * 800) + 100}`;
-            const isActive = driver.codigo === state.activeDriverCode;
-
-            const row = document.createElement('div');
-            row.className = `sim-driver-row ${isActive ? 'active-driver' : ''}`;
-            row.innerHTML = `
-                <span class="sim-row-pos ${isLeader ? 'p1' : ''}">${index + 1}</span>
-                <div class="sim-row-info">
-                    <div class="sim-team-indicator" style="background: ${teamInfo.color}"></div>
-                    <span class="sim-row-name">${driver.nombre}</span>
-                </div>
-                <span class="sim-row-time text-right">${timeStr}</span>
-                <span class="sim-row-gap text-right ${isLeader ? 'leader' : ''}">${gapStr}</span>
-                <div class="sim-row-tire text-right">
-                    <span class="tire-pill ${index < 3 ? 'soft' : 'medium'}">${index < 3 ? 'S' : 'M'}</span>
+            return `
+                <div class="timing-row ${isActive ? 'active' : ''}" data-driver="${car.id}">
+                    <span class="timing-pos">${idx + 1}</span>
+                    <span class="timing-team-stripe" style="background: ${car.color};"></span>
+                    <div class="timing-info">
+                        <span class="timing-code">${car.id} <span style="font-size: 10px; color: #8E95A5;">#${car.num}</span> ${pitBadge}</span>
+                        <span class="timing-team-name">${car.team}</span>
+                    </div>
+                    ${gapDisplay}
                 </div>
             `;
+        }).join('');
 
+        // Wire click events to switch active driver
+        towerEl.querySelectorAll('.timing-row').forEach(row => {
             row.addEventListener('click', () => {
-                selectDriver(driver.codigo, index + 1);
+                activeDriverId = row.getAttribute('data-driver');
+                updateCockpitHUD();
             });
-
-            list.appendChild(row);
         });
     }
 
-    function selectDriver(driverCode, pos = null) {
-        document.querySelectorAll('.sim-driver-row').forEach(r => r.classList.remove('active-driver'));
-        state.activeDriverCode = driverCode;
+    function updateCockpitHUD() {
+        const car = cars.find(c => c.id === activeDriverId) || cars[0];
 
-        const driverIdx = simDrivers.findIndex(d => d.codigo === driverCode);
-        const actualPos = pos || (driverIdx >= 0 ? driverIdx + 1 : 1);
-        state.activeDriverPos = actualPos;
+        // Driver details
+        const driverNameEl = document.getElementById('hudDriverName');
+        const driverTeamEl = document.getElementById('hudDriverTeam');
+        const driverNumEl = document.getElementById('hudDriverNum');
+        if (driverNameEl) driverNameEl.textContent = car.name;
+        if (driverTeamEl) driverTeamEl.textContent = `${car.team} · F1 2026`;
+        if (driverNumEl) driverNumEl.textContent = car.num;
 
-        const allRows = document.querySelectorAll('.sim-driver-row');
-        if (allRows[driverIdx]) allRows[driverIdx].classList.add('active-driver');
+        // Speed & Gear
+        const speedValEl = document.getElementById('hudSpeedVal');
+        const gearValEl = document.getElementById('hudGearVal');
+        const rpmValEl = document.getElementById('hudRpmVal');
+        const aeroValEl = document.getElementById('hudAeroMode');
+        if (speedValEl) speedValEl.textContent = Math.round(car.speed);
+        if (gearValEl) gearValEl.textContent = car.gear;
+        if (rpmValEl) rpmValEl.textContent = `${car.rpm} RPM`;
+        if (aeroValEl) aeroValEl.textContent = car.activeAero;
 
-        updateCockpitHUD(driverCode, simDrivers[driverIdx], null, actualPos);
-        playTone(600, 'sine', 0.1, 0.08);
+        // Shift Lights (13 LEDs based on RPM)
+        const leds = document.querySelectorAll('.shift-led');
+        const rpmRatio = Math.max(0, (car.rpm - 9000) / 5500);
+        const ledsOn = Math.floor(rpmRatio * 13);
+        leds.forEach((led, idx) => {
+            if (idx < ledsOn) led.classList.add('on');
+            else led.classList.remove('on');
+        });
+
+        // Throttle & Brake Bars
+        const throttleBar = document.getElementById('hudThrottleBar');
+        const brakeBar = document.getElementById('hudBrakeBar');
+        const throttleVal = document.getElementById('hudThrottleVal');
+        const brakeVal = document.getElementById('hudBrakeVal');
+        if (throttleBar) throttleBar.style.width = `${Math.round(car.throttle * 100)}%`;
+        if (brakeBar) brakeBar.style.width = `${Math.round(car.brake * 100)}%`;
+        if (throttleVal) throttleVal.textContent = `${Math.round(car.throttle * 100)}%`;
+        if (brakeVal) brakeVal.textContent = `${Math.round(car.brake * 100)}%`;
+
+        // Battery & Tires
+        const batteryVal = document.getElementById('hudBatteryVal');
+        const tireWearVal = document.getElementById('hudTireWearVal');
+        if (batteryVal) batteryVal.textContent = `${Math.round(car.batterySOC)}% MGU-K`;
+        if (tireWearVal) tireWearVal.textContent = `${Math.round(car.tireWear)}% DESGASTE`;
+
+        // Pirelli Thermals
+        const fl = document.getElementById('tempFL');
+        const fr = document.getElementById('tempFR');
+        const rl = document.getElementById('tempRL');
+        const rr = document.getElementById('tempRR');
+        if (fl) fl.textContent = `${car.tireTemps.fl}°C`;
+        if (fr) fr.textContent = `${car.tireTemps.fr}°C`;
+        if (rl) rl.textContent = `${car.tireTemps.rl}°C`;
+        if (rr) rr.textContent = `${car.tireTemps.rr}°C`;
+
+        // Floating Track Status
+        const lapBadge = document.getElementById('trackLapBadge');
+        if (lapBadge) lapBadge.textContent = `VUELTA ${currentLap}/${TOTAL_LAPS}`;
     }
 
-    function updateCockpitHUD(driverCode, driverData = null, teamInfo = null, pos = null) {
-        const targetDriver = driverData || simDrivers.find(x => x.codigo === driverCode) || simDrivers[0];
-        if (!targetDriver) return;
+    /* ═══════════════════════════════════════════════════════════════
+       8. HEAD-TO-HEAD COMPARATOR LOGIC
+       ═══════════════════════════════════════════════════════════════ */
+    function initComparator() {
+        const selectA = document.getElementById('compDriverA');
+        const selectB = document.getElementById('compDriverB');
+        if (!selectA || !selectB) return;
 
-        const team = teamInfo || TEAMS_CONFIG[targetDriver.equipo] || { name: targetDriver.equipo };
+        // Populate selects
+        const optionsHtml = DRIVERS_DB.map(d => `<option value="${d.id}">${d.name} (${d.team})</option>`).join('');
+        selectA.innerHTML = optionsHtml;
+        selectB.innerHTML = optionsHtml;
 
-        const codeEl = document.getElementById('hudDriverCode');
-        const nameEl = document.getElementById('hudDriverName');
-        const teamEl = document.getElementById('hudDriverTeam');
-        const posEl = document.getElementById('hudPos');
+        selectA.value = 'LEC';
+        selectB.value = 'VER';
 
-        if (codeEl) codeEl.textContent = targetDriver.codigo;
-        if (nameEl) nameEl.textContent = targetDriver.nombre;
-        if (teamEl) teamEl.textContent = team.name;
-        if (posEl) posEl.textContent = `P${pos || state.activeDriverPos}`;
+        function updateComparison() {
+            const d1 = DRIVERS_DB.find(d => d.id === selectA.value) || DRIVERS_DB[0];
+            const d2 = DRIVERS_DB.find(d => d.id === selectB.value) || DRIVERS_DB[1];
 
-        const tireWearEl = document.getElementById('hudTireWear');
-        if (tireWearEl) {
-            const wear = Math.max(40, 100 - (state.currentLap * 1.2));
-            tireWearEl.textContent = `${Math.floor(wear)}%`;
+            // Points
+            const ptsLeft = document.getElementById('h2hPtsLeft');
+            const ptsRight = document.getElementById('h2hPtsRight');
+            const ptsBarLeft = document.getElementById('h2hPtsBarLeft');
+            const ptsBarRight = document.getElementById('h2hPtsBarRight');
+            if (ptsLeft) ptsLeft.textContent = d1.pts;
+            if (ptsRight) ptsRight.textContent = d2.pts;
+            const maxPts = Math.max(d1.pts, d2.pts, 1);
+            if (ptsBarLeft) ptsBarLeft.style.width = `${(d1.pts / maxPts) * 100}%`;
+            if (ptsBarRight) ptsBarRight.style.width = `${(d2.pts / maxPts) * 100}%`;
+
+            // Wins
+            const winsLeft = document.getElementById('h2hWinsLeft');
+            const winsRight = document.getElementById('h2hWinsRight');
+            const winsBarLeft = document.getElementById('h2hWinsBarLeft');
+            const winsBarRight = document.getElementById('h2hWinsBarRight');
+            if (winsLeft) winsLeft.textContent = d1.wins;
+            if (winsRight) winsRight.textContent = d2.wins;
+            const maxWins = Math.max(d1.wins, d2.wins, 1);
+            if (winsBarLeft) winsBarLeft.style.width = `${(d1.wins / maxWins) * 100}%`;
+            if (winsBarRight) winsBarRight.style.width = `${(d2.wins / maxWins) * 100}%`;
+
+            // Qualy Pace
+            const qualyLeft = document.getElementById('h2hQualyLeft');
+            const qualyRight = document.getElementById('h2hQualyRight');
+            const qualyBarLeft = document.getElementById('h2hQualyBarLeft');
+            const qualyBarRight = document.getElementById('h2hQualyBarRight');
+            if (qualyLeft) qualyLeft.textContent = `${d1.qualyPace}%`;
+            if (qualyRight) qualyRight.textContent = `${d2.qualyPace}%`;
+            if (qualyBarLeft) qualyBarLeft.style.width = `${d1.qualyPace}%`;
+            if (qualyBarRight) qualyBarRight.style.width = `${d2.qualyPace}%`;
+
+            // Race Pace
+            const raceLeft = document.getElementById('h2hRaceLeft');
+            const raceRight = document.getElementById('h2hRaceRight');
+            const raceBarLeft = document.getElementById('h2hRaceBarLeft');
+            const raceBarRight = document.getElementById('h2hRaceBarRight');
+            if (raceLeft) raceLeft.textContent = `${d1.racePace}%`;
+            if (raceRight) raceRight.textContent = `${d2.racePace}%`;
+            if (raceBarLeft) raceBarLeft.style.width = `${d1.racePace}%`;
+            if (raceBarRight) raceBarRight.style.width = `${d2.racePace}%`;
+
+            // Tire Care
+            const tireLeft = document.getElementById('h2hTireLeft');
+            const tireRight = document.getElementById('h2hTireRight');
+            const tireBarLeft = document.getElementById('h2hTireBarLeft');
+            const tireBarRight = document.getElementById('h2hTireBarRight');
+            if (tireLeft) tireLeft.textContent = `${d1.tireCare}%`;
+            if (tireRight) tireRight.textContent = `${d2.tireCare}%`;
+            if (tireBarLeft) tireBarLeft.style.width = `${d1.tireCare}%`;
+            if (tireBarRight) tireBarRight.style.width = `${d2.tireCare}%`;
         }
+
+        selectA.addEventListener('change', updateComparison);
+        selectB.addEventListener('change', updateComparison);
+        updateComparison();
     }
 
-    function updateCockpitGauges(targetSpeed, throttlePct) {
-        const speedEl = document.getElementById('hudSpeed');
-        const dial = document.getElementById('speedDial');
-        const gearEl = document.getElementById('hudGear');
+    /* ═══════════════════════════════════════════════════════════════
+       9. COUNTDOWN TIMER: 2026 CALENDAR NEXT GP
+       ═══════════════════════════════════════════════════════════════ */
+    function initCountdown() {
+        // Target: Monaco GP May 24, 2026
+        const targetDate = new Date('2026-05-24T13:00:00Z').getTime();
 
-        if (!speedEl) return;
+        function tick() {
+            const now = new Date().getTime();
+            const diff = Math.max(0, targetDate - now);
 
-        let currentSpeed = parseInt(speedEl.textContent) || 0;
-        currentSpeed += (targetSpeed - currentSpeed) * 0.25;
-        currentSpeed = Math.floor(currentSpeed);
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
-        speedEl.textContent = currentSpeed;
+            const dEl = document.getElementById('countDays');
+            const hEl = document.getElementById('countHours');
+            const mEl = document.getElementById('countMins');
+            const sEl = document.getElementById('countSecs');
 
-        // Calibrate SVG stroke-dashoffset (Circumference ~212)
-        let offset = 212 - ((Math.min(360, currentSpeed) / 360) * 212);
-        if (offset < 0) offset = 0;
-        if (dial) dial.style.strokeDashoffset = offset;
+            if (dEl) dEl.textContent = String(days).padStart(2, '0');
+            if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+            if (mEl) mEl.textContent = String(mins).padStart(2, '0');
+            if (sEl) sEl.textContent = String(secs).padStart(2, '0');
+        }
 
-        let gear = 'N';
-        if (currentSpeed > 5) gear = '1';
-        if (currentSpeed > 60) gear = '2';
-        if (currentSpeed > 105) gear = '3';
-        if (currentSpeed > 150) gear = '4';
-        if (currentSpeed > 195) gear = '5';
-        if (currentSpeed > 240) gear = '6';
-        if (currentSpeed > 280) gear = '7';
-        if (currentSpeed > 310) gear = '8';
-        if (gearEl) gearEl.textContent = gear;
-
-        const thr = document.getElementById('hudThrottle');
-        const brk = document.getElementById('hudBrake');
-
-        if (thr) thr.style.height = `${throttlePct}%`;
-        if (brk) brk.style.height = throttlePct === 0 ? '75%' : '0%';
+        tick();
+        setInterval(tick, 1000);
     }
 
-    function updateHeroTelemetry() {
-        const heroTopSpeed = document.getElementById('heroTopSpeed');
-        const heroTireWear = document.getElementById('heroTireWear');
-        const heroBattery = document.getElementById('heroBattery');
-
-        if (heroTopSpeed) {
-            const spd = 310 + Math.floor(Math.random() * 28);
-            heroTopSpeed.textContent = `${spd} KM/H`;
-        }
-        if (heroTireWear) {
-            const wear = Math.max(50, 95 - Math.floor(state.currentLap * 1.1));
-            heroTireWear.textContent = `${wear}%`;
-        }
-        if (heroBattery) {
-            const batt = 70 + Math.floor(Math.random() * 25);
-            heroBattery.textContent = `${batt}%`;
-        }
-    }
-
-    // ═══════════════════════════════════════
-    // SIMULATION CONTROLS & EVENT LISTENERS
-    // ═══════════════════════════════════════
-    function initSimControls() {
-        const btnStart = document.getElementById('btnStartRace');
-        const btnReset = document.getElementById('btnResetSim');
-        const btnWeather = document.getElementById('btnChangeWeather');
-        const btnSC = document.getElementById('btnTriggerSC');
-        const btnSpeed = document.getElementById('btnSpeedMultiplier');
-
-        if (btnStart) {
-            btnStart.addEventListener('click', () => {
-                startRaceSequence();
+    /* ═══════════════════════════════════════════════════════════════
+       10. SIMULATION CONTROLS & EVENT WIRING
+       ═══════════════════════════════════════════════════════════════ */
+    function initControls() {
+        // Play / Pause
+        const btnPlay = document.getElementById('btnSimPlay');
+        if (btnPlay) {
+            btnPlay.addEventListener('click', () => {
+                isRunning = !isRunning;
+                btnPlay.textContent = isRunning ? 'PAUSA' : 'REANUDAR';
+                btnPlay.classList.toggle('active', isRunning);
             });
         }
 
-        if (btnReset) {
-            btnReset.addEventListener('click', () => resetRace());
-        }
-
-        if (btnSpeed) {
-            btnSpeed.addEventListener('click', () => {
-                if (state.speedMultiplier === 1.0) state.speedMultiplier = 2.0;
-                else if (state.speedMultiplier === 2.0) state.speedMultiplier = 4.0;
-                else state.speedMultiplier = 1.0;
-
-                const textEl = document.getElementById('speedMultiplierText');
-                if (textEl) textEl.textContent = `${state.speedMultiplier}x`;
-                playTone(520, 'sine', 0.1, 0.05);
+        // Speed multipliers
+        const speedBtns = document.querySelectorAll('[data-speed]');
+        speedBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                speedBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                simSpeed = parseFloat(btn.getAttribute('data-speed')) || 1;
             });
-        }
+        });
 
+        // Weather toggle
+        const btnWeather = document.getElementById('btnSimWeather');
         if (btnWeather) {
             btnWeather.addEventListener('click', () => {
-                const weathers = ['LLUVIA', 'SOLEADO', 'NUBLADO'];
-                const nextWeathers = weathers.filter(w => w !== state.weather);
-                const w = nextWeathers[Math.floor(Math.random() * nextWeathers.length)];
-                state.weather = w;
-                state.weatherTemp = w === 'LLUVIA' ? 18 : (w === 'SOLEADO' ? 32 : 22);
-
-                playTone(440, 'triangle', 0.25, 0.1);
-
-                const weatherEl = document.getElementById('weatherText');
-                if (weatherEl) {
-                    const icon = w === 'LLUVIA' ? '🌧️' : (w === 'SOLEADO' ? '☀️' : '☁️');
-                    weatherEl.textContent = `${icon} ${w} (${state.weatherTemp}°C)`;
-                }
-                logRadio(`Alerta meteorológica: Condiciones de ${w} en el circuito.`);
+                weatherMode = weatherMode === 'DRY' ? 'WET' : 'DRY';
+                btnWeather.textContent = weatherMode === 'DRY' ? 'CLIMA: SECO' : 'CLIMA: LLUVIA';
+                btnWeather.classList.toggle('active', weatherMode === 'WET');
             });
         }
 
-        if (btnSC) {
-            btnSC.addEventListener('click', () => {
-                state.safetyCarDeployed = !state.safetyCarDeployed;
-                const dot = document.getElementById('flagDot');
-                const text = document.getElementById('flagText');
-
-                if (state.safetyCarDeployed) {
-                    state.flag = 'YELLOW';
-                    playTone(550, 'sawtooth', 0.4, 0.15);
-                    if (dot) dot.className = 'flag-dot safety-car';
-                    if (text) text.textContent = 'SAFETY CAR';
-                    logRadio("¡SAFETY CAR DESPLEGADO! Reducción de delta obligatoria.");
-                } else {
-                    state.flag = 'GREEN';
-                    playTone(770, 'triangle', 0.25, 0.1);
-                    if (dot) dot.className = 'flag-dot green';
-                    if (text) text.textContent = 'Bandera Verde';
-                    logRadio("Safety Car entra a boxes. ¡Bandera Verde!");
-                }
-            });
-        }
-    }
-
-    function startRaceSequence() {
-        const banner = document.getElementById('gantryBanner');
-        const lights = document.querySelectorAll('.pod-light');
-        const btnStart = document.getElementById('btnStartRace');
-        const btnReset = document.getElementById('btnResetSim');
-
-        if (btnStart) btnStart.disabled = true;
-
-        if (banner) {
-            banner.textContent = "SECUENCIA DE SALIDA FIA";
-            banner.classList.remove('lights-out');
-        }
-
-        let step = 0;
-        const seq = setInterval(() => {
-            if (step < lights.length) {
-                lights[step].classList.add('active');
-                playBeepLight();
-                step++;
-            } else {
-                clearInterval(seq);
-                setTimeout(() => {
-                    lights.forEach(l => l.classList.remove('active'));
-                    playLightsOutSound();
-
-                    if (banner) {
-                        banner.textContent = "¡LUCES APAGADAS Y ARRANCAMOS!";
-                        banner.classList.add('lights-out');
-                    }
-
-                    state.isRacing = true;
-                    state.currentLap = 1;
-
-                    const lapEl = document.getElementById('currentLapCounter');
-                    if (lapEl) lapEl.textContent = 1;
-
-                    const heroLapBadge = document.getElementById('heroLapBadge');
-                    if (heroLapBadge) heroLapBadge.textContent = 'VUELTA 1/53';
-
-                    if (btnStart) btnStart.disabled = false;
-                    if (btnReset) btnReset.disabled = false;
-
-                    const dot = document.getElementById('simStatusDot');
-                    const text = document.getElementById('simStatusText');
-                    if (dot) dot.className = 'status-indicator racing';
-                    if (text) text.textContent = I18N[state.lang].racing;
-
-                    logRadio("¡Luces apagadas en Mónaco! Salida limpia hacia Sainte Dévote.");
-                }, 500 + Math.random() * 400);
-            }
-        }, 300);
-    }
-
-    function resetRace() {
-        state.isRacing = false;
-        state.currentLap = 0;
-        state.safetyCarDeployed = false;
-        state.flag = 'GREEN';
-
-        const lapEl = document.getElementById('currentLapCounter');
-        if (lapEl) lapEl.textContent = 0;
-
-        const btnReset = document.getElementById('btnResetSim');
-        if (btnReset) btnReset.disabled = true;
-
-        const dot = document.getElementById('simStatusDot');
-        const text = document.getElementById('simStatusText');
-        if (dot) dot.className = 'status-indicator ready';
-        if (text) text.textContent = I18N[state.lang].waiting_start;
-
-        const flagDot = document.getElementById('flagDot');
-        const flagText = document.getElementById('flagText');
-        if (flagDot) flagDot.className = 'flag-dot green';
-        if (flagText) flagText.textContent = I18N[state.lang].flag_green;
-
-        const banner = document.getElementById('gantryBanner');
-        if (banner) {
-            banner.textContent = "WAITING";
-            banner.classList.remove('lights-out');
-        }
-
-        resetDriversToGrid();
-        updateCockpitGauges(0, 0);
-        logRadio(I18N[state.lang].radio_init);
-    }
-
-    // ═══════════════════════════════════════
-    // VEHICLE SETUP FORM
-    // ═══════════════════════════════════════
-    function initSetupForm() {
-        const form = document.getElementById('setupForm');
-        const feedback = document.getElementById('setupFeedback');
-        if (!form) return;
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const escuderiaId = document.getElementById('setupEscuderia').value;
-            const aero = document.getElementById('setupAero').value;
-            const tires = document.getElementById('setupTires').value;
-
-            playTone(800, 'sine', 0.2, 0.1);
-
-            simDrivers.forEach(d => {
-                if (d.equipo === escuderiaId) {
-                    if (aero === 'BAJA') d.baseSpeedFactor *= 1.04;
-                    if (aero === 'ALTA') d.baseSpeedFactor *= 0.98;
-                    if (tires === 'SOFT') d.paceModifier = 1.08;
-                    if (tires === 'HARD') d.paceModifier = 0.96;
-                }
-            });
-
-            const teamInfo = TEAMS_CONFIG[escuderiaId] || { name: escuderiaId };
-            const titleEl = document.getElementById('setupFeedbackTitle');
-            if (titleEl) titleEl.textContent = `SETUP APLICADO A ${teamInfo.name.toUpperCase()}`;
-
-            let speed = "336 KM/H";
-            let deg = "2.4% / vuelta";
-            let grip = "Equilibrado";
-
-            if (aero === 'ALTA') { speed = "318 KM/H"; grip = "Alto (Paso por curva superior)"; }
-            if (aero === 'BAJA') { speed = "352 KM/H"; grip = "Bajo (Máxima velocidad punta)"; }
-            if (tires === 'SOFT') { deg = "4.6% / vuelta (Agarre inicial máximo)"; }
-            if (tires === 'HARD') { deg = "1.2% / vuelta (Máxima durabilidad)"; }
-
-            if (feedback) {
-                const statsGrid = feedback.querySelector('.feedback-stats-grid');
-                if (statsGrid) {
-                    statsGrid.innerHTML = `
-                        <div class="feedback-stat-box">
-                            <div class="stat-label">Velocidad Punta Est.</div>
-                            <div class="stat-val ${aero === 'BAJA' ? 'positive' : ''}">${speed}</div>
-                        </div>
-                        <div class="feedback-stat-box">
-                            <div class="stat-label">Degradación Estimada</div>
-                            <div class="stat-val ${tires === 'SOFT' ? 'negative' : 'positive'}">${deg}</div>
-                        </div>
-                        <div class="feedback-stat-box">
-                            <div class="stat-label">Agarre en Curva</div>
-                            <div class="stat-val ${aero === 'ALTA' ? 'positive' : ''}">${grip}</div>
-                        </div>
-                    `;
-                }
-                feedback.classList.add('show');
-                logRadio(`Configuración de monoplaza actualizada para ${teamInfo.name}.`);
-                setTimeout(() => feedback.classList.remove('show'), 6000);
-            }
-        });
-    }
-
-    // ═══════════════════════════════════════
-    // NAVIGATION, TABS & HERO ACTIONS
-    // ═══════════════════════════════════════
-    function initNavigation() {
-        const navbar = document.getElementById('mainNav');
-        const ticker = document.getElementById('globalTicker');
-
-        function handleScroll() {
-            const isScrolled = window.scrollY > 20;
-            if (navbar) navbar.classList.toggle('scrolled', isScrolled);
-            if (ticker) ticker.classList.toggle('scrolled', isScrolled);
-
-            // ScrollSpy for navbar links
-            const scrollPos = window.scrollY + 120;
-            const sections = [
-                { id: 'sim-engine', link: document.querySelector('.nav-links a[href="#sim-engine"]') },
-                { id: 'features', link: document.querySelector('.nav-links a[href="#features"]') },
-                { id: 'how-it-works', link: document.querySelector('.nav-links a[href="#how-it-works"]') }
-            ];
-
-            let activeFound = false;
-            for (let i = sections.length - 1; i >= 0; i--) {
-                const sec = document.getElementById(sections[i].id);
-                if (sec && scrollPos >= sec.offsetTop) {
-                    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-                    if (sections[i].link) sections[i].link.classList.add('active');
-                    activeFound = true;
-                    break;
-                }
-            }
-            if (!activeFound && window.scrollY < 200) {
-                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-                const first = document.querySelector('.nav-links a[href="#sim-engine"]');
-                if (first) first.classList.add('active');
-            }
-        }
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll();
-
-        // Smooth scroll for nav anchor links
-        document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+        // Apple Segmented Nav Smooth Scroll
+        document.querySelectorAll('.segment-btn[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (targetId && targetId !== '#') {
-                    const targetEl = document.querySelector(targetId);
-                    if (targetEl) {
-                        e.preventDefault();
-                        targetEl.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
-
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        if (navToggle && navLinks) {
-            navToggle.addEventListener('click', () => {
-                const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-                navToggle.setAttribute('aria-expanded', !isExpanded);
-                navLinks.classList.toggle('open');
-            });
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('open');
-                    navToggle.setAttribute('aria-expanded', 'false');
-                });
-            });
-        }
-
-        const btnEs = document.getElementById('btnLangEs');
-        const btnEn = document.getElementById('btnLangEn');
-        if (btnEs && btnEn) {
-            btnEs.addEventListener('click', () => setLanguage('es'));
-            btnEn.addEventListener('click', () => setLanguage('en'));
-        }
-    }
-
-    function setLanguage(lang) {
-        state.lang = lang;
-        const btnEs = document.getElementById('btnLangEs');
-        const btnEn = document.getElementById('btnLangEn');
-        if (btnEs && btnEn) {
-            btnEs.classList.toggle('active', lang === 'es');
-            btnEn.classList.toggle('active', lang === 'en');
-        }
-
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (I18N[lang] && I18N[lang][key]) {
-                el.innerHTML = I18N[lang][key];
-            }
-        });
-    }
-
-    function initHeroActions() {
-        const btnHeroStart = document.getElementById('btnHeroStart');
-        if (btnHeroStart) {
-            btnHeroStart.addEventListener('click', () => {
-                const simSec = document.getElementById('sim-engine');
-                if (simSec) simSec.scrollIntoView({ behavior: 'smooth' });
-
-                const trackTabBtn = document.getElementById('tab-btn-track');
-                if (trackTabBtn) trackTabBtn.click();
-
-                startRaceSequence();
-            });
-        }
-    }
-
-    function initTabs() {
-        const tabBtns = document.querySelectorAll('.sim-tab-btn');
-        const tabPanes = document.querySelectorAll('.tab-pane');
-
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                tabBtns.forEach(b => {
-                    b.classList.remove('active');
-                    b.setAttribute('aria-selected', 'false');
-                });
-                tabPanes.forEach(p => p.classList.remove('active'));
-
-                btn.classList.add('active');
-                btn.setAttribute('aria-selected', 'true');
-
-                const targetId = btn.getAttribute('data-target');
-                const targetPane = document.getElementById(targetId);
-                if (targetPane) targetPane.classList.add('active');
-
-                if (targetId === 'pane-track') {
-                    renderAllCarsOnTrack();
-                    if (state.chartInstance) {
-                        setTimeout(() => state.chartInstance.resize(), 50);
-                    }
+                e.preventDefault();
+                document.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
     }
 
-    function initDeltaChart() {
-        const canvas = document.getElementById('deltaChart');
-        if (!canvas || !window.Chart) return;
+    /* ═══════════════════════════════════════════════════════════════
+       11. MAIN RAF ANIMATION LOOP
+       ═══════════════════════════════════════════════════════════════ */
+    let lastTime = performance.now();
 
-        try {
-            const ctx = canvas.getContext('2d');
-            state.chartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: state.deltaHistory.map((_, i) => `L${i + 1}`),
-                    datasets: [{
-                        label: 'Delta (s)',
-                        data: state.deltaHistory,
-                        borderColor: '#00E676',
-                        backgroundColor: 'rgba(0, 230, 118, 0.12)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false }, tooltip: { enabled: false } },
-                    scales: {
-                        x: { display: false },
-                        y: { display: false, min: -0.35, max: 0.1 }
-                    },
-                    animation: false
-                }
-            });
-        } catch (e) {
-            console.warn('Chart.js error:', e);
+    function mainLoop(now) {
+        const dt = Math.min(0.1, (now - lastTime) / 1000); // delta in seconds clamped
+        lastTime = now;
+
+        updatePhysics(dt);
+        renderTrack();
+
+        // Throttle DOM updates to 10 FPS for optimal CPU efficiency
+        if (raceTicks % 6 === 0) {
+            updateTimingTower();
+            updateCockpitHUD();
+        }
+
+        requestAnimationFrame(mainLoop);
+    }
+
+    // Dismiss loader overlay
+    function dismissLoader() {
+        const overlay = document.getElementById('page-transition-overlay');
+        if (overlay) {
+            overlay.style.opacity = '0';
+            setTimeout(() => { if (overlay) overlay.remove(); }, 250);
         }
     }
 
-    function updateDeltaChart() {
-        if (!state.chartInstance) return;
-        const newDelta = Number((-0.03 - (Math.random() * 0.18)).toFixed(3));
-        state.deltaHistory.shift();
-        state.deltaHistory.push(newDelta);
-
-        state.chartInstance.data.datasets[0].data = state.deltaHistory;
-        state.chartInstance.update('none');
-
-        const deltaEl = document.getElementById('hudDelta');
-        if (deltaEl) {
-            deltaEl.textContent = `${newDelta > 0 ? '+' : ''}${newDelta.toFixed(3)}s`;
-        }
-    }
-
-    function populateDriverStatsTable(drivers) {
-        const tbody = document.getElementById('driverStatsTbody');
-        if (!tbody) return;
-
-        tbody.innerHTML = '';
-        const sorted = [...drivers].sort((a, b) => b.habilidad - a.habilidad);
-
-        sorted.forEach(driver => {
-            const teamInfo = TEAMS_CONFIG[driver.equipo] || { name: driver.equipo, color: '#fff' };
-            const tr = document.createElement('tr');
-
-            tr.innerHTML = `
-                <td>
-                    <div class="driver-cell">
-                        <div class="driver-number" style="color: ${teamInfo.color};">#${driver.numero}</div>
-                        <div class="driver-info">
-                            <span class="driver-name-text">${driver.nombre}</span>
-                            <span class="driver-team-text">${teamInfo.name}</span>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <span style="font-weight:700;">${driver.habilidad} OVR</span>
-                    <div class="stat-bar-container"><div class="stat-bar-fill" style="width: ${driver.habilidad}%; background: var(--f1-red);"></div></div>
-                </td>
-                <td>
-                    <span style="font-weight:700;">${driver.experiencia}</span>
-                    <div class="stat-bar-container"><div class="stat-bar-fill" style="width: ${driver.experiencia}%; background: var(--data-cyan);"></div></div>
-                </td>
-                <td>
-                    <span style="font-weight:700;">${driver.gestionNeumaticos}</span>
-                    <div class="stat-bar-container"><div class="stat-bar-fill" style="width: ${driver.gestionNeumaticos}%; background: var(--telemetry-green);"></div></div>
-                </td>
-                <td><span class="mono">${(driver.probabilidadError * 100).toFixed(1)}%</span></td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
-
-    function logRadio(msg) {
-        const el = document.getElementById('raceRadioMsg');
-        if (el) {
-            el.textContent = `[RADIO] ${msg}`;
-            el.classList.remove('feed-pulse');
-            void el.offsetWidth;
-            el.classList.add('feed-pulse');
-        }
-    }
+    /* ═══════════════════════════════════════════════════════════════
+       12. INITIALIZATION
+       ═══════════════════════════════════════════════════════════════ */
+    document.addEventListener('DOMContentLoaded', () => {
+        initCanvas();
+        initControls();
+        initComparator();
+        initCountdown();
+        updateTimingTower();
+        updateCockpitHUD();
+        setTimeout(dismissLoader, 350);
+        requestAnimationFrame(mainLoop);
+    });
 
 })();

@@ -31,6 +31,12 @@
       "skillPath": "skills/ask-sonner/SKILL.md",
       "computedHash": "f971641be0de21b2bb5dae38bc8ef5e0ee963844e71b7fae464ec9274d2507eb"
     },
+    "bencium-innovative-ux-designer": {
+      "source": "bencium/bencium-marketplace",
+      "sourceType": "github",
+      "skillPath": "bencium-innovative-ux-designer/skills/bencium-innovative-ux-designer/SKILL.md",
+      "computedHash": "654e647feb2dd05f76031e8966a82181b0786488030b93462381238f167f4ef6"
+    },
     "brandkit": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",

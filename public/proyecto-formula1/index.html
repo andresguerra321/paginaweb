@@ -3,594 +3,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Simulador de Fórmula 1 de alta precisión impulsado por datos estadísticos, telemetría y algoritmos concurrentes.">
-    <title>F1 Sim Pro | Simulador Estadístico de Alta Precisión &amp; Telemetría</title>
+    <meta name="description" content="F1 Sim Pro 2026 — Telemetría en vivo a 60 FPS, aerodinámica activa 2026, degradación de neumáticos y física estocástica en tiempo real.">
+    <title>F1 Sim Pro 2026 | Telemetría & Dashboard Paddock</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="../img/icons/favicon.svg">
     
-    <!-- Google Fonts: Outfit (Display deportivo de competición), DM Sans (Cuerpo), JetBrains Mono (Telemetría de precisión) -->
+    <!-- Google Fonts: Outfit (Display & Acronyms), DM Sans (Paddock Labels), JetBrains Mono (Telemetry Tabular) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="css/index.css">
-    
-    <!-- External Libraries: Chart.js for Telemetry Sparklines -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <body class="f1-theme">
-    <a href="#main-content" class="skip-link">Saltar al contenido</a>
+    <a href="#main-content" class="skip-link">SALTAR A TELEMETRÍA</a>
 
-    <!-- Minimalist Page Transition Overlay (Zero-Flash Architecture) -->
-    <div class="page-transition-overlay" id="page-transition-overlay">
-        <div class="minimal-loader">
-            <div class="minimal-loader-title">F1 SIM PRO</div>
-            <div class="minimal-loader-bar-bg">
-                <div class="minimal-loader-bar" id="minimal-bar"></div>
-            </div>
-            <div class="minimal-loader-subtitle">INICIALIZANDO MOTOR TELEMÉTRICO</div>
+    <!-- Minimalist Page Transition Overlay -->
+    <div class="page-transition-overlay" id="page-transition-overlay" style="position: fixed; inset: 0; background: #08090C; z-index: 10000; display: flex; align-items: center; justify-content: center; transition: opacity 250ms ease;">
+        <div style="text-align: center; font-family: 'Outfit', sans-serif;">
+            <div style="font-size: 28px; font-weight: 900; letter-spacing: -0.04em; color: #fff; margin-bottom: 8px;">F1 SIM PRO <span style="color: #E10600;">2026</span></div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8E95A5; letter-spacing: 0.12em;">INICIALIZANDO MOTOR FÍSICO 60 FPS · 350 KW ERS</div>
         </div>
     </div>
 
-    <!-- Carbon Fiber Ambient Lighting Backdrop -->
-    <div class="carbon-ambient-backdrop" aria-hidden="true"></div>
-
-    <!-- Static High-Precision Telemetry HUD (Paddock Pit Wall Top Bar) -->
-    <header class="hud-ticker" id="globalTicker" aria-label="Estado general de la telemetría">
+    <!-- GLOBAL HUD TICKER (FIA Paddock Status) -->
+    <header class="hud-ticker">
         <div class="container hud-ticker-content">
-            <div class="hud-ticker-cell">
-                <span class="hud-status-indicator active" aria-hidden="true"></span>
-                <span class="hud-ticker-label">FIA TIMING // F1 SIM PRO MOTOR ACTIVO</span>
+            <div class="hud-cell">
+                <span class="hud-dot" aria-hidden="true"></span>
+                <span>FIA TIMING // F1 2026 ACTIVE SPEC</span>
             </div>
-            <div class="hud-ticker-divider" aria-hidden="true"></div>
-            <div class="hud-ticker-cell">
-                <span class="hud-ticker-dim">TELEMETRÍA:</span>
-                <span class="hud-ticker-val">60 FPS CONCURRENTE</span>
+            <div class="hud-cell">
+                <span>CIRCUITO:</span>
+                <strong>MÓNACO · 3.337 KM</strong>
             </div>
-            <div class="hud-ticker-divider" aria-hidden="true"></div>
-            <div class="hud-ticker-cell">
-                <span class="hud-ticker-dim">CIRCUITO:</span>
-                <span class="hud-ticker-val">CIRCUIT DE MONACO // 3.337 KM</span>
+            <div class="hud-cell">
+                <span>UNIDAD DE POTENCIA:</span>
+                <strong>V6 TURBO + 350 KW MGU-K</strong>
             </div>
-            <div class="hud-ticker-divider" aria-hidden="true"></div>
-            <div class="hud-ticker-cell">
-                <span class="hud-badge-live">SESIÓN EN VIVO</span>
+            <div class="hud-cell">
+                <span>AERO ACTIVA:</span>
+                <strong>Z-MODE & CORNER MODE</strong>
             </div>
+            <div class="hud-badge-live">LIVE TELEMETRY 60 FPS</div>
         </div>
     </header>
 
-    <!-- Floating Island Navbar -->
-    <nav class="navbar" id="mainNav" aria-label="Navegación principal">
-        <div class="container nav-row">
-            <div class="nav-left-group">
-                <a href="../index.html" class="nav-back-link" data-i18n="nav_back">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-                    <span>Volver a Soluciones</span>
+    <!-- APPLE-LIKE SEGMENTED NAVBAR -->
+    <nav class="navbar-apple" id="mainNav">
+        <div class="container navbar-container">
+            <div class="nav-brand-group">
+                <a href="../index.html" class="nav-back-chip">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    <span>SOLUCIONES</span>
                 </a>
-
-                <a href="#" class="nav-brand" aria-label="F1 Sim Pro Inicio">
-                    <span class="brand-f1-badge">F1</span>
-                    <span class="brand-product-name">Sim Pro</span>
+                <a href="#" class="nav-logo-badge">
+                    <span class="nav-logo-f1">F1</span>
+                    <span>SIM PRO</span>
                 </a>
             </div>
-            
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#sim-engine" class="active" data-i18n="nav_sim">Simulador</a></li>
-                <li><a href="#features" data-i18n="nav_features">Características</a></li>
-                <li><a href="#how-it-works" data-i18n="nav_how">Cómo Funciona</a></li>
-            </ul>
 
-            <div class="nav-controls">
-                <div class="engine-status-pill">
-                    <span class="engine-dot" aria-hidden="true"></span>
-                    <span id="navEngineStatus" data-i18n="nav_status">SISTEMA ACTIVO</span>
-                </div>
-                <div class="lang-switch" role="group" aria-label="Selector de idioma">
-                    <button type="button" class="lang-btn active" id="btnLangEs">ES</button>
-                    <button type="button" class="lang-btn" id="btnLangEn">EN</button>
-                </div>
-                <button type="button" class="nav-hamburger" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
-                    <span></span><span></span><span></span>
-                </button>
+            <!-- Apple Segmented Navigation Links -->
+            <div class="segment-bar">
+                <a href="#telemetria" class="segment-btn active">TELEMETRÍA</a>
+                <a href="#pilotos" class="segment-btn">PILOTOS</a>
+                <a href="#constructores" class="segment-btn">CONSTRUCTORES</a>
+                <a href="#calendario" class="segment-btn">CALENDARIO</a>
+                <a href="#resultados" class="segment-btn">RESULTADOS</a>
+                <a href="#comparador" class="segment-btn">COMPARADOR</a>
+                <a href="#escuderias" class="segment-btn">ESCUDERÍAS</a>
+            </div>
+
+            <div class="nav-actions">
+                <button type="button" class="lang-chip active">ES</button>
+                <button type="button" class="lang-chip">EN</button>
             </div>
         </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN DASHBOARD CONTENT -->
     <main id="main-content">
 
         <!-- ============================================================
-             HERO SECTION — Authentic Formula 1 Engineering
+             HERO HEADER — 2026 ACTIVE AERO SPECS
              ============================================================ -->
-        <section class="hero-section container">
-            <div class="hero-grid">
-                <!-- Text Content -->
-                <div class="hero-text">
-                    <div class="hero-eyebrow">
-                        <span class="f1-badge-red">FIA TELEMETRY</span>
-                        <span class="hero-eyebrow-text" data-i18n="hero_eyebrow">Motor Estadístico de Alta Fidelidad</span>
+        <section class="hero-f1">
+            <div class="container hero-paddock-grid">
+                <div class="hero-main-panel">
+                    <div class="hero-badge-strip">
+                        <span class="badge-tech ferrari">FIA 2026 REGULATION</span>
+                        <span class="badge-tech">50% ELÉCTRICO · 350 KW</span>
+                        <span class="badge-tech aston">COMBUSTIBLE 100% SOSTENIBLE</span>
+                        <span class="badge-tech williams">AERODINÁMICA ACTIVA</span>
                     </div>
-                    <h1 class="hero-title" data-i18n="hero_title">
-                        Siente la carrera.<br>
-                        <span class="hero-title-accent">Simulada por Datos.</span>
+
+                    <h1 class="hero-headline">
+                        TELEMETRÍA 2026.<br>
+                        <span>FÍSICA REAL A 60 FPS.</span>
                     </h1>
-                    <p class="hero-subtitle" data-i18n="hero_subtitle">
-                        F1 Sim Pro computa el ritmo de cada monoplaza evaluando la habilidad de los pilotos, la degradación de los compuestos, la carga aerodinámica y eventos de pista en tiempo real a 60 FPS.
-                    </p>
-                    
-                    <div class="hero-actions">
-                        <button type="button" class="btn-f1-primary" id="btnHeroStart">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                            <span data-i18n="hero_btn_start">Iniciar Demo</span>
-                        </button>
-                        <a href="#features" class="btn-f1-secondary" data-i18n="hero_btn_explore">Explorar Características</a>
+
+                    <div class="hero-spec-pills">
+                        <div class="spec-pill">
+                            <span class="spec-pill-label">MOTOR TÉRMICO</span>
+                            <span class="spec-pill-val">1.6L V6 TURBO</span>
+                        </div>
+                        <div class="spec-pill">
+                            <span class="spec-pill-label">POTENCIA ELÉCTRICA</span>
+                            <span class="spec-pill-val">350 KW (470 HP)</span>
+                        </div>
+                        <div class="spec-pill">
+                            <span class="spec-pill-label">FRENADA MÁXIMA</span>
+                            <span class="spec-pill-val">5.2G // DISCOS CARBONO</span>
+                        </div>
+                        <div class="spec-pill">
+                            <span class="spec-pill-label">LATENCIA ENGINE</span>
+                            <span class="spec-pill-val">1 MS (CONCURRENTE)</span>
+                        </div>
                     </div>
 
-                    <div class="hero-pills">
-                        <span class="hero-pill"><span class="pill-f1-dot red" aria-hidden="true"></span> Lógica Java Multithreading</span>
-                        <span class="hero-pill"><span class="pill-f1-dot cyan" aria-hidden="true"></span> Telemetría Dinámica 60 FPS</span>
-                        <span class="hero-pill"><span class="pill-f1-dot yellow" aria-hidden="true"></span> Desgaste y Clima Estocástico</span>
+                    <div class="flex-row gap-2">
+                        <a href="#telemetria" class="btn-ferrari">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            <span>MONITOR DE PISTA EN VIVO</span>
+                        </a>
+                        <a href="#comparador" class="btn-titanium">
+                            <span>COMPARADOR CARA A CARA</span>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Dashboard Preview Hero Card (Inspired by real F1 Pit Wall Telemetry) -->
-                <div class="hero-visual">
-                    <div class="hero-dashboard-card">
-                        <div class="dash-header">
-                            <div class="dash-header-left">
-                                <span class="dash-live-dot" aria-hidden="true"></span>
-                                <span class="dash-label">PIT WALL TELEMETRY</span>
-                            </div>
-                            <span class="dash-lap-badge" id="heroLapBadge">VUELTA 1/53</span>
+                <!-- Fast Race Session Card -->
+                <div class="hero-side-card">
+                    <div class="section-kicker">ESTADO DE SESIÓN</div>
+                    <div class="flex-col gap-2">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-family: var(--font-display); font-size: 20px; font-weight: 800; color: #fff;">GP DE MÓNACO 2026</span>
+                            <span class="badge-tech ferrari">CARRERA</span>
                         </div>
+                        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--c-titanium-500);">LONGITUD: 3.337 KM · 78 VUELTAS · 19 CURVAS</div>
+                    </div>
 
-                        <!-- Mini Leaderboard -->
-                        <div class="dash-body" id="heroLeaderRows">
-                            <div class="dash-row">
-                                <span class="dash-pos">1</span>
-                                <div class="dash-driver">
-                                    <span class="dash-team-bar" style="background: var(--team-redbull);"></span>
-                                    <div>
-                                        <div class="dash-driver-name">Max Verstappen</div>
-                                        <div class="dash-driver-team">RED BULL RACING</div>
-                                    </div>
-                                </div>
-                                <span class="dash-time">1:32.450</span>
-                                <span class="dash-gap leader">LÍDER</span>
-                                <span class="compound-disc-mini soft">S</span>
-                            </div>
-                            <div class="dash-row">
-                                <span class="dash-pos">2</span>
-                                <div class="dash-driver">
-                                    <span class="dash-team-bar" style="background: var(--team-ferrari);"></span>
-                                    <div>
-                                        <div class="dash-driver-name">Charles Leclerc</div>
-                                        <div class="dash-driver-team">FERRARI</div>
-                                    </div>
-                                </div>
-                                <span class="dash-time">1:32.890</span>
-                                <span class="dash-gap">+0.440</span>
-                                <span class="compound-disc-mini medium">M</span>
-                            </div>
-                            <div class="dash-row">
-                                <span class="dash-pos">3</span>
-                                <div class="dash-driver">
-                                    <span class="dash-team-bar" style="background: var(--team-mclaren);"></span>
-                                    <div>
-                                        <div class="dash-driver-name">Lando Norris</div>
-                                        <div class="dash-driver-team">MCLAREN</div>
-                                    </div>
-                                </div>
-                                <span class="dash-time">1:33.102</span>
-                                <span class="dash-gap">+0.652</span>
-                                <span class="compound-disc-mini medium">M</span>
-                            </div>
+                    <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; border: 1px solid var(--c-titanium-border);" class="flex-col gap-1">
+                        <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px;">
+                            <span>VUELTA RÁPIDA:</span>
+                            <strong style="color: #BD00FF;">1:12.180 (C. LECLERC)</strong>
                         </div>
+                        <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px;">
+                            <span>TEMPERATURA ASFALTO:</span>
+                            <strong>41.4 °C</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px;">
+                            <span>PROBABILIDAD LLUVIA:</span>
+                            <strong>12%</strong>
+                        </div>
+                    </div>
 
-                        <!-- Live Telemetry Readout Bars -->
-                        <div class="dash-telemetry">
-                            <div class="telem-item">
-                                <div class="telem-label">
-                                    <span>VELOCIDAD PUNTA</span>
-                                    <strong id="heroTopSpeed">335 KM/H</strong>
-                                </div>
-                                <div class="telem-bar"><div class="telem-bar-fill speed" style="width: 86%;"></div></div>
-                            </div>
-                            <div class="telem-item">
-                                <div class="telem-label">
-                                    <span>NEUMÁTICOS (S)</span>
-                                    <strong id="heroTireWear">92%</strong>
-                                </div>
-                                <div class="telem-bar"><div class="telem-bar-fill tire" style="width: 92%;"></div></div>
-                            </div>
-                            <div class="telem-item">
-                                <div class="telem-label">
-                                    <span>BATERÍA ERS</span>
-                                    <strong id="heroBattery">78%</strong>
-                                </div>
-                                <div class="telem-bar"><div class="telem-bar-fill fuel" style="width: 78%;"></div></div>
-                            </div>
-                        </div>
+                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--c-titanium-500); text-align: center;">
+                        CLICK EN CUALQUIER PILOTO DE LA TORRE PARA SUBIR AL COCKPIT
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ============================================================
-             METRICS STRIP — Clean Engineering Stats
+             MÓDULO 1: SIMULADOR FÍSICO Y TELEMETRÍA EN VIVO
              ============================================================ -->
-        <section class="metrics-strip">
-            <div class="container metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-number">1<span class="metric-accent">ms</span></div>
-                    <div class="metric-label">Latencia del Motor</div>
+        <section id="telemetria" class="container">
+            <div class="section-title">
+                <div>
+                    <div class="section-kicker">MÓDULO 01 // TELEMETRÍA DE COCKPIT</div>
+                    <span>SIMULADOR FÍSICO NO LINEAL A 60 FPS</span>
                 </div>
-                <div class="metric-card">
-                    <div class="metric-number">8</div>
-                    <div class="metric-label">Monoplazas en Pista</div>
+                <div class="sim-btn-group">
+                    <button type="button" class="sim-ctrl-btn active" id="btnSimPlay">PAUSA</button>
+                    <button type="button" class="sim-ctrl-btn active" data-speed="1">1X</button>
+                    <button type="button" class="sim-ctrl-btn" data-speed="2">2X</button>
+                    <button type="button" class="sim-ctrl-btn" data-speed="4">4X</button>
+                    <button type="button" class="sim-ctrl-btn" id="btnSimWeather">CLIMA: SECO</button>
                 </div>
-                <div class="metric-card">
-                    <div class="metric-number">60<span class="metric-accent">fps</span></div>
-                    <div class="metric-label">Tasa de Refresco</div>
+            </div>
+
+            <div class="telemetry-stage-grid">
+                
+                <!-- Col 1: Timing Tower FIA -->
+                <div class="timing-tower-panel">
+                    <div class="timing-tower-header">
+                        <span>POS // PILOTO</span>
+                        <span>GAP / INTERVALO</span>
+                    </div>
+                    <div class="flex-col gap-1" id="timingTowerRows">
+                        <!-- Populated dynamically via JS -->
+                    </div>
                 </div>
-                <div class="metric-card">
-                    <div class="metric-number">100<span class="metric-accent">%</span></div>
-                    <div class="metric-label">Física Basada en Stats</div>
+
+                <!-- Col 2: Track Vector Canvas -->
+                <div class="track-canvas-panel">
+                    <div class="track-toolbar">
+                        <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #fff;">
+                            TRAZADO VECTORIAL EN VIVO // CIRCUIT DE MONACO
+                        </span>
+                        <span class="badge-tech aston">DRS / ACTIVE AERO HABILITADO</span>
+                    </div>
+
+                    <div class="track-canvas-wrapper">
+                        <canvas id="trackCanvas"></canvas>
+                        
+                        <div class="track-floating-hud">
+                            <div class="track-stat-badge" id="trackLapBadge">VUELTA 1/53</div>
+                            <div class="track-stat-badge">BANDERA: VERDE</div>
+                            <div class="track-stat-badge">REBUFO &lt; 0.8S ACTIVO</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Col 3: Cockpit Telemetry HUD -->
+                <div class="cockpit-hud-panel">
+                    <div class="cockpit-header">
+                        <div class="driver-selected-info">
+                            <div class="driver-avatar-mini" id="hudDriverNum">1</div>
+                            <div class="flex-col">
+                                <span style="font-family: var(--font-display); font-weight: 800; font-size: 15px; color: #fff;" id="hudDriverName">Max Verstappen</span>
+                                <span style="font-family: var(--font-mono); font-size: 10px; color: #8E95A5;" id="hudDriverTeam">Red Bull Ford · F1 2026</span>
+                            </div>
+                        </div>
+                        <span class="badge-tech ferrari" id="hudAeroMode">CORNER MODE</span>
+                    </div>
+
+                    <!-- 13 Shift LEDs -->
+                    <div class="flex-col gap-1">
+                        <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 10px; color: #8E95A5;">
+                            <span>TACÓMETRO DIGITAL</span>
+                            <span id="hudRpmVal" style="color: #fff; font-weight: 700;">11,400 RPM</span>
+                        </div>
+                        <div class="shift-lights-bar">
+                            <div class="shift-led green"></div>
+                            <div class="shift-led green"></div>
+                            <div class="shift-led green"></div>
+                            <div class="shift-led green"></div>
+                            <div class="shift-led green"></div>
+                            <div class="shift-led red"></div>
+                            <div class="shift-led red"></div>
+                            <div class="shift-led red"></div>
+                            <div class="shift-led red"></div>
+                            <div class="shift-led red"></div>
+                            <div class="shift-led blue"></div>
+                            <div class="shift-led blue"></div>
+                            <div class="shift-led blue"></div>
+                        </div>
+                    </div>
+
+                    <!-- Gear & Speed Gauge -->
+                    <div class="gearbox-gauge">
+                        <div class="gear-display">
+                            <div class="gear-num" id="hudGearVal">6</div>
+                            <div class="gear-lbl">MARCHA</div>
+                        </div>
+                        <div class="speed-display">
+                            <div class="speed-val" id="hudSpeedVal">284</div>
+                            <div class="speed-lbl">KM/H // VELOCIDAD</div>
+                        </div>
+                    </div>
+
+                    <!-- Throttle & Brake Bars -->
+                    <div class="pedals-grid">
+                        <div class="pedal-box">
+                            <div class="pedal-header">
+                                <span style="color: var(--c-aston-green);">ACELERADOR</span>
+                                <span id="hudThrottleVal" style="color: #fff;">88%</span>
+                            </div>
+                            <div class="pedal-bar-track">
+                                <div class="pedal-bar-fill throttle" id="hudThrottleBar" style="width: 88%;"></div>
+                            </div>
+                        </div>
+                        <div class="pedal-box">
+                            <div class="pedal-header">
+                                <span style="color: var(--c-ferrari-red);">FRENO</span>
+                                <span id="hudBrakeVal" style="color: #fff;">0%</span>
+                            </div>
+                            <div class="pedal-bar-track">
+                                <div class="pedal-bar-fill brake" id="hudBrakeBar" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Battery MGU-K & Tire Wear -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2);">
+                        <div class="spec-pill">
+                            <span class="spec-pill-label">BATERÍA 350KW</span>
+                            <span class="spec-pill-val" id="hudBatteryVal" style="color: var(--c-williams-blue);">84% MGU-K</span>
+                        </div>
+                        <div class="spec-pill">
+                            <span class="spec-pill-label">DESGASTE GOMA</span>
+                            <span class="spec-pill-val" id="hudTireWearVal" style="color: var(--c-telemetry-yellow);">14% DESGASTE</span>
+                        </div>
+                    </div>
+
+                    <!-- Pirelli Thermals -->
+                    <div class="flex-col gap-1">
+                        <span style="font-family: var(--font-mono); font-size: 10px; color: #8E95A5; text-transform: uppercase;">
+                            MATRIZ TÉRMICA PIRELLI 4 RUEDAS (°C)
+                        </span>
+                        <div class="pirelli-thermal-matrix">
+                            <div class="tire-heat-cell">
+                                <div class="tire-diagram-disc"></div>
+                                <div>
+                                    <div class="tire-heat-val" id="tempFL">102°C</div>
+                                    <div class="tire-heat-lbl">DEL. IZQ (FL)</div>
+                                </div>
+                            </div>
+                            <div class="tire-heat-cell">
+                                <div class="tire-diagram-disc"></div>
+                                <div>
+                                    <div class="tire-heat-val" id="tempFR">104°C</div>
+                                    <div class="tire-heat-lbl">DEL. DER (FR)</div>
+                                </div>
+                            </div>
+                            <div class="tire-heat-cell">
+                                <div class="tire-diagram-disc"></div>
+                                <div>
+                                    <div class="tire-heat-val" id="tempRL">108°C</div>
+                                    <div class="tire-heat-lbl">TRAS. IZQ (RL)</div>
+                                </div>
+                            </div>
+                            <div class="tire-heat-cell">
+                                <div class="tire-diagram-disc"></div>
+                                <div>
+                                    <div class="tire-heat-val" id="tempRR">109°C</div>
+                                    <div class="tire-heat-lbl">TRAS. DER (RR)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
         <!-- ============================================================
-             MISSION CONTROL ROOM (The Real-time Pit Wall Simulator)
+             MÓDULO 2 & 3: CLASIFICACIÓN DE PILOTOS & CONSTRUCTORES
              ============================================================ -->
-        <section id="sim-engine" class="sim-section container">
-            <div class="sec-header">
-                <div class="sim-pill-eyebrow">CENTRO DE MANDO TELEMÉTRICO</div>
-                <h2 class="sec-title" data-i18n="sim_title">Mission Control Room</h2>
-                <p class="sec-subtitle" data-i18n="sim_subtitle">
-                    Interactúa en tiempo real con la carrera. Cambia entre la telemetría gráfica en vivo, la tabla de estadísticas de pilotos, el setup aerodinámico y los principios del motor.
-                </p>
-            </div>
-
-            <div class="sim-control-room">
-                <!-- Nav Tabs -->
-                <div class="sim-nav-tabs" role="tablist">
-                    <button type="button" class="sim-tab-btn active" role="tab" id="tab-btn-track" aria-selected="true" data-target="pane-track">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
-                        <span data-i18n="tab_track">Pista &amp; Telemetría</span>
-                    </button>
-                    <button type="button" class="sim-tab-btn" role="tab" id="tab-btn-stats" aria-selected="false" data-target="pane-stats">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                        <span data-i18n="tab_stats">Estadísticas de Pilotos</span>
-                    </button>
-                    <button type="button" class="sim-tab-btn" role="tab" id="tab-btn-config" aria-selected="false" data-target="pane-config">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-                        <span data-i18n="tab_config">Configuración de Escudería</span>
-                    </button>
-                    <button type="button" class="sim-tab-btn" role="tab" id="tab-btn-arch" aria-selected="false" data-target="pane-arch">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-                        <span data-i18n="tab_arch">Motor de Simulación</span>
-                    </button>
-                </div>
-
-                <!-- Pane 1: Track & Telemetry -->
-                <div id="pane-track" class="tab-pane active" role="tabpanel">
-                    
-                    <!-- Race Director Toolbar -->
-                    <div class="sim-toolbar">
-                        <div class="sim-toolbar-left">
-                            <div class="sim-status-badge">
-                                <span class="status-indicator ready" id="simStatusDot" aria-hidden="true"></span>
-                                <span id="simStatusText" data-i18n="waiting_start">ESPERANDO INICIO</span>
-                            </div>
-                            <div class="sim-lap-hud">
-                                <span class="hud-tag">VUELTA</span>
-                                <strong class="hud-current" id="currentLapCounter">0</strong>
-                                <span class="hud-divider">/</span>
-                                <span class="hud-total" id="totalLapsCounter">53</span>
-                            </div>
-                            <div class="sim-condition-tag">
-                                <span id="weatherText">☀️ Soleado (28°C)</span>
-                            </div>
-                            <div class="sim-flag-tag">
-                                <span class="flag-dot green" id="flagDot" aria-hidden="true"></span>
-                                <span id="flagText" data-i18n="flag_green">Bandera Verde</span>
-                            </div>
+        <section id="pilotos" class="container">
+            <div class="standings-grid">
+                
+                <!-- Drivers Standings -->
+                <div class="flex-col">
+                    <div class="section-title">
+                        <div>
+                            <div class="section-kicker">MÓDULO 02 // CAMPEONATO MUNDIAL</div>
+                            <span>CLASIFICACIÓN DE PILOTOS 2026</span>
                         </div>
-                        <div class="sim-toolbar-right">
-                            <button type="button" class="btn-control-start" id="btnStartRace">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                <span data-i18n="btn_start_race">Iniciar Demo</span>
-                            </button>
-                            <button type="button" class="btn-control-weather" id="btnChangeWeather" aria-label="Cambiar Clima" title="Cambiar Clima Aleatorio">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
-                                <span class="btn-text-hide-sm" data-i18n="btn_weather">Clima</span>
-                            </button>
-                            <button type="button" class="btn-control-sc" id="btnTriggerSC" aria-label="Lanzar Safety Car" title="Simular Safety Car">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                <span class="btn-text-hide-sm" data-i18n="btn_sc">Safety Car</span>
-                            </button>
-                            <button type="button" class="btn-control-speed" id="btnSpeedMultiplier" aria-label="Velocidad" title="Velocidad de Simulación">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="13 19 22 12 13 5 13 19"></polygon><polygon points="2 19 11 12 2 5 2 19"></polygon></svg>
-                                <span id="speedMultiplierText">1x</span>
-                            </button>
-                            <button type="button" class="btn-control-reset" id="btnResetSim" disabled aria-label="Reiniciar Sesión" title="Reiniciar Sesión">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>
-                                <span class="btn-text-hide-sm" data-i18n="btn_reset">Reset</span>
-                            </button>
-                        </div>
+                        <span class="section-meta">TEMPORADA REGULAR</span>
                     </div>
 
-                    <!-- Gantry Starting Lights (Official FIA 5-Pod Light Gantry) -->
-                    <div class="gantry-lights-bar">
-                        <div class="gantry-title">SEMÁFORO DE SALIDA FIA</div>
-                        <div class="gantry-pods" id="gantryLights">
-                            <div class="gantry-pod"><div class="pod-light"></div></div>
-                            <div class="gantry-pod"><div class="pod-light"></div></div>
-                            <div class="gantry-pod"><div class="pod-light"></div></div>
-                            <div class="gantry-pod"><div class="pod-light"></div></div>
-                            <div class="gantry-pod"><div class="pod-light"></div></div>
-                        </div>
-                        <div class="gantry-banner" id="gantryBanner">WAITING</div>
-                    </div>
-
-                    <div class="sim-grid-viewport">
-                        <!-- Canvas / SVG Track -->
-                        <div class="circuit-canvas-wrap">
-                            <div class="circuit-header-hud">
-                                <div class="circuit-name">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                    Circuit de Monaco — 3.337 km (Monte Carlo)
-                                </div>
-                                <div class="sector-legend">
-                                    <span class="sector-badge s1">S1 Casino</span>
-                                    <span class="sector-badge s2">S2 Tunnel</span>
-                                    <span class="sector-badge s3">S3 Piscine</span>
-                                    <span class="sector-badge spd-fast">DRS &gt;280 KM/H</span>
-                                    <span class="sector-badge spd-brake">FRENO &lt;170</span>
-                                </div>
-                            </div>
-                            
-                            <div class="svg-track-container" id="trackContainer">
-                                <!-- SVG dynamically injected by main.js -->
-                            </div>
-
-                            <div class="live-radio-feed">
-                                <div class="radio-label">
-                                    <span class="radio-dot" aria-hidden="true"></span> CANAL DE RADIO EN VIVO
-                                </div>
-                                <div class="radio-message" id="raceRadioMsg">Esperando inicio de sesión...</div>
-                            </div>
-                        </div>
-
-                        <!-- Cockpit & Leaderboard -->
-                        <div class="sim-cockpit-sidebar">
-                            
-                            <!-- Cockpit HUD -->
-                            <div class="driver-cockpit-hud">
-                                <div class="cockpit-header">
-                                    <div class="driver-badge-group">
-                                        <span class="cockpit-driver-code" id="hudDriverCode">VER</span>
-                                        <div>
-                                            <div class="cockpit-driver-name" id="hudDriverName">Max Verstappen</div>
-                                            <div class="cockpit-team-name" id="hudDriverTeam">Red Bull Racing</div>
+                    <div class="standings-table-wrap">
+                        <table class="f1-table">
+                            <thead>
+                                <tr>
+                                    <th>POS</th>
+                                    <th>PILOTO & ESCUDERÍA</th>
+                                    <th>VICTORIAS</th>
+                                    <th>POLES</th>
+                                    <th style="text-align: right;">PUNTOS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: 800; font-family: var(--font-mono); color: #FFD700;">1</td>
+                                    <td>
+                                        <div class="driver-row-cell">
+                                            <span class="driver-num-badge">1</span>
+                                            <div class="driver-name-block">
+                                                <span class="driver-fullname">Max Verstappen</span>
+                                                <span class="driver-subteam">Red Bull Ford Powertrains</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="cockpit-pos-badge" id="hudPos">P1</div>
-                                </div>
-
-                                <div class="gauges-cluster">
-                                    <div class="radial-gauge-box">
-                                        <!-- SVG Speedometer Dial -->
-                                        <svg class="radial-svg" viewBox="0 0 100 100" aria-label="Velocímetro">
-                                            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"></circle>
-                                            <circle id="speedDial" cx="50" cy="50" r="45" fill="none" stroke="var(--telemetry-green)" stroke-width="6" stroke-dasharray="212" stroke-dashoffset="212" stroke-linecap="round" transform="rotate(-90 50 50)"></circle>
-                                        </svg>
-                                        <div class="radial-center-text">
-                                            <span class="radial-speed-val" id="hudSpeed">0</span>
-                                            <span class="radial-speed-unit">KM/H</span>
-                                            <span class="radial-gear-badge" id="hudGear">N</span>
+                                    </td>
+                                    <td style="font-family: var(--font-mono); font-weight: 700;">7 WINS</td>
+                                    <td style="font-family: var(--font-mono);">6 POLES</td>
+                                    <td style="text-align: right;">
+                                        <div class="pts-cell">314 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                        <div class="pts-bar-container"><div class="pts-bar-fill" style="width: 100%; background: #1E41FF;"></div></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 800; font-family: var(--font-mono); color: #C0C0C0;">2</td>
+                                    <td>
+                                        <div class="driver-row-cell">
+                                            <span class="driver-num-badge">16</span>
+                                            <div class="driver-name-block">
+                                                <span class="driver-fullname">Charles Leclerc</span>
+                                                <span class="driver-subteam">Scuderia Ferrari HP</span>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div class="pedal-telemetry-box">
-                                        <div class="pedal-channel">
-                                            <div class="pedal-bar-wrap"><div class="pedal-fill throttle" id="hudThrottle" style="height: 0%;"></div></div>
-                                            <span class="pedal-label">GAS</span>
+                                    </td>
+                                    <td style="font-family: var(--font-mono); font-weight: 700;">5 WINS</td>
+                                    <td style="font-family: var(--font-mono);">8 POLES</td>
+                                    <td style="text-align: right;">
+                                        <div class="pts-cell">298 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                        <div class="pts-bar-container"><div class="pts-bar-fill" style="width: 95%; background: #E80020;"></div></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 800; font-family: var(--font-mono); color: #CD7F32;">3</td>
+                                    <td>
+                                        <div class="driver-row-cell">
+                                            <span class="driver-num-badge">4</span>
+                                            <div class="driver-name-block">
+                                                <span class="driver-fullname">Lando Norris</span>
+                                                <span class="driver-subteam">McLaren Formula 1 Team</span>
+                                            </div>
                                         </div>
-                                        <div class="pedal-channel">
-                                            <div class="pedal-bar-wrap"><div class="pedal-fill brake" id="hudBrake" style="height: 0%;"></div></div>
-                                            <span class="pedal-label">FRENO</span>
+                                    </td>
+                                    <td style="font-family: var(--font-mono); font-weight: 700;">4 WINS</td>
+                                    <td style="font-family: var(--font-mono);">5 POLES</td>
+                                    <td style="text-align: right;">
+                                        <div class="pts-cell">285 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                        <div class="pts-bar-container"><div class="pts-bar-fill" style="width: 91%; background: #FF8000;"></div></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 800; font-family: var(--font-mono);">4</td>
+                                    <td>
+                                        <div class="driver-row-cell">
+                                            <span class="driver-num-badge">44</span>
+                                            <div class="driver-name-block">
+                                                <span class="driver-fullname">Lewis Hamilton</span>
+                                                <span class="driver-subteam">Scuderia Ferrari HP</span>
+                                            </div>
                                         </div>
-                                        
-                                        <div class="tire-compound-box">
-                                            <div class="compound-disc soft" id="hudTireCompound">S</div>
-                                            <span class="tire-wear-pct" id="hudTireWear">100%</span>
-                                            <span class="tire-temp-label" id="hudTireTemp">95°C</span>
+                                    </td>
+                                    <td style="font-family: var(--font-mono); font-weight: 700;">3 WINS</td>
+                                    <td style="font-family: var(--font-mono);">3 POLES</td>
+                                    <td style="text-align: right;">
+                                        <div class="pts-cell">260 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                        <div class="pts-bar-container"><div class="pts-bar-fill" style="width: 83%; background: #E80020;"></div></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 800; font-family: var(--font-mono);">5</td>
+                                    <td>
+                                        <div class="driver-row-cell">
+                                            <span class="driver-num-badge">63</span>
+                                            <div class="driver-name-block">
+                                                <span class="driver-fullname">George Russell</span>
+                                                <span class="driver-subteam">Mercedes-AMG PETRONAS</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <!-- 4-Tire Corner Degradation Monitor (Pirelli P-Zero Layout) -->
-                                <div class="tire-corners-grid" aria-label="Monitor de desgaste de neumáticos por esquina">
-                                    <div class="tire-corner-card">
-                                        <span class="corner-label">FL (Del. Izq)</span>
-                                        <span class="corner-val">96%</span>
-                                    </div>
-                                    <div class="tire-corner-card">
-                                        <span class="corner-label">FR (Del. Der)</span>
-                                        <span class="corner-val">94%</span>
-                                    </div>
-                                    <div class="tire-corner-card">
-                                        <span class="corner-label">RL (Tra. Izq)</span>
-                                        <span class="corner-val">98%</span>
-                                    </div>
-                                    <div class="tire-corner-card">
-                                        <span class="corner-label">RR (Tra. Der)</span>
-                                        <span class="corner-val">97%</span>
-                                    </div>
-                                </div>
-
-                                <div class="delta-sparkline-box">
-                                    <div class="sparkline-label">
-                                        <span>Delta de Tiempo por Vuelta</span>
-                                        <span class="text-green" id="hudDelta">-0.125s</span>
-                                    </div>
-                                    <div class="sparkline-canvas-holder">
-                                        <canvas id="deltaChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Leaderboard -->
-                            <div class="sim-leaderboard">
-                                <div class="leaderboard-header">
-                                    <span>POS</span>
-                                    <span>PILOTO</span>
-                                    <span class="text-right">TIEMPO</span>
-                                    <span class="text-right">GAP</span>
-                                    <span class="text-right">NEUM.</span>
-                                </div>
-                                <div class="leaderboard-rows" id="leaderboardList">
-                                    <!-- Rendered dynamically by main.js -->
-                                </div>
-                            </div>
-                        </div>
+                                    </td>
+                                    <td style="font-family: var(--font-mono); font-weight: 700;">2 WINS</td>
+                                    <td style="font-family: var(--font-mono);">2 POLES</td>
+                                    <td style="text-align: right;">
+                                        <div class="pts-cell">218 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                        <div class="pts-bar-container"><div class="pts-bar-fill" style="width: 69%; background: #27F4D2;"></div></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <!-- Pane 2: Driver Stats -->
-                <div id="pane-stats" class="tab-pane" role="tabpanel">
-                    <div class="stats-layout">
-                        <div class="stats-header-desc">
-                            <h3>Atributos Fundacionales de los Pilotos</h3>
-                            <p>El motor de cálculo utiliza estos parámetros estadísticos para simular el ritmo por sector, probabilidades de error en frenada y la gestión de degradación de neumáticos.</p>
+                <!-- Constructors Standings -->
+                <div class="flex-col" id="constructores">
+                    <div class="section-title">
+                        <div>
+                            <div class="section-kicker">MÓDULO 03 // COPA DE CONSTRUCTORES</div>
+                            <span>CLASIFICACIÓN DE EQUIPOS</span>
                         </div>
-
-                        <div class="driver-stats-table-wrap">
-                            <table class="driver-stats-table">
-                                <thead>
-                                    <tr>
-                                        <th>Piloto</th>
-                                        <th>Habilidad (OVR)</th>
-                                        <th>Experiencia</th>
-                                        <th>Gestión Neumáticos</th>
-                                        <th>Prob. Error</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="driverStatsTbody">
-                                    <!-- Rendered dynamically by main.js -->
-                                </tbody>
-                            </table>
-                        </div>
+                        <span class="section-meta">8 ESCUDERÍAS</span>
                     </div>
-                </div>
 
-                <!-- Pane 3: Vehicle Setup -->
-                <div id="pane-config" class="tab-pane" role="tabpanel">
-                    <div class="vehicle-config-layout">
-                        <div class="config-header-desc">
-                            <h3>Setup Aerodinámico y Estrategia</h3>
-                            <p>Modifica los parámetros de tu escudería. La aerodinámica altera el compromiso entre velocidad punta y agarre en curva, mientras que el compuesto define el agarre inicial frente al desgaste por vuelta.</p>
-                        </div>
-
-                        <form id="setupForm" class="config-form-grid">
-                            <div class="form-group">
-                                <label for="setupEscuderia">Escudería</label>
-                                <select id="setupEscuderia" class="config-select">
-                                    <option value="RED_BULL">Red Bull Racing (RB20)</option>
-                                    <option value="FERRARI">Scuderia Ferrari (SF-24)</option>
-                                    <option value="MCLAREN">McLaren F1 Team (MCL38)</option>
-                                    <option value="MERCEDES">Mercedes-AMG PETRONAS (W15)</option>
-                                    <option value="ASTON_MARTIN">Aston Martin Aramco (AMR24)</option>
-                                </select>
+                    <div class="constructor-cards-stack">
+                        <div class="team-item-card">
+                            <span style="font-family: var(--font-mono); font-size: 13px; font-weight: 800; color: #FFD700;">1</span>
+                            <div class="team-stripe-bar" style="background: var(--team-ferrari);"></div>
+                            <div class="flex-col">
+                                <span class="team-name-title">Scuderia Ferrari HP</span>
+                                <span class="team-pu-spec">FERRARI 066/12 · 350 KW ERS</span>
                             </div>
-
-                            <div class="form-group">
-                                <label for="setupAero">Carga Aerodinámica</label>
-                                <select id="setupAero" class="config-select">
-                                    <option value="ALTA">Alta (Mayor adherencia en curva, menor vel. punta)</option>
-                                    <option value="MEDIA" selected>Media (Equilibrada)</option>
-                                    <option value="BAJA">Baja (Menor resistencia, máxima vel. punta)</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="setupTires">Compuesto de Neumáticos</label>
-                                <select id="setupTires" class="config-select">
-                                    <option value="SOFT">Blando (Rojo - Máximo agarre, alta degradación)</option>
-                                    <option value="MEDIUM" selected>Medio (Amarillo - Ritmo y duración balanceados)</option>
-                                    <option value="HARD">Duro (Blanco - Menor agarre, máxima durabilidad)</option>
-                                </select>
-                            </div>
-
-                            <div class="form-actions-full">
-                                <button type="submit" class="btn-f1-primary">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                    Aplicar Configuración al Monoplaza
-                                </button>
-                            </div>
-                        </form>
-
-                        <div id="setupFeedback" class="config-feedback-card">
-                            <div class="feedback-title" id="setupFeedbackTitle">SETUP APLICADO A RED BULL RACING</div>
-                            <div class="feedback-stats-grid">
-                                <div class="feedback-stat-box">
-                                    <div class="stat-label">Velocidad Punta Est.</div>
-                                    <div class="stat-val positive">348 KM/H</div>
-                                </div>
-                                <div class="feedback-stat-box">
-                                    <div class="stat-label">Degradación Estimada</div>
-                                    <div class="stat-val">2.4% por vuelta</div>
-                                </div>
-                                <div class="feedback-stat-box">
-                                    <div class="stat-label">Agarre en Curva</div>
-                                    <div class="stat-val">Equilibrado</div>
-                                </div>
+                            <div style="text-align: right;">
+                                <div class="pts-cell">558 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                <span class="badge-tech ferrari">LÍDER</span>
                             </div>
                         </div>
 
-                    </div>
-                </div>
-
-                <!-- Pane 4: Simulation Engine Architecture -->
-                <div id="pane-arch" class="tab-pane" role="tabpanel">
-                    <div class="java-arch-layout">
-                        <div class="engine-overview-card">
-                            <div class="engine-card-header">
-                                <div class="engine-card-title">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="text-f1-red" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                                    <h4>Motor Algorítmico Concurrente</h4>
-                                </div>
-                                <span class="engine-version-tag">Arquitectura Java 17</span>
+                        <div class="team-item-card">
+                            <span style="font-family: var(--font-mono); font-size: 13px; font-weight: 800; color: #C0C0C0;">2</span>
+                            <div class="team-stripe-bar" style="background: var(--team-redbull);"></div>
+                            <div class="flex-col">
+                                <span class="team-name-title">Red Bull Ford Powertrains</span>
+                                <span class="team-pu-spec">RED BULL FORD DM-01</span>
                             </div>
-                            <p class="engine-desc">
-                                El proyecto procesa la carrera evaluando simultáneamente los monoplazas mediante hilos concurrentes (<code class="code-tag">HiloPiloto</code>), considerando factores estocásticos como variaciones climáticas, degradación física de compuestos y presión psicológica entre pilotos para determinar adelantamientos y errores no forzados.
-                            </p>
+                            <div style="text-align: right;">
+                                <div class="pts-cell">512 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                <span class="badge-tech">-46 PTS</span>
+                            </div>
                         </div>
 
-                        <div class="engine-packages-grid">
-                            <div class="package-card">
-                                <div class="pkg-header">
-                                    <span class="pkg-tag">HILOS CONCURRENTES</span>
-                                    <h5>Simulation Engine</h5>
-                                </div>
-                                <p class="pkg-desc-text">Calcula deltas de tiempo por sector y trayectorias en paralelo, garantizando simulación en tiempo real a 60 FPS.</p>
+                        <div class="team-item-card">
+                            <span style="font-family: var(--font-mono); font-size: 13px; font-weight: 800; color: #CD7F32;">3</span>
+                            <div class="team-stripe-bar" style="background: var(--team-mclaren);"></div>
+                            <div class="flex-col">
+                                <span class="team-name-title">McLaren Formula 1 Team</span>
+                                <span class="team-pu-spec">MERCEDES-AMG M17 E</span>
                             </div>
-                            <div class="package-card">
-                                <div class="pkg-header">
-                                    <span class="pkg-tag">VARIABLES AMBIENTALES</span>
-                                    <h5>Weather System</h5>
-                                </div>
-                                <p class="pkg-desc-text">Simula cambios dinámicos de temperatura de asfalto y lluvia, forzando decisiones tácticas de neumáticos.</p>
+                            <div style="text-align: right;">
+                                <div class="pts-cell">490 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                <span class="badge-tech">-68 PTS</span>
                             </div>
-                            <div class="package-card">
-                                <div class="pkg-header">
-                                    <span class="pkg-tag">GESTIÓN DE CARRERA</span>
-                                    <h5>Race Director</h5>
-                                </div>
-                                <p class="pkg-desc-text">Evalúa incidentes de pista para desplegar Safety Car, banderas amarillas y ajustar deltas de velocidad de todo el pelotón.</p>
+                        </div>
+
+                        <div class="team-item-card">
+                            <span style="font-family: var(--font-mono); font-size: 13px; font-weight: 800;">4</span>
+                            <div class="team-stripe-bar" style="background: var(--team-mercedes);"></div>
+                            <div class="flex-col">
+                                <span class="team-name-title">Mercedes-AMG PETRONAS</span>
+                                <span class="team-pu-spec">MERCEDES-AMG M17 E</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="pts-cell">384 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                <span class="badge-tech">-174 PTS</span>
                             </div>
                         </div>
                     </div>
@@ -600,174 +532,503 @@
         </section>
 
         <!-- ============================================================
-             FEATURES BENTO GRID — High Tech Capabilities
+             MÓDULO 4: CALENDARIO DE CARRERAS 2026 & CUENTA REGRESIVA
              ============================================================ -->
-        <section id="features" class="container section-gap">
-            <div class="sec-header">
-                <div class="sec-eyebrow">CAPACIDADES DEL SISTEMA</div>
-                <h2 class="sec-title">Diseñado para la Precisión Extrema</h2>
-                <p class="sec-subtitle">
-                    Una plataforma que combina modelado físico riguroso, telemetría telemática y arquitectura concurrente de alto impacto.
-                </p>
+        <section id="calendario" class="calendar-section container">
+            <div class="section-title">
+                <div>
+                    <div class="section-kicker">MÓDULO 04 // ITINERARIO DE CARRERAS</div>
+                    <span>CALENDARIO OFICIAL F1 2026</span>
+                </div>
+                <span class="section-meta">24 GRANDES PREMIOS</span>
             </div>
 
-            <div class="bento-grid">
-                <!-- Bento 1: Telemetry -->
-                <div class="bento-card bento-col-8">
-                    <div class="bento-card-top">
-                        <span class="bento-badge">TELEMETRÍA EN VIVO</span>
-                        <div class="bento-svg-graphic" aria-hidden="true">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--telemetry-green)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <div class="calendar-hero-grid">
+                
+                <!-- Next GP Countdown Box -->
+                <div class="next-gp-card">
+                    <div class="flex-col gap-1">
+                        <span class="badge-tech ferrari">PRÓXIMO GRAN PREMIO</span>
+                        <h3 style="font-family: var(--font-display); font-size: 26px; font-weight: 900; color: #fff; margin-top: 4px;">
+                            GRAND PRIX DE MONACO 2026
+                        </h3>
+                        <span style="font-family: var(--font-mono); font-size: 11px; color: #8E95A5;">
+                            CIRCUIT DE MONACO · MONTE CARLO · 24 MAYO 2026
+                        </span>
+                    </div>
+
+                    <div class="flex-col gap-1">
+                        <span style="font-family: var(--font-mono); font-size: 10px; color: #8E95A5; text-transform: uppercase;">
+                            CUENTA REGRESIVA // LUCES DE SALIDA
+                        </span>
+                        <div class="countdown-clock">
+                            <div>
+                                <div class="countdown-box-val" id="countDays">78</div>
+                                <div class="countdown-box-lbl">DÍAS</div>
+                            </div>
+                            <div>
+                                <div class="countdown-box-val" id="countHours">14</div>
+                                <div class="countdown-box-lbl">HORAS</div>
+                            </div>
+                            <div>
+                                <div class="countdown-box-val" id="countMins">32</div>
+                                <div class="countdown-box-lbl">MIN</div>
+                            </div>
+                            <div>
+                                <div class="countdown-box-val" id="countSecs">19</div>
+                                <div class="countdown-box-lbl">SEG</div>
+                            </div>
                         </div>
                     </div>
-                    <h3 class="bento-title">Adquisición de Datos a 60 FPS</h3>
-                    <p class="bento-desc">
-                        Monitorea velocidad punta, apertura de mariposa de gas, frenada en ápice y deltas de tiempo por vuelta en un tablero interactivo con respuesta instantánea.
-                    </p>
-                    <div class="bento-chips">
-                        <span class="bento-chip">Velocímetro Radial</span>
-                        <span class="bento-chip">Delta Sparkline</span>
-                        <span class="bento-chip">Pedales Telemetría</span>
+
+                    <div class="flex-row gap-2">
+                        <a href="#telemetria" class="btn-ferrari" style="flex: 1;">
+                            <span>ENTRAR A PIT WALL</span>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Bento 2: Tyre Degradation -->
-                <div class="bento-card bento-col-4">
-                    <div class="bento-card-top">
-                        <span class="bento-badge">MODELADO FÍSICO</span>
-                        <div class="bento-svg-graphic" aria-hidden="true">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--f1-red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"/><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"/></svg>
+                <!-- Calendar Cards Grid -->
+                <div class="race-cards-grid">
+                    <div class="circuit-card">
+                        <div class="circuit-round-meta">
+                            <span>ROUND 01</span>
+                            <span class="badge-tech aston">FINALIZADO</span>
+                        </div>
+                        <div class="circuit-title">BAHRAIN GP // SAKHIR</div>
+                        <div class="circuit-specs-row">
+                            <span>5.412 KM · 57 VUELTAS</span>
+                            <strong style="color: #fff;">P1: M. VERSTAPPEN</strong>
                         </div>
                     </div>
-                    <h3 class="bento-title">Degradación de Compuestos</h3>
-                    <p class="bento-desc">
-                        Curvas de desgaste no lineales para neumáticos Blandos, Medios, Duros y de Lluvia.
-                    </p>
-                    <div class="bento-chips">
-                        <span class="bento-chip">Soft / Med / Hard</span>
-                        <span class="bento-chip">Temperatura Óptima</span>
+
+                    <div class="circuit-card">
+                        <div class="circuit-round-meta">
+                            <span>ROUND 02</span>
+                            <span class="badge-tech aston">FINALIZADO</span>
+                        </div>
+                        <div class="circuit-title">SAUDI ARABIAN GP // JEDDAH</div>
+                        <div class="circuit-specs-row">
+                            <span>6.174 KM · 50 VUELTAS</span>
+                            <strong style="color: #fff;">P1: C. LECLERC</strong>
+                        </div>
+                    </div>
+
+                    <div class="circuit-card active-gp">
+                        <div class="circuit-round-meta">
+                            <span>ROUND 03</span>
+                            <span class="badge-tech ferrari">NEXT EVENT</span>
+                        </div>
+                        <div class="circuit-title">MONACO GP // MONTE CARLO</div>
+                        <div class="circuit-specs-row">
+                            <span>3.337 KM · 78 VUELTAS</span>
+                            <strong style="color: var(--c-ferrari-hover);">SESIÓN ACTIVA</strong>
+                        </div>
+                    </div>
+
+                    <div class="circuit-card">
+                        <div class="circuit-round-meta">
+                            <span>ROUND 04</span>
+                            <span class="badge-tech">CONFIRMADO</span>
+                        </div>
+                        <div class="circuit-title">SPANISH GP // MADRID</div>
+                        <div class="circuit-specs-row">
+                            <span>5.470 KM · 66 VUELTAS</span>
+                            <span>IFEMA STREET CIRCUIT</span>
+                        </div>
+                    </div>
+
+                    <div class="circuit-card">
+                        <div class="circuit-round-meta">
+                            <span>ROUND 05</span>
+                            <span class="badge-tech">CONFIRMADO</span>
+                        </div>
+                        <div class="circuit-title">BRITISH GP // SILVERSTONE</div>
+                        <div class="circuit-specs-row">
+                            <span>5.891 KM · 52 VUELTAS</span>
+                            <span>HOME OF BRITISH RACING</span>
+                        </div>
+                    </div>
+
+                    <div class="circuit-card">
+                        <div class="circuit-round-meta">
+                            <span>ROUND 06</span>
+                            <span class="badge-tech">CONFIRMADO</span>
+                        </div>
+                        <div class="circuit-title">ITALIAN GP // MONZA</div>
+                        <div class="circuit-specs-row">
+                            <span>5.793 KM · 53 VUELTAS</span>
+                            <span>TEMPIO DELLA VELOCITÀ</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Bento 3: Concurrency Engine -->
-                <div class="bento-card bento-col-4">
-                    <div class="bento-card-top">
-                        <span class="bento-badge">ARQUITECTURA</span>
-                        <div class="bento-svg-graphic" aria-hidden="true">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--data-cyan)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
-                        </div>
-                    </div>
-                    <h3 class="bento-title">Hilos Concurrentes</h3>
-                    <p class="bento-desc">
-                        Cada piloto procesa sus decisiones en un worker independiente, evitando cuellos de botella y manteniendo la fidelidad del cálculo.
-                    </p>
-                    <div class="bento-chips">
-                        <span class="bento-chip">HiloPiloto</span>
-                        <span class="bento-chip">ThreadPool</span>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             MÓDULO 5: RESULTADOS RECIENTES & PODIO
+             ============================================================ -->
+        <section id="resultados" class="results-section container">
+            <div class="section-title">
+                <div>
+                    <div class="section-kicker">MÓDULO 05 // ÚLTIMO GRAN PREMIO</div>
+                    <span>RESULTADOS DE CARRERA & PODIO</span>
+                </div>
+                <span class="section-meta">SAUDI ARABIAN GP · JEDDAH CORNICHE</span>
+            </div>
+
+            <div class="podium-deck-grid">
+                <!-- P2 -->
+                <div class="podium-spot p2">
+                    <div class="podium-rank-badge">2</div>
+                    <span class="badge-tech" style="border-color: #1E41FF; color: #1E41FF;">RED BULL FORD</span>
+                    <div class="podium-driver-name">Max Verstappen</div>
+                    <div class="podium-time-delta">+1.482S // INTERVALO</div>
+                    <span style="font-family: var(--font-mono); font-size: 11px; color: #8E95A5;">+18 PTS</span>
+                </div>
+
+                <!-- P1 Elevated -->
+                <div class="podium-spot p1">
+                    <div class="podium-rank-badge">1</div>
+                    <span class="badge-tech ferrari">WINNER · SCUDERIA FERRARI</span>
+                    <div class="podium-driver-name" style="font-size: 20px;">Charles Leclerc</div>
+                    <div class="podium-time-delta" style="color: #FFD700; font-weight: 700;">TIEMPO TOTAL: 1:24:48.210</div>
+                    <div class="flex-row gap-1" style="margin-top: 4px;">
+                        <span class="badge-tech aston">+25 PTS</span>
+                        <span class="badge-tech" style="border-color: #BD00FF; color: #BD00FF;">DHL FASTEST LAP (+1 PT)</span>
                     </div>
                 </div>
 
-                <!-- Bento 4: Dynamic Events -->
-                <div class="bento-card bento-col-8">
-                    <div class="bento-card-top">
-                        <span class="bento-badge">ESTOCÁSTICA</span>
-                        <div class="bento-svg-graphic" aria-hidden="true">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--warning-amber)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                        </div>
+                <!-- P3 -->
+                <div class="podium-spot p3">
+                    <div class="podium-rank-badge">3</div>
+                    <span class="badge-tech" style="border-color: #FF8000; color: #FF8000;">MCLAREN</span>
+                    <div class="podium-driver-name">Lando Norris</div>
+                    <div class="podium-time-delta">+4.218S // INTERVALO</div>
+                    <span style="font-family: var(--font-mono); font-size: 11px; color: #8E95A5;">+15 PTS</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             MÓDULO 6: COMPARADOR CARA A CARA (HEAD-TO-HEAD)
+             ============================================================ -->
+        <section id="comparador" class="comparison-section container">
+            <div class="section-title">
+                <div>
+                    <div class="section-kicker">MÓDULO 06 // ANÁLISIS COMPARATIVO</div>
+                    <span>COMPARADOR CARA A CARA DE PILOTOS</span>
+                </div>
+                <span class="section-meta">TELEMETRÍA & RENDIMIENTO</span>
+            </div>
+
+            <div class="comparator-panel">
+                <div class="comparator-selectors-bar">
+                    <div class="driver-select-box">
+                        <label style="font-family: var(--font-mono); font-size: 10px; color: #8E95A5; display: block; margin-bottom: 4px;">PILOTO A</label>
+                        <select class="f1-select-input" id="compDriverA">
+                            <!-- Populated via JS -->
+                        </select>
                     </div>
-                    <h3 class="bento-title">Eventos Dinámicos de Pista</h3>
-                    <p class="bento-desc">
-                        Lluvias repentinas, despistes bajo presión y despliegues de Safety Car que alteran la estrategia de paradas en boxes en cuestión de milisegundos.
-                    </p>
-                    <div class="bento-chips">
-                        <span class="bento-chip">Safety Car</span>
-                        <span class="bento-chip">Clima Cambiante</span>
-                        <span class="bento-chip">Radio FIA</span>
+
+                    <div class="vs-badge-center">VS</div>
+
+                    <div class="driver-select-box">
+                        <label style="font-family: var(--font-mono); font-size: 10px; color: #8E95A5; display: block; margin-bottom: 4px;">PILOTO B</label>
+                        <select class="f1-select-input" id="compDriverB">
+                            <!-- Populated via JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="h2h-metrics-deck">
+                    <!-- Points Row -->
+                    <div class="h2h-metric-row">
+                        <span class="h2h-val-left" id="h2hPtsLeft">298</span>
+                        <div class="h2h-bar-track"><div class="h2h-bar-fill-left" id="h2hPtsBarLeft" style="width: 95%;"></div></div>
+                        <span class="h2h-metric-title">PUNTOS TEMPORADA</span>
+                        <div class="h2h-bar-track"><div class="h2h-bar-fill-right" id="h2hPtsBarRight" style="width: 100%;"></div></div>
+                        <span class="h2h-val-right" id="h2hPtsRight">314</span>
+                    </div>
+
+                    <!-- Wins Row -->
+                    <div class="h2h-metric-row">
+                        <span class="h2h-val-left" id="h2hWinsLeft">5</span>
+                        <div class="h2h-bar-track"><div class="h2h-bar-fill-left" id="h2hWinsBarLeft" style="width: 71%;"></div></div>
+                        <span class="h2h-metric-title">VICTORIAS EN CARRERA</span>
+                        <div class="h2h-bar-track"><div class="h2h-bar-fill-right" id="h2hWinsBarRight" style="width: 100%;"></div></div>
+                        <span class="h2h-val-right" id="h2hWinsRight">7</span>
+                    </div>
+
+                    <!-- Qualy Pace Row -->
+                    <div class="h2h-metric-row">
+                        <span class="h2h-val-left" id="h2hQualyLeft">99%</span>
+                        <div class="h2h-bar-track"><div class="h2h-bar-fill-left" id="h2hQualyBarLeft" style="width: 99%;"></div></div>
+                        <span class="h2h-metric-title">RITMO DE QUALY</span>
+                        <div class="h2h-bar-track"><div class="h2h-bar-fill-right" id="h2hQualyBarRight" style="width: 98%;"></div></div>
+                        <span class="h2h-val-right" id="h2hQualyRight">98%</span>
+                    </div>
+
+                    <!-- Race Pace Row -->
+                    <div class="h2h-metric-row">
+                        <span class="h2h-val-left" id="h2hRaceLeft">96%</span>
+                        <div class="h2h-bar-track"><div class="h2h-bar-fill-left" id="h2hRaceBarLeft" style="width: 96%;"></div></div>
+                        <span class="h2h-metric-title">RITMO DE CARRERA</span>
+                        <div class="h2h-bar-track"><div class="h2h-bar-fill-right" id="h2hRaceBarRight" style="width: 99%;"></div></div>
+                        <span class="h2h-val-right" id="h2hRaceRight">99%</span>
+                    </div>
+
+                    <!-- Tire Care Row -->
+                    <div class="h2h-metric-row">
+                        <span class="h2h-val-left" id="h2hTireLeft">90%</span>
+                        <div class="h2h-bar-track"><div class="h2h-bar-fill-left" id="h2hTireBarLeft" style="width: 90%;"></div></div>
+                        <span class="h2h-metric-title">GESTIÓN DE NEUMÁTICOS</span>
+                        <div class="h2h-bar-track"><div class="h2h-bar-fill-right" id="h2hTireBarRight" style="width: 92%;"></div></div>
+                        <span class="h2h-val-right" id="h2hTireRight">92%</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ============================================================
-             HOW IT WORKS — 3 Step Process
+             MÓDULO 7: CENTRO DE ESCUDERÍAS (CONSTRUCTORS HUB)
              ============================================================ -->
-        <section id="how-it-works" class="container section-gap">
-            <div class="sec-header">
-                <div class="sec-eyebrow">FLUJO DE SIMULACIÓN</div>
-                <h2 class="sec-title">Cómo Funciona el Motor</h2>
-                <p class="sec-subtitle">
-                    De los parámetros iniciales al veredicto de la bandera a cuadros.
-                </p>
+        <section id="escuderias" class="teams-section container">
+            <div class="section-title">
+                <div>
+                    <div class="section-kicker">MÓDULO 07 // INGENIERÍA DE ESCUDERÍAS</div>
+                    <span>CENTRO TÉCNICO DE CONSTRUCTORES 2026</span>
+                </div>
+                <span class="section-meta">NORMAS FIA 2026</span>
             </div>
 
-            <div class="steps-grid">
-                <div class="step-card">
-                    <div class="step-number">01</div>
-                    <h3 class="step-title">Configuración</h3>
-                    <p class="step-desc">
-                        Se cargan los atributos de cada piloto y la configuración aerodinámica y de compuestos de cada monoplaza.
-                    </p>
+            <div class="f1-official-teams-grid">
+                <!-- Ferrari -->
+                <div class="f1-official-team-card">
+                    <div class="f1-team-card-top-stripe" style="background: var(--team-ferrari);"></div>
+                    <div class="f1-team-card-header">
+                        <div class="f1-team-rank-box">
+                            <span class="f1-team-rank-num">1</span>
+                            <span class="f1-team-pts-tally">558 PTS // LÍDER</span>
+                        </div>
+                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/ferrari/2026ferrarilogowhite.webp" alt="Ferrari Logo" class="f1-team-official-logo">
+                    </div>
+                    <div class="f1-team-body">
+                        <h3 class="f1-team-card-title">Scuderia Ferrari HP</h3>
+                        <div class="f1-team-drivers-row">
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/ferrari/chalec01/2026ferrarichalec01right.webp" alt="Charles Leclerc" class="f1-driver-pill-avatar">
+                                <span>Charles <strong>LECLERC</strong></span>
+                            </div>
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/ferrari/lewham01/2026ferrarilewham01right.webp" alt="Lewis Hamilton" class="f1-driver-pill-avatar">
+                                <span>Lewis <strong>HAMILTON</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f1-team-car-stage">
+                        <img src="https://media.formula1.com/image/upload/c_lfill,h_224/q_auto/d_common:f1:2026:fallback:car:2026fallbackcarright.webp/v1740000001/common/f1/2026/ferrari/2026ferraricarright.webp" alt="Ferrari SF-26 F1 Car" class="f1-team-car-img" loading="lazy">
+                    </div>
+                    <div class="f1-team-specs-footer">
+                        <span>PU: <strong>FERRARI 066/12 (350 KW)</strong></span>
+                        <span>CHASIS: <strong>SF-26</strong></span>
+                        <span>BIOFUEL: <strong>100%</strong></span>
+                        <span>TEAM PRINCIPAL: <strong>F. VASSEUR</strong></span>
+                    </div>
                 </div>
 
-                <div class="step-card">
-                    <div class="step-number">02</div>
-                    <h3 class="step-title">Cálculo en Tiempo Real</h3>
-                    <p class="step-desc">
-                        El motor computa sector a sector la adherencia, velocidad en recta y deltas de tiempo entre cada monoplaza.
-                    </p>
+                <!-- Red Bull Racing -->
+                <div class="f1-official-team-card">
+                    <div class="f1-team-card-top-stripe" style="background: var(--team-redbull);"></div>
+                    <div class="f1-team-card-header">
+                        <div class="f1-team-rank-box">
+                            <span class="f1-team-rank-num">2</span>
+                            <span class="f1-team-pts-tally">512 PTS // -46 PTS</span>
+                        </div>
+                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/redbullracing/2026redbullracinglogowhite.webp" alt="Red Bull Racing Logo" class="f1-team-official-logo">
+                    </div>
+                    <div class="f1-team-body">
+                        <h3 class="f1-team-card-title">Red Bull Ford Powertrains</h3>
+                        <div class="f1-team-drivers-row">
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/redbullracing/maxver01/2026redbullracingmaxver01right.webp" alt="Max Verstappen" class="f1-driver-pill-avatar">
+                                <span>Max <strong>VERSTAPPEN</strong></span>
+                            </div>
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/racingbulls/lialaw01/2026racingbullslialaw01right.webp" alt="Liam Lawson" class="f1-driver-pill-avatar">
+                                <span>Liam <strong>LAWSON</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f1-team-car-stage">
+                        <img src="https://media.formula1.com/image/upload/c_lfill,h_224/q_auto/d_common:f1:2026:fallback:car:2026fallbackcarright.webp/v1740000001/common/f1/2026/redbullracing/2026redbullracingcarright.webp" alt="Red Bull RB22 F1 Car" class="f1-team-car-img" loading="lazy">
+                    </div>
+                    <div class="f1-team-specs-footer">
+                        <span>PU: <strong>RED BULL FORD DM-01</strong></span>
+                        <span>CHASIS: <strong>RB22</strong></span>
+                        <span>BIOFUEL: <strong>100%</strong></span>
+                        <span>TEAM PRINCIPAL: <strong>C. HORNER</strong></span>
+                    </div>
                 </div>
 
-                <div class="step-card">
-                    <div class="step-number">03</div>
-                    <h3 class="step-title">Telemetría y Control</h3>
-                    <p class="step-desc">
-                        Visualiza los resultados en el panel de control a 60 FPS, cambia el clima o altera las condiciones de carrera.
-                    </p>
+                <!-- McLaren -->
+                <div class="f1-official-team-card">
+                    <div class="f1-team-card-top-stripe" style="background: var(--team-mclaren);"></div>
+                    <div class="f1-team-card-header">
+                        <div class="f1-team-rank-box">
+                            <span class="f1-team-rank-num">3</span>
+                            <span class="f1-team-pts-tally">490 PTS // -68 PTS</span>
+                        </div>
+                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/mclaren/2026mclarenlogowhite.webp" alt="McLaren Logo" class="f1-team-official-logo">
+                    </div>
+                    <div class="f1-team-body">
+                        <h3 class="f1-team-card-title">McLaren Formula 1 Team</h3>
+                        <div class="f1-team-drivers-row">
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/mclaren/lannor01/2026mclarenlannor01right.webp" alt="Lando Norris" class="f1-driver-pill-avatar">
+                                <span>Lando <strong>NORRIS</strong></span>
+                            </div>
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/mclaren/oscpia01/2026mclarenoscpia01right.webp" alt="Oscar Piastri" class="f1-driver-pill-avatar">
+                                <span>Oscar <strong>PIASTRI</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f1-team-car-stage">
+                        <img src="https://media.formula1.com/image/upload/c_lfill,h_224/q_auto/d_common:f1:2026:fallback:car:2026fallbackcarright.webp/v1740000001/common/f1/2026/mclaren/2026mclarencarright.webp" alt="McLaren MCL40 F1 Car" class="f1-team-car-img" loading="lazy">
+                    </div>
+                    <div class="f1-team-specs-footer">
+                        <span>PU: <strong>MERCEDES-AMG M17 E</strong></span>
+                        <span>CHASIS: <strong>MCL40</strong></span>
+                        <span>BIOFUEL: <strong>100%</strong></span>
+                        <span>TEAM PRINCIPAL: <strong>A. STELLA</strong></span>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- ============================================================
-             CTA CONTACT SECTION
-             ============================================================ -->
-        <section class="project-cta-section container">
-            <div class="cta-box">
-                <div class="cta-racing-stripe" aria-hidden="true"></div>
-                <h3 data-i18n="cta_title">¿Necesitas un Motor Estadístico o Simulador a Medida?</h3>
-                <p data-i18n="cta_desc">
-                    Desarrollo algoritmos de cálculo numérico, motores de simulación concurrentes y dashboards de telemetría de alto rendimiento para tu negocio.
-                </p>
-                <div class="cta-buttons">
-                    <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20el%20proyecto%20de%20Simulaci%C3%B3n%20F1%20en%20tu%20sitio%20web%20y%20me%20gustar%C3%ADa%20cotizar%20un%20motor%20a%20medida" target="_blank" rel="noopener noreferrer" class="btn-f1-whatsapp">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
-                        <span data-i18n="cta_btn">Contactar por WhatsApp</span>
-                    </a>
+                <!-- Mercedes-AMG -->
+                <div class="f1-official-team-card">
+                    <div class="f1-team-card-top-stripe" style="background: var(--team-mercedes);"></div>
+                    <div class="f1-team-card-header">
+                        <div class="f1-team-rank-box">
+                            <span class="f1-team-rank-num">4</span>
+                            <span class="f1-team-pts-tally">384 PTS // -174 PTS</span>
+                        </div>
+                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/mercedes/2026mercedeslogowhite.webp" alt="Mercedes Logo" class="f1-team-official-logo">
+                    </div>
+                    <div class="f1-team-body">
+                        <h3 class="f1-team-card-title">Mercedes-AMG PETRONAS</h3>
+                        <div class="f1-team-drivers-row">
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/mercedes/georus01/2026mercedesgeorus01right.webp" alt="George Russell" class="f1-driver-pill-avatar">
+                                <span>George <strong>RUSSELL</strong></span>
+                            </div>
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/mercedes/andant01/2026mercedesandant01right.webp" alt="Kimi Antonelli" class="f1-driver-pill-avatar">
+                                <span>Kimi <strong>ANTONELLI</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f1-team-car-stage">
+                        <img src="https://media.formula1.com/image/upload/c_lfill,h_224/q_auto/d_common:f1:2026:fallback:car:2026fallbackcarright.webp/v1740000001/common/f1/2026/mercedes/2026mercedescarright.webp" alt="Mercedes W17 F1 Car" class="f1-team-car-img" loading="lazy">
+                    </div>
+                    <div class="f1-team-specs-footer">
+                        <span>PU: <strong>MERCEDES-AMG M17 E</strong></span>
+                        <span>CHASIS: <strong>W17</strong></span>
+                        <span>BIOFUEL: <strong>100%</strong></span>
+                        <span>TEAM PRINCIPAL: <strong>T. WOLFF</strong></span>
+                    </div>
+                </div>
+
+                <!-- Aston Martin -->
+                <div class="f1-official-team-card">
+                    <div class="f1-team-card-top-stripe" style="background: var(--team-aston);"></div>
+                    <div class="f1-team-card-header">
+                        <div class="f1-team-rank-box">
+                            <span class="f1-team-rank-num">5</span>
+                            <span class="f1-team-pts-tally">210 PTS // -348 PTS</span>
+                        </div>
+                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/astonmartin/2026astonmartinlogowhite.webp" alt="Aston Martin Logo" class="f1-team-official-logo">
+                    </div>
+                    <div class="f1-team-body">
+                        <h3 class="f1-team-card-title">Aston Martin Aramco F1</h3>
+                        <div class="f1-team-drivers-row">
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/astonmartin/feralo01/2026astonmartinferalo01right.webp" alt="Fernando Alonso" class="f1-driver-pill-avatar">
+                                <span>Fernando <strong>ALONSO</strong></span>
+                            </div>
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/astonmartin/lanstr01/2026astonmartinlanstr01right.webp" alt="Lance Stroll" class="f1-driver-pill-avatar">
+                                <span>Lance <strong>STROLL</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f1-team-car-stage">
+                        <img src="https://media.formula1.com/image/upload/c_lfill,h_224/q_auto/d_common:f1:2026:fallback:car:2026fallbackcarright.webp/v1740000001/common/f1/2026/astonmartin/2026astonmartincarright.webp" alt="Aston Martin AMR26 F1 Car" class="f1-team-car-img" loading="lazy">
+                    </div>
+                    <div class="f1-team-specs-footer">
+                        <span>PU: <strong>HONDA RA626H (350 KW)</strong></span>
+                        <span>CHASIS: <strong>AMR26</strong></span>
+                        <span>BIOFUEL: <strong>100%</strong></span>
+                        <span>TEAM PRINCIPAL: <strong>M. KRACK</strong></span>
+                    </div>
+                </div>
+
+                <!-- Williams Racing -->
+                <div class="f1-official-team-card">
+                    <div class="f1-team-card-top-stripe" style="background: var(--team-williams);"></div>
+                    <div class="f1-team-card-header">
+                        <div class="f1-team-rank-box">
+                            <span class="f1-team-rank-num">6</span>
+                            <span class="f1-team-pts-tally">112 PTS // -446 PTS</span>
+                        </div>
+                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/williams/2026williamslogowhite.webp" alt="Williams Logo" class="f1-team-official-logo">
+                    </div>
+                    <div class="f1-team-body">
+                        <h3 class="f1-team-card-title">Williams Racing</h3>
+                        <div class="f1-team-drivers-row">
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/williams/alealb01/2026williamsalealb01right.webp" alt="Alex Albon" class="f1-driver-pill-avatar">
+                                <span>Alex <strong>ALBON</strong></span>
+                            </div>
+                            <div class="f1-driver-pill-chip">
+                                <img src="https://media.formula1.com/image/upload/c_lfill,w_40/q_auto/d_common:f1:2026:fallback:driver:2026fallbackdriverright.webp/v1740000001/common/f1/2026/williams/carsai01/2026williamscarsai01right.webp" alt="Carlos Sainz" class="f1-driver-pill-avatar">
+                                <span>Carlos <strong>SAINZ</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="f1-team-car-stage">
+                        <img src="https://media.formula1.com/image/upload/c_lfill,h_224/q_auto/d_common:f1:2026:fallback:car:2026fallbackcarright.webp/v1740000001/common/f1/2026/williams/2026williamscarright.webp" alt="Williams FW48 F1 Car" class="f1-team-car-img" loading="lazy">
+                    </div>
+                    <div class="f1-team-specs-footer">
+                        <span>PU: <strong>MERCEDES-AMG M17 E</strong></span>
+                        <span>CHASIS: <strong>FW48</strong></span>
+                        <span>BIOFUEL: <strong>100%</strong></span>
+                        <span>TEAM PRINCIPAL: <strong>J. VOWLES</strong></span>
+                    </div>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-inner">
-            <a href="#" class="footer-brand" aria-label="F1 Sim Pro">
-                <span class="brand-f1-badge mini">F1</span>
-                Sim Pro
-            </a>
-            <ul class="footer-links">
-                <li><a href="../index.html">Suite Principal</a></li>
-                <li><a href="#sim-engine" data-i18n="nav_sim">Simulador</a></li>
-                <li><a href="#features" data-i18n="nav_features">Características</a></li>
-                <li><a href="#how-it-works" data-i18n="nav_how">Cómo Funciona</a></li>
-            </ul>
-            <div class="footer-copy">
-                &copy; 2026 AG Private Engineering — F1 Sim Pro. Todos los derechos reservados.
+    <!-- PADDOCK FOOTER -->
+    <footer class="f1-footer">
+        <div class="container footer-grid">
+            <div>
+                © 2026 AG PRIVATE ENGINEERING · F1 SIM PRO TELEMETRY DECK
+            </div>
+            <div class="flex-row gap-2">
+                <span>ESTÁNDAR FIA 2026</span>
+                <span>·</span>
+                <span>MOTOR CONCURRENTE 60 FPS</span>
+                <span>·</span>
+                <span>APPLE-LIKE DESIGN SYSTEM</span>
             </div>
         </div>
     </footer>
 
-    <!-- Main JS (Standard Script, Zero CORS Failure) -->
-    <script src="js/main.js" defer></script>
+    <!-- Simulation Script -->
+    <script src="js/main.js"></script>
 </body>
 </html>
