@@ -620,18 +620,117 @@
             });
         }
 
-        // Apple Segmented Nav Smooth Scroll
+        // ═══════════════════════════════════════════════════════════
+        // STANDINGS VIEW CONTROLLER (PILOTOS vs CONSTRUCTORES vs AMBOS)
+        // ═══════════════════════════════════════════════════════════
+        function setStandingsView(viewMode) {
+            const grid = document.getElementById('standingsGrid');
+            if (!grid) return;
+
+            grid.classList.remove('view-pilotos', 'view-constructores', 'view-ambos');
+            grid.classList.add(`view-${viewMode}`);
+
+            // Update in-section tab buttons
+            document.querySelectorAll('.standings-tab-btn').forEach(btn => {
+                const isSelected = btn.getAttribute('data-tab') === viewMode;
+                btn.classList.toggle('active', isSelected);
+                btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+            });
+
+            // Sync with navbar segment-btns
+            const navPilotos = document.querySelector('.segment-btn[href="#pilotos"]');
+            const navConstructores = document.querySelector('.segment-btn[href="#constructores"]');
+            if (viewMode === 'constructores') {
+                if (navPilotos) navPilotos.classList.remove('active');
+                if (navConstructores) navConstructores.classList.add('active');
+            } else if (viewMode === 'pilotos') {
+                if (navConstructores) navConstructores.classList.remove('active');
+                if (navPilotos) navPilotos.classList.add('active');
+            }
+        }
+
+        // Section tab button click listeners
+        document.querySelectorAll('.standings-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.getAttribute('data-tab') || 'ambos';
+                setStandingsView(tab);
+            });
+        });
+
+        // ═══════════════════════════════════════════════════════════
+        // APPLE SEGMENTED NAV SMOOTH SCROLL & TAB SWITCHING
+        // ═══════════════════════════════════════════════════════════
         document.querySelectorAll('.segment-btn[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
+                const href = this.getAttribute('href');
+
+                // If user clicks PILOTOS or CONSTRUCTORES, switch the view!
+                if (href === '#pilotos') {
+                    setStandingsView('pilotos');
+                } else if (href === '#constructores') {
+                    setStandingsView('constructores');
+                }
+
                 document.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                const target = document.querySelector(this.getAttribute('href'));
+
+                // Scroll with offset so header never covers content
+                let targetId = href;
+                if (href === '#pilotos' || href === '#constructores') {
+                    targetId = '#clasificacion';
+                }
+                const target = document.querySelector(targetId) || document.querySelector(href);
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const headerOffset = 90;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
+
+        // ═══════════════════════════════════════════════════════════
+        // SCROLLSPY (Keep navigation synchronized on scroll)
+        // ═══════════════════════════════════════════════════════════
+        const navSections = [
+            { id: 'telemetria', nav: '.segment-btn[href="#telemetria"]' },
+            { id: 'clasificacion', nav: '.segment-btn[href="#pilotos"]', altNav: '.segment-btn[href="#constructores"]' },
+            { id: 'calendario', nav: '.segment-btn[href="#calendario"]' },
+            { id: 'resultados', nav: '.segment-btn[href="#resultados"]' },
+            { id: 'comparador', nav: '.segment-btn[href="#comparador"]' },
+            { id: 'escuderias', nav: '.segment-btn[href="#escuderias"]' }
+        ];
+
+        let scrollTicking = false;
+        window.addEventListener('scroll', () => {
+            if (!scrollTicking) {
+                window.requestAnimationFrame(() => {
+                    const scrollPos = window.pageYOffset + 140;
+                    for (let i = navSections.length - 1; i >= 0; i--) {
+                        const sec = document.getElementById(navSections[i].id);
+                        if (sec && sec.offsetTop <= scrollPos) {
+                            let selector = navSections[i].nav;
+                            const grid = document.getElementById('standingsGrid');
+                            if (navSections[i].id === 'clasificacion' && grid && grid.classList.contains('view-constructores')) {
+                                selector = navSections[i].altNav;
+                            }
+                            const targetBtn = document.querySelector(selector);
+                            if (targetBtn && !targetBtn.classList.contains('active')) {
+                                document.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
+                                targetBtn.classList.add('active');
+                            }
+                            break;
+                        }
+                    }
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
+            }
+        }, { passive: true });
     }
 
     /* ═══════════════════════════════════════════════════════════════

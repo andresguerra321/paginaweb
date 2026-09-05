@@ -100,6 +100,10 @@ html {
     font-size: 15px;
 }
 
+section[id], div[id] {
+    scroll-margin-top: 96px;
+}
+
 body.f1-theme {
     font-family: var(--font-body);
     background-color: var(--c-carbon-black);
@@ -938,11 +942,105 @@ body.f1-theme {
 /* ═══════════════════════════════════════════════════════════════
    MODULE 2 & 3: CLASIFICACIONES (PILOTOS & CONSTRUCTORES)
    ═══════════════════════════════════════════════════════════════ */
+.standings-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: var(--sp-3);
+    gap: var(--sp-2);
+    flex-wrap: wrap;
+}
+
+.standings-tabs-pills {
+    display: inline-flex;
+    align-items: center;
+    background: var(--c-carbon-surface);
+    border: 1px solid var(--c-titanium-border);
+    border-radius: var(--radius-pill);
+    padding: 3px;
+    gap: 2px;
+}
+
+.standings-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--c-titanium-500);
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: all var(--anim-fast);
+}
+
+.standings-tab-btn:hover {
+    color: var(--c-titanium-100);
+}
+
+.standings-tab-btn.active {
+    background: var(--c-carbon-elevated);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
 .standings-grid {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1.15fr 0.85fr;
     gap: var(--sp-4);
     margin-bottom: var(--sp-6);
+    transition: all var(--anim-base);
+}
+
+.standings-grid.view-pilotos {
+    grid-template-columns: 1fr;
+}
+.standings-grid.view-pilotos #constructores {
+    display: none;
+}
+.standings-grid.view-pilotos #pilotos {
+    display: flex;
+    animation: f1-fade-in 0.25s ease-out;
+}
+
+.standings-grid.view-constructores {
+    grid-template-columns: 1fr;
+}
+.standings-grid.view-constructores #pilotos {
+    display: none;
+}
+.standings-grid.view-constructores #constructores {
+    display: flex;
+    animation: f1-fade-in 0.25s ease-out;
+}
+.standings-grid.view-constructores .constructor-cards-stack {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-2);
+}
+
+@media (max-width: 768px) {
+    .standings-grid.view-constructores .constructor-cards-stack {
+        grid-template-columns: 1fr;
+    }
+}
+
+.standings-grid.view-ambos {
+    grid-template-columns: 1.15fr 0.85fr;
+}
+.standings-grid.view-ambos #pilotos,
+.standings-grid.view-ambos #constructores {
+    display: flex;
+    animation: f1-fade-in 0.25s ease-out;
+}
+
+@keyframes f1-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .standings-table-wrap {

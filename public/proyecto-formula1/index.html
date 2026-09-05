@@ -340,20 +340,46 @@
             </div>
         </section>
 
-        <!-- ============================================================
+                       <!-- ============================================================
              MÓDULO 2 & 3: CLASIFICACIÓN DE PILOTOS & CONSTRUCTORES
              ============================================================ -->
-        <section id="pilotos" class="container">
-            <div class="standings-grid">
+        <section id="clasificacion" class="container standings-section">
+            <div class="standings-header-row">
+                <div class="section-title" style="margin-bottom: 0;">
+                    <div>
+                        <div class="section-kicker">MÓDULO 02 & 03 // CAMPEONATO MUNDIAL 2026</div>
+                        <span id="standingsMainHeading">TABLA GENERAL DE CLASIFICACIONES</span>
+                    </div>
+                    <span class="section-meta">TEMPORADA REGULAR</span>
+                </div>
+
+                <!-- Interactive Standings Selector Tabs -->
+                <div class="standings-tabs-pills" role="tablist" aria-label="Selector de Clasificación">
+                    <button type="button" class="standings-tab-btn active" id="tabBtnPilotos" data-tab="pilotos" role="tab" aria-selected="true">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                        <span>PILOTOS</span>
+                    </button>
+                    <button type="button" class="standings-tab-btn" id="tabBtnConstructores" data-tab="constructores" role="tab" aria-selected="false">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.5 2.8C2.1 10.9 2 11.2 2 11.5V16c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+                        <span>CONSTRUCTORES</span>
+                    </button>
+                    <button type="button" class="standings-tab-btn" id="tabBtnAmbos" data-tab="ambos" role="tab" aria-selected="false">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="7" height="18" x="3" y="3" rx="1"/><rect width="7" height="18" x="14" y="3" rx="1"/></svg>
+                        <span>VISTA DUAL</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="standings-grid view-ambos" id="standingsGrid">
                 
                 <!-- Drivers Standings -->
-                <div class="flex-col">
+                <div class="flex-col standings-pane" id="pilotos">
                     <div class="section-title">
                         <div>
                             <div class="section-kicker">MÓDULO 02 // CAMPEONATO MUNDIAL</div>
                             <span>CLASIFICACIÓN DE PILOTOS 2026</span>
                         </div>
-                        <span class="section-meta">TEMPORADA REGULAR</span>
+                        <span class="section-meta">TOP 5 DESTACADOS</span>
                     </div>
 
                     <div class="standings-table-wrap">
@@ -423,7 +449,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: 800; font-family: var(--font-mono);">4</td>
+                                    <td style="font-weight: 800; font-family: var(--font-mono); color: #8E95A5;">4</td>
                                     <td>
                                         <div class="driver-row-cell">
                                             <span class="driver-num-badge">44</span>
@@ -441,7 +467,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: 800; font-family: var(--font-mono);">5</td>
+                                    <td style="font-weight: 800; font-family: var(--font-mono); color: #8E95A5;">5</td>
                                     <td>
                                         <div class="driver-row-cell">
                                             <span class="driver-num-badge">63</span>
@@ -464,7 +490,7 @@
                 </div>
 
                 <!-- Constructors Standings -->
-                <div class="flex-col" id="constructores">
+                <div class="flex-col standings-pane" id="constructores">
                     <div class="section-title">
                         <div>
                             <div class="section-kicker">MÓDULO 03 // COPA DE CONSTRUCTORES</div>
@@ -523,6 +549,58 @@
                             <div style="text-align: right;">
                                 <div class="pts-cell">384 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
                                 <span class="badge-tech">-174 PTS</span>
+                            </div>
+                        </div>
+
+                        <div class="team-item-card">
+                            <span style="font-family: var(--font-mono); font-size: 13px; font-weight: 800;">5</span>
+                            <div class="team-stripe-bar" style="background: var(--team-aston);"></div>
+                            <div class="flex-col">
+                                <span class="team-name-title">Aston Martin Aramco F1</span>
+                                <span class="team-pu-spec">HONDA RA626H · 350 KW</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="pts-cell">210 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                <span class="badge-tech">-348 PTS</span>
+                            </div>
+                        </div>
+
+                        <div class="team-item-card">
+                            <span style="font-family: var(--font-mono); font-size: 13px; font-weight: 800;">6</span>
+                            <div class="team-stripe-bar" style="background: var(--team-williams);"></div>
+                            <div class="flex-col">
+                                <span class="team-name-title">Williams Racing</span>
+                                <span class="team-pu-spec">MERCEDES-AMG M17 E</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="pts-cell">112 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                <span class="badge-tech">-446 PTS</span>
+                            </div>
+                        </div>
+
+                        <div class="team-item-card">
+                            <span style="font-family: var(--font-mono); font-size: 13px; font-weight: 800;">7</span>
+                            <div class="team-stripe-bar" style="background: #EE0000;"></div>
+                            <div class="flex-col">
+                                <span class="team-name-title">Audi Revolut F1 Team</span>
+                                <span class="team-pu-spec">AUDI POWER UNIT 1.6T</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="pts-cell">74 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                <span class="badge-tech">-484 PTS</span>
+                            </div>
+                        </div>
+
+                        <div class="team-item-card">
+                            <span style="font-family: var(--font-mono); font-size: 13px; font-weight: 800;">8</span>
+                            <div class="team-stripe-bar" style="background: #0090FF;"></div>
+                            <div class="flex-col">
+                                <span class="team-name-title">BWT Alpine F1 Team</span>
+                                <span class="team-pu-spec">MERCEDES-AMG M17 E</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="pts-cell">52 <span style="font-size: 10px; color: #8E95A5;">PTS</span></div>
+                                <span class="badge-tech">-506 PTS</span>
                             </div>
                         </div>
                     </div>
