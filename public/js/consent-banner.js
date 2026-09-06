@@ -25,8 +25,57 @@
     return 'general';
   }
 
+  /* ──────────────── PERSISTENCE (COOKIE + LOCALSTORAGE DUAL-LAYER) ──────────────── */
+  function getCookie(name) {
+    try {
+      var match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
+      return match ? decodeURIComponent(match[1]) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setCookie(name, val, days) {
+    try {
+      var d = new Date();
+      d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+      var expires = '; expires=' + d.toUTCString();
+      var secure = window.location.protocol === 'https:' ? '; Secure' : '';
+      document.cookie = name + '=' + encodeURIComponent(val) + expires + '; path=/; SameSite=Lax' + secure;
+    } catch (e) {}
+  }
+
+  function eraseCookie(name) {
+    try {
+      document.cookie = name + '=; Max-Age=-99999999; path=/; SameSite=Lax';
+    } catch (e) {}
+  }
+
   function getConsentStatus() {
-    return localStorage.getItem('cookie_consent') || 'pending';
+    var status = null;
+    try {
+      status = localStorage.getItem('cookie_consent');
+    } catch (e) {}
+
+    // Fallback to 1st-party cookie if localStorage was empty or purged
+    if (status !== 'granted' && status !== 'denied') {
+      status = getCookie('ag_cookie_consent');
+    }
+
+    // Bidirectional sync: keep localStorage and cookie in lockstep
+    if (status === 'granted' || status === 'denied') {
+      try {
+        if (localStorage.getItem('cookie_consent') !== status) {
+          localStorage.setItem('cookie_consent', status);
+        }
+      } catch (e) {}
+      if (getCookie('ag_cookie_consent') !== status) {
+        setCookie('ag_cookie_consent', status, 365);
+      }
+      return status;
+    }
+
+    return 'pending';
   }
 
   /* ──────────────── LEGAL CONTENT ──────────────── */
@@ -445,7 +494,7 @@
 .cookie-dock-actions{flex-direction:column-reverse;gap:8px}\
 .cookie-btn{width:100%;min-height:44px;text-align:center;justify-content:center}\
 }';
-    document.head.appendChild(s);
+    (document.head || document.documentElement).appendChild(s);
   }
 
   /* ──────────────── MODAL DOM ──────────────── */
@@ -547,7 +596,11 @@
       if (btnA) btnA.addEventListener('click', function () { setCookieConsent('granted'); });
       if (btnD) btnD.addEventListener('click', function () { setCookieConsent('denied'); });
       if (btnR) btnR.addEventListener('click', function () {
-        localStorage.removeItem('cookie_consent');
+        try {
+          localStorage.removeItem('cookie_consent');
+          localStorage.removeItem('cookie_consent_timestamp');
+        } catch (e) {}
+        eraseCookie('ag_cookie_consent');
         closeLegalModal();
         setTimeout(showInitialBanner, 350);
       });
@@ -555,8 +608,8 @@
   }
 
   function setCookieConsent(type) {
+    var val = type === 'granted' ? 'granted' : 'denied';
     if (typeof gtag === 'function') {
-      var val = type === 'granted' ? 'granted' : 'denied';
       gtag('consent', 'update', {
         'ad_storage': val,
         'ad_user_data': val,
@@ -564,13 +617,19 @@
         'analytics_storage': val
       });
     }
-    localStorage.setItem('cookie_consent', type);
+
+    // Dual-layer persistence: localStorage + 1-year first-party cookie
+    try {
+      localStorage.setItem('cookie_consent', val);
+      localStorage.setItem('cookie_consent_timestamp', new Date().toISOString());
+    } catch (e) {}
+    setCookie('ag_cookie_consent', val, 365);
 
     // Update UI status
     var lang = isEN() ? 'en' : 'es';
     var statusEl = backdropEl ? backdropEl.querySelector('.legal-consent-status') : null;
     if (statusEl) {
-      statusEl.textContent = type === 'granted'
+      statusEl.textContent = val === 'granted'
         ? (lang === 'en' ? '🟢 Tracking Enabled' : '🟢 Seguimiento Habilitado')
         : (lang === 'en' ? '⚪ Essentials Only' : '⚪ Solo Esenciales');
     }
@@ -614,7 +673,11 @@
   window.closeLegalModal = closeLegalModal;
   window.showInitialBanner = showInitialBanner;
   window.resetCookieConsent = function () {
-    localStorage.removeItem('cookie_consent');
+    try {
+      localStorage.removeItem('cookie_consent');
+      localStorage.removeItem('cookie_consent_timestamp');
+    } catch (e) {}
+    eraseCookie('ag_cookie_consent');
     showInitialBanner();
   };
 
@@ -636,7 +699,7 @@
 
   /* ──────────────── INITIAL COOKIE BANNER (BOTTOM DOCK) ──────────────── */
   function showInitialBanner() {
-    var consent = localStorage.getItem('cookie_consent');
+    var consent = getConsentStatus();
     if (consent === 'granted' || consent === 'denied') return;
 
     if (!document.body) {

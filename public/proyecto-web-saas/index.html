@@ -48,7 +48,12 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
 
-    var savedConsent = localStorage.getItem('cookie_consent');
+    var savedConsent = null;
+    try { savedConsent = localStorage.getItem('cookie_consent'); } catch (e) {}
+    if (!savedConsent) {
+      var m = document.cookie.match(/(?:^|; )ag_cookie_consent=([^;]*)/);
+      if (m) savedConsent = decodeURIComponent(m[1]);
+    }
     if (savedConsent === 'granted') {
       gtag('consent', 'default', {
         'ad_storage': 'granted',
