@@ -1,6 +1,6 @@
 /**
  * Legal Center & Cookie Consent — AG Private Engineering
- * Google Consent Mode v2 · Ley 1480/2011 · Ley 2439/2024
+ * Ley 1480/2011 · Ley 2439/2024
  * 
  * 4-tab modal: Privacidad | Términos | Garantía | Ventas
  * Context-aware content based on current page pathname.
@@ -39,63 +39,37 @@
 
     // ─── TAB 1: PRIVACY & COOKIES ───
     content.privacy = {
-      title: en ? 'Privacy & Cookie Policy' : 'Política de Privacidad y Cookies',
+      title: en ? 'Privacy & Tracking Policy' : 'Política de Privacidad y Seguimiento',
       body: (en ? [
         '<h4>Data Controller</h4>',
-        '<p>Andrés Felipe Guerra — AG Private Engineering, Bogotá D.C., Colombia.<br>Contact: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
-        '<h4>Data Collected</h4>',
-        '<p>We collect anonymous browsing data through Google Analytics 4 (Measurement ID: <code>G-XG8HJTJMQY</code>): anonymized IP, device type, session duration, pages visited, and Core Web Vitals performance metrics.</p>',
-        '<h4>Purpose</h4>',
-        '<p>Measure technical performance (load times, rendering latency), analyze aggregate traffic, and optimize user experience. No personal data is sold or shared with third parties for advertising purposes.</p>',
-        '<h4>Legal Basis</h4>',
-        '<p>User consent (Art. 6, Law 1581/2012 — Personal Data Protection, Colombia). Google Consent Mode v2 ensures analytics only activate upon explicit consent.</p>',
-        '<h4>Google Consent Mode v2</h4>',
-        '<p>This site implements Google Consent Mode v2 with the following signals:</p>',
-        '<ul><li><code>analytics_storage</code> — Controls Google Analytics cookies</li>',
-        '<li><code>ad_storage</code> — Controls advertising cookies (none used)</li>',
-        '<li><code>ad_user_data</code> — User data for advertising (none used)</li>',
-        '<li><code>ad_personalization</code> — Personalized ads (none used)</li></ul>',
-        '<h4>Cookies Used</h4>',
-        '<table class="legal-table"><thead><tr><th>Cookie</th><th>Type</th><th>Duration</th><th>Purpose</th></tr></thead><tbody>',
-        '<tr><td><code>_ga</code></td><td>Analytical</td><td>2 years</td><td>Google Analytics visitor ID</td></tr>',
-        '<tr><td><code>_ga_*</code></td><td>Analytical</td><td>2 years</td><td>GA4 session state</td></tr>',
-        '<tr><td><code>cookie_consent</code></td><td>Essential</td><td>Persistent</td><td>Stores your consent preference</td></tr>',
-        '<tr><td><code>portfolio_lang</code></td><td>Essential</td><td>Persistent</td><td>Selected language (ES/EN)</td></tr>',
-        '</tbody></table>',
-        '<h4>Your Rights</h4>',
-        '<p>You may access, rectify, delete, or revoke your consent at any time using the controls below or by contacting us via WhatsApp.</p>'
+        '<p>Andrés Felipe Guerra — AG Private Engineering.<br>Contact: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
+        '<h4>Tracking & Performance</h4>',
+        '<p>This website uses tracking technologies exclusively to measure technical performance, page speed, and navigation flow in order to optimize the user experience.</p>',
+        '<h4>Information Privacy</h4>',
+        '<p>No personal identification data is collected, sold, or shared with third parties for commercial or advertising purposes. Navigation data is processed solely for technical maintenance and platform improvement.</p>',
+        '<h4>Consent Management</h4>',
+        '<p>You can choose to accept tracking or proceed with essentials only at any time using the buttons below. When choosing essential only, tracking is disabled and only basic navigation preferences are preserved.</p>',
+        '<h4>Your Rights & Contact</h4>',
+        '<p>You may update or revoke your preferences at any time through this panel or by contacting us directly via WhatsApp.</p>'
       ] : [
-        '<h4>Responsable del Tratamiento</h4>',
-        '<p>Andrés Felipe Guerra — AG Private Engineering, Bogotá D.C., Colombia.<br>Contacto: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
-        '<h4>Datos Recopilados</h4>',
-        '<p>Recopilamos datos de navegación anónimos mediante Google Analytics 4 (ID: <code>G-XG8HJTJMQY</code>): IP anonimizada, tipo de dispositivo, duración de sesión, páginas visitadas y métricas de rendimiento (Core Web Vitals).</p>',
-        '<h4>Finalidad</h4>',
-        '<p>Medir rendimiento técnico (tiempos de carga, latencia de renderizado), analizar tráfico agregado y optimizar la experiencia del usuario. No se venden ni comparten datos personales con terceros para fines publicitarios.</p>',
-        '<h4>Base Legal</h4>',
-        '<p>Consentimiento del titular (Art. 6, Ley 1581 de 2012 — Protección de Datos Personales, Colombia). Google Consent Mode v2 garantiza que las analíticas solo se activan con consentimiento explícito.</p>',
-        '<h4>Google Consent Mode v2</h4>',
-        '<p>Este sitio implementa Google Consent Mode v2 con las siguientes señales:</p>',
-        '<ul><li><code>analytics_storage</code> — Controla cookies de Google Analytics</li>',
-        '<li><code>ad_storage</code> — Controla cookies publicitarias (no utilizadas)</li>',
-        '<li><code>ad_user_data</code> — Datos de usuario para publicidad (no utilizados)</li>',
-        '<li><code>ad_personalization</code> — Anuncios personalizados (no utilizados)</li></ul>',
-        '<h4>Cookies Utilizadas</h4>',
-        '<table class="legal-table"><thead><tr><th>Cookie</th><th>Tipo</th><th>Duración</th><th>Finalidad</th></tr></thead><tbody>',
-        '<tr><td><code>_ga</code></td><td>Analítica</td><td>2 años</td><td>ID de visitante Google Analytics</td></tr>',
-        '<tr><td><code>_ga_*</code></td><td>Analítica</td><td>2 años</td><td>Estado de sesión GA4</td></tr>',
-        '<tr><td><code>cookie_consent</code></td><td>Esencial</td><td>Persistente</td><td>Almacena tu preferencia de consentimiento</td></tr>',
-        '<tr><td><code>portfolio_lang</code></td><td>Esencial</td><td>Persistente</td><td>Idioma seleccionado (ES/EN)</td></tr>',
-        '</tbody></table>',
-        '<h4>Derechos del Titular</h4>',
-        '<p>Puedes acceder, rectificar, eliminar o revocar tu consentimiento en cualquier momento usando los controles a continuación o contactándonos vía WhatsApp.</p>'
+        '<h4>Responsable</h4>',
+        '<p>Andrés Felipe Guerra — AG Private Engineering.<br>Contacto directo: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
+        '<h4>Seguimiento y Rendimiento</h4>',
+        '<p>Este sitio web utiliza tecnologías de seguimiento con el único fin de medir el rendimiento técnico, los tiempos de carga y la experiencia general de navegación para mantener la calidad y estabilidad de la plataforma.</p>',
+        '<h4>Privacidad de la Información</h4>',
+        '<p>No se recopila información personal identificable con fines publicitarios ni se comparten datos con terceros para comercialización. El análisis se limita estrictamente a métricas técnicas de funcionamiento.</p>',
+        '<h4>Gestión del Consentimiento</h4>',
+        '<p>El usuario tiene el control de aceptar el seguimiento o continuar únicamente con lo esencial utilizando los controles situados a continuación. Al seleccionar solo esenciales, el seguimiento se desactiva y solo se guardan preferencias básicas de navegación.</p>',
+        '<h4>Derechos y Contacto</h4>',
+        '<p>Puedes modificar o revocar tu consentimiento en cualquier momento desde este panel o comunicándote directamente a través de WhatsApp.</p>'
       ]).join(''),
       consent: {
         status: consent === 'granted'
-          ? (en ? '🟢 Google Analytics Enabled' : '🟢 Analíticas de Google Habilitadas')
+          ? (en ? '🟢 Tracking Enabled' : '🟢 Seguimiento Habilitado')
           : consent === 'denied'
-            ? (en ? '⚪ Essential Cookies Only' : '⚪ Solo Cookies Esenciales')
-            : (en ? '⏳ Pending — Choose below' : '⏳ Pendiente — Elige a continuación'),
-        btnAccept: en ? 'Accept All' : 'Aceptar Todas',
+            ? (en ? '⚪ Essentials Only' : '⚪ Solo Esenciales')
+            : (en ? '⏳ Pending — Choose an option' : '⏳ Pendiente — Elige una opción'),
+        btnAccept: en ? 'Accept Tracking' : 'Aceptar Seguimiento',
         btnDecline: en ? 'Essential Only' : 'Solo Esenciales'
       }
     };
@@ -103,7 +77,7 @@
     // ─── TAB 2: TERMS & CONDITIONS ───
     var commonTerms = en ? [
       '<h4>Service Provider</h4>',
-      '<p>Andrés Felipe Guerra — AG Private Engineering, Bogotá D.C., Colombia.<br>Contact: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
+      '<p>Andrés Felipe Guerra — AG Private Engineering.<br>Contact: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
       '<h4>Contract Object</h4>',
       '<p>Provision of software engineering services as defined in the scope agreed upon in writing (approved quote via WhatsApp or formal document).</p>',
       '<h4>Intellectual Property & Source Code Ownership</h4>',
@@ -120,12 +94,12 @@
       '<h4>Limitation of Liability</h4>',
       '<p>The provider shall not be liable for indirect damages, lost profits, or data loss caused by client infrastructure, third-party attacks, or misuse of delivered software.</p>',
       '<h4>Force Majeure</h4>',
-      '<p>Unforeseeable events (interruption of third-party services such as WhatsApp, Google, Cloudflare) temporarily exempt liability.</p>',
+      '<p>Unforeseeable events (interruption of external APIs, cloud infrastructure, or telecommunications) temporarily exempt liability.</p>',
       '<h4>Dispute Resolution</h4>',
-      '<p>Governed by the laws of the Republic of Colombia, jurisdiction in Bogotá D.C., Colombia. Extrajudicial conciliation will be favored before any legal action.</p>'
+      '<p>Governed by applicable legal regulations. Extrajudicial conciliation and amicable dispute resolution will be favored before any formal legal action.</p>'
     ] : [
       '<h4>Identificación del Proveedor</h4>',
-      '<p>Andrés Felipe Guerra — AG Private Engineering, Bogotá D.C., Colombia.<br>Contacto: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
+      '<p>Andrés Felipe Guerra — AG Private Engineering.<br>Contacto: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
       '<h4>Objeto del Contrato</h4>',
       '<p>Prestación del servicio de ingeniería de software según el alcance acordado por escrito (cotización aprobada vía WhatsApp o documento formal).</p>',
       '<h4>Propiedad Intelectual y Titularidad del Código</h4>',
@@ -142,9 +116,9 @@
       '<h4>Limitación de Responsabilidad</h4>',
       '<p>El proveedor no será responsable por daños indirectos, lucro cesante ni pérdida de datos causada por infraestructura del cliente, ataques de terceros o uso indebido del software entregado.</p>',
       '<h4>Fuerza Mayor</h4>',
-      '<p>Eventos imprevisibles (interrupción de servicios de terceros como WhatsApp, Google, Cloudflare) eximen de responsabilidad temporal.</p>',
+      '<p>Eventos imprevisibles (interrupción de APIs externas, infraestructura en la nube o telecomunicaciones) eximen de responsabilidad temporal.</p>',
       '<h4>Resolución de Conflictos</h4>',
-      '<p>Conforme a las leyes de la República de Colombia, con jurisdicción en Bogotá D.C., Colombia. Se favorecerá la conciliación extrajudicial antes de cualquier acción legal.</p>'
+      '<p>Conforme a la normativa legal aplicable. Se favorecerá el diálogo directo y la conciliación amigable antes de cualquier acción legal.</p>'
     ];
 
     var specificTerms = {
@@ -500,8 +474,8 @@
 
     var brandLabel = lang === 'en' ? 'Legal Center' : 'Centro Legal';
     var footerNote = lang === 'en'
-      ? 'AG Private Engineering — Andrés Felipe Guerra · Colombia · Last updated: September 2026'
-      : 'AG Private Engineering — Andrés Felipe Guerra · Colombia · Última actualización: Septiembre 2026';
+      ? 'AG Private Engineering — Andrés Felipe Guerra · Last updated: September 2026'
+      : 'AG Private Engineering — Andrés Felipe Guerra · Última actualización: Septiembre 2026';
 
     backdropEl.innerHTML = '\
 <div class="legal-modal">\
@@ -597,8 +571,8 @@
     var statusEl = backdropEl ? backdropEl.querySelector('.legal-consent-status') : null;
     if (statusEl) {
       statusEl.textContent = type === 'granted'
-        ? (lang === 'en' ? '🟢 Google Analytics Enabled' : '🟢 Analíticas de Google Habilitadas')
-        : (lang === 'en' ? '⚪ Essential Cookies Only' : '⚪ Solo Cookies Esenciales');
+        ? (lang === 'en' ? '🟢 Tracking Enabled' : '🟢 Seguimiento Habilitado')
+        : (lang === 'en' ? '⚪ Essentials Only' : '⚪ Solo Esenciales');
     }
 
     // Dismiss initial banner if exists with smooth transition
@@ -684,19 +658,19 @@
 <div class="cookie-dock-header">\
   <div class="cookie-dock-title-wrap">\
     <span class="cookie-dock-icon">🛡️</span>\
-    <h3 class="cookie-dock-title">' + (en ? 'Privacy & Cookie Consent' : 'Privacidad y Consentimiento de Cookies') + '</h3>\
-    <span class="cookie-dock-badge">' + (en ? 'Consent Mode v2' : 'Consent Mode v2') + '</span>\
+    <h3 class="cookie-dock-title">' + (en ? 'Privacy & Tracking Notice' : 'Aviso de Privacidad y Seguimiento') + '</h3>\
+    <span class="cookie-dock-badge">' + (en ? 'Notice' : 'Aviso') + '</span>\
   </div>\
   <button type="button" class="cookie-dock-close" id="btnQuickCloseCookies" aria-label="Cerrar">&times;</button>\
 </div>\
 <p class="cookie-dock-desc">' + (en
-      ? 'We use anonymous Google Analytics (Measurement ID: <code>G-XG8HJTJMQY</code>) to analyze traffic and technical performance under Law 1581 of 2012. You can accept analytics or continue with essential cookies only.'
-      : 'Utilizamos analíticas anónimas de Google Analytics (ID: <code>G-XG8HJTJMQY</code>) para medir rendimiento técnico y optimizar la plataforma conforme a la Ley 1581 de 2012. Puedes aceptar las analíticas o continuar solo con cookies técnicas esenciales.') + '</p>\
+      ? 'This website uses tracking technologies to analyze performance and optimize your browsing experience. You can accept tracking or continue with essential cookies only.'
+      : 'Este sitio web utiliza tecnologías de seguimiento para analizar el rendimiento y optimizar tu experiencia de navegación. Puedes aceptar el seguimiento o continuar únicamente con lo esencial.') + '</p>\
 <div class="cookie-dock-footer">\
-  <button type="button" class="cookie-dock-link" data-open-privacy>' + (en ? 'Read full Privacy & Terms →' : 'Ver Centro Legal y Términos →') + '</button>\
+  <button type="button" class="cookie-dock-link" data-open-privacy>' + (en ? 'Legal Center & Details →' : 'Centro Legal y Detalles →') + '</button>\
   <div class="cookie-dock-actions">\
     <button type="button" class="cookie-btn cookie-btn-decline" id="btnDeclineCookies">' + (en ? 'Essential Only' : 'Solo Esenciales') + '</button>\
-    <button type="button" class="cookie-btn cookie-btn-accept" id="btnAcceptCookies">' + (en ? 'Accept All' : 'Aceptar Todas') + '</button>\
+    <button type="button" class="cookie-btn cookie-btn-accept" id="btnAcceptCookies">' + (en ? 'Accept Tracking' : 'Aceptar Seguimiento') + '</button>\
   </div>\
 </div>';
 
