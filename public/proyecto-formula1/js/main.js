@@ -61,6 +61,28 @@
         carSpriteImages[id] = img;
     });
 
+    /* ═══════════════════════════════════════════════════════════════
+       1C. OFFICIAL TEAM LOGOS FOR CIRCUIT BADGES & TIMING TOWER
+       ═══════════════════════════════════════════════════════════════ */
+    const DRIVER_TEAM_LOGOS = {
+        'VER': 'img/teams/redbull-logo.webp',
+        'LEC': 'img/teams/ferrari-logo.webp',
+        'HAM': 'img/teams/ferrari-logo.webp',
+        'NOR': 'img/teams/mclaren-logo.webp',
+        'PIA': 'img/teams/mclaren-logo.webp',
+        'RUS': 'img/teams/mercedes-logo.webp',
+        'ALO': 'img/teams/astonmartin-logo.webp',
+        'ALB': 'img/teams/williams-logo.webp'
+    };
+
+    // Preload official team logos into memory for high-performance canvas rendering
+    const teamLogoImages = {};
+    Object.entries(DRIVER_TEAM_LOGOS).forEach(([id, src]) => {
+        const img = new Image();
+        img.src = src;
+        teamLogoImages[id] = img;
+    });
+
     // Official Formula 1 Liveries & Colors (Front Wing, Monocoque, Halo, Helmet, Endplates)
     const F1_OFFICIAL_LIVERIES = {
         'VER': {
@@ -541,11 +563,11 @@
     // Build physical state for each car positioned on the official standing grid
     function createInitialCarState(driver, index) {
         const isInside = index % 2 === 0;
-        const gridSlotProgress = 0.105 - (index * 0.0130);
+        const gridSlotProgress = 0.091 - (index * 0.013);
         return {
             ...driver,
             gridIndex: index,
-            trackProgress: Math.max(0.012, gridSlotProgress),
+            trackProgress: gridSlotProgress,
             speed: 0, // Stationary on starting grid
             targetSpeed: 0,
             throttle: 0,
@@ -565,12 +587,15 @@
             lastSectorTime: '--.---',
             currentSector: 1,
             activeAero: 'GRID MODE',
-            laneOffset: isInside ? -5.5 : 5.5, // 2-by-2 official FIA grid stagger
-            targetLaneOffset: isInside ? -5.5 : 5.5,
+            laneOffset: isInside ? -7.5 : 7.5, // 2-by-2 official FIA grid stagger (wider)
+            targetLaneOffset: isInside ? -7.5 : 7.5,
             longGForce: 0.0,
             isBrakingHard: false,
             ersDeployTimer: 0,
             lockupTimer: 0,
+            headingAngle: undefined,
+            smoothBadgeX: undefined,
+            smoothBadgeY: undefined,
             currentRank: index + 1
         };
     }
@@ -747,42 +772,66 @@
             // ═══════════════════════════════════════════════════════════
             // TRAFFIC, SLIPSTREAM & LATERAL OVERTAKE LINE SPLITTING
             // ═══════════════════════════════════════════════════════════
-            if (!car.inPitLane) {
-                // If on opening sprint from grid to Turn 1 Sainte Dévote, maintain staggered grid lanes
-                if (currentLap === 1 && car.trackProgress < 0.11 && raceTicks < 240) {
-                    const isInside = (car.gridIndex !== undefined ? car.gridIndex : 0) % 2 === 0;
-                    car.targetLaneOffset = isInside ? -5.5 : 5.5;
-                } else {
-                    car.targetLaneOffset = 0; // Default racing groove
-                }
-            }
-
-            // Find car immediately ahead
-            let carAhead = null;
-            let minGap = Infinity;
+            // 1. Find car ahead in the driver's active path / lane
+            let carAheadInLane = null;
+            let minLaneGap = Infinity;
             cars.forEach(other => {
                 if (other !== car && !other.inPitLane && !car.inPitLane) {
-                    let gap = other.trackProgress - car.trackProgress;
-                    if (gap < -0.5) gap += 1.0;
-                    if (gap > 0 && gap < minGap) {
-                        minGap = gap;
-                        carAhead = other;
+                    const forwardGap = (other.trackProgress - car.trackProgress + 1.0) % 1.0;
+                    if (forwardGap > 0.0001 && forwardGap < 0.5) {
+                        const latDist = Math.abs(car.laneOffset - other.laneOffset);
+                        // In corners, cars share apex. On straights, check lane proximity:
+                        const isInPath = (trackPt.segmentType !== 'S') || (latDist < 6.5);
+                        if (isInPath && forwardGap < minLaneGap) {
+                            minLaneGap = forwardGap;
+                            carAheadInLane = other;
+                        }
                     }
                 }
             });
 
-            // If close to car ahead (within ~110m)
-            if (carAhead && minGap < 0.038) {
-                if (trackPt.segmentType === 'S') {
-                    // Straight: Slipstream tow (+16 km/h) & lateral overtake pull
-                    targetSpeed += 16;
-                    car.activeAero = 'REBUFO + OVERTAKE (DRS)';
-                    car.targetLaneOffset = -7; // Trailing car darts to inside line
-                    carAhead.targetLaneOffset = 5; // Leading car covers outside line
+            // 2. Intelligent Dynamic Lane Selection & Stagger
+            if (!car.inPitLane) {
+                if (currentLap === 1 && car.trackProgress < 0.14) {
+                    // Standing start sprint: locked to FIA grid lanes
+                    const isInside = (car.gridIndex !== undefined ? car.gridIndex : 0) % 2 === 0;
+                    car.targetLaneOffset = isInside ? -7.5 : 7.5;
+                } else if (carAheadInLane && minLaneGap < 0.040) {
+                    // In close combat: stagger lateral position to prevent bumper jamming
+                    if (trackPt.segmentType === 'S' && raceTicks > 300) {
+                        // Straight: Full DRS overtake attack
+                        targetSpeed += 16;
+                        car.activeAero = 'REBUFO + OVERTAKE (DRS)';
+                        car.targetLaneOffset = (carAheadInLane.laneOffset >= 0) ? -7 : 7;
+                    } else {
+                        // Corners: Take complementary line (inside vs outside)
+                        const leadLane = carAheadInLane.laneOffset;
+                        car.targetLaneOffset = (leadLane <= 0) ? 5.5 : -5.5;
+                    }
                 } else {
-                    // In corners: Car ahead blocks apex, trailing car must match pace
-                    if (minGap < 0.015) {
-                        targetSpeed = Math.min(targetSpeed, carAhead.speed * 0.98);
+                    // Clear air ahead: follow optimal central racing groove
+                    car.targetLaneOffset = 0;
+                }
+            }
+
+            // 3. Dynamic Safe Gap & Anti-Collision Pacing
+            if (carAheadInLane && minLaneGap < 0.052) {
+                const lateralDist = Math.abs(car.laneOffset - carAheadInLane.laneOffset);
+                const isSeparateLane = lateralDist >= 6.8;
+
+                // In corners OR when following directly behind in the same lane:
+                if (trackPt.segmentType !== 'S' || !isSeparateLane) {
+                    const minSafeGap = 0.026 + (car.speed / 350) * 0.010;
+                    const leadPace = Math.max(65, carAheadInLane.speed);
+                    if (minLaneGap < 0.048) {
+                        // Progressively match speed of leading car
+                        const paceFactor = Math.max(0, (minLaneGap - 0.026) / (0.048 - 0.026));
+                        targetSpeed = Math.min(targetSpeed, leadPace * (0.86 + 0.14 * paceFactor));
+                    }
+                    if (minLaneGap < minSafeGap) {
+                        // Apply emergency braking to prevent bumper overlap
+                        targetSpeed = Math.min(targetSpeed, leadPace * 0.88);
+                        car.brake = Math.max(car.brake, Math.min(1.0, (1.0 - (minLaneGap / minSafeGap)) * 1.6));
                     }
                 }
             }
@@ -868,10 +917,35 @@
             // Smooth lateral lane offset interpolation
             car.laneOffset += (car.targetLaneOffset - car.laneOffset) * Math.min(1, 5 * scaledDt);
 
-            // Advance Track Position
+            // Advance Track Position with Multi-Car Non-Penetration Guard
             if (car.speed > 0) {
                 const speedMps = car.speed / 3.6;
-                const progressDelta = (speedMps * scaledDt * BASE_SIM_SPEED) / 3337;
+                let progressDelta = (speedMps * scaledDt * BASE_SIM_SPEED) / 3337;
+
+                // Check collision avoidance against ALL cars on track
+                if (!car.inPitLane) {
+                    for (let o = 0; o < cars.length; o++) {
+                        const other = cars[o];
+                        if (other === car || other.inPitLane) continue;
+                        const latGap = Math.abs(car.laneOffset - other.laneOffset);
+                        const targetLatGap = Math.abs(car.targetLaneOffset - other.targetLaneOffset);
+                        // If cars are in the same lane or converging laterally:
+                        if (latGap < 8.0 || targetLatGap < 8.0) {
+                            const forwardGap = (other.trackProgress - car.trackProgress + 1.0) % 1.0;
+                            if (forwardGap > 0 && forwardGap < 0.5) {
+                                // Clamp progress so car maintains at least 0.028 safe gap
+                                const maxAllowedDelta = Math.max(0, forwardGap - 0.028);
+                                if (progressDelta > maxAllowedDelta) {
+                                    progressDelta = maxAllowedDelta;
+                                    car.speed = Math.min(car.speed, other.speed * 0.92);
+                                    car.brake = Math.max(car.brake, 0.75);
+                                    car.throttle = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+
                 const prevProgress = car.trackProgress;
                 car.trackProgress = (car.trackProgress + progressDelta) % 1.0;
 
@@ -888,10 +962,23 @@
             prevRanks.set(c.id, c.currentRank || (idx + 1));
         });
 
-        // 2. Re-sort Standings by Laps and Track Progress (True race progression order)
+        // 2. Re-sort Standings with Hysteresis (0.003 ~ 10m delta prevents 60Hz flickering when neck-and-neck)
+        const HYSTERESIS = 0.003;
         cars.sort((a, b) => {
             const scoreA = a.lapCount + a.trackProgress;
             const scoreB = b.lapCount + b.trackProgress;
+            const rankA = prevRanks.get(a.id) || 1;
+            const rankB = prevRanks.get(b.id) || 2;
+
+            if (rankA < rankB) {
+                // Car A was ranked ahead of Car B. B must surpass A by HYSTERESIS to take rank
+                if (a.inPitLane && !b.inPitLane) return (scoreB > scoreA) ? -1 : 1;
+                return (scoreB - HYSTERESIS > scoreA) ? -1 : 1;
+            } else if (rankB < rankA) {
+                // Car B was ranked ahead of Car A. A must surpass B by HYSTERESIS to take rank
+                if (b.inPitLane && !a.inPitLane) return (scoreA > scoreB) ? 1 : -1;
+                return (scoreA - HYSTERESIS > scoreB) ? 1 : -1;
+            }
             return scoreB - scoreA;
         });
 
@@ -957,12 +1044,19 @@
         window.addEventListener('resize', resizeCanvas);
     }
 
+    // Sprite rendering constants
+    const CAR_SPRITE_W = 42;
+    const CAR_SPRITE_H = 18;
+
     function resizeCanvas() {
         if (!canvas) return;
         const rect = canvas.getBoundingClientRect();
         canvas.width = rect.width * window.devicePixelRatio;
         canvas.height = rect.height * window.devicePixelRatio;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
     }
 
     function renderTrack() {
@@ -1010,9 +1104,9 @@
 
         // 1b. FIA 2-by-2 Staggered Starting Grid Markings
         for (let k = 0; k < 8; k++) {
-            const boxProg = 0.105 - (k * 0.0130);
+            const boxProg = 0.091 - (k * 0.013);
             const boxIsInside = k % 2 === 0;
-            const boxLane = boxIsInside ? -5.5 : 5.5;
+            const boxLane = boxIsInside ? -7.5 : 7.5;
             const pt = getTrackPointAt(boxProg);
             const nextPt = getTrackPointAt(boxProg + 0.002);
             const angle = Math.atan2((nextPt.y - pt.y) * height, (nextPt.x - pt.x) * width);
@@ -1131,20 +1225,45 @@
             ctx.restore();
         });
 
-        // 5. Draw Cars as Vector F1 2026 Monoplazas
+        // 5. Draw Cars as Premium F1 2026 Monoplazas (PNG Sprites + Dynamic Heading)
         cars.forEach((car) => {
+            // Central difference for ultra-smooth curve tangent (second-order accuracy)
+            const prevPt = getTrackPointAt(car.trackProgress - 0.005);
+            const nextPt = getTrackPointAt(car.trackProgress + 0.005);
+            const tangentAngle = Math.atan2((nextPt.y - prevPt.y) * height, (nextPt.x - prevPt.x) * width);
+            const nx = -Math.sin(tangentAngle);
+            const ny = Math.cos(tangentAngle);
             const pt = getTrackPointAt(car.trackProgress);
-            const nextPt = getTrackPointAt(car.trackProgress + 0.003);
-            const angle = Math.atan2((nextPt.y - pt.y) * height, (nextPt.x - pt.x) * width);
-            const nx = -Math.sin(angle);
-            const ny = Math.cos(angle);
 
-            // Compute actual position on track applying lane separation
+            // Screen position including lateral lane offset
             const cx = pt.x * width + nx * car.laneOffset;
             const cy = pt.y * height + ny * car.laneOffset;
+            car.screenX = cx;
+            car.screenY = cy;
+
+            // Subtle dynamic yaw when car changes lanes during overtake
+            let targetHeading = tangentAngle;
+            const laneDelta = car.targetLaneOffset - car.laneOffset;
+            if (Math.abs(laneDelta) > 0.25) {
+                targetHeading += Math.max(-0.22, Math.min(0.22, laneDelta * 0.035));
+            }
+
+            // Smooth heading angle with angular delta normalization
+            if (car.headingAngle === undefined) {
+                car.headingAngle = targetHeading;
+            } else {
+                let diff = targetHeading - car.headingAngle;
+                while (diff < -Math.PI) diff += Math.PI * 2;
+                while (diff > Math.PI) diff -= Math.PI * 2;
+                const damp = Math.min(1.0, 16 * 0.016);
+                car.headingAngle += diff * damp;
+            }
+            const angle = car.headingAngle;
+
+            // ── PARTICLE EMISSIONS ──
 
             // Emit sparks on straights at high speed
-            if (car.speed > 280 && trackPt.segmentType === 'S' && Math.random() < 0.45) {
+            if (car.speed > 280 && pt.segmentType === 'S' && Math.random() < 0.45) {
                 const sparkAngle = angle + Math.PI + (Math.random() - 0.5) * 0.4;
                 const sparkSpeed = 2.5 + Math.random() * 2.5;
                 addParticle({
@@ -1186,74 +1305,271 @@
             ctx.translate(cx, cy);
             ctx.rotate(angle);
 
-            // Ground Effect / Diffuser Shadow
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+            // ── MOTION BLUR TRAIL (at high speed) ──
+            const speedRatio = Math.min(1, car.speed / 340);
+            if (car.speed > 120) {
+                const trailLen = 6 + speedRatio * 18;
+                const trailAlpha = 0.08 + speedRatio * 0.14;
+                const livery = getDriverLivery(car);
+                // Parse hex color to rgb for canvas-compatible rgba
+                const hex = livery.primary;
+                const r = parseInt(hex.slice(1, 3), 16) || 0;
+                const g = parseInt(hex.slice(3, 5), 16) || 0;
+                const b = parseInt(hex.slice(5, 7), 16) || 0;
+                const grad = ctx.createLinearGradient(-trailLen - CAR_SPRITE_W * 0.38, 0, -CAR_SPRITE_W * 0.38, 0);
+                grad.addColorStop(0, 'rgba(0,0,0,0)');
+                grad.addColorStop(1, `rgba(${r},${g},${b},${trailAlpha})`);
+                ctx.fillStyle = grad;
+                ctx.fillRect(-trailLen - CAR_SPRITE_W * 0.38, -CAR_SPRITE_H * 0.28, trailLen, CAR_SPRITE_H * 0.56);
+            }
+
+            // ── GROUND EFFECT SHADOW (Radial Gradient – smaller, softer) ──
+            const shadowGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, 14);
+            shadowGrad.addColorStop(0, 'rgba(0, 0, 0, 0.5)');
+            shadowGrad.addColorStop(0.6, 'rgba(0, 0, 0, 0.25)');
+            shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = shadowGrad;
             ctx.beginPath();
-            ctx.ellipse(0, 0, 18, 8, 0, 0, Math.PI * 2);
+            ctx.ellipse(0, 0, 14, 6, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Active Driver Tracking Reticle
+            // ── SPEED GLOW (braking = red, ERS = cyan, high speed = warm) ──
+            if (car.speed > 80) {
+                let glowColor, glowAlpha;
+                if (car.isBrakingHard) {
+                    glowColor = '225, 6, 0';
+                    glowAlpha = 0.3 + car.brake * 0.25;
+                } else if (car.ersDeployTimer > 0) {
+                    glowColor = '0, 240, 255';
+                    glowAlpha = 0.35;
+                } else {
+                    glowColor = '255, 200, 60';
+                    glowAlpha = speedRatio * 0.15;
+                }
+                const glowGrad = ctx.createRadialGradient(0, 0, 3, 0, 0, 18);
+                glowGrad.addColorStop(0, `rgba(${glowColor}, ${glowAlpha})`);
+                glowGrad.addColorStop(1, `rgba(${glowColor}, 0)`);
+                ctx.fillStyle = glowGrad;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, 18, 10, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // ── ACTIVE DRIVER TRACKING RETICLE ──
             if (car.id === activeDriverId) {
                 ctx.beginPath();
-                ctx.arc(0, 0, 22, 0, Math.PI * 2);
-                ctx.strokeStyle = '#E10600';
-                ctx.lineWidth = 1.6;
-                ctx.setLineDash([4, 3]);
+                ctx.arc(0, 0, 24, 0, Math.PI * 2);
+                ctx.strokeStyle = car.color;
+                ctx.lineWidth = 1.8;
+                ctx.setLineDash([5, 4]);
                 ctx.stroke();
                 ctx.setLineDash([]);
+
+                // Dynamic team-colored inner glow ring
+                const hex = car.color;
+                const r = parseInt(hex.slice(1, 3), 16) || 225;
+                const g = parseInt(hex.slice(3, 5), 16) || 6;
+                const b = parseInt(hex.slice(5, 7), 16) || 0;
+                const reticleGrad = ctx.createRadialGradient(0, 0, 16, 0, 0, 28);
+                reticleGrad.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0)`);
+                reticleGrad.addColorStop(0.7, `rgba(${r}, ${g}, ${b}, 0.18)`);
+                reticleGrad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+                ctx.fillStyle = reticleGrad;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, 28, 16, 0, 0, Math.PI * 2);
+                ctx.fill();
             }
 
-            // ERS Attack Mode Aura Halo
+            // ── ERS ATTACK MODE AURA HALO ──
             if (car.ersDeployTimer > 0) {
                 ctx.beginPath();
-                ctx.arc(0, 0, 20, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(0, 240, 255, 0.85)';
-                ctx.lineWidth = 2.2;
+                ctx.arc(0, 0, 22, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(0, 240, 255, 0.75)';
+                ctx.lineWidth = 2;
                 ctx.stroke();
             }
 
-            // ── OFFICIAL TOP-DOWN 2D F1 OPEN-WHEEL MONOPLAZA VECTORS ──
-            drawF1MonoplazaTopDown(ctx, car);
+            // ── RENDER CAR: PNG Sprite (primary) or Vector (fallback) ──
+            const spriteImg = carSpriteImages[car.id];
+            if (spriteImg && spriteImg.complete && spriteImg.naturalWidth > 0) {
+                // Sprites are portrait (nose at top), rotate -90° so nose faces +X (forward)
+                ctx.save();
+                ctx.rotate(-Math.PI / 2);
+                // After -90° rotation: sprite's original top (nose) now points right (+X)
+                // Draw with swapped dimensions: height along X-axis, width along Y-axis
+                ctx.drawImage(
+                    spriteImg,
+                    -CAR_SPRITE_H * 0.5,  // center vertically (now the "width" after rotation)
+                    -CAR_SPRITE_W * 0.5,  // center horizontally (now the "height" after rotation)
+                    CAR_SPRITE_H,
+                    CAR_SPRITE_W
+                );
+                ctx.restore();
+            } else {
+                // Fallback: render the vector monoplaza if sprite hasn't loaded
+                drawF1MonoplazaTopDown(ctx, car);
+            }
 
             ctx.restore();
+        });
 
-            // 8. Overhead Driver Badge Tag & Live Speed Indicator
-            // Alternating placement: odd rank / inside lane placed above with leader line, even rank below with leader line
-            const isUpper = car.laneOffset < 0 || (car.currentRank % 2 !== 0);
-            const tagOffsetY = isUpper ? -23 : 18;
-            const tagX = Math.round(cx - 22);
-            const tagY = Math.round(cy + tagOffsetY);
+        // 6. RENDER DRIVER BADGES (Pass 2: Stable, Non-Overlapping & Lerp-Smoothed)
+        const badgeW = 62;
+        const badgeH = 15;
 
-            // Subtle vertical leader line connecting car to badge
-            ctx.strokeStyle = car.id === activeDriverId ? 'rgba(225, 6, 0, 0.85)' : 'rgba(255, 255, 255, 0.25)';
-            ctx.lineWidth = 1;
+        // Step A: Calculate ideal non-overlapping target positions
+        // Stable vertical preference: even gridIndex above (-28), odd below (+22)
+        // This is 100% constant throughout the race, preventing rank-swap vertical hopping
+        const badgeSlots = cars.map(car => {
+            const isUpper = (car.gridIndex % 2 === 0);
+            let offsetY = isUpper ? -28 : 22;
+            let targetX = Math.round(car.screenX - badgeW * 0.5);
+            let targetY = Math.round(car.screenY + offsetY);
+            return {
+                car,
+                isUpper,
+                x: targetX,
+                y: targetY,
+                offsetY
+            };
+        });
+
+        // Anti-overlap resolution: if two badges on the same side are within collision distance
+        for (let i = 0; i < badgeSlots.length; i++) {
+            for (let j = 0; j < i; j++) {
+                const b1 = badgeSlots[i];
+                const b2 = badgeSlots[j];
+                if (Math.abs(b1.x - b2.x) < badgeW + 3 && Math.abs(b1.y - b2.y) < badgeH + 2) {
+                    b1.offsetY += b1.isUpper ? -14 : 14;
+                    b1.y = Math.round(b1.car.screenY + b1.offsetY);
+                }
+            }
+        }
+
+        // Step B: Render each badge with smooth coordinate interpolation (lerp)
+        badgeSlots.forEach(slot => {
+            const car = slot.car;
+            const cx = car.screenX;
+            const cy = car.screenY;
+            const isCarActive = car.id === activeDriverId;
+
+            // Exponential coordinate smoothing to prevent any visual jumps
+            if (car.smoothBadgeX === undefined || !isRunning) {
+                car.smoothBadgeX = slot.x;
+                car.smoothBadgeY = slot.y;
+            } else {
+                car.smoothBadgeX += (slot.x - car.smoothBadgeX) * 0.25;
+                car.smoothBadgeY += (slot.y - car.smoothBadgeY) * 0.25;
+            }
+
+            const tagX = Math.round(car.smoothBadgeX);
+            const tagY = Math.round(car.smoothBadgeY);
+            const isAbove = tagY < cy;
+
+            // Leader line from car to badge
+            ctx.strokeStyle = isCarActive ? car.color : 'rgba(255, 255, 255, 0.22)';
+            ctx.lineWidth = isCarActive ? 1.2 : 0.8;
             ctx.beginPath();
-            ctx.moveTo(cx, isUpper ? cy - 7 : cy + 7);
-            ctx.lineTo(cx, isUpper ? tagY + 12 : tagY);
+            ctx.moveTo(cx, isAbove ? cy - 7 : cy + 7);
+            ctx.lineTo(cx, isAbove ? tagY + badgeH : tagY);
             ctx.stroke();
 
-            // Badge background pill
-            ctx.fillStyle = 'rgba(11, 14, 20, 0.88)';
-            ctx.fillRect(tagX, tagY, 44, 12);
-            ctx.strokeStyle = car.id === activeDriverId ? '#E10600' : 'rgba(255, 255, 255, 0.18)';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(tagX, tagY, 44, 12);
+            // Badge background with glassmorphism
+            ctx.fillStyle = isCarActive ? 'rgba(12, 16, 26, 0.96)' : 'rgba(11, 14, 22, 0.9)';
+            ctx.beginPath();
+            if (ctx.roundRect) {
+                ctx.roundRect(tagX, tagY, badgeW, badgeH, 3);
+            } else {
+                ctx.rect(tagX, tagY, badgeW, badgeH);
+            }
+            ctx.fill();
 
-            // Team color dot/stripe
+            // Top edge highlight
+            ctx.strokeStyle = isCarActive ? car.color : 'rgba(255, 255, 255, 0.12)';
+            ctx.lineWidth = 0.7;
+            ctx.beginPath();
+            ctx.moveTo(tagX + 3, tagY);
+            ctx.lineTo(tagX + badgeW - 3, tagY);
+            ctx.stroke();
+
+            // Border
+            ctx.strokeStyle = isCarActive ? car.color : 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = isCarActive ? 1.4 : 0.6;
+            ctx.beginPath();
+            if (ctx.roundRect) {
+                ctx.roundRect(tagX, tagY, badgeW, badgeH, 3);
+            } else {
+                ctx.rect(tagX, tagY, badgeW, badgeH);
+            }
+            ctx.stroke();
+
+            // Team color accent bar
             ctx.fillStyle = car.color;
-            ctx.fillRect(tagX + 2, tagY + 2.5, 2.5, 7);
+            ctx.fillRect(tagX + 2, tagY + 2.5, 2.5, badgeH - 5);
 
-            // Driver Code & Speed text
+            // Official Team Logo (Canvas)
+            const logoImg = teamLogoImages[car.id];
+            if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+                ctx.drawImage(logoImg, tagX + 6, tagY + 2.5, 10, 10);
+            }
+
+            // Driver Code
             ctx.font = '700 8.5px "JetBrains Mono", monospace';
-            ctx.fillStyle = car.id === activeDriverId ? '#FFFFFF' : '#C8CED9';
+            ctx.fillStyle = isCarActive ? '#FFFFFF' : '#CDD3DE';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(car.id, tagX + 19, tagY + badgeH * 0.5);
+
+            // Speed readout
             const speedText = Math.round(car.speed);
-            ctx.fillText(`${car.id} ${speedText}`, tagX + 7, tagY + 9);
+            ctx.font = '600 7.5px "JetBrains Mono", monospace';
+            ctx.fillStyle = car.isBrakingHard ? '#FF4444' : (car.ersDeployTimer > 0 ? '#00F0FF' : 'rgba(255,255,255,0.6)');
+            ctx.textAlign = 'right';
+            ctx.fillText(speedText, tagX + badgeW - 3, tagY + badgeH * 0.5);
+            ctx.textAlign = 'left';
         });
     }
 
     /* ═══════════════════════════════════════════════════════════════
        7. DOM UPDATERS: TIMING TOWER & COCKPIT HUD
        ═══════════════════════════════════════════════════════════════ */
+    function selectActiveDriver(driverId, shouldScroll = false) {
+        if (!driverId) return;
+        activeDriverId = driverId;
+
+        // Immediately update classes in the DOM Timing Tower
+        const towerEl = document.getElementById('timingTowerRows');
+        if (towerEl) {
+            towerEl.querySelectorAll('.timing-row').forEach(row => {
+                const isTarget = row.getAttribute('data-driver') === driverId;
+                row.classList.toggle('active', isTarget);
+                row.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+            });
+        }
+
+        // Immediately update Cockpit HUD with full telemetry
+        updateCockpitHUD();
+
+        // Immediately update track canvas reticle
+        renderTrack();
+
+        // Trigger visual pulse glow on HUD panel to show driver was switched
+        const hudPanel = document.querySelector('.cockpit-hud-panel');
+        if (hudPanel) {
+            hudPanel.classList.remove('hud-pulse-highlight');
+            void hudPanel.offsetWidth; // force DOM reflow
+            hudPanel.classList.add('hud-pulse-highlight');
+        }
+
+        // On mobile/tablet where columns are stacked vertically, gently scroll to HUD only if user explicitly selected
+        if (shouldScroll && window.innerWidth <= 992) {
+            const telemetryPanel = document.querySelector('.cockpit-hud-panel');
+            if (telemetryPanel) {
+                telemetryPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+    }
+
     function updateTimingTower() {
         const towerEl = document.getElementById('timingTowerRows');
         if (!towerEl) return;
@@ -1266,11 +1582,13 @@
             
             const pitBadge = car.inPitLane ? '<span style="color: #FFB800; font-size: 9px; font-weight: 800; margin-left: 4px;">PIT</span>' : '';
             const compoundColor = car.compound === 'SOFT' ? '#E10600' : (car.compound === 'MEDIUM' ? '#FFB800' : '#FFFFFF');
+            const logoSrc = DRIVER_TEAM_LOGOS[car.id] || '';
 
             return `
-                <div class="timing-row ${isActive ? 'active' : ''}" data-driver="${car.id}">
+                <div class="timing-row ${isActive ? 'active' : ''}" data-driver="${car.id}" role="button" tabindex="0" aria-selected="${isActive ? 'true' : 'false'}" style="--row-team-color: ${car.color};">
                     <span class="timing-pos">${idx + 1}</span>
                     <span class="timing-team-stripe" style="background: ${car.color};"></span>
+                    ${logoSrc ? `<img class="timing-team-logo" src="${logoSrc}" alt="${car.team}" loading="lazy" />` : ''}
                     <div class="timing-info">
                         <span class="timing-code">
                             ${car.id} 
@@ -1284,14 +1602,6 @@
                 </div>
             `;
         }).join('');
-
-        // Wire click events to switch active driver
-        towerEl.querySelectorAll('.timing-row').forEach(row => {
-            row.addEventListener('click', () => {
-                activeDriverId = row.getAttribute('data-driver');
-                updateCockpitHUD();
-            });
-        });
     }
 
     function updateCockpitHUD() {
@@ -1303,7 +1613,12 @@
         const driverNumEl = document.getElementById('hudDriverNum');
         if (driverNameEl) driverNameEl.textContent = car.name;
         if (driverTeamEl) driverTeamEl.textContent = `${car.team} · F1 2026`;
-        if (driverNumEl) driverNumEl.textContent = car.num;
+        if (driverNumEl) {
+            driverNumEl.textContent = car.num;
+            driverNumEl.style.borderColor = car.color;
+            driverNumEl.style.boxShadow = `0 0 10px ${car.color}60`;
+            driverNumEl.style.color = '#FFFFFF';
+        }
 
         // Top-Down Sprite Preview in HUD
         const topdownImgEl = document.getElementById('hudTopdownImg');
@@ -1542,9 +1857,9 @@
             const car = cars.find(c => c.id === driver.id);
             if (car) {
                 const isInside = index % 2 === 0;
-                const gridSlot = 0.105 - (index * 0.0130);
+                const gridSlot = 0.091 - (index * 0.013);
                 car.gridIndex = index;
-                car.trackProgress = Math.max(0.012, gridSlot);
+                car.trackProgress = gridSlot;
                 car.speed = 0;
                 car.targetSpeed = 0;
                 car.throttle = 0;
@@ -1564,12 +1879,15 @@
                 car.lastSectorTime = '--.---';
                 car.currentSector = 1;
                 car.activeAero = 'GRID MODE';
-                car.laneOffset = isInside ? -5.5 : 5.5;
-                car.targetLaneOffset = isInside ? -5.5 : 5.5;
+                car.laneOffset = isInside ? -7.5 : 7.5;
+                car.targetLaneOffset = isInside ? -7.5 : 7.5;
                 car.longGForce = 0.0;
                 car.isBrakingHard = false;
                 car.ersDeployTimer = 0;
                 car.lockupTimer = 0;
+                car.headingAngle = undefined;
+                car.smoothBadgeX = undefined;
+                car.smoothBadgeY = undefined;
                 car.currentRank = index + 1;
             }
         });
@@ -1689,6 +2007,34 @@
                 btnWeather.textContent = weatherMode === 'DRY' ? 'CLIMA: SECO' : 'CLIMA: LLUVIA';
                 btnWeather.classList.toggle('active', weatherMode === 'WET');
                 logRaceEvent(weatherMode === 'WET' ? 'yellow' : 'green', `METEOROLOGÍA: ${weatherMode === 'WET' ? 'LLUVIA EN PISTA // NEUMÁTICOS INTERMEDIOS HABILITADOS' : 'PISTA SECA // CONDICIONES ÓPTIMAS'}`);
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // TIMING TOWER SELECTION (Click & Keyboard Delegation)
+        // ═══════════════════════════════════════════════════════════
+        const towerEl = document.getElementById('timingTowerRows');
+        if (towerEl) {
+            towerEl.addEventListener('click', (e) => {
+                const row = e.target.closest('.timing-row');
+                if (row) {
+                    const driverId = row.getAttribute('data-driver');
+                    if (driverId) {
+                        selectActiveDriver(driverId, true);
+                    }
+                }
+            });
+            towerEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    const row = e.target.closest('.timing-row');
+                    if (row) {
+                        e.preventDefault();
+                        const driverId = row.getAttribute('data-driver');
+                        if (driverId) {
+                            selectActiveDriver(driverId, true);
+                        }
+                    }
+                }
             });
         }
 
@@ -1895,8 +2241,8 @@
         updatePhysics(dt);
         renderTrack();
 
-        // Throttle DOM updates to 10 FPS for optimal CPU efficiency
-        if (raceTicks % 6 === 0) {
+        // Throttle DOM updates to 10 FPS when race is running
+        if (isRunning && raceTicks % 6 === 0) {
             updateTimingTower();
             updateCockpitHUD();
         }
@@ -1922,7 +2268,7 @@
         initComparator();
         initCountdown();
         updateTimingTower();
-        updateCockpitHUD();
+        selectActiveDriver('VER');
         setTimeout(dismissLoader, 350);
         requestAnimationFrame(mainLoop);
     });

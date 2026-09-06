@@ -682,25 +682,67 @@ body.f1-theme {
     color: var(--c-titanium-500);
     letter-spacing: 0.08em;
 }
+.timing-sub-hint {
+    display: inline-flex;
+    align-items: center;
+    font-size: 8px;
+    font-weight: 800;
+    padding: 1px 6px;
+    background: rgba(0, 240, 255, 0.12);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    color: #00F0FF;
+    border-radius: 3px;
+    margin-left: 6px;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+    animation: timingHintPulse 2s ease-in-out infinite;
+}
+@keyframes timingHintPulse {
+    0%, 100% { opacity: 0.85; border-color: rgba(0, 240, 255, 0.4); }
+    50% { opacity: 1; border-color: #00F0FF; box-shadow: 0 0 8px rgba(0, 240, 255, 0.45); }
+}
 .timing-row {
     display: grid;
-    grid-template-columns: 24px 3px 1fr auto;
+    grid-template-columns: 20px 3px 20px 1fr auto;
     align-items: center;
-    gap: var(--sp-1);
+    gap: 8px;
     padding: 7px 8px;
     border-radius: var(--radius-xs);
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(0, 0, 0, 0.3);
     border: 1px solid transparent;
     cursor: pointer;
-    transition: all var(--anim-fast);
+    user-select: none;
+    transition: background var(--anim-fast), border-color var(--anim-fast), transform var(--anim-fast), box-shadow var(--anim-fast);
 }
 .timing-row:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--c-titanium-border);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(2px);
+}
+.timing-row:focus-visible {
+    outline: 2px solid #00F0FF;
+    outline-offset: 1px;
 }
 .timing-row.active {
-    background: rgba(225, 6, 0, 0.12);
-    border-color: var(--c-ferrari-border);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--row-team-color, #E10600);
+    box-shadow: inset 3px 0 0 var(--row-team-color, #E10600), 0 0 14px rgba(0, 0, 0, 0.6);
+}
+.timing-row.active .timing-pos {
+    color: var(--row-team-color, #FFF);
+    font-weight: 900;
+}
+.timing-row.active .timing-code {
+    color: #FFFFFF;
+    text-shadow: 0 0 8px var(--row-team-color, rgba(255, 255, 255, 0.5));
+}
+.timing-team-logo {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.7));
+    border-radius: 2px;
+    align-self: center;
 }
 .timing-pos {
     font-family: var(--font-mono);
@@ -977,6 +1019,24 @@ body.f1-theme {
     display: flex;
     flex-direction: column;
     gap: var(--sp-3);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+@keyframes hudPulseGlow {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7);
+        border-color: #00F0FF;
+    }
+    40% {
+        box-shadow: 0 0 24px 3px rgba(0, 240, 255, 0.4);
+        border-color: #00F0FF;
+    }
+    100% {
+        box-shadow: none;
+        border-color: var(--c-titanium-border);
+    }
+}
+.cockpit-hud-panel.hud-pulse-highlight {
+    animation: hudPulseGlow 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .cockpit-header {
     display: flex;

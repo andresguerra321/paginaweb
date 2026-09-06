@@ -15,6 +15,34 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="css/index.css?v=2026.4">
+
+    <!-- Google tag (gtag.js) - Google Consent Mode v2 -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      var savedConsent = localStorage.getItem('cookie_consent');
+      if (savedConsent === 'granted') {
+        gtag('consent', 'default', {
+          'ad_storage': 'granted',
+          'ad_user_data': 'granted',
+          'ad_personalization': 'granted',
+          'analytics_storage': 'granted'
+        });
+      } else {
+        gtag('consent', 'default', {
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': 'denied'
+        });
+      }
+
+      gtag('js', new Date());
+      gtag('config', 'G-XG8HJTJMQY');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XG8HJTJMQY"></script>
+    <script src="../js/consent-banner.js" defer></script>
 </head>
 <body class="f1-theme">
     <a href="#main-content" class="skip-link">SALTAR A TELEMETRÍA</a>
@@ -196,7 +224,7 @@
                 <!-- Col 1: Timing Tower FIA -->
                 <div class="timing-tower-panel">
                     <div class="timing-tower-header">
-                        <span>POS // PILOTO</span>
+                        <span>POS // PILOTO <span class="timing-sub-hint">CLICK PARA TELEMETRÍA</span></span>
                         <span>GAP / INTERVALO</span>
                     </div>
                     <div class="flex-col gap-1" id="timingTowerRows">
@@ -277,7 +305,7 @@
                             </div>
                         </div>
                         <div class="hud-topdown-preview-box" id="hudTopdownBox" title="Sprite Cenital Top-Down (F1 2D Asset)">
-                            <img id="hudTopdownImg" class="hud-topdown-img" src="img/cars/topdown/topdown-redbull.svg" alt="Monoplaza Top-Down" />
+                            <img id="hudTopdownImg" class="hud-topdown-img" src="img/cars/topdown/topdown-redbull.png" alt="Monoplaza Top-Down" />
                         </div>
                         <span class="badge-tech ferrari" id="hudAeroMode">CORNER MODE</span>
                     </div>
@@ -949,7 +977,7 @@
                             <span class="f1-team-rank-num">1</span>
                             <span class="f1-team-pts-tally">558 PTS // LÍDER</span>
                         </div>
-                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/ferrari/2026ferrarilogowhite.webp" alt="Ferrari Logo" class="f1-team-official-logo">
+                        <img src="img/teams/ferrari-logo.webp" alt="Scuderia Ferrari HP Logo" class="f1-team-official-logo">
                     </div>
                     <div class="f1-team-body">
                         <h3 class="f1-team-card-title">Scuderia Ferrari HP</h3>
@@ -965,7 +993,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/ferrari-car.svg" data-profile="img/cars/ferrari-car.svg" data-topdown="img/cars/topdown/topdown-ferrari.png" alt="Ferrari SF-26 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/official/ferrari-car.webp" data-profile="img/cars/official/ferrari-car.webp" data-topdown="img/cars/topdown/topdown-ferrari.png" alt="Ferrari SF-26 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>FERRARI 066/12 (350 KW)</strong></span>
@@ -983,7 +1011,7 @@
                             <span class="f1-team-rank-num">2</span>
                             <span class="f1-team-pts-tally">512 PTS // -46 PTS</span>
                         </div>
-                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/redbullracing/2026redbullracinglogowhite.webp" alt="Red Bull Racing Logo" class="f1-team-official-logo">
+                        <img src="img/teams/redbull-logo.webp" alt="Red Bull Racing Logo" class="f1-team-official-logo">
                     </div>
                     <div class="f1-team-body">
                         <h3 class="f1-team-card-title">Red Bull Ford Powertrains</h3>
@@ -999,7 +1027,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/redbull-car.svg" data-profile="img/cars/redbull-car.svg" data-topdown="img/cars/topdown/topdown-redbull.png" alt="Red Bull RB22 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/official/redbull-car.webp" data-profile="img/cars/official/redbull-car.webp" data-topdown="img/cars/topdown/topdown-redbull.png" alt="Red Bull RB22 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>RED BULL FORD DM-01</strong></span>
@@ -1017,7 +1045,7 @@
                             <span class="f1-team-rank-num">3</span>
                             <span class="f1-team-pts-tally">490 PTS // -68 PTS</span>
                         </div>
-                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/mclaren/2026mclarenlogowhite.webp" alt="McLaren Logo" class="f1-team-official-logo">
+                        <img src="img/teams/mclaren-logo.webp" alt="McLaren Formula 1 Team Logo" class="f1-team-official-logo">
                     </div>
                     <div class="f1-team-body">
                         <h3 class="f1-team-card-title">McLaren Formula 1 Team</h3>
@@ -1033,7 +1061,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/mclaren-car.svg" data-profile="img/cars/mclaren-car.svg" data-topdown="img/cars/topdown/topdown-mclaren.png" alt="McLaren MCL40 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/official/mclaren-car.webp" data-profile="img/cars/official/mclaren-car.webp" data-topdown="img/cars/topdown/topdown-mclaren.png" alt="McLaren MCL40 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>MERCEDES-AMG M17 E</strong></span>
@@ -1051,7 +1079,7 @@
                             <span class="f1-team-rank-num">4</span>
                             <span class="f1-team-pts-tally">384 PTS // -174 PTS</span>
                         </div>
-                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/mercedes/2026mercedeslogowhite.webp" alt="Mercedes Logo" class="f1-team-official-logo">
+                        <img src="img/teams/mercedes-logo.webp" alt="Mercedes-AMG PETRONAS Logo" class="f1-team-official-logo">
                     </div>
                     <div class="f1-team-body">
                         <h3 class="f1-team-card-title">Mercedes-AMG PETRONAS</h3>
@@ -1067,7 +1095,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/mercedes-car.svg" data-profile="img/cars/mercedes-car.svg" data-topdown="img/cars/topdown/topdown-mercedes.png" alt="Mercedes W17 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/official/mercedes-car.webp" data-profile="img/cars/official/mercedes-car.webp" data-topdown="img/cars/topdown/topdown-mercedes.png" alt="Mercedes W17 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>MERCEDES-AMG M17 E</strong></span>
@@ -1085,7 +1113,7 @@
                             <span class="f1-team-rank-num">5</span>
                             <span class="f1-team-pts-tally">210 PTS // -348 PTS</span>
                         </div>
-                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/astonmartin/2026astonmartinlogowhite.webp" alt="Aston Martin Logo" class="f1-team-official-logo">
+                        <img src="img/teams/astonmartin-logo.webp" alt="Aston Martin Aramco Logo" class="f1-team-official-logo">
                     </div>
                     <div class="f1-team-body">
                         <h3 class="f1-team-card-title">Aston Martin Aramco F1</h3>
@@ -1101,7 +1129,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/astonmartin-car.svg" data-profile="img/cars/astonmartin-car.svg" data-topdown="img/cars/topdown/topdown-astonmartin.png" alt="Aston Martin AMR26 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/official/astonmartin-car.webp" data-profile="img/cars/official/astonmartin-car.webp" data-topdown="img/cars/topdown/topdown-astonmartin.png" alt="Aston Martin AMR26 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>HONDA RA626H (350 KW)</strong></span>
@@ -1119,7 +1147,7 @@
                             <span class="f1-team-rank-num">6</span>
                             <span class="f1-team-pts-tally">112 PTS // -446 PTS</span>
                         </div>
-                        <img src="https://media.formula1.com/image/upload/c_lfill,w_48/q_auto/v1740000001/common/f1/2026/williams/2026williamslogowhite.webp" alt="Williams Logo" class="f1-team-official-logo">
+                        <img src="img/teams/williams-logo.webp" alt="Williams Racing Logo" class="f1-team-official-logo">
                     </div>
                     <div class="f1-team-body">
                         <h3 class="f1-team-card-title">Williams Racing</h3>
@@ -1135,7 +1163,7 @@
                         </div>
                     </div>
                     <div class="f1-team-car-stage">
-                        <img src="img/cars/williams-car.svg" data-profile="img/cars/williams-car.svg" data-topdown="img/cars/topdown/topdown-williams.png" alt="Williams FW48 F1 Car" class="f1-team-car-img" loading="lazy">
+                        <img src="img/cars/official/williams-car.webp" data-profile="img/cars/official/williams-car.webp" data-topdown="img/cars/topdown/topdown-williams.png" alt="Williams FW48 F1 Car" class="f1-team-car-img" loading="lazy">
                     </div>
                     <div class="f1-team-specs-footer">
                         <span>PU: <strong>MERCEDES-AMG M17 E</strong></span>
@@ -1161,6 +1189,15 @@
                 <span>MOTOR CONCURRENTE 60 FPS</span>
                 <span>·</span>
                 <span>APPLE-LIKE DESIGN SYSTEM</span>
+            </div>
+        </div>
+        <div class="container" style="text-align:center;padding-top:12px;">
+            <div class="footer-legal">
+                <button type="button" class="footer-privacy-link" data-open-privacy style="color:#8E95A5;">Política de Privacidad</button>
+                <span class="footer-legal-sep" style="color:#8E95A5;">·</span>
+                <button type="button" class="footer-privacy-link" data-open-terms style="color:#8E95A5;">Términos y Condiciones</button>
+                <span class="footer-legal-sep" style="color:#8E95A5;">·</span>
+                <button type="button" class="footer-privacy-link" data-open-warranty style="color:#8E95A5;">Garantía</button>
             </div>
         </div>
     </footer>

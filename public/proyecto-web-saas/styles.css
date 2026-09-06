@@ -705,29 +705,6 @@ section {
   transform: scale(1.03);
 }
 
-/* Vector Graphic Representation for Headless E-Commerce */
-.evidence-visual.vector-grid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(8, 12, 20, 0.95) 100%);
-}
-
-.vector-badge {
-  font-family: var(--font-mono);
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.vector-subtext {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  color: var(--accent-azure);
-  letter-spacing: 0.04em;
-}
-
 .evidence-body {
   padding: 2rem;
   display: flex;
@@ -966,35 +943,6 @@ section {
 .proposal-action-wrap {
   display: flex;
   justify-content: center;
-}
-
-/* ============================================================
-   CALL TO ACTION BANNER
-   ============================================================ */
-.cta-band {
-  background: linear-gradient(180deg, var(--bg-surface) 0%, #060912 100%);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: clamp(2.5rem, 6vw, 4.5rem) 2rem;
-  text-align: center;
-  box-shadow: var(--shadow-island);
-}
-
-.cta-band h2 {
-  font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  color: var(--text-main);
-  margin-bottom: 1rem;
-}
-
-.cta-band p {
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  max-width: 580px;
-  margin: 0 auto 2.2rem;
-  line-height: 1.6;
 }
 
 /* ============================================================

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GUARDIAN — Sistema de Seguridad Predictiva | Andrés Felipe Guerra</title>
-  <meta name="description" content="Arquitectura de seguridad predictiva con 3 agentes de IA (Visión, Riesgo, Conversacional) para flotas de transporte terrestre.">
+  <title>GUARDIAN — Sistema de Seguridad Predictiva & Visión Artificial | Andrés Felipe Guerra</title>
+  <meta name="description" content="Arquitectura de seguridad predictiva con 3 agentes de IA (Visión Edge, Riesgo, Copiloto de Voz) para flotas de transporte terrestre.">
   <meta name="author" content="Andrés Felipe Guerra">
   
   <!-- Open Graph -->
-  <meta property="og:title" content="GUARDIAN & Seguridad Predictiva | Andrés Felipe Guerra">
+  <meta property="og:title" content="GUARDIAN · Seguridad Predictiva & Visión Artificial">
   <meta property="og:description" content="Arquitectura de seguridad predictiva con 3 agentes de IA para flotas de transporte terrestre.">
   <meta property="og:type" content="website">
 
@@ -55,15 +55,15 @@
 
   <style>
     main.perf-hidden { opacity: 0; pointer-events: none; }
-    main.perf-reveal { opacity: 1; pointer-events: auto; transition: opacity 0.3s ease; }
+    main.perf-reveal { opacity: 1; pointer-events: auto; transition: opacity 0.25s ease; }
     
     .lang-switcher {
       display: inline-flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 3px 4px;
+      border-radius: 9999px;
+      padding: 3px;
       gap: 2px;
     }
     .lang-btn {
@@ -74,14 +74,15 @@
       font-size: 0.75rem;
       font-weight: 600;
       padding: 3px 10px;
-      border-radius: 14px;
+      border-radius: 9999px;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: background-color 0.18s cubic-bezier(0.23, 1, 0.32, 1), color 0.18s cubic-bezier(0.23, 1, 0.32, 1), transform 0.12s ease;
     }
     .lang-btn:hover { color: #FFFFFF; }
+    .lang-btn:active { transform: scale(0.96); }
     .lang-btn.active {
       background: #FFFFFF;
-      color: #0F172A;
+      color: #06090F;
     }
   </style>
 </head>
@@ -91,8 +92,8 @@
   <div class="page-transition-overlay" id="page-transition-overlay">
       <div class="minimal-progress-bar" id="minimal-bar"></div>
       <div class="minimal-loader-content" id="minimal-content">
-          <div class="minimal-loader-logo" style="font-size:2rem;letter-spacing:5px;">GUARDIAN<span style="color:#06B6D4;">.</span></div>
-          <div class="minimal-loader-subtitle" id="minimal-subtitle" style="margin-top:10px;color:#06B6D4;" data-i18n="guardian_loader_init">INICIALIZANDO SISTEMA</div>
+          <div class="minimal-loader-logo" style="font-size:2rem;letter-spacing:5px;">GUARDIAN<span style="color:#00D2FF;">.</span></div>
+          <div class="minimal-loader-subtitle" id="minimal-subtitle" style="margin-top:10px;color:#00D2FF;" data-i18n="guardian_loader_init">INICIALIZANDO SISTEMA</div>
       </div>
   </div>
 
@@ -100,13 +101,13 @@
     <div class="nav-left">
       <a href="../index.html" class="back-btn page-transition-link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        <span data-i18n="guardian_back_btn">Volver a Soluciones</span>
+        <span data-i18n="guardian_back_btn">Volver</span>
       </a>
     </div>
     <div class="nav-right">
       <div class="brand-indicator">
         <span class="pulse-dot"></span>
-        <span>EDGE AI ACTIVE</span>
+        <span>EDGE AI ACTIVE · 30 FPS</span>
       </div>
       <div class="lang-switcher">
         <button class="lang-btn active" id="langBtnES" data-lang="es">ES</button>
@@ -117,17 +118,34 @@
 
   <main class="perf-hidden" id="main-content">
     
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION (Impeccable: No Eyebrow, Solid White Title, High Density) -->
     <section class="hero-section container">
       <div class="hero-content reveal-on-scroll">
-        <div class="badge" data-i18n="guardian_badge">I+D / Proyecto de Investigación</div>
-        <h1 class="hero-title">
-          <span class="gradient-text">GUARDIAN</span>
-        </h1>
+        <h1 class="hero-title">GUARDIAN</h1>
         <p class="hero-desc" data-i18n="guardian_hero_desc">
-          Proyecto de investigación en seguridad predictiva vehicular. 
-          Combina Visión Computacional en el borde con LLMs conversacionales en la nube para crear una experiencia de "Copiloto Virtual" autónomo.
+          Sistema de seguridad vehicular predictiva con visión artificial en el borde. Detección continua de fatiga (EAR/MAR), inferencia local a +30 FPS y copiloto inteligente con cero latencia de nube.
         </p>
+
+        <!-- Operational Engineering Specs Strip -->
+        <div class="hero-specs-grid">
+          <div class="hero-spec-pill">
+            <span class="spec-num" data-i18n="guardian_stat_1_val">&lt; 15ms</span>
+            <span class="spec-lbl" data-i18n="guardian_stat_1_lbl">Latencia Edge</span>
+          </div>
+          <div class="hero-spec-pill">
+            <span class="spec-num" data-i18n="guardian_stat_2_val">+30 FPS</span>
+            <span class="spec-lbl" data-i18n="guardian_stat_2_lbl">Inferencia Local</span>
+          </div>
+          <div class="hero-spec-pill">
+            <span class="spec-num" data-i18n="guardian_stat_3_val">100%</span>
+            <span class="spec-lbl" data-i18n="guardian_stat_3_lbl">Privacidad On-Device</span>
+          </div>
+          <div class="hero-spec-pill">
+            <span class="spec-num" data-i18n="guardian_stat_4_val">3 Agentes</span>
+            <span class="spec-lbl" data-i18n="guardian_stat_4_lbl">Sinergia Híbrida</span>
+          </div>
+        </div>
+
         <div class="tags-container">
           <span class="tech-tag">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -143,39 +161,24 @@
           </span>
           <span class="tech-tag">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            Gemini AI
+            Gemini Multimodal
           </span>
         </div>
-
-        <!-- Micro-Metrics Strip (Hero Depth) -->
-        <div class="hero-stats-row">
-          <div class="hero-stat-pill">
-            <span class="hero-stat-num">+30 FPS</span>
-            <span class="hero-stat-label">Inferencia Edge Local</span>
-          </div>
-          <div class="hero-stat-pill">
-            <span class="hero-stat-num">3 Agentes</span>
-            <span class="hero-stat-label">Sinergia Híbrida</span>
-          </div>
-          <div class="hero-stat-pill">
-            <span class="hero-stat-num">100%</span>
-            <span class="hero-stat-label">Privado en Cliente</span>
-          </div>
-        </div>
       </div>
+
       <div class="hero-visual reveal-on-scroll reveal-delay-2">
-        <img src="../img/projects/guardian/3-1200.png" alt="Guardian Dashboard Preview">
+        <div class="hardware-frame">
+          <img src="../img/projects/guardian/3-1200.png" alt="Guardian Cockpit Telemetry Preview" class="hardware-img">
+        </div>
       </div>
     </section>
 
-    <!-- INTERACTIVE DEMO SECTION (GUARDIAN LITE) -->
+    <!-- INTERACTIVE SIMULATOR (GUARDIAN LITE) -->
     <section class="demo-section container" id="demo-section">
       <div class="section-header reveal-on-scroll">
-        <span class="section-tag">SIMULADOR EN VIVO</span>
-        <h2 class="section-title" data-i18n="guardian_demo_title">Prueba en Vivo: GUARDIAN Lite</h2>
+        <h2 class="section-title" data-i18n="guardian_demo_title">Prueba en Vivo: Cockpit GUARDIAN Lite</h2>
         <p class="section-subtitle" data-i18n="guardian_demo_desc">
-          Activa tu cámara para probar el <b>Agente Centinela</b> en tiempo real. Todo el procesamiento de IA ocurre privadamente en tu navegador.
-          El simulador inyectará alertas de ruta dinámicas para demostrar la integración del Copiloto.
+          Inferencia biométrica local directamente en el navegador. Activa tu cámara o ejecuta la simulación sintética de ruta para evaluar la respuesta del copiloto ante peligros viales.
         </p>
       </div>
 
@@ -186,29 +189,29 @@
           <div class="launcher-icon-box">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           </div>
-          <h3 data-i18n="launcher_title">Simulador Interactivo de IA</h3>
-          <p data-i18n="launcher_desc">Esta demo cargará modelos de inferencia local en tu navegador para procesar la telemetría en tiempo real. Cero imágenes se enviarán a servidores externos.</p>
+          <h3 data-i18n="launcher_title">Simulador Interactivo de Visión Artificial</h3>
+          <p data-i18n="launcher_desc">Carga modelos de MediaPipe y TensorFlow.js en tu dispositivo. Análisis biométrico 100% privado en memoria local, sin transmisión de video a servidores.</p>
           
           <div class="launcher-chips">
-            <span class="launcher-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Detección de fatiga en vivo (EAR / MAR)</span>
-            <span class="launcher-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copiloto virtual con alertas dinámicas</span>
-            <span class="launcher-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Cero latencia, 100% privado</span>
+            <span class="launcher-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Detección biométrica (EAR / MAR) a +30 FPS</span>
+            <span class="launcher-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copiloto reactivo a peligros viales</span>
+            <span class="launcher-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> 100% privado en tu navegador</span>
           </div>
 
           <div class="launcher-actions">
             <button class="btn-primary" id="btn-launch-demo">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              <span data-i18n="launcher_btn">Activar con Cámara Web</span>
+              <span data-i18n="launcher_btn_cam">Activar con Cámara Web</span>
             </button>
             <button class="btn-outline" id="btn-launch-sim">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              <span>Simulación de Ruta en Vivo</span>
+              <span data-i18n="launcher_btn_sim">Simulación de Ruta Inmediata</span>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- DASHBOARD WRAPPER -->
+      <!-- DASHBOARD WRAPPER (Operational Cockpit) -->
       <div class="dashboard-wrapper" id="dashboard-wrapper" style="display: none;">
           <!-- Float Notifications Container -->
           <div id="notification-container" class="notification-container"></div>
@@ -270,7 +273,7 @@
           <!-- Dashboard Grid -->
           <div class="dashboard">
               
-              <!-- Left Column: Camera & Gauges -->
+              <!-- Left Column: Camera Stage & Gauges -->
               <div class="panel">
                   <div class="panel-header">
                       <h2>
@@ -299,7 +302,7 @@
                                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
                               </div>
                               <h3 data-i18n="guardian_demo_placeholder_title">Cámara Inactiva</h3>
-                              <p data-i18n="guardian_demo_placeholder_desc">Presione el botón de Play en la esquina superior para iniciar</p>
+                              <p data-i18n="guardian_demo_placeholder_desc">Presiona el botón de Play en la barra superior para iniciar</p>
                           </div>
                       </div>
 
@@ -354,12 +357,12 @@
                   </div>
               </div>
 
-              <!-- Right Column: Alerts & Copilot -->
+              <!-- Right Column: Alerts Feed & Copilot -->
               <div class="panel">
                   <div class="panel-header">
                       <h2>
                           <svg class="panel-header-icon" style="color: var(--accent-amber);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                          <span data-i18n="guardian_ui_incident">Incident Log</span>
+                          <span data-i18n="guardian_ui_incident">Registro de Incidentes</span>
                       </h2>
                       <div class="alert-counter">
                           <span id="alert-count">0</span> <span data-i18n="guardian_ui_events">Eventos</span>
@@ -377,11 +380,11 @@
                   <div class="copilot-section">
                       <div class="copilot-header">
                           <svg class="copilot-avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
-                          <span class="copilot-name" data-i18n="guardian_ui_copilot">Copilot AI</span>
+                          <span class="copilot-name" data-i18n="guardian_ui_copilot">Copiloto IA</span>
                           <span class="copilot-status" id="copilot-status" data-i18n="guardian_ui_idle">En Espera</span>
                       </div>
                       <div class="copilot-message" id="copilot-message">
-                          <p data-i18n="guardian_ui_started">Sistema GUARDIAN iniciado. Listo para monitorear.</p>
+                          <p data-i18n="guardian_ui_started">Sistema GUARDIAN iniciado. Monitoreo biométrico activo.</p>
                       </div>
                   </div>
 
@@ -429,37 +432,36 @@
       </div>
     </section>
 
-    <!-- ARCHITECTURE SECTION -->
+    <!-- ARCHITECTURE SECTION (Bento Grid Asymmetric) -->
     <section class="features-section container">
       <div class="section-header reveal-on-scroll">
-        <span class="section-tag">ARQUITECTURA DISTRIBUIDA</span>
-        <h2 class="section-title" data-i18n="guardian_arch_title">Sinergia de 3 Agentes</h2>
-        <p class="section-subtitle" data-i18n="guardian_arch_desc">El sistema opera distribuyendo la carga cognitiva en 3 agentes especializados para garantizar baja latencia y alta precisión.</p>
+        <h2 class="section-title" data-i18n="guardian_arch_title">Arquitectura Distribuida: 3 Agentes</h2>
+        <p class="section-subtitle" data-i18n="guardian_arch_desc">Carga computacional balanceada entre hardware de cabina y servicios analíticos para respuesta inmediata en situaciones críticas.</p>
       </div>
 
       <div class="features-grid">
-        <div class="feature-card reveal-on-scroll reveal-delay-1">
+        <div class="feature-card feature-card-primary reveal-on-scroll reveal-delay-1">
           <div class="feature-icon-wrapper" style="color: var(--accent-cyan);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </div>
-          <h3 class="feature-title" data-i18n="guardian_agent_centinela">Agente Centinela</h3>
-          <p class="feature-desc" data-i18n="guardian_centinela_desc">Procesamiento Edge en cabina. Usa MediaPipe y TF.js para trackear 468 puntos faciales a +30FPS detectando somnolencia (EAR/Yawn) y distracción sin depender de conexión a internet.</p>
+          <h3 class="feature-title" data-i18n="guardian_agent_centinela">Agente Centinela (Edge)</h3>
+          <p class="feature-desc" data-i18n="guardian_centinela_desc">Visión artificial offline a +30 FPS. Rastreo facial de 468 puntos mediante MediaPipe; cálculo de apertura ocular (EAR) y bostezo (MAR) sin conexión a internet.</p>
         </div>
         
         <div class="feature-card reveal-on-scroll reveal-delay-2">
           <div class="feature-icon-wrapper" style="color: var(--accent-amber);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           </div>
-          <h3 class="feature-title" data-i18n="guardian_agent_oraculo">Agente Oráculo</h3>
-          <p class="feature-desc" data-i18n="guardian_oraculo_desc">Motor de riesgos en la nube. Ingiere telemetría en tiempo real, condiciones climáticas y datos de ruta para calcular la probabilidad de accidente y coordinar las alertas críticas.</p>
+          <h3 class="feature-title" data-i18n="guardian_agent_oraculo">Agente Oráculo (Risk)</h3>
+          <p class="feature-desc" data-i18n="guardian_oraculo_desc">Motor predictivo de probabilidad de colisión. Correlaciona telemetría del conductor, trazado de vía y condiciones climáticas para emitir alertas preventivas anticipadas.</p>
         </div>
 
         <div class="feature-card reveal-on-scroll reveal-delay-3">
           <div class="feature-icon-wrapper" style="color: var(--accent-indigo);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
           </div>
-          <h3 class="feature-title" data-i18n="guardian_agent_copiloto">Agente Copiloto</h3>
-          <p class="feature-desc" data-i18n="guardian_copiloto_desc">Asistente conversacional (Gemini Pro) que habla con el conductor vía síntesis de voz, manteniéndolo despierto, alertando peligros y actuando como un acompañante virtual empático.</p>
+          <h3 class="feature-title" data-i18n="guardian_agent_copiloto">Agente Copiloto (Voice)</h3>
+          <p class="feature-desc" data-i18n="guardian_copiloto_desc">Asistente conversacional multimodal. Emite instrucciones de voz sintetizadas y recomendaciones proactivas para mantener al conductor enfocado y alerta.</p>
         </div>
       </div>
     </section>
@@ -467,9 +469,8 @@
     <!-- CAPACITIES & IMPACT SECTION -->
     <section class="features-section container" style="padding-top: 0;">
       <div class="section-header reveal-on-scroll">
-        <span class="section-tag">APLICACIÓN INDUSTRIAL</span>
-        <h2 class="section-title" data-i18n="guardian_impact_title">Capacidades & Impacto Operativo</h2>
-        <p class="section-subtitle" data-i18n="guardian_impact_desc">GUARDIAN no es solo una dashcam, es un ecosistema IoT completo diseñado para flotas de transporte pesado, logística y transporte de pasajeros.</p>
+        <h2 class="section-title" data-i18n="guardian_impact_title">Capacidades & Especificaciones Industriales</h2>
+        <p class="section-subtitle" data-i18n="guardian_impact_desc">Ecosistema de telemetría de misión crítica para flotas de carga pesada, transporte intermunicipal y logística de distribución.</p>
       </div>
 
       <div class="features-grid">
@@ -477,24 +478,24 @@
           <div class="feature-icon-wrapper" style="color: var(--accent-emerald);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h3 class="feature-title" data-i18n="guardian_cap_1_title">Prevención Proactiva</h3>
-          <p class="feature-desc" data-i18n="guardian_cap_1_desc">A diferencia de los sistemas reactivos, GUARDIAN detecta los microsueños antes de que los ojos se cierren por completo (analizando patrones de parpadeo y bostezos mediante EAR/MAR), permitiendo alertar al conductor con segundos de anticipación vitales.</p>
+          <h3 class="feature-title" data-i18n="guardian_cap_1_title">Detección Proactiva EAR/MAR</h3>
+          <p class="feature-desc" data-i18n="guardian_cap_1_desc">Identificación anticipada de microsueños antes del cierre ocular total mediante análisis diferencial de parpadeos y apertura labial.</p>
         </div>
         
         <div class="feature-card reveal-on-scroll reveal-delay-2">
           <div class="feature-icon-wrapper" style="color: var(--accent-cyan);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
           </div>
-          <h3 class="feature-title" data-i18n="guardian_cap_2_title">IoT & Telemetría Segura</h3>
-          <p class="feature-desc" data-i18n="guardian_cap_2_desc">Integración mediante protocolos MQTT y WebSockets encriptados. Si el vehículo pierde conexión en carretera, el Agente Centinela (Edge) sigue operando 100% offline y sincroniza los eventos de riesgo cuando recupera la señal.</p>
+          <h3 class="feature-title" data-i18n="guardian_cap_2_title">Resiliencia Offline & MQTT</h3>
+          <p class="feature-desc" data-i18n="guardian_cap_2_desc">Operación continua en túneles o zonas sin cobertura celular. Transmisión cifrada de bitácoras y eventos al reanudar enlace telemático.</p>
         </div>
 
         <div class="feature-card reveal-on-scroll reveal-delay-3">
           <div class="feature-icon-wrapper" style="color: var(--accent-indigo);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           </div>
-          <h3 class="feature-title" data-i18n="guardian_cap_3_title">Dashboard para Flotas</h3>
-          <p class="feature-desc" data-i18n="guardian_cap_3_desc">Los administradores visualizan en tiempo real el nivel de fatiga de todos los conductores, reciben alertas críticas y pueden comunicarse bidireccionalmente gracias al módulo de administración centralizado.</p>
+          <h3 class="feature-title" data-i18n="guardian_cap_3_title">Supervisión Centralizada de Flotas</h3>
+          <p class="feature-desc" data-i18n="guardian_cap_3_desc">Monitoreo de fatiga en tiempo real, mapas de calor de riesgo y despacho automático de advertencias al centro de control.</p>
         </div>
       </div>
     </section>
@@ -502,12 +503,12 @@
     <!-- FOOTER CTA -->
     <section class="project-cta-section container reveal-on-scroll">
       <div class="cta-box">
-        <h3 data-i18n="guardian_cta_title">Explora la Innovación en IA Edge</h3>
+        <h3 data-i18n="guardian_cta_title">Explora la Arquitectura de GUARDIAN</h3>
         <p data-i18n="guardian_cta_desc">
-          Conoce más sobre la arquitectura técnica, modelos de inferencia local y telemetría distribuida de este proyecto de investigación.
+          Conoce los detalles de despliegue en hardware embebido, optimización de modelos y telemetría para flotas comerciales.
         </p>
         <div class="cta-buttons">
-          <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20la%20soluci%C3%B3n%20GUARDIAN%20en%20tu%20sitio%20web%20y%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20la%20arquitectura" target="_blank" rel="noopener noreferrer" class="btn btn-primary cta-btn-whatsapp">
+          <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20la%20soluci%C3%B3n%20GUARDIAN%20en%20tu%20sitio%20web%20y%20me%20gustar%C3%ADa%20conocer%20m%C3%A1s%20detalles%20técnicos" target="_blank" rel="noopener noreferrer" class="btn btn-primary cta-btn-whatsapp">
             <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg>
             <span data-i18n="btn_whatsapp">Contactar por WhatsApp</span>
           </a>
@@ -515,15 +516,33 @@
       </div>
     </section>
 
+    <!-- FOOTER -->
+    <footer style="text-align:center;padding:32px 24px 24px;border-top:1px solid rgba(255,255,255,0.06);">
+      <p style="font-size:0.78rem;color:#475569;margin:0 0 8px;" data-i18n="footer_rights">© 2026 AG Private Engineering — Andrés Felipe Guerra. Todos los derechos reservados.</p>
+      <div class="footer-legal">
+        <button type="button" class="footer-privacy-link" data-open-privacy data-i18n="footer_privacy">Política de Privacidad</button>
+        <span class="footer-legal-sep">·</span>
+        <button type="button" class="footer-privacy-link" data-open-terms data-i18n="footer_terms">Términos y Condiciones</button>
+        <span class="footer-legal-sep">·</span>
+        <button type="button" class="footer-privacy-link" data-open-warranty data-i18n="footer_warranty">Garantía</button>
+      </div>
+    </footer>
+
   </main>
 
   <!-- Scripts -->
   <script src="../js/i18n.js"></script>
   
   <script>
-    // Fast Loading Transition & IntersectionObserver
+    // Fast Loading Transition, Scroll Elevation & Single IntersectionObserver
     (function() {
+      let loaderDismissed = false;
+      let observerInitialized = false;
+
       function dismissLoader() {
+        if (loaderDismissed) return;
+        loaderDismissed = true;
+
         const overlay = document.getElementById('page-transition-overlay');
         const mainContent = document.getElementById('main-content');
         if (overlay) {
@@ -539,6 +558,9 @@
       }
 
       function initScrollObserver() {
+        if (observerInitialized) return;
+        observerInitialized = true;
+
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -546,12 +568,30 @@
               observer.unobserve(entry.target);
             }
           });
-        }, { threshold: 0.05 });
+        }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
 
         document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
       }
 
+      function initNavScrollTracker() {
+        const nav = document.querySelector('.top-nav');
+        if (!nav) return;
+
+        let isScrolled = false;
+        function updateNavState() {
+          const shouldBeScrolled = window.scrollY > 20;
+          if (shouldBeScrolled !== isScrolled) {
+            isScrolled = shouldBeScrolled;
+            nav.classList.toggle('nav-scrolled', isScrolled);
+          }
+        }
+
+        window.addEventListener('scroll', updateNavState, { passive: true });
+        updateNavState();
+      }
+
       document.addEventListener('DOMContentLoaded', () => {
+        initNavScrollTracker();
         const overlay = document.getElementById('page-transition-overlay');
         const bar = document.getElementById('minimal-bar');
 
@@ -571,13 +611,13 @@
             dismissLoader();
             initScrollObserver();
           }
-        }, 25);
+        }, 20);
 
         setTimeout(() => {
           clearInterval(interval);
           dismissLoader();
           initScrollObserver();
-        }, 500);
+        }, 400);
       });
 
       window.addEventListener('pageshow', dismissLoader);

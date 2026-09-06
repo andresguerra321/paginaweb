@@ -98,7 +98,7 @@
       <div class="nav-meta-group">
         <div class="status-pill">
           <span class="status-dot-solid"></span>
-          <span>ONLINE · 28 REGIONES</span>
+          <span data-i18n="ws_nav_status">ONLINE · 28 REGIONES</span>
         </div>
         <div class="lang-switcher">
           <button type="button" class="lang-btn active" id="langBtnES">ES</button>
@@ -124,15 +124,16 @@
           </h1>
 
           <p class="hero-subtitle" data-i18n="ws_hero_sub">
-            Transformamos la lógica de tu negocio en aplicaciones web escalables, paneles de control intuitivos y arquitecturas en la nube preparadas para crecer.
+            Arquitectura Fullstack · Plataformas SaaS · Paneles de Control · Cloud Serverless de Alta Concurrencia.
           </p>
 
           <div class="hero-tech-strip">
             <span class="tech-tag">React / Next.js</span>
+            <span class="tech-tag">TypeScript</span>
             <span class="tech-tag">Node.js</span>
             <span class="tech-tag">Python FastAPI</span>
-            <span class="tech-tag">PostgreSQL / MySQL</span>
-            <span class="tech-tag">Cloudflare Serverless</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">Cloudflare Edge</span>
           </div>
 
           <div class="hero-cta-group">
@@ -149,15 +150,15 @@
           <div class="hero-metrics-bar">
             <div class="metric-item">
               <span class="metric-value" data-i18n="ws_m1_val">100%</span>
-              <span class="metric-label" data-i18n="ws_m1_label">Código Propietario a Medida</span>
+              <span class="metric-label" data-i18n="ws_m1_label">Código Propietario</span>
             </div>
             <div class="metric-item">
-              <span class="metric-value" data-i18n="ws_m2_val">Global</span>
-              <span class="metric-label" data-i18n="ws_m2_label">Despliegue Edge</span>
+              <span class="metric-value" data-i18n="ws_m2_val">&lt; 20ms</span>
+              <span class="metric-label" data-i18n="ws_m2_label">Latencia Anycast Edge</span>
             </div>
             <div class="metric-item">
-              <span class="metric-value" data-i18n="ws_m3_val">24/7</span>
-              <span class="metric-label" data-i18n="ws_m3_label">Disponibilidad Cloud</span>
+              <span class="metric-value" data-i18n="ws_m3_val">99.9%</span>
+              <span class="metric-label" data-i18n="ws_m3_label">Disponibilidad SLA</span>
             </div>
           </div>
         </div>
@@ -173,7 +174,7 @@
                  height="520">
             <div class="hero-visual-caption">
               <span class="caption-tag">Arquitectura Integral</span>
-              <span class="caption-text">Frontend React · API Gateway · DB Transaccional · Cloud Serverless</span>
+              <span class="caption-text">Frontend React · API Gateway · DB Transaccional · Edge Serverless</span>
             </div>
           </div>
         </div>
@@ -185,42 +186,42 @@
       <div class="container">
         <div class="section-head center">
           <span class="section-kicker" data-i18n="ws_case_tag">Diagnóstico vs Solución</span>
-          <h2 class="section-heading" data-i18n="ws_case_title">Eliminando la Fricción Digital</h2>
-          <p class="section-desc" data-i18n="ws_case_sub">De herramientas genéricas y lentas a software propietario ultra optimizado.</p>
+          <h2 class="section-heading" data-i18n="ws_case_title">Arquitectura & Rendimiento</h2>
+          <p class="section-desc" data-i18n="ws_case_sub">Deuda técnica y plantillas lentas frente a software propietario ultra optimizado.</p>
         </div>
 
         <div class="contrast-grid">
           <!-- The Challenge -->
           <div class="contrast-panel problem">
             <span class="panel-tag rose">
-              <span data-i18n="ws_prob_tag">El Desafío Actual</span>
+              <span data-i18n="ws_prob_tag">El Problema</span>
             </span>
-            <h3 class="panel-title" data-i18n="ws_prob_t">Plantillas Genéricas y Cuellos de Botella</h3>
+            <h3 class="panel-title" data-i18n="ws_prob_t">Plantillas Genéricas & Deuda Técnica</h3>
             <p class="panel-text" data-i18n="ws_prob_d">
-              Sistemas prefabricados lentos, vulnerabilidades de plugins, altos costos recurrentes de licencias SaaS de terceros y falta de adaptación a los procesos reales de tu empresa.
+              Carga lenta, vulnerabilidades en plugins, cobros perpetuos por usuario y rigidez técnica que frena la operación.
             </p>
             <ul class="check-list negative">
-              <li><span class="check-icon">✕</span> Carga lenta y sobrepeso de librerías innecesarias</li>
-              <li><span class="check-icon">✕</span> Dependencia perpetua de cuotas a intermediarios</li>
-              <li><span class="check-icon">✕</span> Imposibilidad de personalizar flujos lógicos clave</li>
-              <li><span class="check-icon">✕</span> Riesgos de seguridad por plugins de terceros no auditados</li>
+              <li><span class="check-icon">✕</span> <span data-i18n="ws_prob_f1">Carga lenta y bloatware innecesario</span></li>
+              <li><span class="check-icon">✕</span> <span data-i18n="ws_prob_f2">Tarifas recurrentes y dependencia de terceros</span></li>
+              <li><span class="check-icon">✕</span> <span data-i18n="ws_prob_f3">Restricciones para personalizar la lógica de negocio</span></li>
+              <li><span class="check-icon">✕</span> <span data-i18n="ws_prob_f4">Riesgos de seguridad en plugins desactualizados</span></li>
             </ul>
           </div>
 
           <!-- The Solution -->
           <div class="contrast-panel solution">
             <span class="panel-tag azure">
-              <span data-i18n="ws_sol_tag">Solución de Ingeniería</span>
+              <span data-i18n="ws_sol_tag">Nuestra Solución</span>
             </span>
-            <h3 class="panel-title" data-i18n="ws_sol_t">Arquitectura Dedicada & Experiencia Fluida</h3>
+            <h3 class="panel-title" data-i18n="ws_sol_t">Software Propietario & Alta Velocidad</h3>
             <p class="panel-text" data-i18n="ws_sol_d">
-              Desarrollo Fullstack moderno con bases de datos optimizadas, interfaces reactivas y despliegue serverless de alta disponibilidad con código 100% de tu propiedad.
+              Desarrollo Fullstack moderno, bases de datos ACID y despliegue serverless. Código 100% propiedad de tu empresa.
             </p>
             <ul class="check-list positive">
-              <li><span class="check-icon">✓</span> Tiempos de respuesta sub-segundo en cualquier dispositivo</li>
-              <li><span class="check-icon">✓</span> Propiedad intelectual absoluta: sin cobros por usuario</li>
-              <li><span class="check-icon">✓</span> Integración nativa con tus pasarelas, CRMs y bases de datos</li>
-              <li><span class="check-icon">✓</span> Arquitectura desacoplada y escalable bajo demanda</li>
+              <li><span class="check-icon">✓</span> <span data-i18n="ws_sol_f1">Respuesta instantánea sub-segundo (&lt; 300ms)</span></li>
+              <li><span class="check-icon">✓</span> <span data-i18n="ws_sol_f2">Propiedad intelectual total: sin tarifas por usuario</span></li>
+              <li><span class="check-icon">✓</span> <span data-i18n="ws_sol_f3">Integración nativa con APIs, ERPs y bases de datos</span></li>
+              <li><span class="check-icon">✓</span> <span data-i18n="ws_sol_f4">Escalabilidad serverless automática bajo demanda</span></li>
             </ul>
           </div>
         </div>
@@ -231,9 +232,9 @@
     <section class="evidence-section" id="casos">
       <div class="container">
         <div class="section-head center">
-          <span class="section-kicker" data-i18n="ws_evidence_tag">Evidencia Técnica & Casos de Éxito</span>
-          <h2 class="section-heading" data-i18n="ws_evidence_title">Proyectos Reales en Producción</h2>
-          <p class="section-desc" data-i18n="ws_evidence_sub">Arquitecturas probadas con transacciones seguras y alto volumen de datos.</p>
+          <span class="section-kicker" data-i18n="ws_evidence_tag">Casos de Estudio</span>
+          <h2 class="section-heading" data-i18n="ws_evidence_title">Proyectos en Producción</h2>
+          <p class="section-desc" data-i18n="ws_evidence_sub">Arquitecturas reales con transacciones seguras, concurrencia y alto volumen de datos.</p>
         </div>
 
         <div class="evidence-deck">
@@ -243,44 +244,43 @@
               <img src="../img/projects/saas/4-1200.png" alt="Arquitectura Banco ACME" loading="lazy">
             </div>
             <div class="evidence-body">
-              <span class="evidence-badge">Fintech / Backend Resiliente</span>
-              <h3 class="evidence-title" data-i18n="ws_case1_title">Banco ACME — Core Transaccional</h3>
+              <span class="evidence-badge" data-i18n="ws_case1_badge">Fintech · Core Transaccional</span>
+              <h3 class="evidence-title" data-i18n="ws_case1_title">Banco ACME — Core Bancario</h3>
               <p class="evidence-desc" data-i18n="ws_case1_desc">
-                Plataforma financiera simulada que demuestra manejo robusto de transacciones ACID, prevención de condiciones de carrera y diseño de base de datos relacional altamente eficiente.
+                Motor financiero con transacciones ACID, prevención de condiciones de carrera y base de datos relacional de alta velocidad.
               </p>
               <div class="evidence-tech-row">
                 <span class="tech-tag">Node.js</span>
                 <span class="tech-tag">MySQL</span>
-                <span class="tech-tag">ACID Engine</span>
+                <span class="tech-tag">Motor ACID</span>
                 <span class="tech-tag">REST API</span>
               </div>
               <a href="../proyecto.html?id=banco-acme" class="evidence-link">
-                <span>Ver Detalles Técnicos</span>
+                <span data-i18n="ws_link_details">Ver Detalles Técnicos</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </a>
             </div>
           </div>
 
-          <!-- Case 2: Glowvibes Headless E-Commerce -->
+          <!-- Case 2: GUARDIAN Predictive Safety AI -->
           <div class="evidence-tile">
-            <div class="evidence-visual vector-grid">
-              <div class="vector-badge">🛍️</div>
-              <div class="vector-subtext">Arquitectura Headless & CRO</div>
+            <div class="evidence-visual">
+              <img src="../img/projects/guardian/3-1200.png" alt="Sistema de Seguridad Predictiva GUARDIAN AI" loading="lazy">
             </div>
             <div class="evidence-body">
-              <span class="evidence-badge">E-Commerce / Headless</span>
-              <h3 class="evidence-title" data-i18n="ws_case2_title">Caso de Estudio: Glowvibes E-Commerce</h3>
+              <span class="evidence-badge" data-i18n="ws_case2_badge">Edge AI · Visión Predictiva</span>
+              <h3 class="evidence-title" data-i18n="ws_case2_title">GUARDIAN — Seguridad Predictiva</h3>
               <p class="evidence-desc" data-i18n="ws_case2_desc">
-                Desarrollo y optimización de infraestructura de comercio electrónico en Shopify. Enfoque en maximización de conversiones (CRO), rendimiento de carga y arquitectura escalable.
+                Copiloto vehicular inteligente con visión computacional en el borde (+30 FPS), detección de fatiga y agentes de IA en tiempo real.
               </p>
               <div class="evidence-tech-row">
-                <span class="tech-tag">Shopify</span>
-                <span class="tech-tag">Liquid</span>
-                <span class="tech-tag">CRO Strategy</span>
-                <span class="tech-tag">Performance</span>
+                <span class="tech-tag">Python FastAPI</span>
+                <span class="tech-tag">MediaPipe Edge</span>
+                <span class="tech-tag">Gemini AI</span>
+                <span class="tech-tag">Computer Vision</span>
               </div>
-              <a href="https://github.com/andresguerra321/Glowvibes-shopify-" target="_blank" rel="noopener" class="evidence-link">
-                <span>Ver Repositorio en GitHub</span>
+              <a href="../proyecto-guardian/guardian.html" class="evidence-link">
+                <span data-i18n="ws_link_guardian">Ver Demo en Vivo</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
               </a>
             </div>
@@ -293,9 +293,9 @@
     <section class="features-section" id="capacidades">
       <div class="container">
         <div class="section-head center">
-          <span class="section-kicker" data-i18n="ws_arch_tag">Capacidades Core</span>
-          <h2 class="section-heading" data-i18n="ws_arch_title">Ingeniería de Software para Crecer</h2>
-          <p class="section-desc" data-i18n="ws_arch_sub">Construimos cada capa de tu producto digital con estándares internacionales de calidad y seguridad.</p>
+          <span class="section-kicker" data-i18n="ws_arch_tag">Stack Tecnológico</span>
+          <h2 class="section-heading" data-i18n="ws_arch_title">Capacidades de Ingeniería</h2>
+          <p class="section-desc" data-i18n="ws_arch_sub">Desarrollo modular de cada capa de tu producto digital con estándares de clase mundial.</p>
         </div>
 
         <div class="bento-grid">
@@ -305,10 +305,10 @@
               <div class="bento-inline-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
               </div>
-              <h3 class="bento-title" data-i18n="ws_f1_t">Frontend Ultrarrápido</h3>
+              <h3 class="bento-title" data-i18n="ws_f1_t">Frontend React & Next.js</h3>
             </div>
             <p class="bento-body" data-i18n="ws_f1_d">
-              Interfaces diseñadas en React / Next.js con carga instantánea, micro-animaciones fluidas y diseño responsivo adaptado a cualquier dispositivo.
+              Interfaces ultrarrápidas, Server-Side Rendering (SSR), Core Web Vitals en verde y animaciones fluidas aceleradas por hardware.
             </p>
             <div class="micro-stats-row">
               <div class="stat-cell">
@@ -317,7 +317,7 @@
               </div>
               <div class="stat-cell">
                 <span class="stat-val">100/100</span>
-                <span class="stat-lbl">Lighthouse Perf</span>
+                <span class="stat-lbl">Lighthouse</span>
               </div>
               <div class="stat-cell">
                 <span class="stat-val">0.00</span>
@@ -339,7 +339,7 @@
               <h3 class="bento-title" data-i18n="ws_f2_t">Backend & APIs Escalables</h3>
             </div>
             <p class="bento-body" data-i18n="ws_f2_d">
-              Servicios RESTful y GraphQL construidos en Node.js y Python (FastAPI/Express) estructurados bajo principios de arquitectura limpia.
+              Microservicios en Node.js y Python FastAPI. Endpoints REST y GraphQL bajo arquitectura limpia y tipado estricto.
             </p>
             <div class="bento-footer-meta">
               <span>Node.js / Python FastAPI</span>
@@ -353,13 +353,13 @@
               <div class="bento-inline-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
               </div>
-              <h3 class="bento-title" data-i18n="ws_f3_t">Dashboards y Paneles Admin</h3>
+              <h3 class="bento-title" data-i18n="ws_f3_t">Dashboards & Paneles Admin</h3>
             </div>
             <p class="bento-body" data-i18n="ws_f3_d">
-              Métricas en tiempo real, gestión de inventarios, reportes exportables y control granular de usuarios y permisos.
+              Métricas en tiempo real, gestión de inventarios, reportes analíticos, exportación CSV/PDF y roles granulares (RBAC).
             </p>
             <div class="bento-footer-meta">
-              <span>Filtros Dinámicos · Exportación CSV/PDF</span>
+              <span>Filtros Reactivos · Exportación de Datos</span>
               <span>ADMIN OPS</span>
             </div>
           </div>
@@ -370,19 +370,19 @@
               <div class="bento-inline-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
               </div>
-              <h3 class="bento-title" data-i18n="ws_f6_t">Infraestructura Cloud & CI/CD</h3>
+              <h3 class="bento-title" data-i18n="ws_f6_t">Cloud Serverless & CI/CD</h3>
             </div>
             <p class="bento-body" data-i18n="ws_f6_d">
-              Despliegues automatizados en Cloudflare Workers, Vercel o AWS con monitorización continua y backups automáticos.
+              Despliegue Anycast en Cloudflare Workers, Vercel y AWS. Zero-downtime, balanceo de carga y CI/CD automatizado.
             </p>
             <div class="micro-stats-row">
               <div class="stat-cell">
                 <span class="stat-val">&lt; 20ms</span>
-                <span class="stat-lbl">Latencia Global Edge</span>
+                <span class="stat-lbl">Latencia Anycast</span>
               </div>
               <div class="stat-cell">
                 <span class="stat-val">100%</span>
-                <span class="stat-lbl">Serverless Autoscaling</span>
+                <span class="stat-lbl">Serverless Auto-scale</span>
               </div>
               <div class="stat-cell">
                 <span class="stat-val">Automático</span>
@@ -401,13 +401,13 @@
               <div class="bento-inline-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
               </div>
-              <h3 class="bento-title" data-i18n="ws_f4_t">Autenticación & Seguridad</h3>
+              <h3 class="bento-title" data-i18n="ws_f4_t">Seguridad & Autenticación</h3>
             </div>
             <p class="bento-body" data-i18n="ws_f4_d">
-              Sesiones seguras con JWT/OAuth2, encriptación de datos en tránsito y reposo, y protección contra inyecciones y CSRF.
+              Políticas Zero-Trust, sesiones JWT/OAuth2, hashing Argon2, protección contra OWASP Top 10 y cifrado TLS.
             </p>
             <div class="bento-footer-meta">
-              <span>Zero-Trust · RBAC · Argon2 / bcrypt</span>
+              <span>Zero-Trust · RBAC · Argon2</span>
               <span>OWASP TOP 10</span>
             </div>
           </div>
@@ -418,10 +418,10 @@
               <div class="bento-inline-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               </div>
-              <h3 class="bento-title" data-i18n="ws_f5_t">Integración de Ecosistemas</h3>
+              <h3 class="bento-title" data-i18n="ws_f5_t">Integraciones & Webhooks</h3>
             </div>
             <p class="bento-body" data-i18n="ws_f5_d">
-              Conexión fluida con pasarelas de pago (Stripe, Mercado Pago), CRMs, webhooks y pipelines de automatización como n8n.
+              Pasarelas de pago (Stripe, Mercado Pago), automatizaciones n8n, CRMs y webhooks bidireccionales seguros.
             </p>
             <div class="bento-footer-meta">
               <span>Stripe · Mercado Pago · Webhooks · n8n</span>
@@ -436,43 +436,43 @@
     <section class="pricing-section" id="cotizacion">
       <div class="container">
         <div class="section-head center">
-          <span class="section-kicker" data-i18n="ws_quote_tag">Propuesta a Medida</span>
-          <h2 class="section-heading" data-i18n="ws_quote_title">¿Tienes un Proyecto en Mente?</h2>
-          <p class="section-desc" data-i18n="ws_quote_sub">Evaluamos tus requerimientos técnicos y comerciales para estructurar un plan de desarrollo ajustado a tu presupuesto y tiempos.</p>
+          <span class="section-kicker" data-i18n="ws_quote_tag">Cotización Directa</span>
+          <h2 class="section-heading" data-i18n="ws_quote_title">Estructuremos tu Proyecto</h2>
+          <p class="section-desc" data-i18n="ws_quote_sub">Evaluamos requerimientos técnicos y alcance para estructurar un plan de desarrollo ajustado a tus metas.</p>
         </div>
 
         <div class="proposal-box">
           <div class="proposal-header">
-            <span class="proposal-badge" data-i18n="ws_card_tag">DESARROLLO EXCLUSIVO</span>
-            <h3 class="proposal-title" data-i18n="ws_card_title">Plataforma Web / SaaS a Medida</h3>
-            <div class="proposal-price" data-i18n="ws_card_price">Cotización a Medida</div>
-            <p class="proposal-desc" data-i18n="ws_card_desc">Diseño y desarrollo integral llave en mano, desde la concepción de la arquitectura hasta el despliegue final en producción.</p>
+            <span class="proposal-badge" data-i18n="ws_card_tag">DESARROLLO A MEDIDA</span>
+            <h3 class="proposal-title" data-i18n="ws_card_title">Plataforma Web & SaaS Propietaria</h3>
+            <div class="proposal-price" data-i18n="ws_card_price">Presupuesto por Alcance</div>
+            <p class="proposal-desc" data-i18n="ws_card_desc">Ingeniería de software llave en mano: arquitectura, diseño UI/UX, backend, APIs y despliegue cloud en producción.</p>
           </div>
 
           <div class="proposal-checklist">
             <div class="prop-item">
               <span class="prop-check">✓</span>
-              <span data-i18n="ws_card_f1">Arquitectura técnica personalizada</span>
+              <span data-i18n="ws_card_f1">Arquitectura técnica personalizada y código 100% propietario</span>
             </div>
             <div class="prop-item">
               <span class="prop-check">✓</span>
-              <span data-i18n="ws_card_f2">Diseño UI/UX interactivo y responsivo</span>
+              <span data-i18n="ws_card_f2">Diseño UI/UX responsivo, accesible y de alta conversión</span>
             </div>
             <div class="prop-item">
               <span class="prop-check">✓</span>
-              <span data-i18n="ws_card_f3">Panel de control y administración de usuarios</span>
+              <span data-i18n="ws_card_f3">Panel de administración, analítica y control de roles (RBAC)</span>
             </div>
             <div class="prop-item">
               <span class="prop-check">✓</span>
-              <span data-i18n="ws_card_f4">Integración de bases de datos y APIs externas</span>
+              <span data-i18n="ws_card_f4">Bases de datos optimizadas (SQL/NoSQL) e integración de APIs</span>
             </div>
             <div class="prop-item">
               <span class="prop-check">✓</span>
-              <span data-i18n="ws_card_f5">Optimización SEO y métricas de rendimiento</span>
+              <span data-i18n="ws_card_f5">Optimización Core Web Vitals y posicionamiento SEO técnico</span>
             </div>
             <div class="prop-item">
               <span class="prop-check">✓</span>
-              <span data-i18n="ws_card_f6">Garantía de soporte y despliegue cloud</span>
+              <span data-i18n="ws_card_f6">Despliegue Cloud Serverless, monitorización y garantía de soporte</span>
             </div>
           </div>
 
@@ -486,25 +486,19 @@
       </div>
     </section>
 
-    <!-- ===== FINAL CALL TO ACTION ===== -->
-    <section class="cta-section">
-      <div class="container">
-        <div class="cta-band">
-          <h2 data-i18n="ws_cta_h">Construyamos la infraestructura digital de tu empresa</h2>
-          <p data-i18n="ws_cta_sub">Agenda una llamada o conversemos por chat sobre los objetivos y alcance de tu producto.</p>
-          <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20quiero%20conversar%20sobre%20mi%20proyecto" target="_blank" rel="noopener" class="btn btn-primary btn-large">
-            <span data-i18n="ws_cta_btn">Hablar por WhatsApp</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <!-- ===== FOOTER ===== -->
   <footer>
     <div class="container">
-      <p class="footer-copy" data-i18n="ws_footer_rights">© 2026 Andrés Felipe Guerra — Ingeniería de Software & Sistemas Propietarios.</p>
+      <p class="footer-copy" data-i18n="ws_footer_rights">© 2026 Andrés Felipe Guerra — Ingeniería de Software &amp; Sistemas Propietarios.</p>
+      <div class="footer-legal">
+        <button type="button" class="footer-privacy-link" data-open-privacy data-i18n="footer_privacy">Política de Privacidad</button>
+        <span class="footer-legal-sep">·</span>
+        <button type="button" class="footer-privacy-link" data-open-terms data-i18n="footer_terms">Términos y Condiciones</button>
+        <span class="footer-legal-sep">·</span>
+        <button type="button" class="footer-privacy-link" data-open-warranty data-i18n="footer_warranty">Garantía</button>
+      </div>
     </div>
   </footer>
 
