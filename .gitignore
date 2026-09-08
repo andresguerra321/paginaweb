@@ -6,3 +6,5 @@ graphify-out/
 *.py
 *.tmp
 .DS_Store
+.agents/
+.codex/
