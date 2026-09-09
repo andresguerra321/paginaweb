@@ -1895,7 +1895,7 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .contact-link-pill:hover {
+    .contact-link-pill:not(.is-primary):hover {
         background: rgba(255, 255, 255, 0.14);
         border-color: rgba(255, 255, 255, 0.28);
         transform: translateY(-3px);
@@ -1904,7 +1904,7 @@
             0 8px 24px rgba(0, 0, 0, 0.55);
         color: #FFFFFF !important;
     }
-    .contact-link-pill:hover svg {
+    .contact-link-pill:not(.is-primary):hover svg {
         transform: scale(1.1);
     }
 }
@@ -1915,49 +1915,51 @@
 
 /* --- Primary Contact Method (WhatsApp) --- */
 .contact-link-pill.is-primary {
-    background: linear-gradient(135deg, #25D366 0%, #1EAE54 100%);
-    border: 1.5px solid #28DF6E;
+    background: linear-gradient(135deg, #25D366 0%, #1EAE54 100%) !important;
+    border: 1.5px solid #28DF6E !important;
     color: #FFFFFF !important;
     box-shadow: 
         inset 0 1px 1px rgba(255, 255, 255, 0.4),
         0 4px 18px rgba(37, 211, 102, 0.42),
-        0 2px 6px rgba(0, 0, 0, 0.35);
+        0 2px 6px rgba(0, 0, 0, 0.35) !important;
     position: relative;
     gap: 0.75rem;
+    cursor: pointer;
 }
 
 .contact-link-pill.is-primary svg {
-    fill: #FFFFFF;
+    fill: #FFFFFF !important;
     width: 20px;
     height: 20px;
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
     transition: transform var(--duration-fast) var(--ease-spring);
 }
 
+.contact-link-pill.is-primary,
 .contact-link-pill.is-primary span {
     color: #FFFFFF !important;
 }
 
 @media (hover: hover) and (pointer: fine) {
     .contact-link-pill.is-primary:hover {
-        background: linear-gradient(135deg, #2EE274 0%, #22C562 100%);
-        border-color: #38F485;
-        transform: translateY(-3px);
+        background: linear-gradient(135deg, #2EE274 0%, #22C562 100%) !important;
+        border-color: #38F485 !important;
+        transform: translateY(-3px) !important;
         box-shadow: 
             inset 0 1px 1px rgba(255, 255, 255, 0.5),
             0 8px 28px rgba(37, 211, 102, 0.58),
-            0 3px 8px rgba(0, 0, 0, 0.4);
+            0 3px 8px rgba(0, 0, 0, 0.4) !important;
         color: #FFFFFF !important;
     }
     .contact-link-pill.is-primary:hover svg {
         transform: scale(1.12);
-        fill: #FFFFFF;
+        fill: #FFFFFF !important;
     }
 }
 
 .contact-link-pill.is-primary:active {
     transform: scale(0.97) !important;
-    background: #1EAE54;
+    background: #1EAE54 !important;
 }
 
 /* ============================================================
@@ -2386,16 +2388,22 @@ footer p {
    14. CROSS-DEVICE GLASS STABILITY & ACCESSIBILITY GUARDS
    ============================================================ */
 @supports not (backdrop-filter: blur(20px)) {
-    .bento-card, .contact-card, .btn-secondary, .contact-link-pill, .tech-chip, .project-tag {
+    .bento-card, .contact-card, .btn-secondary, .contact-link-pill:not(.is-primary), .tech-chip, .project-tag {
         background: #0E131F !important;
+    }
+    .contact-link-pill.is-primary {
+        background: #25D366 !important;
     }
 }
 
 @media (prefers-reduced-transparency: reduce) {
-    .bento-card, .contact-card, #mainNav, .btn-secondary, .contact-link-pill, .tech-chip, .project-tag {
+    .bento-card, .contact-card, #mainNav, .btn-secondary, .contact-link-pill:not(.is-primary), .tech-chip, .project-tag {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
         background: #0E131F !important;
+    }
+    .contact-link-pill.is-primary {
+        background: #25D366 !important;
     }
 }
 

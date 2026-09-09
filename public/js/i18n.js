@@ -606,6 +606,9 @@
             ws_sh_tx_sub: '0 condiciones de carrera',
             ws_sh_chart_title: 'Rendimiento en Tiempo Real',
             ws_sh_chart_desc: 'Solicitudes procesadas en las últimas 12 horas',
+            contact_heading: 'Hablemos de tu Proyecto',
+            contact_sub: 'Diseñemos una arquitectura sólida para escalar tu empresa sin dependencias técnicas.',
+            contact_wa: 'WhatsApp',
             ws_footer_rights: '© 2026 Andrés Felipe Guerra — Ingeniería de Software & Sistemas Propietarios.'
         },
         en: {
@@ -1208,6 +1211,9 @@
             ws_sh_tx_sub: 'Zero race conditions',
             ws_sh_chart_title: 'Realtime Throughput',
             ws_sh_chart_desc: 'Requests processed in last 12 hours',
+            contact_heading: "Let's Talk About Your Project",
+            contact_sub: "Let's design a solid architecture to scale your business without technical dependencies.",
+            contact_wa: 'WhatsApp',
             ws_footer_rights: '© 2026 AG Private Engineering — Andrés Felipe Guerra. All rights reserved.',
             footer_rights: '© 2026 AG Private Engineering — Andrés Felipe Guerra. All rights reserved.'
         }
