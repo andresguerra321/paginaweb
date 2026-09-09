@@ -342,7 +342,7 @@
                 const waText = lang === 'en'
                     ? encodeURIComponent(`Hello Andrés, I would like to get more information about the solution ${project.title} that I saw on your platform.`)
                     : encodeURIComponent(`Hola Andrés, me gustaría saber más información sobre la solución ${project.title} que vi en tu plataforma web.`);
-                const waLink = `/contacto/whatsapp?text=${waText}`;
+                const waLink = `https://wa.me/573185602203?text=${waText}`;
                 const btnText = lang === 'en' ? 'Contact on WhatsApp for more details' : 'Contactar por WhatsApp para más información';
                 let tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
                 

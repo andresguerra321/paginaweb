@@ -190,7 +190,7 @@
             const href = link.getAttribute('href');
             const target = link.getAttribute('target');
 
-            if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:') || href.startsWith('https://wa.me') || href.includes('/contacto/whatsapp') || href.includes('/whatsapp') || target === '_blank') {
+            if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:') || href.startsWith('https://wa.me') || target === '_blank') {
                 return;
             }
 
