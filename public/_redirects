@@ -1,0 +1,3 @@
+# Cloudflare Edge Redirects — Secure WhatsApp endpoint
+/contacto/whatsapp https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20tu%20sitio%20web%20y%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto 302
+/whatsapp https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20tu%20sitio%20web%20y%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto 302
