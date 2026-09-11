@@ -2041,3 +2041,47 @@ body.f1-theme {
         justify-content: flex-start;
     }
 }
+
+/* ============================================================
+   GLOBAL LUXURY SCROLLBAR — F1 SIM PRO PADDOCK
+   ============================================================ */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.28) rgba(7, 9, 14, 0.85);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(7, 9, 14, 0.95);
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.24);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #E10600 0%, #FF1E14 100%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background-clip: padding-box;
+    box-shadow: 0 0 14px rgba(225, 6, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: #FF1E14;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+    background: rgba(7, 9, 14, 0.95);
+}
+
