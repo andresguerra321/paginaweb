@@ -326,7 +326,7 @@ body.f1-theme {
     font-weight: 600;
     color: var(--c-titanium-300);
     text-decoration: none;
-    transition: all var(--anim-fast);
+    transition: color var(--anim-fast), background var(--anim-fast), border-color var(--anim-fast);
 }
 .nav-back-chip:hover {
     background: rgba(255, 255, 255, 0.08);
@@ -377,7 +377,7 @@ body.f1-theme {
     border-radius: var(--radius-pill);
     cursor: pointer;
     white-space: nowrap;
-    transition: all var(--anim-fast);
+    transition: color var(--anim-fast), background var(--anim-fast), border-color var(--anim-fast), box-shadow var(--anim-fast);
     text-decoration: none;
 }
 .segment-btn:hover {
@@ -404,7 +404,7 @@ body.f1-theme {
     color: var(--c-titanium-500);
     border-radius: var(--radius-xs);
     cursor: pointer;
-    transition: all var(--anim-fast);
+    transition: color var(--anim-fast), background var(--anim-fast);
 }
 .lang-chip.active {
     background: var(--c-ferrari-red);
@@ -580,7 +580,7 @@ body.f1-theme {
     display: inline-flex;
     align-items: center;
     gap: var(--sp-1);
-    transition: all var(--anim-fast);
+    transition: color var(--anim-fast), background var(--anim-fast), border-color var(--anim-fast);
     text-decoration: none;
 }
 .btn-titanium:hover {
@@ -610,7 +610,7 @@ body.f1-theme {
     font-size: 11px;
     font-weight: 700;
     cursor: pointer;
-    transition: all var(--anim-fast);
+    transition: color var(--anim-fast), background var(--anim-fast), border-color var(--anim-fast), transform var(--anim-fast), box-shadow var(--anim-fast);
 }
 .sim-ctrl-btn:hover {
     color: #fff;
@@ -865,7 +865,7 @@ body.f1-theme {
     background: rgba(0, 209, 102, 0.12);
     border: 1px solid rgba(0, 209, 102, 0.35);
     color: #00FF88;
-    transition: all var(--anim-fast);
+    transition: color var(--anim-fast), background var(--anim-fast), border-color var(--anim-fast), box-shadow var(--anim-fast);
 }
 .situation-status-chip.yellow {
     background: rgba(255, 215, 0, 0.15);
@@ -915,7 +915,7 @@ body.f1-theme {
     font-weight: 800;
     color: var(--c-titanium-300);
     cursor: pointer;
-    transition: all var(--anim-fast);
+    transition: color var(--anim-fast), background var(--anim-fast), border-color var(--anim-fast);
 }
 .action-trigger-btn:hover {
     background: rgba(255, 255, 255, 0.08);
@@ -1077,7 +1077,7 @@ body.f1-theme {
     overflow: hidden;
     padding: 2px;
     cursor: pointer;
-    transition: all var(--anim-fast);
+    transition: border-color var(--anim-fast), background var(--anim-fast), transform var(--anim-fast);
 }
 .hud-topdown-preview-box:hover {
     border-color: var(--c-ferrari-red);
@@ -1291,7 +1291,7 @@ body.f1-theme {
     padding: 6px 14px;
     border-radius: var(--radius-pill);
     cursor: pointer;
-    transition: all var(--anim-fast);
+    transition: color var(--anim-fast), background var(--anim-fast), border-color var(--anim-fast);
 }
 
 .standings-tab-btn:hover {
@@ -1309,7 +1309,7 @@ body.f1-theme {
     grid-template-columns: 1.15fr 0.85fr;
     gap: var(--sp-4);
     margin-bottom: var(--sp-6);
-    transition: all var(--anim-base);
+    transition: opacity var(--anim-base), transform var(--anim-base);
 }
 
 .standings-grid.view-pilotos {
@@ -1453,7 +1453,7 @@ body.f1-theme {
     grid-template-columns: 28px 4px 1fr auto;
     align-items: center;
     gap: var(--sp-2);
-    transition: all var(--anim-fast);
+    transition: background-color var(--anim-fast), border-color var(--anim-fast), transform var(--anim-fast);
 }
 .team-item-card:hover {
     border-color: var(--c-titanium-border-light);
@@ -1538,7 +1538,7 @@ body.f1-theme {
     flex-direction: column;
     justify-content: space-between;
     gap: var(--sp-2);
-    transition: all var(--anim-fast);
+    transition: background-color var(--anim-fast), border-color var(--anim-fast), transform var(--anim-fast), box-shadow var(--anim-fast);
 }
 .circuit-card:hover {
     border-color: var(--c-titanium-border-light);

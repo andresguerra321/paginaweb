@@ -3176,7 +3176,7 @@ body.dark-theme::before {
   text-decoration: none;
   overflow: hidden;
   box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.4), 0 8px 10px -6px rgba(37, 211, 102, 0.3);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   border: 1px solid rgba(255, 255, 255, 0.1);
   letter-spacing: 0.5px;
 }
@@ -3194,7 +3194,7 @@ body.dark-theme::before {
     rgba(255, 255, 255, 0.3),
     transparent
   );
-  transition: all 0.6s ease;
+  transition: left 0.6s ease;
 }
 
 .btn-premium-quote:hover {

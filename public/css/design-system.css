@@ -136,13 +136,16 @@ body {
     overflow-x: hidden;
 }
 
-/* Calm organic lighting without artificial gridlines */
+/* Calm organic lighting without artificial gridlines (Hardware isolated to prevent scroll repaints) */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
     background: 
         radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99, 102, 241, 0.07), transparent 70%),
         radial-gradient(ellipse 60% 40% at 90% 70%, rgba(16, 185, 129, 0.04), transparent 60%);

@@ -2233,18 +2233,23 @@
        11. MAIN RAF ANIMATION LOOP
        ═══════════════════════════════════════════════════════════════ */
     let lastTime = performance.now();
+    let isCanvasVisible = true;
 
     function mainLoop(now) {
-        const dt = Math.min(0.1, (now - lastTime) / 1000); // delta in seconds clamped
-        lastTime = now;
+        if (isCanvasVisible) {
+            const dt = Math.min(0.1, (now - lastTime) / 1000); // delta in seconds clamped
+            lastTime = now;
 
-        updatePhysics(dt);
-        renderTrack();
+            updatePhysics(dt);
+            renderTrack();
 
-        // Throttle DOM updates to 10 FPS when race is running
-        if (isRunning && raceTicks % 6 === 0) {
-            updateTimingTower();
-            updateCockpitHUD();
+            // Throttle DOM updates to 10 FPS when race is running
+            if (isRunning && raceTicks % 6 === 0) {
+                updateTimingTower();
+                updateCockpitHUD();
+            }
+        } else {
+            lastTime = now;
         }
 
         requestAnimationFrame(mainLoop);
@@ -2270,6 +2275,16 @@
         updateTimingTower();
         selectActiveDriver('VER');
         setTimeout(dismissLoader, 350);
+
+        // Performance: Pause RAF loop when circuit canvas is out of viewport
+        const trackCanvas = document.getElementById('trackCanvas');
+        if (trackCanvas && 'IntersectionObserver' in window) {
+            const canvasObserver = new IntersectionObserver((entries) => {
+                isCanvasVisible = entries[0].isIntersecting;
+            }, { threshold: 0.05 });
+            canvasObserver.observe(trackCanvas);
+        }
+
         requestAnimationFrame(mainLoop);
     });
 
