@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Private or preview utilities
+Disallow: /scratch/
+Disallow: /logo-preview.html
+
+# XML Sitemap
+Sitemap: https://paginaweb.andres-felipe-gueco.workers.dev/sitemap.xml
