@@ -268,9 +268,12 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
             <span id="backLinkText">Volver a Soluciones</span>
         </a>
-        <div class="lang-switcher">
-            <button type="button" class="lang-btn active" id="langBtnES">ES</button>
-            <button type="button" class="lang-btn" id="langBtnEN">EN</button>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <a href="sobre-mi.html" class="nav-about-link" data-i18n="nav_about" style="color: var(--text-dim); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color var(--transition);">Sobre Mí</a>
+            <div class="lang-switcher">
+                <button type="button" class="lang-btn active" id="langBtnES">ES</button>
+                <button type="button" class="lang-btn" id="langBtnEN">EN</button>
+            </div>
         </div>
     </nav>
 
@@ -435,8 +438,6 @@
     <footer style="text-align:center;padding:32px 24px 24px;border-top:1px solid var(--border);">
       <p style="font-size:0.78rem;color:var(--text-dim);margin:0 0 8px;" data-i18n="footer_rights">© 2026 AG Engineering — Andrés Felipe Guerra. Todos los derechos reservados.</p>
       <div class="footer-legal">
-        <a href="sobre-mi.html" class="footer-privacy-link" data-i18n="footer_about" style="color:var(--text-dim);">Sobre Mí</a>
-        <span class="footer-legal-sep" style="color:var(--text-dim);">·</span>
         <button type="button" class="footer-privacy-link" data-open-privacy data-i18n="footer_privacy" style="color:var(--text-dim);">Política de Privacidad</button>
         <span class="footer-legal-sep" style="color:var(--text-dim);">·</span>
         <button type="button" class="footer-privacy-link" data-open-terms data-i18n="footer_terms" style="color:var(--text-dim);">Términos y Condiciones</button>

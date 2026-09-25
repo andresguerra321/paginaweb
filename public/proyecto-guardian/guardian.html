@@ -137,7 +137,8 @@
         <span data-i18n="guardian_back_btn">Volver</span>
       </a>
     </div>
-    <div class="nav-right">
+    <div class="nav-right" style="display: flex; align-items: center; gap: 1.25rem;">
+      <a href="../sobre-mi.html" data-i18n="nav_about" style="color: #94A3B8; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='#FFFFFF'" onmouseout="this.style.color='#94A3B8'">Sobre Mí</a>
       <div class="brand-indicator">
         <span class="pulse-dot"></span>
         <span>EDGE AI ACTIVE · 30 FPS</span>
@@ -154,6 +155,12 @@
     <!-- HERO SECTION (Impeccable: No Eyebrow, Solid White Title, High Density) -->
     <section class="hero-section container">
       <div class="hero-content reveal-on-scroll">
+        <div style="margin-bottom: 1.25rem;">
+          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; border: 1px solid rgba(99, 102, 241, 0.4); background: rgba(99, 102, 241, 0.08); color: #C7D2FE;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#818CF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span data-i18n="guardian_hackathon_badge">Proyecto de Hackathon · Voxel51 2026</span>
+          </span>
+        </div>
         <h1 class="hero-title">GUARDIAN</h1>
         <p class="hero-desc" data-i18n="guardian_hero_desc">
           Sistema de seguridad vehicular predictiva con visión artificial en el borde. Detección continua de fatiga (EAR/MAR), inferencia local a +30 FPS y copiloto inteligente con cero latencia de nube.
@@ -195,6 +202,9 @@
           <span class="tech-tag">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             Gemini Multimodal
+          </span>
+          <span class="tech-tag" style="border-color: rgba(99, 102, 241, 0.4); color: #C7D2FE;">
+            Hackathon Voxel51 2026
           </span>
         </div>
       </div>
@@ -553,8 +563,6 @@
     <footer style="text-align:center;padding:32px 24px 24px;border-top:1px solid rgba(255,255,255,0.06);">
       <p style="font-size:0.78rem;color:#475569;margin:0 0 8px;" data-i18n="footer_rights">© 2026 AG Engineering — Andrés Felipe Guerra. Todos los derechos reservados.</p>
       <div class="footer-legal">
-        <a href="../sobre-mi.html" class="footer-privacy-link" data-i18n="footer_about">Sobre Mí</a>
-        <span class="footer-legal-sep">·</span>
         <button type="button" class="footer-privacy-link" data-open-privacy data-i18n="footer_privacy">Política de Privacidad</button>
         <span class="footer-legal-sep">·</span>
         <button type="button" class="footer-privacy-link" data-open-terms data-i18n="footer_terms">Términos y Condiciones</button>

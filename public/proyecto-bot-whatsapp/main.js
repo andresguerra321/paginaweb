@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isFetchingVideo) return;
     isFetchingVideo = true;
 
-    const videoUrl = '../video/0811(1).mp4';
+    const videoUrl = '../video/demo-whatsapp-bot.mp4';
     fetch(videoUrl)
       .then(response => response.blob())
       .then(blob => {
