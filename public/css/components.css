@@ -2089,19 +2089,373 @@
 }
 
 /* ============================================================
-   11. FOOTER
+   11. FOOTER — Split Obsidian Glass Architecture (Sobre Mí & Políticas)
    ============================================================ */
 footer {
-    padding-top: 3.5rem;
-    padding-bottom: 3.5rem;
+    padding-top: 4.5rem;
+    padding-bottom: 3rem;
     border-top: 1px solid var(--border-subtle);
-    text-align: center;
+    background: linear-gradient(180deg, rgba(7, 9, 14, 0.3) 0%, rgba(14, 19, 31, 0.6) 100%);
+    position: relative;
+    overflow: hidden;
 }
 
-footer p {
-    font-size: 0.9rem;
+.footer-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+    text-align: left;
+}
+
+/* --- Left Column: Sobre Mí Card --- */
+.footer-about-card {
+    background: var(--glass-surface);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    box-shadow: var(--shadow-md);
+    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+    position: relative;
+}
+
+.footer-about-card:hover {
+    border-color: var(--border-distinct);
+    box-shadow: var(--shadow-lg);
+}
+
+.footer-author-media {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+}
+
+.footer-avatar-wrap {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.6), rgba(56, 189, 248, 0.35));
+    flex-shrink: 0;
+}
+
+.footer-author-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    background: #0E131F;
+}
+
+.footer-status-dot {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 13px;
+    height: 13px;
+    background: var(--accent-emerald);
+    border: 2px solid #0E131F;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
+}
+
+.footer-author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.footer-author-name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-author-alias {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    background: rgba(56, 189, 248, 0.1);
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.footer-author-role {
+    font-size: 0.82rem;
     color: var(--text-muted);
-    margin: 0 auto;
+    line-height: 1.4;
+}
+
+.footer-about-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.footer-about-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.footer-chip {
+    font-size: 0.76rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-about-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 0.25rem;
+}
+
+.footer-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.65rem 1.15rem;
+    background: var(--accent-primary);
+    color: #ffffff;
+    font-size: 0.84rem;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform var(--duration-fast) ease, background-color var(--duration-fast) ease;
+    min-height: 40px;
+}
+
+.footer-btn-primary:hover {
+    background: var(--accent-primary-hover);
+    transform: translateY(-1px);
+    color: #ffffff;
+}
+
+.footer-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.65rem 1.15rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-size: 0.84rem;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background var(--duration-fast) ease, border-color var(--duration-fast) ease;
+    min-height: 40px;
+}
+
+.footer-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: var(--border-distinct);
+    color: #ffffff;
+}
+
+/* --- Right Column: Políticas y Centro Legal --- */
+.footer-legal-card {
+    background: var(--glass-surface);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    box-shadow: var(--shadow-md);
+    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+}
+
+.footer-legal-card:hover {
+    border-color: var(--border-distinct);
+    box-shadow: var(--shadow-lg);
+}
+
+.footer-legal-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.footer-legal-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.footer-legal-sub {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.footer-legal-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-legal-item-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all var(--duration-fast) ease;
+    min-height: 48px;
+}
+
+.footer-legal-item-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(99, 102, 241, 0.35);
+    transform: translateX(3px);
+}
+
+.footer-legal-item-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 6px;
+}
+
+.footer-legal-item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.footer-legal-item-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.footer-legal-item-desc {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.footer-legal-arrow {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: transform var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+
+.footer-legal-item-btn:hover .footer-legal-arrow {
+    transform: translateX(2px);
+    color: var(--text-primary);
+}
+
+/* --- Bottom Copyright Bar --- */
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: left;
+}
+
+.footer-bottom-copy {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.footer-bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.footer-bottom-link {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--duration-fast) ease;
+}
+
+.footer-bottom-link:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+@media (max-width: 860px) {
+    .footer-split-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.75rem;
+    }
+
+    .footer-about-card,
+    .footer-legal-card {
+        padding: 1.5rem;
+    }
 }
 
 /* ============================================================
@@ -2557,5 +2911,318 @@ footer p {
         transition: none !important;
     }
 }
+
+/* ============================================================
+   16. THREE DOORS SHOWCASE ("Muestra, No Cuentes" Architecture)
+   ============================================================ */
+.doors-section {
+    position: relative;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.doors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    align-items: stretch;
+}
+
+.door-card {
+    background: var(--glass-surface);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--duration-normal) var(--ease-spring), border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+    position: relative;
+}
+
+.door-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-distinct);
+    box-shadow: var(--shadow-lg), 0 12px 36px rgba(79, 70, 229, 0.15);
+}
+
+.door-media-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #0E131F;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.door-media-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+.door-card:hover .door-media-wrap img {
+    transform: scale(1.05);
+}
+
+.door-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(7, 9, 14, 0.88);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-primary);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.door-badge.badge-ia {
+    border-color: rgba(56, 189, 248, 0.4);
+    color: #38BDF8;
+}
+
+.door-badge.badge-saas {
+    border-color: rgba(99, 102, 241, 0.4);
+    color: #818CF8;
+}
+
+.door-badge.badge-sim {
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #34D399;
+}
+
+.door-body {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    flex: 1;
+}
+
+.door-title {
+    font-family: var(--font-display);
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+    margin: 0;
+}
+
+.door-pitch {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.door-features {
+    list-style: none;
+    padding: 0;
+    margin: 0.35rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.door-feature-item {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.4;
+}
+
+.door-feature-item .door-check {
+    color: var(--accent-emerald);
+    flex-shrink: 0;
+    font-weight: bold;
+}
+
+.door-feature-item .door-bullet {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    display: inline-block;
+    flex-shrink: 0;
+    margin-top: 6px;
+}
+
+.door-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.35rem;
+}
+
+.door-tag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+}
+
+.door-footer {
+    padding: 1.25rem 1.75rem 1.75rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.door-btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.75rem 1.25rem;
+    background: var(--accent-primary);
+    color: #ffffff;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color var(--duration-fast) ease, transform var(--duration-fast) ease;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+    min-height: 44px;
+}
+
+.door-btn-primary:hover {
+    background: var(--accent-primary-hover);
+    transform: translateY(-1px);
+    color: #ffffff;
+}
+
+.door-btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0.6rem 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 1px solid var(--border-subtle);
+    transition: all var(--duration-fast) ease;
+    min-height: 38px;
+}
+
+.door-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    border-color: var(--border-distinct);
+}
+
+/* ============================================================
+   17. WORKFLOW STEPS (4 Transparent Steps)
+   ============================================================ */
+.workflow-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.workflow-step-card {
+    background: var(--glass-surface);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--duration-fast) ease, border-color var(--duration-fast) ease;
+}
+
+.workflow-step-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-distinct);
+    box-shadow: var(--shadow-md);
+}
+
+.workflow-step-badge {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.workflow-step-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.workflow-step-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.workflow-step-sub {
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent-emerald);
+}
+
+.workflow-step-desc {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+@media (max-width: 992px) {
+    .doors-grid {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+    }
+    .workflow-steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .workflow-steps-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 

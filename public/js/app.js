@@ -1,5 +1,5 @@
 /**
- * AG Private Engineering — Interactive Architecture & Motion
+ * AG Engineering — Interactive Architecture & Motion
  * Crafted with Anime.js, IntersectionObserver & high-end haptics
  */
 
@@ -47,7 +47,7 @@
             if (!targetId || targetId === '#page-top' || targetId === '#hero' || targetId === '#about' || targetId === '#social-proof' || targetId === '#') {
                 return '#about';
             }
-            if (targetId === '#services' || targetId === '#innovation' || targetId === '#workflow') {
+            if (targetId === '#services' || targetId === '#doors' || targetId === '#innovation' || targetId === '#workflow') {
                 return '#services';
             }
             if (targetId === '#skills' || targetId === '#tech' || targetId === '#timeline') {
@@ -71,7 +71,7 @@
                         shouldShow = true;
                     }
                 } else if (tabId === '#services') {
-                    if (sectionId === '#services' || sectionId === '#innovation' || sectionId === '#workflow') {
+                    if (sectionId === '#services' || sectionId === '#doors' || sectionId === '#workflow') {
                         shouldShow = true;
                     }
                 } else if (tabId === '#skills') {
@@ -87,12 +87,12 @@
                 }
 
                 if (shouldShow) {
-                    section.style.display = 'block';
+                    section.style.display = '';
                     const reveals = section.querySelectorAll('.reveal');
                     reveals.forEach((el, index) => {
                         setTimeout(() => {
                             el.classList.add('revealed');
-                        }, index * 40);
+                        }, index * 30);
                     });
                 } else {
                     section.style.display = 'none';
@@ -102,7 +102,7 @@
             // Explicitly sync hero trust strip display with the home/about tab
             const trustStrip = document.getElementById('heroTrustStrip') || document.querySelector('.hero-trust-strip');
             if (trustStrip) {
-                trustStrip.style.display = (tabId === '#about') ? 'block' : 'none';
+                trustStrip.style.display = (tabId === '#about') ? '' : 'none';
             }
 
             // Update active state in navbar
@@ -113,7 +113,7 @@
                 }
             });
 
-            // Smooth scroll or reposition to top
+            // Smooth scroll or reposition to top or specific target
             if (scrollToSection && scrollToSection !== tabId && scrollToSection !== '#about' && scrollToSection !== '#hero') {
                 const targetEl = document.querySelector(scrollToSection);
                 if (targetEl) {
@@ -137,7 +137,6 @@
            ------------------------------------------------------------ */
         const navToggle = document.getElementById('navToggle');
         const mobileOverlay = document.getElementById('mobileNavOverlay');
-        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
         function toggleMobileNav(open) {
             const isOpen = typeof open === 'boolean' ? open : !navToggle.classList.contains('open');
@@ -173,7 +172,7 @@
             });
         }
 
-        // Bind clicks on all internal hashtag links (nav, hero buttons, footer, etc.)
+        // Bind clicks on internal hashtag links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');

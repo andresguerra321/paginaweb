@@ -1,7 +1,7 @@
 /**
  * GUARDIAN Lite — Main Application Controller (Scandinavian Telemetry UI)
  * =====================================================================
- * Refactored for AG Private Engineering Portfolio.
+ * Refactored for AG Engineering Portfolio.
  * Orchestrates live webcam / synthetic simulation, MediaPipe Face Mesh,
  * drowsiness analytics, road hazard alerts, and real-time cockpit UI.
  */

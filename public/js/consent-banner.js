@@ -1,5 +1,5 @@
 /**
- * Legal Center & Cookie Consent — AG Private Engineering
+ * Legal Center & Cookie Consent — AG Engineering
  * Ley 1480/2011 · Ley 2439/2024
  * 
  * 4-tab modal: Privacidad | Términos | Garantía | Ventas
@@ -86,12 +86,134 @@
 
     var content = {};
 
+    // ─── TAB 0: SOBRE MÍ / ABOUT ME ───
+    content.about = {
+      title: en ? 'About Andrés Felipe Guerra (Pipe)' : 'Sobre Mí — Andrés Felipe Guerra (Pipe)',
+      body: en ? '\
+<div class="legal-about-wrap">\
+  <div class="legal-about-hero">\
+    <div class="legal-about-avatar-wrap">\
+      <img src="img/about/sobremi-800.webp" alt="Andrés Felipe Guerra (Pipe)" class="legal-about-avatar" width="64" height="64" loading="lazy">\
+      <span class="legal-about-status-dot" title="Available for projects"></span>\
+    </div>\
+    <div class="legal-about-hero-info">\
+      <div class="legal-about-name">Andrés Felipe Guerra <span class="legal-about-alias">(Pipe)</span></div>\
+      <div class="legal-about-role">Software Engineer · Bucaramanga, Colombia</div>\
+      <div class="legal-about-status-tag"><span class="legal-status-dot"></span> Direct 1-on-1 Communication · No Intermediaries</div>\
+    </div>\
+  </div>\
+  <p class="legal-about-bio">\
+    I turn manual processes, chaotic spreadsheets, and operational bottlenecks into custom software, AI automation, and simulations. No agency markups or bureaucratic delays: you speak directly with the engineer building your system.\
+  </p>\
+  <div class="legal-about-pillars">\
+    <div class="legal-pillar-card">\
+      <div class="legal-pillar-header">\
+        <span class="legal-pillar-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>\
+        <span class="legal-pillar-title">Campuslands Rigorous Training</span>\
+      </div>\
+      <p class="legal-pillar-desc">\
+        +1,000 hours of intensive programming, algorithms, clean architecture, and high-concurrency production systems.\
+      </p>\
+    </div>\
+    <div class="legal-pillar-card">\
+      <div class="legal-pillar-header">\
+        <span class="legal-pillar-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>\
+        <span class="legal-pillar-title">Technological Sovereignty</span>\
+      </div>\
+      <p class="legal-pillar-desc">\
+        100% intellectual property, Git history, and source code ownership handed to your business. Zero captive monthly fees.\
+      </p>\
+    </div>\
+  </div>\
+  <div class="legal-about-doors">\
+    <div class="legal-doors-header">3 Problem Types I Solve:</div>\
+    <div class="legal-doors-grid">\
+      <div class="legal-door-item">\
+        <span class="legal-door-dot"></span>\
+        <div><strong>AI Automation:</strong> WhatsApp bots that answer, book appointments, and sell 24/7 without fail.</div>\
+      </div>\
+      <div class="legal-door-item">\
+        <span class="legal-door-dot"></span>\
+        <div><strong>Operations Software:</strong> Custom portals and admin systems that organize your workflows and replace Excel.</div>\
+      </div>\
+      <div class="legal-door-item">\
+        <span class="legal-door-dot"></span>\
+        <div><strong>Simulations & Labs:</strong> Mathematical models and interactive sandboxes to validate decisions before investing.</div>\
+      </div>\
+    </div>\
+  </div>\
+  <div class="legal-about-actions">\
+    <a href="sobre-mi.html" class="legal-about-btn-primary">View Full Journey & Vision ↗</a>\
+    <a href="https://wa.me/573185602203" target="_blank" rel="noopener" class="legal-about-btn-secondary">Chat on WhatsApp</a>\
+    <a href="https://github.com/andresguerra321" target="_blank" rel="noopener" class="legal-about-btn-tertiary">GitHub ↗</a>\
+  </div>\
+</div>' : '\
+<div class="legal-about-wrap">\
+  <div class="legal-about-hero">\
+    <div class="legal-about-avatar-wrap">\
+      <img src="img/about/sobremi-800.webp" alt="Andrés Felipe Guerra (Pipe)" class="legal-about-avatar" width="64" height="64" loading="lazy">\
+      <span class="legal-about-status-dot" title="Disponible para proyectos"></span>\
+    </div>\
+    <div class="legal-about-hero-info">\
+      <div class="legal-about-name">Andrés Felipe Guerra <span class="legal-about-alias">(Pipe)</span></div>\
+      <div class="legal-about-role">Ingeniero de Software · Bucaramanga, Colombia</div>\
+      <div class="legal-about-status-tag"><span class="legal-status-dot"></span> Trato directo 1 a 1 · Sin intermediarios</div>\
+    </div>\
+  </div>\
+  <p class="legal-about-bio">\
+    Convierto procesos manuales, hojas de cálculo desordenadas y cuellos de botella en software a la medida, automatizaciones con IA y simulaciones. Sin comisiones de agencia ni capas burocráticas: hablas directamente con quien programa y despliega tu sistema.\
+  </p>\
+  <div class="legal-about-pillars">\
+    <div class="legal-pillar-card">\
+      <div class="legal-pillar-header">\
+        <span class="legal-pillar-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>\
+        <span class="legal-pillar-title">Formación Campuslands</span>\
+      </div>\
+      <p class="legal-pillar-desc">\
+        +1,000 horas de programación intensiva, algoritmia profunda, arquitecturas limpias y sistemas de producción de alta concurrencia.\
+      </p>\
+    </div>\
+    <div class="legal-pillar-card">\
+      <div class="legal-pillar-header">\
+        <span class="legal-pillar-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>\
+        <span class="legal-pillar-title">Soberanía Tecnológica</span>\
+      </div>\
+      <p class="legal-pillar-desc">\
+        En desarrollos a medida, el 100% del código fuente, repositorio Git y propiedad intelectual son de tu empresa. Cero rentas forzosas.\
+      </p>\
+    </div>\
+  </div>\
+  <div class="legal-about-doors">\
+    <div class="legal-doors-header">3 Tipos de Problemas que Resuelvo:</div>\
+    <div class="legal-doors-grid">\
+      <div class="legal-door-item">\
+        <span class="legal-door-dot"></span>\
+        <div><strong>Automatización con IA:</strong> Bots de WhatsApp que atienden, agendan y venden 24/7 sin descanso.</div>\
+      </div>\
+      <div class="legal-door-item">\
+        <span class="legal-door-dot"></span>\
+        <div><strong>Software de Administración:</strong> Paneles y sistemas a medida que ordenan tu negocio y reemplazan Excel.</div>\
+      </div>\
+      <div class="legal-door-item">\
+        <span class="legal-door-dot"></span>\
+        <div><strong>Simulación & Solución:</strong> Modelos matemáticos y pruebas interactivas para validar antes de invertir.</div>\
+      </div>\
+    </div>\
+  </div>\
+  <div class="legal-about-actions">\
+    <a href="sobre-mi.html" class="legal-about-btn-primary">Ver Trayectoria y Visión Completa ↗</a>\
+    <a href="https://wa.me/573185602203" target="_blank" rel="noopener" class="legal-about-btn-secondary">Conversar por WhatsApp</a>\
+    <a href="https://github.com/andresguerra321" target="_blank" rel="noopener" class="legal-about-btn-tertiary">GitHub ↗</a>\
+  </div>\
+</div>'
+    };
+
     // ─── TAB 1: PRIVACY & COOKIES ───
     content.privacy = {
       title: en ? 'Privacy & Tracking Policy' : 'Política de Privacidad y Seguimiento',
       body: (en ? [
         '<h4>Data Controller</h4>',
-        '<p>Andrés Felipe Guerra — AG Private Engineering.<br>Contact: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
+        '<p>Andrés Felipe Guerra — AG Engineering.<br>Contact: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
         '<h4>Tracking & Performance</h4>',
         '<p>This website uses tracking technologies exclusively to measure technical performance, page speed, and navigation flow in order to optimize the user experience.</p>',
         '<h4>Information Privacy</h4>',
@@ -102,7 +224,7 @@
         '<p>You may update or revoke your preferences at any time through this panel or by contacting us directly via WhatsApp.</p>'
       ] : [
         '<h4>Responsable</h4>',
-        '<p>Andrés Felipe Guerra — AG Private Engineering.<br>Contacto directo: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
+        '<p>Andrés Felipe Guerra — AG Engineering.<br>Contacto directo: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
         '<h4>Seguimiento y Rendimiento</h4>',
         '<p>Este sitio web utiliza tecnologías de seguimiento con el único fin de medir el rendimiento técnico, los tiempos de carga y la experiencia general de navegación para mantener la calidad y estabilidad de la plataforma.</p>',
         '<h4>Privacidad de la Información</h4>',
@@ -126,13 +248,13 @@
     // ─── TAB 2: TERMS & CONDITIONS ───
     var commonTerms = en ? [
       '<h4>Service Provider</h4>',
-      '<p>Andrés Felipe Guerra — AG Private Engineering.<br>Contact: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
+      '<p>Andrés Felipe Guerra — AG Engineering.<br>Contact: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
       '<h4>Contract Object</h4>',
       '<p>Provision of software engineering services as defined in the scope agreed upon in writing (approved quote via WhatsApp or formal document).</p>',
       '<h4>Intellectual Property & Source Code Ownership</h4>',
       '<p>Source code ownership and exploitation rights depend strictly on the type of product or service contracted:</p>',
       '<ul>',
-      '<li><strong>WhatsApp Bots & Automation (SaaS):</strong> The user <strong>is NOT the owner of the source code</strong>. A monthly software-as-a-service license is granted while the subscription is active. Infrastructure, backend, and source code remain exclusive property of AG Private Engineering.</li>',
+      '<li><strong>WhatsApp Bots & Automation (SaaS):</strong> The user <strong>is NOT the owner of the source code</strong>. A monthly software-as-a-service license is granted while the subscription is active. Infrastructure, backend, and source code remain exclusive property of AG Engineering.</li>',
       '<li><strong>Custom Web & SaaS Development:</strong> The client <strong>IS the full owner of the source code</strong> developed specifically for them upon 100% payment completion, receiving full Git repository transfer and production credentials.</li>',
       '<li><strong>Software Simulators:</strong> The buyer <strong>IS the owner of the delivered source code or build package</strong> according to the acquisition contract.</li>',
       '<li><strong>Assistance AI Systems (GUARDIAN):</strong> Commercialized under a technological assistance software license; core vision models and algorithmic architecture remain provider IP.</li>',
@@ -148,13 +270,13 @@
       '<p>Governed by applicable legal regulations. Extrajudicial conciliation and amicable dispute resolution will be favored before any formal legal action.</p>'
     ] : [
       '<h4>Identificación del Proveedor</h4>',
-      '<p>Andrés Felipe Guerra — AG Private Engineering.<br>Contacto: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
+      '<p>Andrés Felipe Guerra — AG Engineering.<br>Contacto: WhatsApp <a href="https://wa.me/573185602203" target="_blank" rel="noopener">+57 318 560 2203</a></p>',
       '<h4>Objeto del Contrato</h4>',
       '<p>Prestación del servicio de ingeniería de software según el alcance acordado por escrito (cotización aprobada vía WhatsApp o documento formal).</p>',
       '<h4>Propiedad Intelectual y Titularidad del Código</h4>',
       '<p>La titularidad del código fuente y los derechos patrimoniales dependen estrictamente del producto o servicio contratado:</p>',
       '<ul>',
-      '<li><strong>Bots de WhatsApp y Automatización (SaaS):</strong> El usuario <strong>NO es dueño del código fuente</strong>. Se otorga una licencia de uso de software como servicio durante la vigencia de la suscripción mensual. La infraestructura, el backend y el código fuente propietario permanecen bajo titularidad exclusiva de AG Private Engineering.</li>',
+      '<li><strong>Bots de WhatsApp y Automatización (SaaS):</strong> El usuario <strong>NO es dueño del código fuente</strong>. Se otorga una licencia de uso de software como servicio durante la vigencia de la suscripción mensual. La infraestructura, el backend y el código fuente propietario permanecen bajo titularidad exclusiva de AG Engineering.</li>',
       '<li><strong>Desarrollo Web & SaaS a Medida:</strong> El cliente <strong>SÍ es dueño del código fuente</strong> desarrollado a su medida una vez liquidado el 100% del pago acordado, recibiendo transferencia del repositorio Git con historial completo y accesos de producción.</li>',
       '<li><strong>Simuladores de Software:</strong> El adquirente <strong>SÍ es dueño del código fuente o build ejecutable</strong> conforme a los términos de adquisición para su libre uso y adaptación.</li>',
       '<li><strong>Sistemas de Asistencia con IA (GUARDIAN):</strong> Se licencian como herramienta tecnológica de asistencia preventiva; el núcleo algorítmico y modelos de visión pertenecen al desarrollador, otorgando licencia de uso operativo para hardware compatible.</li>',
@@ -189,7 +311,7 @@
       deliverybot: en ? [
         '<h4>DeliveryBot — Specific Terms</h4>',
         '<p>Restaurant automation system with database persistence. Monthly subscription model with recurring billing for hosting and support.</p>',
-        '<p><strong>Source Code Ownership:</strong> Managed monthly restaurant software service. The client holds an active usage license, but <strong>does NOT own the source code</strong>, which remains AG Private Engineering property.</p>',
+        '<p><strong>Source Code Ownership:</strong> Managed monthly restaurant software service. The client holds an active usage license, but <strong>does NOT own the source code</strong>, which remains AG Engineering property.</p>',
         '<p>Payment integrations (Stripe/Wompi) are subject to the terms and conditions of the respective payment gateways.</p>',
         '<p>The provider is not responsible for inventory errors caused by incorrect data entered by restaurant staff.</p>'
       ] : [
@@ -308,13 +430,13 @@
       whatsappbot: en ? [
         '<h4>WhatsApp Bot — Sales Model & Terms</h4>',
         '<p><strong>Model:</strong> Monthly subscription with recurring billing (SaaS). The conversational bot operates on managed provider infrastructure while the subscription remains active.</p>',
-        '<p><strong>Source Code Ownership:</strong> The user <strong>is NOT the owner of the source code</strong>. Access is granted under a monthly software-as-a-service usage license. Infrastructure and backend code remain exclusive property of AG Private Engineering.</p>',
+        '<p><strong>Source Code Ownership:</strong> The user <strong>is NOT the owner of the source code</strong>. Access is granted under a monthly software-as-a-service usage license. Infrastructure and backend code remain exclusive property of AG Engineering.</p>',
         '<p><strong>Plans:</strong> Starter, Professional, and Enterprise — each with defined scope, server capacity, and support level.</p>',
         '<p><strong>Cancellation & Data Portability:</strong> Communicate with 15 days advance notice; no lock-in or permanence fees. Because the client does not own the bot source code, service termination suspends infrastructure access; the client may request an export of customer contact records within 30 days before permanent deletion.</p>'
       ] : [
         '<h4>WhatsApp Bot — Modelo de Venta y Términos</h4>',
         '<p><strong>Modelo:</strong> Suscripción mensual con facturación recurrente (SaaS). El bot conversacional opera sobre infraestructura gestionada por el proveedor mientras la suscripción esté activa.</p>',
-        '<p><strong>Titularidad del Código:</strong> El usuario <strong>NO es dueño del código fuente</strong>. El servicio se presta bajo licencia de uso de software como servicio (SaaS). El código fuente, la lógica backend y la infraestructura son propiedad exclusiva de AG Private Engineering.</p>',
+        '<p><strong>Titularidad del Código:</strong> El usuario <strong>NO es dueño del código fuente</strong>. El servicio se presta bajo licencia de uso de software como servicio (SaaS). El código fuente, la lógica backend y la infraestructura son propiedad exclusiva de AG Engineering.</p>',
         '<p><strong>Planes:</strong> Starter, Profesional y Enterprise — cada uno con alcance, capacidad y nivel de soporte definidos.</p>',
         '<p><strong>Cancelación y Portabilidad:</strong> Comunicar con 15 días de anticipación; sin cláusulas de permanencia mínima. Dado que el cliente no es propietario del código fuente del bot, la cancelación da de baja el servicio en la infraestructura; el cliente puede solicitar la exportación de sus datos de contactos dentro de los 30 días posteriores antes de su borrado definitivo.</p>'
       ],
@@ -480,6 +602,37 @@
 .cookie-btn-decline:hover{background:rgba(255,255,255,0.12);color:#fff}\
 .cookie-btn-accept{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.35)}\
 .cookie-btn-accept:hover{filter:brightness(1.1);transform:translateY(-1px)}\
+.legal-about-wrap{display:flex;flex-direction:column;gap:14px}\
+.legal-about-hero{display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.08)}\
+.legal-about-avatar-wrap{position:relative;width:64px;height:64px;border-radius:50%;padding:2px;background:linear-gradient(135deg,rgba(99,102,241,0.7),rgba(56,189,248,0.4));flex-shrink:0}\
+.legal-about-avatar{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;background:#0E131F}\
+.legal-about-status-dot{position:absolute;bottom:1px;right:1px;width:12px;height:12px;background:#10B981;border:2px solid #0E131F;border-radius:50%;box-shadow:0 0 8px rgba(16,185,129,0.7)}\
+.legal-about-hero-info{display:flex;flex-direction:column;gap:2px}\
+.legal-about-name{font-size:1.05rem;font-weight:700;color:#fff;letter-spacing:-0.01em;display:flex;align-items:center;gap:6px;flex-wrap:wrap}\
+.legal-about-alias{font-size:0.75rem;font-weight:600;color:#38BDF8;background:rgba(56,189,248,0.12);padding:2px 7px;border-radius:10px;border:1px solid rgba(56,189,248,0.25)}\
+.legal-about-role{font-size:0.8rem;color:#94A3B8}\
+.legal-about-status-tag{font-size:0.75rem;color:#10B981;font-weight:500;margin-top:2px}\
+.legal-about-bio{font-size:0.84rem;line-height:1.6;color:#CBD5E1;margin:0}\
+.legal-about-pillars{display:grid;grid-template-columns:1fr 1fr;gap:10px}\
+.legal-pillar-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:4px}\
+.legal-pillar-header{display:flex;align-items:center;gap:6px}\
+.legal-pillar-icon svg{display:block;color:#38BDF8}\
+.legal-pillar-title{font-size:0.78rem;font-weight:700;color:#F1F5F9}\
+.legal-pillar-desc{font-size:0.75rem;line-height:1.45;color:#94A3B8;margin:0}\
+.legal-about-doors{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px}\
+.legal-doors-header{font-size:0.75rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.04em}\
+.legal-doors-grid{display:flex;flex-direction:column;gap:6px}\
+.legal-door-item{font-size:0.78rem;line-height:1.4;color:#94A3B8;display:flex;align-items:flex-start;gap:8px}\
+.legal-door-item strong{color:#E2E8F0}\
+.legal-door-dot{width:6px;height:6px;border-radius:50%;background:#38BDF8;display:inline-block;margin-top:6px;flex-shrink:0}\
+.legal-status-dot{width:8px;height:8px;border-radius:50%;background:#10B981;display:inline-block;box-shadow:0 0 8px rgba(16,185,129,0.7);margin-right:4px}\
+.legal-about-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:4px}\
+.legal-about-btn-primary{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;background:#4F46E5;color:#fff;border-radius:8px;text-decoration:none;font-size:0.8rem;font-weight:600;transition:background .2s ease}\
+.legal-about-btn-primary:hover{background:#4338CA;color:#fff}\
+.legal-about-btn-secondary{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;background:rgba(37,211,102,0.12);color:#25D366;border:1px solid rgba(37,211,102,0.25);border-radius:8px;text-decoration:none;font-size:0.8rem;font-weight:600;transition:background .2s ease}\
+.legal-about-btn-secondary:hover{background:rgba(37,211,102,0.2);color:#25D366}\
+.legal-about-btn-tertiary{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;background:rgba(255,255,255,0.04);color:#94A3B8;border:1px solid rgba(255,255,255,0.08);border-radius:8px;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all .2s ease}\
+.legal-about-btn-tertiary:hover{color:#fff;background:rgba(255,255,255,0.08)}\
 @media(max-width:640px){\
 .legal-modal{max-height:92vh;border-radius:16px}\
 .legal-tabs{gap:0;padding:12px 16px 0}\
@@ -493,6 +646,9 @@
 .cookie-dock-footer{flex-direction:column;align-items:stretch;gap:12px}\
 .cookie-dock-actions{flex-direction:column-reverse;gap:8px}\
 .cookie-btn{width:100%;min-height:44px;text-align:center;justify-content:center}\
+.legal-about-pillars{grid-template-columns:1fr}\
+.legal-about-actions{flex-direction:column;align-items:stretch}\
+.legal-about-btn-primary,.legal-about-btn-secondary,.legal-about-btn-tertiary{justify-content:center;text-align:center}\
 }';
     (document.head || document.documentElement).appendChild(s);
   }
@@ -513,18 +669,18 @@
     backdropEl.setAttribute('aria-label', lang === 'en' ? 'Legal Center' : 'Centro Legal');
 
     var tabLabels = lang === 'en'
-      ? ['Privacy', 'Terms', 'Warranty', 'Sales']
-      : ['Privacidad', 'Términos', 'Garantía', 'Ventas'];
-    var tabKeys = ['privacy', 'terms', 'warranty', 'sales'];
+      ? ['About Me', 'Privacy', 'Terms', 'Warranty', 'Sales']
+      : ['Sobre Mí', 'Privacidad', 'Términos', 'Garantía', 'Ventas'];
+    var tabKeys = ['about', 'privacy', 'terms', 'warranty', 'sales'];
 
     var tabsHtml = tabKeys.map(function (key, i) {
       return '<button type="button" class="legal-tab' + (i === 0 ? ' active' : '') + '" data-legal-tab="' + key + '">' + tabLabels[i] + '</button>';
     }).join('');
 
-    var brandLabel = lang === 'en' ? 'Legal Center' : 'Centro Legal';
+    var brandLabel = lang === 'en' ? 'AG Engineering — Info & Legal' : 'AG Engineering — Información y Legal';
     var footerNote = lang === 'en'
-      ? 'AG Private Engineering — Andrés Felipe Guerra · Last updated: September 2026'
-      : 'AG Private Engineering — Andrés Felipe Guerra · Última actualización: Septiembre 2026';
+      ? 'AG Engineering — Andrés Felipe Guerra · Last updated: September 2026'
+      : 'AG Engineering — Andrés Felipe Guerra · Última actualización: Septiembre 2026';
 
     backdropEl.innerHTML = '\
 <div class="legal-modal">\
@@ -572,7 +728,7 @@
     }
 
     // Render content
-    var html = '<h3 style="font-size:1.05rem;font-weight:800;color:#f8fafc;margin:0 0 16px;letter-spacing:-0.02em">' + data.title + '</h3>' + data.body;
+    var html = (tabKey === 'about' ? '' : '<h3 style="font-size:1.05rem;font-weight:800;color:#f8fafc;margin:0 0 16px;letter-spacing:-0.02em">' + data.title + '</h3>') + data.body;
 
     // Add consent controls on privacy tab
     if (tabKey === 'privacy' && data.consent) {
@@ -684,7 +840,9 @@
   /* ──────────────── AUTO-BIND LINKS ──────────────── */
   function bindLegalTriggers() {
     document.addEventListener('click', function (e) {
-      var el = e.target.closest('[data-open-privacy]');
+      var el = e.target.closest('[data-open-about]');
+      if (el) { e.preventDefault(); openLegalModal('about'); return; }
+      el = e.target.closest('[data-open-privacy]');
       if (el) { e.preventDefault(); openLegalModal('privacy'); return; }
       el = e.target.closest('[data-open-terms]');
       if (el) { e.preventDefault(); openLegalModal('terms'); return; }
@@ -693,7 +851,7 @@
       el = e.target.closest('[data-open-sales]');
       if (el) { e.preventDefault(); openLegalModal('sales'); return; }
       el = e.target.closest('.footer-privacy-link');
-      if (el) { e.preventDefault(); openLegalModal('privacy'); return; }
+      if (el && !el.hasAttribute('href')) { e.preventDefault(); openLegalModal('privacy'); return; }
     });
   }
 

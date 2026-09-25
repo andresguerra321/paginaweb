@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mí & Trayectoria — Andrés Felipe Guerra (Pipe) | AG Engineering</title>
+    <meta name="description" content="Conoce la trayectoria, formación en Campuslands, filosofía de soberanía tecnológica y visión de proyectos de Andrés Felipe Guerra (Pipe).">
+    <meta name="author" content="Andrés Felipe Guerra | AG Engineering">
+    <link rel="canonical" href="https://portfolio.agengineering.workers.dev/sobre-mi.html">
+
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:title" content="Sobre Mí & Trayectoria — Andrés Felipe Guerra (Pipe) | AG Engineering">
+    <meta property="og:description" content="Ingeniero de software en Colombia. Soluciones a medida, automatizaciones con IA y soberanía tecnológica sin intermediarios.">
+    <meta property="og:url" content="https://portfolio.agengineering.workers.dev/sobre-mi.html">
+    <meta property="og:image" content="https://portfolio.agengineering.workers.dev/img/about/sobremi-1200.webp">
+    <meta property="og:type" content="profile">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sobre Mí & Trayectoria — Andrés Felipe Guerra (Pipe)">
+    <meta name="twitter:description" content="Ingeniero de software en Colombia. Soluciones a medida, automatizaciones con IA y soberanía tecnológica.">
+    <meta name="twitter:image" content="https://portfolio.agengineering.workers.dev/img/about/sobremi-1200.webp">
+    <link rel="icon" type="image/svg+xml" href="img/icons/favicon.svg">
+
+    <!-- Google Fonts: Outfit, DM Sans, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=JetBrains+Mono:wght@400..700&family=Outfit:wght@400..800&display=swap" rel="stylesheet">
+
+    <!-- Modular CSS Architecture -->
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/transition.css">
+
+    <!-- Scoped Styles for Profile & Story Architecture -->
+    <style>
+        .about-hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 3.5rem;
+            align-items: center;
+            padding: 5rem 0 3rem;
+        }
+
+        @media (max-width: 960px) {
+            .about-hero-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+                padding: 3rem 0 2rem;
+            }
+        }
+
+        .about-photo-card {
+            position: relative;
+            background: linear-gradient(145deg, rgba(20, 28, 48, 0.7) 0%, rgba(14, 20, 34, 0.6) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 1rem;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), var(--glass-specular);
+            overflow: hidden;
+        }
+
+        .about-photo-wrapper {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            background: #0B0F19;
+        }
+
+        .about-photo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .about-photo-card:hover .about-photo-img {
+            transform: scale(1.03);
+        }
+
+        .about-status-pill {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            background: rgba(7, 9, 14, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 14px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .status-pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            box-shadow: 0 0 10px var(--accent-emerald);
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulseEmerald 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseEmerald {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.6; }
+        }
+
+        .about-highlight-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1.75rem 0 2rem;
+        }
+
+        .about-highlight-badge {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .about-highlight-badge strong {
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+        }
+
+        .about-quote-box {
+            background: rgba(79, 70, 229, 0.06);
+            border-left: 3px solid var(--accent-primary);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 14px 14px 0;
+            margin: 1.75rem 0;
+            font-style: italic;
+            color: #E2E8F0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .story-chapter-card {
+            background: linear-gradient(145deg, rgba(20, 28, 48, 0.5) 0%, rgba(14, 20, 34, 0.4) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-card);
+            padding: 2.25rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .chapter-num-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .story-problem-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 640px) {
+            .story-problem-solution {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        .story-block-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .story-block-title.problem { color: #F87171; }
+        .story-block-title.solution { color: #34D399; }
+
+        .tech-pill-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.75rem;
+        }
+
+        .tech-pill {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 0.4rem 0.85rem;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: #CBD5E1;
+            transition: all 0.2s ease;
+        }
+
+        .tech-pill:hover {
+            border-color: var(--accent-primary);
+            color: #FFF;
+            background: rgba(79, 70, 229, 0.12);
+        }
+    </style>
+
+    <script src="js/consent-banner.js" defer></script>
+</head>
+<body>
+    <!-- ============================================================
+         FLOATING ISLAND NAVBAR
+         ============================================================ -->
+    <nav id="mainNav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">AG<span>.</span></a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link" data-i18n="nav_home">Inicio</a>
+                <a href="sobre-mi.html" class="nav-link active" data-i18n="nav_about">Sobre Mí</a>
+                <a href="index.html#services" class="nav-link" data-i18n="nav_projects">Servicios</a>
+                <a href="index.html#timeline" class="nav-link" data-i18n="nav_timeline">Proyectos</a>
+                <a href="index.html#contact" class="nav-link" data-i18n="nav_contact">Contacto</a>
+            </div>
+            <div class="nav-actions">
+                <div class="lang-switcher">
+                    <button type="button" class="lang-btn active" id="langBtnES" aria-label="Cambiar a Español">ES</button>
+                    <button type="button" class="lang-btn" id="langBtnEN" aria-label="Switch to English">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- ============================================================
+             HERO: PRESENTACIÓN PERSONAL Y PROPUESTA DE VALOR
+             ============================================================ -->
+        <section class="section-wrapper" style="padding-top: 7rem;">
+            <div class="container">
+                <div class="about-hero-grid">
+                    <!-- Columna de Texto -->
+                    <div>
+                        <div class="bento-card-header" style="margin-bottom: 0.75rem;">
+                            <span class="hero-chip" data-i18n="about_role_chip">Ingeniero de Software</span>
+                            <span class="hero-chip" style="color: var(--accent-cyan);" data-i18n="about_loc_chip">📍 Colombia • Remoto & Presencial</span>
+                        </div>
+
+                        <h1 class="section-title" style="font-size: clamp(2.2rem, 4.5vw, 3.4rem); line-height: 1.15; margin-bottom: 1.25rem;">
+                            Soy <span class="gradient-text">Andrés Felipe Guerra</span> (Pipe)
+                        </h1>
+
+                        <p style="font-size: 1.15rem; color: #E2E8F0; line-height: 1.6; margin-bottom: 1rem;" data-i18n="about_lead">
+                            Convierto operaciones manuales, hojas de cálculo caóticas y cuellos de botella en software que trabaja por ti.
+                        </p>
+
+                        <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem;" data-i18n="about_pitch">
+                            Creo que la tecnología debe ser simple para quien la usa y rentable para quien la paga. Por eso trabajo de forma directa, sin intermediarios, con presupuestos transparentes y entregando siempre el 100% del código fuente bajo tu control.
+                        </p>
+
+                        <div class="about-highlight-badges">
+                            <div class="about-highlight-badge">
+                                <span>🎓</span>
+                                <div><strong data-i18n="about_stat_hrs">+1,000 hrs</strong> <span data-i18n="about_stat_cl">Campuslands</span></div>
+                            </div>
+                            <div class="about-highlight-badge">
+                                <span>🔑</span>
+                                <div><strong data-i18n="about_stat_own">100%</strong> <span data-i18n="about_stat_ip">Código Propietario</span></div>
+                            </div>
+                            <div class="about-highlight-badge">
+                                <span>🤝</span>
+                                <div><strong data-i18n="about_stat_direct">Directo</strong> <span data-i18n="about_stat_comms">1 a 1 sin intermediarios</span></div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vengo%20de%20tu%20p%C3%A1gina%20Sobre%20M%C3%AD%20y%20me%20gustar%C3%ADa%20conversar%20sobre%20un%20proyecto" 
+                               target="_blank" rel="noopener noreferrer" class="btn-island" data-i18n="about_btn_wa">
+                                Hablar por WhatsApp ↗
+                            </a>
+                            <a href="mailto:andres.felipe.gueco@gmail.com?subject=Contacto%20desde%20Portafolio%20-%20Andres%20Guerra" 
+                               class="btn-secondary" data-i18n="about_btn_email">
+                                Enviar Correo ✉
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Columna de Foto / Visual -->
+                    <div>
+                        <div class="about-photo-card">
+                            <div class="about-photo-wrapper">
+                                <picture>
+                                    <source srcset="img/about/sobremi-1200.avif" type="image/avif">
+                                    <source srcset="img/about/sobremi-1200.webp" type="image/webp">
+                                    <img src="img/about/sobremi-1200.jpg" alt="Andrés Felipe Guerra — Ingeniero de Software" class="about-photo-img" loading="eager" width="600" height="750">
+                                </picture>
+                                <div class="about-status-pill">
+                                    <div style="display: flex; align-items: center;">
+                                        <span class="status-pulse-dot"></span>
+                                        <span style="font-weight: 600; color: #FFF;" data-i18n="about_status_available">Disponible para proyectos</span>
+                                    </div>
+                                    <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-cyan);">2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             SECCIÓN 1: FORMACIÓN Y DISCIPLINA (CAMPUSLANDS)
+             ============================================================ -->
+        <section class="section-wrapper">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="hero-chip" data-i18n="about_sec1_tag">Formación de Élite</span>
+                    <h2 class="section-title" data-i18n="about_sec1_title">El Rigor de Campuslands & Ingeniería Práctica</h2>
+                    <p class="section-description" data-i18n="about_sec1_desc">
+                        La programación no es memorizar sintaxis; es resolver problemas complejos de forma eficiente, disciplinada y bajo estándares internacionales.
+                    </p>
+                </div>
+
+                <div class="bento-grid">
+                    <div class="bento-col-6 bento-card reveal">
+                        <div class="bento-card-main">
+                            <div class="bento-card-header">
+                                <span class="hero-chip">Inmersión Práctica</span>
+                                <span class="bento-concept-badge">+1,000 Horas</span>
+                            </div>
+                            <h3 class="section-title" data-i18n="about_c1_t">Entrenamiento Inmersivo en Campuslands</h3>
+                            <p data-i18n="about_c1_p">
+                                Formado bajo el modelo de alta exigencia técnica de Campuslands. Más de 1,000 horas dedicadas a algoritmos, diseño de bases de datos, concurrencia, trabajo en equipo bajo metodología SCRUM y entrega de proyectos funcionales con pruebas automatizadas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bento-col-6 bento-card reveal">
+                        <div class="bento-card-main">
+                            <div class="bento-card-header">
+                                <span class="hero-chip">Mentalidad</span>
+                                <span class="bento-concept-badge">Cero Deuda Técnica</span>
+                            </div>
+                            <h3 class="section-title" data-i18n="about_c2_t">De la Academia al Software que Resuelve</h3>
+                            <p data-i18n="about_c2_p">
+                                No construyo demos de juguete. Cada solución está pensada con arquitectura modular, tipado estricto en TypeScript o Java, separación clara de capas y código limpio que cualquier equipo puede auditar, mantener y escalar a largo plazo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             SECCIÓN 2: FILOSOFÍA DE TRABAJO (SOBERANÍA TECNOLÓGICA)
+             ============================================================ -->
+        <section class="section-wrapper">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="hero-chip" data-i18n="about_sec2_tag">Principios No Negociables</span>
+                    <h2 class="section-title" data-i18n="about_sec2_title">Por Qué Creo en la Soberanía Tecnológica</h2>
+                    <p class="section-description" data-i18n="about_sec2_desc">
+                        Las empresas no deberían pagar rentas perpetuas por herramientas que no controlan ni depender de cajas negras que nadie puede modificar.
+                    </p>
+                </div>
+
+                <div class="bento-grid">
+                    <div class="bento-col-4 bento-card reveal">
+                        <div class="bento-card-main">
+                            <h3 class="section-title" style="font-size: 1.25rem;" data-i18n="about_phi1_t">1. Código 100% de tu Propiedad</h3>
+                            <p data-i18n="about_phi1_p">
+                                En mis desarrollos de software a medida, todo el repositorio Git, bases de datos y credenciales son entregadas a tu nombre. Tu empresa es la dueña absoluta de sus activos.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bento-col-4 bento-card reveal">
+                        <div class="bento-card-main">
+                            <h3 class="section-title" style="font-size: 1.25rem;" data-i18n="about_phi2_t">2. Sin Plugins ni Suscripciones Inútiles</h3>
+                            <p data-i18n="about_phi2_p">
+                                Evito las plantillas sobrecargadas y los complementos que cobran licencias mensuales por funciones básicas. Construyo interfaces ligeras y backends limpios que no requieren parches cada semana.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bento-col-4 bento-card reveal">
+                        <div class="bento-card-main">
+                            <h3 class="section-title" style="font-size: 1.25rem;" data-i18n="about_phi3_t">3. Trato Directo 1 a 1</h3>
+                            <p data-i18n="about_phi3_p">
+                                Hablas directamente con quien piensa, diseña y escribe el código. Sin ejecutivos de cuenta que prometen lo que no entienden. Tiempos claros, comunicación honesta y precios justos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             SECCIÓN 3: EL ORIGEN DE MIS PROYECTOS (VISIÓN DE NEGOCIO)
+             ============================================================ -->
+        <section class="section-wrapper">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="hero-chip" data-i18n="about_sec3_tag">La Historia Detrás del Código</span>
+                    <h2 class="section-title" data-i18n="about_sec3_title">Cómo Nacieron mis Soluciones</h2>
+                    <p class="section-description" data-i18n="about_sec3_desc">
+                        No programo por programar. Cada pieza de mi portafolio nació de una necesidad concreta de negocio o de un desafío técnico de alto impacto.
+                    </p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 2rem;">
+                    <!-- Caso 1: Bot de WhatsApp -->
+                    <div class="story-chapter-card reveal">
+                        <div class="chapter-num-badge">
+                            <span>01</span> • <span data-i18n="about_proj1_type">Automatización Comercial</span>
+                        </div>
+                        <h3 class="section-title" style="font-size: 1.45rem;" data-i18n="about_proj1_title">Suite de IA & Bot de WhatsApp</h3>
+                        <p data-i18n="about_proj1_text">
+                            Observé que dueños de negocios locales y pymes perdían entre el 30% y 50% de sus ventas potenciales simplemente porque los clientes escribían de noche o fines de semana y nadie respondía a tiempo.
+                        </p>
+                        <div class="story-problem-solution">
+                            <div>
+                                <div class="story-block-title problem">El Problema de Negocio</div>
+                                <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj1_prob">
+                                    Clientes esperando horas una respuesta, dueños esclavizados contestando las mismas preguntas y citas perdidas por desorganización.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="story-block-title solution">Solución de Ingeniería</div>
+                                <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj1_sol">
+                                    Un bot con IA contextual y Whisper que entiende audios, responde dudas del negocio 24/7 y agenda automáticamente citas en Google Calendar.
+                                </p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 0.5rem;">
+                            <a href="proyecto-bot-whatsapp/index.html" class="btn-secondary" style="font-size: 0.9rem;" data-i18n="about_proj1_btn">
+                                Ver Demo y Casos del Bot ↗
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Caso 2: Software de Administración -->
+                    <div class="story-chapter-card reveal">
+                        <div class="chapter-num-badge">
+                            <span>02</span> • <span data-i18n="about_proj2_type">Sistemas Web a Medida</span>
+                        </div>
+                        <h3 class="section-title" style="font-size: 1.45rem;" data-i18n="about_proj2_title">Software de Administración & SaaS Propietario</h3>
+                        <p data-i18n="about_proj2_text">
+                            Muchos negocios arrancan con hojas de Excel. Pero al crecer, los archivos compartidos se corrompen, los inventarios se descuadran y los empleados pierden horas buscando información dispersa.
+                        </p>
+                        <div class="story-problem-solution">
+                            <div>
+                                <div class="story-block-title problem">El Problema de Negocio</div>
+                                <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj2_prob">
+                                    Hojas de cálculo saturadas, errores humanos en inventario y falta de reportes claros para tomar decisiones financieras.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="story-block-title solution">Solución de Ingeniería</div>
+                                <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj2_sol">
+                                    Paneles web en Next.js con bases de datos relacionales, control de roles y flujos hechos a la medida exacta de la operación, sin pagar licencias mensuales por usuario.
+                                </p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 0.5rem;">
+                            <a href="proyecto-web-saas/index.html" class="btn-secondary" style="font-size: 0.9rem;" data-i18n="about_proj2_btn">
+                                Ver Solución Web & SaaS ↗
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Caso 3: Laboratorio de Simulaciones (F1 Sim & Guardian) -->
+                    <div class="story-chapter-card reveal">
+                        <div class="chapter-num-badge">
+                            <span>03</span> • <span data-i18n="about_proj3_type">Laboratorio & Algoritmos</span>
+                        </div>
+                        <h3 class="section-title" style="font-size: 1.45rem;" data-i18n="about_proj3_title">Laboratorio de Simulación: F1 Sim Pro & GUARDIAN</h3>
+                        <p data-i18n="about_proj3_text">
+                            Para demostrar capacidad técnica profunda más allá del desarrollo web convencional, creé estos simuladores como pruebas de ingeniería algorítmica y procesamiento en tiempo real.
+                        </p>
+                        <div class="story-problem-solution">
+                            <div>
+                                <div class="story-block-title problem">El Desafío Técnico</div>
+                                <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj3_prob">
+                                    Calcular física numérica compleja a 60 FPS estables con multithreading en Java 17 (F1 Sim) y procesar visión artificial on-device para telemetría de alerta al conductor (GUARDIAN).
+                                </p>
+                            </div>
+                            <div>
+                                <div class="story-block-title solution">Impacto y Validación Técnica</div>
+                                <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj3_sol">
+                                    Dominio de concurrencia, matemáticas computacionales, optimización de memoria y arquitecturas robustas aplicables a cualquier software empresarial.
+                                </p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                            <a href="proyecto-formula1/index.html" class="btn-secondary" style="font-size: 0.9rem;">
+                                Probar Simulador F1 ↗
+                            </a>
+                            <a href="proyecto-guardian/guardian.html" class="btn-secondary" style="font-size: 0.9rem;">
+                                Ver Demo GUARDIAN ↗
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             SECCIÓN 4: STACK TÉCNICO Y HERRAMIENTAS
+             ============================================================ -->
+        <section class="section-wrapper">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="hero-chip" data-i18n="about_stack_tag">Habilidades Comprobadas</span>
+                    <h2 class="section-title" data-i18n="about_stack_title">Stack Tecnológico & Runtimes</h2>
+                    <p class="section-description" data-i18n="about_stack_desc">
+                        Herramientas modernas elegidas por su estabilidad, rendimiento y soporte en la industria.
+                    </p>
+                </div>
+
+                <div class="bento-grid">
+                    <div class="bento-col-3 bento-card reveal">
+                        <h4 style="color: #FFF; font-size: 1.1rem; margin-bottom: 0.5rem;">Lenguajes Core</h4>
+                        <div class="tech-pill-grid">
+                            <span class="tech-pill">TypeScript</span>
+                            <span class="tech-pill">JavaScript</span>
+                            <span class="tech-pill">Java 17</span>
+                            <span class="tech-pill">Python</span>
+                            <span class="tech-pill">SQL</span>
+                        </div>
+                    </div>
+                    <div class="bento-col-3 bento-card reveal">
+                        <h4 style="color: #FFF; font-size: 1.1rem; margin-bottom: 0.5rem;">Frontend</h4>
+                        <div class="tech-pill-grid">
+                            <span class="tech-pill">React</span>
+                            <span class="tech-pill">Next.js</span>
+                            <span class="tech-pill">HTML5 Semántico</span>
+                            <span class="tech-pill">Vanilla CSS</span>
+                            <span class="tech-pill">TailwindCSS</span>
+                        </div>
+                    </div>
+                    <div class="bento-col-3 bento-card reveal">
+                        <h4 style="color: #FFF; font-size: 1.1rem; margin-bottom: 0.5rem;">Backend & Datos</h4>
+                        <div class="tech-pill-grid">
+                            <span class="tech-pill">Node.js</span>
+                            <span class="tech-pill">Express</span>
+                            <span class="tech-pill">PostgreSQL</span>
+                            <span class="tech-pill">MongoDB</span>
+                            <span class="tech-pill">REST APIs</span>
+                        </div>
+                    </div>
+                    <div class="bento-col-3 bento-card reveal">
+                        <h4 style="color: #FFF; font-size: 1.1rem; margin-bottom: 0.5rem;">Cloud & IA</h4>
+                        <div class="tech-pill-grid">
+                            <span class="tech-pill">Meta Cloud API</span>
+                            <span class="tech-pill">n8n Automation</span>
+                            <span class="tech-pill">Docker</span>
+                            <span class="tech-pill">Groq / LLaMA</span>
+                            <span class="tech-pill">Whisper AI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             SECCIÓN 5: DESCARGA DE CV & CONTACTO DIRECTO
+             ============================================================ -->
+        <section class="section-wrapper" id="contacto">
+            <div class="container">
+                <div class="bento-card interactive reveal" style="padding: 3.5rem 2.5rem; text-align: center; max-width: 860px; margin: 0 auto;">
+                    <span class="hero-chip" style="margin: 0 auto 1rem;" data-i18n="about_cta_chip">Trato Directo 1 a 1</span>
+                    <h2 class="section-title" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin-bottom: 1rem;" data-i18n="about_cta_title">
+                        ¿Tienes un proceso en tu empresa que te quita tiempo todos los días?
+                    </h2>
+                    <p style="color: var(--text-secondary); max-width: 620px; margin: 0 auto 2rem; font-size: 1.05rem; line-height: 1.6;" data-i18n="about_cta_desc">
+                        Cuéntame qué necesitas automatizar, administrar o simular. Te explico cómo lo resolveríamos con honestidad, tiempos claros y sin tecnicismos innecesarios.
+                    </p>
+
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20quiero%20cotizar%20un%20proyecto" 
+                           target="_blank" rel="noopener noreferrer" class="btn-island" style="font-size: 1.05rem;" data-i18n="about_cta_btn_wa">
+                            Escribir al WhatsApp (+57 318 560 2203) ↗
+                        </a>
+                        <a href="mailto:andres.felipe.gueco@gmail.com?subject=Solicitud%20de%20CV%20-%20Andres%20Guerra" 
+                           class="btn-secondary" style="font-size: 1.05rem;" data-i18n="about_cta_btn_cv">
+                            Solicitar CV / Hoja de Vida 📄
+                        </a>
+                    </div>
+
+                    <div style="display: flex; gap: 1.25rem; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap;">
+                        <a href="https://github.com/andresguerra321" target="_blank" rel="noopener noreferrer" class="contact-link-pill">
+                            GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/andr%C3%A9s-felipe-guerra-correa-556333267/" target="_blank" rel="noopener noreferrer" class="contact-link-pill">
+                            LinkedIn
+                        </a>
+                        <a href="https://es.fiverr.com/s/dDvmP03" target="_blank" rel="noopener noreferrer" class="contact-link-pill">
+                            Fiverr
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer>
+        <div class="container">
+            <p data-i18n="footer_rights">&copy; 2026 AG Engineering — Andrés Felipe Guerra. Todos los derechos reservados.</p>
+            <div class="footer-legal">
+                <a href="sobre-mi.html" class="footer-privacy-link" style="color: #FFF; font-weight: 600;" data-i18n="footer_about">Sobre Mí</a>
+                <span class="footer-legal-sep">·</span>
+                <button type="button" class="footer-privacy-link" data-open-privacy data-i18n="footer_privacy">Política de Privacidad</button>
+                <span class="footer-legal-sep">·</span>
+                <button type="button" class="footer-privacy-link" data-open-terms data-i18n="footer_terms">Términos y Condiciones</button>
+                <span class="footer-legal-sep">·</span>
+                <button type="button" class="footer-privacy-link" data-open-warranty data-i18n="footer_warranty">Garantía</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic & i18n Modules -->
+    <script src="js/i18n.js" defer></script>
+    <script src="js/transition.js" defer></script>
+</body>
+</html>
