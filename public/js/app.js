@@ -44,13 +44,16 @@
         const allNavAnchors = document.querySelectorAll('.nav-link, .mobile-nav-link');
 
         function getTabForId(targetId) {
-            if (!targetId || targetId === '#page-top' || targetId === '#hero' || targetId === '#about' || targetId === '#social-proof' || targetId === '#') {
-                return '#about';
+            if (!targetId || targetId === '#page-top' || targetId === '#hero' || targetId === '#about' || targetId === '#tech-approach' || targetId === '#social-proof' || targetId === '#') {
+                return '#hero';
             }
             if (targetId === '#services' || targetId === '#doors' || targetId === '#innovation' || targetId === '#workflow') {
                 return '#services';
             }
-            if (targetId === '#skills' || targetId === '#tech' || targetId === '#timeline') {
+            if (targetId === '#timeline') {
+                return '#timeline';
+            }
+            if (targetId === '#skills' || targetId === '#tech') {
                 return '#skills';
             }
             if (targetId === '#contact') {
@@ -66,16 +69,20 @@
                 const sectionId = '#' + section.getAttribute('id');
                 let shouldShow = false;
 
-                if (tabId === '#about') {
-                    if (sectionId === '#hero' || sectionId === '#about' || sectionId === '#social-proof') {
+                if (tabId === '#hero') {
+                    if (sectionId === '#hero' || sectionId === '#about' || sectionId === '#tech-approach' || sectionId === '#social-proof') {
                         shouldShow = true;
                     }
                 } else if (tabId === '#services') {
                     if (sectionId === '#services' || sectionId === '#doors' || sectionId === '#workflow') {
                         shouldShow = true;
                     }
+                } else if (tabId === '#timeline') {
+                    if (sectionId === '#timeline' || sectionId === '#tech') {
+                        shouldShow = true;
+                    }
                 } else if (tabId === '#skills') {
-                    if (sectionId === '#skills' || sectionId === '#tech' || sectionId === '#timeline') {
+                    if (sectionId === '#skills') {
                         shouldShow = true;
                     }
                 } else if (tabId === '#contact') {
@@ -99,10 +106,10 @@
                 }
             });
 
-            // Explicitly sync hero trust strip display with the home/about tab
+            // Explicitly sync hero trust strip display with the home tab
             const trustStrip = document.getElementById('heroTrustStrip') || document.querySelector('.hero-trust-strip');
             if (trustStrip) {
-                trustStrip.style.display = (tabId === '#about') ? '' : 'none';
+                trustStrip.style.display = (tabId === '#hero') ? '' : 'none';
             }
 
             // Update active state in navbar
@@ -114,7 +121,7 @@
             });
 
             // Smooth scroll or reposition to top or specific target
-            if (scrollToSection && scrollToSection !== tabId && scrollToSection !== '#about' && scrollToSection !== '#hero') {
+            if (scrollToSection && scrollToSection !== tabId && scrollToSection !== '#hero' && scrollToSection !== '#about') {
                 const targetEl = document.querySelector(scrollToSection);
                 if (targetEl) {
                     setTimeout(() => {
@@ -128,7 +135,7 @@
 
             // Update URL hash smoothly without jumps
             if (window.history.pushState) {
-                window.history.pushState(null, null, tabId === '#about' ? ' ' : tabId);
+                window.history.pushState(null, null, tabId === '#hero' ? ' ' : tabId);
             }
         }
 
@@ -184,8 +191,8 @@
             });
         });
 
-        // Initialize with URL hash or default to #about
-        const initialHash = window.location.hash || '#about';
+        // Initialize with URL hash or default to #hero
+        const initialHash = window.location.hash || '#hero';
         activateSection(initialHash, initialHash);
 
         /* ------------------------------------------------------------

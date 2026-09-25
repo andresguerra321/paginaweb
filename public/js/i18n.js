@@ -20,7 +20,7 @@
             about_personal_btn: 'Conoce mi trayectoria y filosofía',
             
             hero_badge: 'AG Engineering · Andrés Felipe Guerra',
-            hero_title: 'Convierto los procesos manuales de tu empresa en software que trabaja por ti',
+            hero_title: 'Convierto los procesos manuales de tu empresa <span class="hero-highlight">en software que trabaja por ti</span>',
             hero_subtitle: 'Automatizaciones con IA, sistemas de administración y simulaciones a la medida. Hablas directamente conmigo y yo lo construyo.',
             hero_btn_projects: 'Ver demos interactivas',
             hero_btn_contact: 'Cuéntame tu problema',
@@ -654,7 +654,7 @@
             about_personal_btn: 'Discover my background & philosophy',
 
             hero_badge: 'AG Engineering · Andrés Felipe Guerra',
-            hero_title: 'I turn your manual operations into software that works for you',
+            hero_title: 'I turn your manual company operations <span class="hero-highlight">into software that works for you</span>',
             hero_subtitle: 'AI automations, bespoke management systems, and real-time simulations. You speak directly with me, and I build it.',
             hero_btn_projects: 'Explore Interactive Demos',
             hero_btn_contact: 'Tell me your problem',
