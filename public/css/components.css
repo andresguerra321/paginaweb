@@ -1407,6 +1407,7 @@
 .bento-col-6  { grid-column: span 6; }
 .bento-col-5  { grid-column: span 5; }
 .bento-col-4  { grid-column: span 4; }
+.bento-col-3  { grid-column: span 3; }
 
 /* Bento Hero Project (Suite Empresarial de IA — Proportional PC Showcase) */
 .project-bento-hero {
@@ -2704,7 +2705,7 @@ footer {
     .bento-col-8, .bento-col-7, .bento-col-5, .bento-col-4 {
         grid-column: span 12;
     }
-    .bento-col-6 {
+    .bento-col-6, .bento-col-3 {
         grid-column: span 6;
     }
     .bento-grid {
@@ -2846,7 +2847,7 @@ footer {
         justify-content: flex-start;
         margin-top: 0.25rem;
     }
-    .bento-col-6 {
+    .bento-col-6, .bento-col-4, .bento-col-3 {
         grid-column: span 12;
     }
     .bento-grid {

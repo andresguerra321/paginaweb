@@ -57,6 +57,21 @@
                 gap: 2.5rem;
                 padding: 1rem 0 1.5rem;
             }
+            .bento-col-3 {
+                grid-column: span 6;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bento-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1.25rem !important;
+            }
+            .bento-col-3, .bento-col-4, .bento-col-6, .bento-col-8, .bento-col-12 {
+                width: 100% !important;
+                grid-column: span 12 !important;
+            }
         }
 
         .about-photo-card {
@@ -291,7 +306,7 @@
                         </p>
 
                         <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem;" data-i18n="about_pitch">
-                            Creo que la tecnología debe ser simple para quien la usa y rentable para quien la paga. Por eso trabajo de forma directa, sin intermediarios, con presupuestos transparentes y entregando siempre el 100% del código fuente bajo tu control.
+                            Creo que la tecnología debe ser simple para quien la opera y rentable para el negocio. Trabajo de forma directa y con modelos claros: soluciones gestionadas por suscripción con panel de administración intuitivo (como mi Bot de WhatsApp), y desarrollos a medida con propiedad total de código según lo que tu proyecto necesite.
                         </p>
 
                         <div class="about-highlight-badges">
@@ -300,8 +315,8 @@
                                 <div><strong data-i18n="about_stat_hrs">+1,000 hrs</strong> <span data-i18n="about_stat_cl">Campuslands</span></div>
                             </div>
                             <div class="about-highlight-badge">
-                                <span>🔑</span>
-                                <div><strong data-i18n="about_stat_own">100%</strong> <span data-i18n="about_stat_ip">Código Propietario</span></div>
+                                <span>🖥️</span>
+                                <div><strong data-i18n="about_stat_own">Control</strong> <span data-i18n="about_stat_ip">Panel Administrativo</span></div>
                             </div>
                             <div class="about-highlight-badge">
                                 <span>🤝</span>
@@ -310,13 +325,11 @@
                         </div>
 
                         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vengo%20de%20tu%20p%C3%A1gina%20Sobre%20M%C3%AD%20y%20me%20gustar%C3%ADa%20conversar%20sobre%20un%20proyecto" 
-                               target="_blank" rel="noopener noreferrer" class="btn-island" data-i18n="about_btn_wa">
-                                Hablar por WhatsApp ↗
+                            <a href="index.html#services" class="btn-island" data-i18n="about_btn_services">
+                                Ver Servicios & Soluciones ↗
                             </a>
-                            <a href="mailto:andres.felipe.gueco@gmail.com?subject=Contacto%20desde%20Portafolio%20-%20Andres%20Guerra" 
-                               class="btn-secondary" data-i18n="about_btn_email">
-                                Enviar Correo ✉
+                            <a href="index.html#contact" class="btn-secondary" data-i18n="about_btn_contact">
+                                Ir a la pestaña de Contacto ↗
                             </a>
                         </div>
                     </div>
@@ -393,28 +406,28 @@
         <section class="section-wrapper">
             <div class="container">
                 <div class="section-header reveal">
-                    <span class="hero-chip" data-i18n="about_sec2_tag">Principios No Negociables</span>
-                    <h2 class="section-title" data-i18n="about_sec2_title">Por Qué Creo en la Soberanía Tecnológica</h2>
+                    <span class="hero-chip" data-i18n="about_sec2_tag">Principios de Trabajo</span>
+                    <h2 class="section-title" data-i18n="about_sec2_title">Modelos Claros y Control para tu Negocio</h2>
                     <p class="section-description" data-i18n="about_sec2_desc">
-                        Las empresas no deberían pagar rentas perpetuas por herramientas que no controlan ni depender de cajas negras que nadie puede modificar.
+                        Cada proyecto requiere el enfoque correcto: soluciones listas para operar mediante interfaz de administración y suscripción, o desarrollos a medida donde tu empresa es dueña absoluta del código.
                     </p>
                 </div>
 
                 <div class="bento-grid">
                     <div class="bento-col-4 bento-card reveal">
                         <div class="bento-card-main">
-                            <h3 class="section-title" style="font-size: 1.25rem;" data-i18n="about_phi1_t">1. Código 100% de tu Propiedad</h3>
+                            <h3 class="section-title" style="font-size: 1.25rem;" data-i18n="about_phi1_t">1. Interfaz de Administración Intuitiva</h3>
                             <p data-i18n="about_phi1_p">
-                                En mis desarrollos de software a medida, todo el repositorio Git, bases de datos y credenciales son entregadas a tu nombre. Tu empresa es la dueña absoluta de sus activos.
+                                En mis soluciones como el Bot de WhatsApp o DeliveryBot, no necesitas tocar código ni servidores. Cuentas con un panel de control intuitivo para gestionar citas, mensajes, menús y pedidos en tiempo real con total autonomía.
                             </p>
                         </div>
                     </div>
 
                     <div class="bento-col-4 bento-card reveal">
                         <div class="bento-card-main">
-                            <h3 class="section-title" style="font-size: 1.25rem;" data-i18n="about_phi2_t">2. Sin Plugins ni Suscripciones Inútiles</h3>
+                            <h3 class="section-title" style="font-size: 1.25rem;" data-i18n="about_phi2_t">2. El Modelo Justo para Cada Necesidad</h3>
                             <p data-i18n="about_phi2_p">
-                                Evito las plantillas sobrecargadas y los complementos que cobran licencias mensuales por funciones básicas. Construyo interfaces ligeras y backends limpios que no requieren parches cada semana.
+                                Para herramientas de automatización como bots, opero bajo suscripción mensual con soporte y servidores incluidos. Para sistemas web a medida, el código fuente y la base de datos pertenecen 100% a tu empresa sin costos ocultos.
                             </p>
                         </div>
                     </div>
@@ -464,13 +477,13 @@
                             <div>
                                 <div class="story-block-title solution">Solución de Ingeniería</div>
                                 <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj1_sol">
-                                    Un bot con IA contextual y Whisper que entiende audios, responde dudas del negocio 24/7 y agenda automáticamente citas en Google Calendar.
+                                    Un asistente con IA y Whisper conectado a WhatsApp bajo modelo de suscripción, con una interfaz de administración donde el negocio gestiona citas, audios y consultas sin preocuparse por servidores ni código.
                                 </p>
                             </div>
                         </div>
                         <div style="margin-top: 0.5rem;">
                             <a href="proyecto-bot-whatsapp/index.html" class="btn-secondary" style="font-size: 0.9rem;" data-i18n="about_proj1_btn">
-                                Ver Demo y Casos del Bot ↗
+                                Ver Solución y Panel del Bot ↗
                             </a>
                         </div>
                     </div>
@@ -682,45 +695,6 @@
             </div>
         </section>
 
-        <!-- ============================================================
-             SECCIÓN 6: DESCARGA DE CV & CONTACTO DIRECTO
-             ============================================================ -->
-        <section class="section-wrapper" id="contacto">
-            <div class="container">
-                <div class="bento-card interactive reveal" style="padding: 3.5rem 2.5rem; text-align: center; max-width: 860px; margin: 0 auto;">
-                    <span class="hero-chip" style="margin: 0 auto 1rem;" data-i18n="about_cta_chip">Trato Directo 1 a 1</span>
-                    <h2 class="section-title" style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin-bottom: 1rem;" data-i18n="about_cta_title">
-                        ¿Tienes un proceso en tu empresa que te quita tiempo todos los días?
-                    </h2>
-                    <p style="color: var(--text-secondary); max-width: 620px; margin: 0 auto 2rem; font-size: 1.05rem; line-height: 1.6;" data-i18n="about_cta_desc">
-                        Cuéntame qué necesitas automatizar, administrar o simular. Te explico cómo lo resolveríamos con honestidad, tiempos claros y sin tecnicismos innecesarios.
-                    </p>
-
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20quiero%20cotizar%20un%20proyecto" 
-                           target="_blank" rel="noopener noreferrer" class="btn-island" style="font-size: 1.05rem;" data-i18n="about_cta_btn_wa">
-                            Escribir al WhatsApp (+57 318 560 2203) ↗
-                        </a>
-                        <a href="mailto:andres.felipe.gueco@gmail.com?subject=Solicitud%20de%20CV%20-%20Andres%20Guerra" 
-                           class="btn-secondary" style="font-size: 1.05rem;" data-i18n="about_cta_btn_cv">
-                            Solicitar CV / Hoja de Vida 📄
-                        </a>
-                    </div>
-
-                    <div style="display: flex; gap: 1.25rem; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap;">
-                        <a href="https://github.com/andresguerra321" target="_blank" rel="noopener noreferrer" class="contact-link-pill">
-                            GitHub
-                        </a>
-                        <a href="https://www.linkedin.com/in/andr%C3%A9s-felipe-guerra-correa-556333267/" target="_blank" rel="noopener noreferrer" class="contact-link-pill">
-                            LinkedIn
-                        </a>
-                        <a href="https://es.fiverr.com/s/dDvmP03" target="_blank" rel="noopener noreferrer" class="contact-link-pill">
-                            Fiverr
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- ============================================================
