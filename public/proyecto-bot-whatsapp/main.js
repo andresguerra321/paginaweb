@@ -2,46 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== CURRENCY TOGGLE (COP / USD) =====
   // Removed dead code since pricing toggle no longer exists in UI
 
-  // ===== CUSTOM 60FPS SMOOTH SCROLL ENGINE (requestAnimationFrame) =====
-  // Garantiza un desplazamiento suave estilo seda (ease-in-out-cubic) sin importar el navegador o móvil.
-  function smoothScrollTo(targetEl, duration = 900) {
-    const navHeight = document.getElementById('navbar')?.offsetHeight || 70
-    const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 20
-    const startPosition = window.pageYOffset
-    const distance = targetPosition - startPosition
-    let startTime = null
-
-    // Easing function cubic para aceleración y desaceleración progresiva y suave
-    function easeInOutCubic(t, b, c, d) {
-      t /= d / 2
-      if (t < 1) return c / 2 * t * t * t + b
-      t -= 2
-      return c / 2 * (t * t * t + 2) + b
-    }
-
-    function step(currentTime) {
-      if (startTime === null) startTime = currentTime
-      const timeElapsed = currentTime - startTime
-      const nextY = easeInOutCubic(timeElapsed, startPosition, distance, duration)
-      
-      window.scrollTo(0, nextY)
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(step)
-      } else {
-        window.scrollTo(0, targetPosition)
-        // Destello neón suave al aterrizar
-        targetEl.classList.add('section-glow-effect')
-        setTimeout(() => {
-          targetEl.classList.remove('section-glow-effect')
-        }, 1600)
-      }
-    }
-
-    requestAnimationFrame(step)
-  }
-
-  // Interceptar todos los clics en enlaces ancla (#)
+  // ===== HARDWARE-ACCELERATED SMOOTH SCROLL =====
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href')
@@ -50,7 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetEl = document.querySelector(targetId)
       if (targetEl) {
         e.preventDefault()
-        smoothScrollTo(targetEl, 900)
+        const navHeight = document.getElementById('navbar')?.offsetHeight || 70
+        const isMobile = window.innerWidth <= 820
+        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 16
+        window.scrollTo({ top: targetPosition, behavior: isMobile ? 'auto' : 'smooth' })
       }
     })
   })
@@ -79,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
   applyStaggeredDelays('.timeline > li');
 
   const observerOptions = {
-    threshold: 0.05,
-    rootMargin: '0px 0px -20px 0px'
+    threshold: 0.03,
+    rootMargin: '0px 0px 60px 0px'
   };
 
   if ('IntersectionObserver' in window) {

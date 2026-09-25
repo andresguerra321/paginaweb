@@ -42,7 +42,18 @@
         }
     }
 
+    function isMobileOrReducedMotion() {
+        return window.innerWidth <= 820 || 
+               ('ontouchstart' in window && !window.matchMedia('(hover: hover)').matches) ||
+               window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
     function runEntranceAnimation() {
+        if (isMobileOrReducedMotion()) {
+            forceDismiss();
+            return;
+        }
+
         let isTransitioning = false;
         try {
             isTransitioning = sessionStorage.getItem('ag_transition_active') === 'true';
@@ -157,7 +168,7 @@
                 anime({
                     targets: overlay,
                     opacity: [0, 1],
-                    duration: 200,
+                    duration: 120,
                     easing: 'easeOutQuad',
                     complete: doNavigate
                 });
@@ -166,7 +177,7 @@
             }
         } else {
             overlay.style.opacity = '1';
-            setTimeout(doNavigate, 200);
+            setTimeout(doNavigate, 100);
         }
 
         // Failsafe: if navigation was cancelled, slow, or tab changed, dismiss after 1s
@@ -174,10 +185,16 @@
             if (!document.hidden) {
                 forceDismiss();
             }
-        }, 1000);
+        }, 800);
     }
 
     function setupLinkInterception() {
+        // On mobile / touch devices, disable artificial link interception completely
+        // to guarantee instantaneous 0ms native navigation with BFCache.
+        if (isMobileOrReducedMotion()) {
+            return;
+        }
+
         document.addEventListener('click', function(e) {
             // Ignore if default prevented or modified click (Ctrl, Cmd, Shift, Alt, middle click)
             if (e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {

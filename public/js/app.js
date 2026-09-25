@@ -26,10 +26,11 @@
         window.addEventListener('scroll', function () {
             if (!isTicking) {
                 window.requestAnimationFrame(function () {
-                    if (window.scrollY > 40) {
-                        nav.classList.add('scrolled');
-                    } else {
-                        nav.classList.remove('scrolled');
+                    if (nav) {
+                        const isScrolled = window.scrollY > 30;
+                        if (nav.classList.contains('scrolled') !== isScrolled) {
+                            nav.classList.toggle('scrolled', isScrolled);
+                        }
                     }
                     isTicking = false;
                 });
@@ -64,6 +65,7 @@
 
         function activateSection(targetId, scrollToSection) {
             const tabId = getTabForId(targetId);
+            const isMobile = window.innerWidth <= 820;
 
             allSections.forEach(section => {
                 const sectionId = '#' + section.getAttribute('id');
@@ -96,11 +98,7 @@
                 if (shouldShow) {
                     section.style.display = '';
                     const reveals = section.querySelectorAll('.reveal');
-                    reveals.forEach((el, index) => {
-                        setTimeout(() => {
-                            el.classList.add('revealed');
-                        }, index * 30);
-                    });
+                    reveals.forEach(el => el.classList.add('revealed'));
                 } else {
                     section.style.display = 'none';
                 }
@@ -120,17 +118,15 @@
                 }
             });
 
-            // Smooth scroll or reposition to top or specific target
+            // Smooth scroll or reposition to top or specific target without layout jank
             if (scrollToSection && scrollToSection !== tabId && scrollToSection !== '#hero' && scrollToSection !== '#about') {
                 const targetEl = document.querySelector(scrollToSection);
                 if (targetEl) {
-                    setTimeout(() => {
-                        const topPos = targetEl.getBoundingClientRect().top + window.pageYOffset - 70;
-                        window.scrollTo({ top: topPos, behavior: 'smooth' });
-                    }, 50);
+                    const topPos = targetEl.getBoundingClientRect().top + window.pageYOffset - (isMobile ? 55 : 70);
+                    window.scrollTo({ top: topPos, behavior: isMobile ? 'auto' : 'smooth' });
                 }
             } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: isMobile ? 'auto' : 'smooth' });
             }
 
             // Update URL hash smoothly without jumps
@@ -209,8 +205,8 @@
                     }
                 });
             }, {
-                threshold: 0.08,
-                rootMargin: '0px 0px -30px 0px'
+                threshold: 0.04,
+                rootMargin: '0px 0px 60px 0px'
             });
 
             revealElements.forEach(el => revealObserver.observe(el));
