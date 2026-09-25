@@ -86,128 +86,6 @@
 
     var content = {};
 
-    // ─── TAB 0: SOBRE MÍ / ABOUT ME ───
-    content.about = {
-      title: en ? 'About Andrés Felipe Guerra (Pipe)' : 'Sobre Mí — Andrés Felipe Guerra (Pipe)',
-      body: en ? '\
-<div class="legal-about-wrap">\
-  <div class="legal-about-hero">\
-    <div class="legal-about-avatar-wrap">\
-      <img src="img/about/sobremi-800.webp" alt="Andrés Felipe Guerra (Pipe)" class="legal-about-avatar" width="64" height="64" loading="lazy">\
-      <span class="legal-about-status-dot" title="Available for projects"></span>\
-    </div>\
-    <div class="legal-about-hero-info">\
-      <div class="legal-about-name">Andrés Felipe Guerra <span class="legal-about-alias">(Pipe)</span></div>\
-      <div class="legal-about-role">Software Engineer · Bucaramanga, Colombia</div>\
-      <div class="legal-about-status-tag"><span class="legal-status-dot"></span> Direct 1-on-1 Communication · No Intermediaries</div>\
-    </div>\
-  </div>\
-  <p class="legal-about-bio">\
-    I turn manual processes, chaotic spreadsheets, and operational bottlenecks into custom software, AI automation, and simulations. No agency markups or bureaucratic delays: you speak directly with the engineer building your system.\
-  </p>\
-  <div class="legal-about-pillars">\
-    <div class="legal-pillar-card">\
-      <div class="legal-pillar-header">\
-        <span class="legal-pillar-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>\
-        <span class="legal-pillar-title">Campuslands Rigorous Training</span>\
-      </div>\
-      <p class="legal-pillar-desc">\
-        +1,000 hours of intensive programming, algorithms, clean architecture, and high-concurrency production systems.\
-      </p>\
-    </div>\
-    <div class="legal-pillar-card">\
-      <div class="legal-pillar-header">\
-        <span class="legal-pillar-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>\
-        <span class="legal-pillar-title">Technological Sovereignty</span>\
-      </div>\
-      <p class="legal-pillar-desc">\
-        100% intellectual property, Git history, and source code ownership handed to your business. Zero captive monthly fees.\
-      </p>\
-    </div>\
-  </div>\
-  <div class="legal-about-doors">\
-    <div class="legal-doors-header">3 Problem Types I Solve:</div>\
-    <div class="legal-doors-grid">\
-      <div class="legal-door-item">\
-        <span class="legal-door-dot"></span>\
-        <div><strong>AI Automation:</strong> WhatsApp bots that answer, book appointments, and sell 24/7 without fail.</div>\
-      </div>\
-      <div class="legal-door-item">\
-        <span class="legal-door-dot"></span>\
-        <div><strong>Operations Software:</strong> Custom portals and admin systems that organize your workflows and replace Excel.</div>\
-      </div>\
-      <div class="legal-door-item">\
-        <span class="legal-door-dot"></span>\
-        <div><strong>Simulations & Labs:</strong> Mathematical models and interactive sandboxes to validate decisions before investing.</div>\
-      </div>\
-    </div>\
-  </div>\
-  <div class="legal-about-actions">\
-    <a href="sobre-mi.html" class="legal-about-btn-primary">View Full Journey & Vision ↗</a>\
-    <a href="https://wa.me/573185602203" target="_blank" rel="noopener" class="legal-about-btn-secondary">Chat on WhatsApp</a>\
-    <a href="https://github.com/andresguerra321" target="_blank" rel="noopener" class="legal-about-btn-tertiary">GitHub ↗</a>\
-  </div>\
-</div>' : '\
-<div class="legal-about-wrap">\
-  <div class="legal-about-hero">\
-    <div class="legal-about-avatar-wrap">\
-      <img src="img/about/sobremi-800.webp" alt="Andrés Felipe Guerra (Pipe)" class="legal-about-avatar" width="64" height="64" loading="lazy">\
-      <span class="legal-about-status-dot" title="Disponible para proyectos"></span>\
-    </div>\
-    <div class="legal-about-hero-info">\
-      <div class="legal-about-name">Andrés Felipe Guerra <span class="legal-about-alias">(Pipe)</span></div>\
-      <div class="legal-about-role">Ingeniero de Software · Bucaramanga, Colombia</div>\
-      <div class="legal-about-status-tag"><span class="legal-status-dot"></span> Trato directo 1 a 1 · Sin intermediarios</div>\
-    </div>\
-  </div>\
-  <p class="legal-about-bio">\
-    Convierto procesos manuales, hojas de cálculo desordenadas y cuellos de botella en software a la medida, automatizaciones con IA y simulaciones. Sin comisiones de agencia ni capas burocráticas: hablas directamente con quien programa y despliega tu sistema.\
-  </p>\
-  <div class="legal-about-pillars">\
-    <div class="legal-pillar-card">\
-      <div class="legal-pillar-header">\
-        <span class="legal-pillar-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>\
-        <span class="legal-pillar-title">Formación Campuslands</span>\
-      </div>\
-      <p class="legal-pillar-desc">\
-        +1,000 horas de programación intensiva, algoritmia profunda, arquitecturas limpias y sistemas de producción de alta concurrencia.\
-      </p>\
-    </div>\
-    <div class="legal-pillar-card">\
-      <div class="legal-pillar-header">\
-        <span class="legal-pillar-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>\
-        <span class="legal-pillar-title">Soberanía Tecnológica</span>\
-      </div>\
-      <p class="legal-pillar-desc">\
-        En desarrollos a medida, el 100% del código fuente, repositorio Git y propiedad intelectual son de tu empresa. Cero rentas forzosas.\
-      </p>\
-    </div>\
-  </div>\
-  <div class="legal-about-doors">\
-    <div class="legal-doors-header">3 Tipos de Problemas que Resuelvo:</div>\
-    <div class="legal-doors-grid">\
-      <div class="legal-door-item">\
-        <span class="legal-door-dot"></span>\
-        <div><strong>Automatización con IA:</strong> Bots de WhatsApp que atienden, agendan y venden 24/7 sin descanso.</div>\
-      </div>\
-      <div class="legal-door-item">\
-        <span class="legal-door-dot"></span>\
-        <div><strong>Software de Administración:</strong> Paneles y sistemas a medida que ordenan tu negocio y reemplazan Excel.</div>\
-      </div>\
-      <div class="legal-door-item">\
-        <span class="legal-door-dot"></span>\
-        <div><strong>Simulación & Solución:</strong> Modelos matemáticos y pruebas interactivas para validar antes de invertir.</div>\
-      </div>\
-    </div>\
-  </div>\
-  <div class="legal-about-actions">\
-    <a href="sobre-mi.html" class="legal-about-btn-primary">Ver Trayectoria y Visión Completa ↗</a>\
-    <a href="https://wa.me/573185602203" target="_blank" rel="noopener" class="legal-about-btn-secondary">Conversar por WhatsApp</a>\
-    <a href="https://github.com/andresguerra321" target="_blank" rel="noopener" class="legal-about-btn-tertiary">GitHub ↗</a>\
-  </div>\
-</div>'
-    };
-
     // ─── TAB 1: PRIVACY & COOKIES ───
     content.privacy = {
       title: en ? 'Privacy & Tracking Policy' : 'Política de Privacidad y Seguimiento',
@@ -602,37 +480,6 @@
 .cookie-btn-decline:hover{background:rgba(255,255,255,0.12);color:#fff}\
 .cookie-btn-accept{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,0.35)}\
 .cookie-btn-accept:hover{filter:brightness(1.1);transform:translateY(-1px)}\
-.legal-about-wrap{display:flex;flex-direction:column;gap:14px}\
-.legal-about-hero{display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.08)}\
-.legal-about-avatar-wrap{position:relative;width:64px;height:64px;border-radius:50%;padding:2px;background:linear-gradient(135deg,rgba(99,102,241,0.7),rgba(56,189,248,0.4));flex-shrink:0}\
-.legal-about-avatar{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;background:#0E131F}\
-.legal-about-status-dot{position:absolute;bottom:1px;right:1px;width:12px;height:12px;background:#10B981;border:2px solid #0E131F;border-radius:50%;box-shadow:0 0 8px rgba(16,185,129,0.7)}\
-.legal-about-hero-info{display:flex;flex-direction:column;gap:2px}\
-.legal-about-name{font-size:1.05rem;font-weight:700;color:#fff;letter-spacing:-0.01em;display:flex;align-items:center;gap:6px;flex-wrap:wrap}\
-.legal-about-alias{font-size:0.75rem;font-weight:600;color:#38BDF8;background:rgba(56,189,248,0.12);padding:2px 7px;border-radius:10px;border:1px solid rgba(56,189,248,0.25)}\
-.legal-about-role{font-size:0.8rem;color:#94A3B8}\
-.legal-about-status-tag{font-size:0.75rem;color:#10B981;font-weight:500;margin-top:2px}\
-.legal-about-bio{font-size:0.84rem;line-height:1.6;color:#CBD5E1;margin:0}\
-.legal-about-pillars{display:grid;grid-template-columns:1fr 1fr;gap:10px}\
-.legal-pillar-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:4px}\
-.legal-pillar-header{display:flex;align-items:center;gap:6px}\
-.legal-pillar-icon svg{display:block;color:#38BDF8}\
-.legal-pillar-title{font-size:0.78rem;font-weight:700;color:#F1F5F9}\
-.legal-pillar-desc{font-size:0.75rem;line-height:1.45;color:#94A3B8;margin:0}\
-.legal-about-doors{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px}\
-.legal-doors-header{font-size:0.75rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.04em}\
-.legal-doors-grid{display:flex;flex-direction:column;gap:6px}\
-.legal-door-item{font-size:0.78rem;line-height:1.4;color:#94A3B8;display:flex;align-items:flex-start;gap:8px}\
-.legal-door-item strong{color:#E2E8F0}\
-.legal-door-dot{width:6px;height:6px;border-radius:50%;background:#38BDF8;display:inline-block;margin-top:6px;flex-shrink:0}\
-.legal-status-dot{width:8px;height:8px;border-radius:50%;background:#10B981;display:inline-block;box-shadow:0 0 8px rgba(16,185,129,0.7);margin-right:4px}\
-.legal-about-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:4px}\
-.legal-about-btn-primary{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;background:#4F46E5;color:#fff;border-radius:8px;text-decoration:none;font-size:0.8rem;font-weight:600;transition:background .2s ease}\
-.legal-about-btn-primary:hover{background:#4338CA;color:#fff}\
-.legal-about-btn-secondary{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;background:rgba(37,211,102,0.12);color:#25D366;border:1px solid rgba(37,211,102,0.25);border-radius:8px;text-decoration:none;font-size:0.8rem;font-weight:600;transition:background .2s ease}\
-.legal-about-btn-secondary:hover{background:rgba(37,211,102,0.2);color:#25D366}\
-.legal-about-btn-tertiary{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;background:rgba(255,255,255,0.04);color:#94A3B8;border:1px solid rgba(255,255,255,0.08);border-radius:8px;text-decoration:none;font-size:0.8rem;font-weight:500;transition:all .2s ease}\
-.legal-about-btn-tertiary:hover{color:#fff;background:rgba(255,255,255,0.08)}\
 @media(max-width:640px){\
 .legal-modal{max-height:92vh;border-radius:16px}\
 .legal-tabs{gap:0;padding:12px 16px 0}\
@@ -646,9 +493,6 @@
 .cookie-dock-footer{flex-direction:column;align-items:stretch;gap:12px}\
 .cookie-dock-actions{flex-direction:column-reverse;gap:8px}\
 .cookie-btn{width:100%;min-height:44px;text-align:center;justify-content:center}\
-.legal-about-pillars{grid-template-columns:1fr}\
-.legal-about-actions{flex-direction:column;align-items:stretch}\
-.legal-about-btn-primary,.legal-about-btn-secondary,.legal-about-btn-tertiary{justify-content:center;text-align:center}\
 }';
     (document.head || document.documentElement).appendChild(s);
   }
@@ -669,15 +513,15 @@
     backdropEl.setAttribute('aria-label', lang === 'en' ? 'Legal Center' : 'Centro Legal');
 
     var tabLabels = lang === 'en'
-      ? ['About Me', 'Privacy', 'Terms', 'Warranty', 'Sales']
-      : ['Sobre Mí', 'Privacidad', 'Términos', 'Garantía', 'Ventas'];
-    var tabKeys = ['about', 'privacy', 'terms', 'warranty', 'sales'];
+      ? ['Privacy', 'Terms', 'Warranty', 'Sales']
+      : ['Privacidad', 'Términos', 'Garantía', 'Ventas'];
+    var tabKeys = ['privacy', 'terms', 'warranty', 'sales'];
 
     var tabsHtml = tabKeys.map(function (key, i) {
       return '<button type="button" class="legal-tab' + (i === 0 ? ' active' : '') + '" data-legal-tab="' + key + '">' + tabLabels[i] + '</button>';
     }).join('');
 
-    var brandLabel = lang === 'en' ? 'AG Engineering — Info & Legal' : 'AG Engineering — Información y Legal';
+    var brandLabel = lang === 'en' ? 'AG Engineering — Legal & Compliance' : 'AG Engineering — Centro Legal & Términos';
     var footerNote = lang === 'en'
       ? 'AG Engineering — Andrés Felipe Guerra · Last updated: September 2026'
       : 'AG Engineering — Andrés Felipe Guerra · Última actualización: Septiembre 2026';
@@ -728,7 +572,7 @@
     }
 
     // Render content
-    var html = (tabKey === 'about' ? '' : '<h3 style="font-size:1.05rem;font-weight:800;color:#f8fafc;margin:0 0 16px;letter-spacing:-0.02em">' + data.title + '</h3>') + data.body;
+    var html = '<h3 style="font-size:1.05rem;font-weight:800;color:#f8fafc;margin:0 0 16px;letter-spacing:-0.02em">' + (data.title || '') + '</h3>' + (data.body || '');
 
     // Add consent controls on privacy tab
     if (tabKey === 'privacy' && data.consent) {
@@ -841,7 +685,12 @@
   function bindLegalTriggers() {
     document.addEventListener('click', function (e) {
       var el = e.target.closest('[data-open-about]');
-      if (el) { e.preventDefault(); openLegalModal('about'); return; }
+      if (el) {
+        e.preventDefault();
+        var isSub = window.location.pathname.indexOf('proyecto-') !== -1;
+        window.location.href = isSub ? '../sobre-mi.html' : 'sobre-mi.html';
+        return;
+      }
       el = e.target.closest('[data-open-privacy]');
       if (el) { e.preventDefault(); openLegalModal('privacy'); return; }
       el = e.target.closest('[data-open-terms]');
