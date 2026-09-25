@@ -34,19 +34,28 @@
 
     <!-- Scoped Styles for Profile & Story Architecture -->
     <style>
+        .section-wrapper {
+            padding-top: 3.5rem;
+            padding-bottom: 3.5rem;
+        }
+
         .about-hero-grid {
             display: grid;
             grid-template-columns: 1.15fr 0.85fr;
             gap: 3.5rem;
             align-items: center;
-            padding: 5rem 0 3rem;
+            padding: 1.5rem 0 2rem;
         }
 
         @media (max-width: 960px) {
+            .section-wrapper {
+                padding-top: 2.75rem;
+                padding-bottom: 2.75rem;
+            }
             .about-hero-grid {
                 grid-template-columns: 1fr;
                 gap: 2.5rem;
-                padding: 3rem 0 2rem;
+                padding: 1rem 0 1.5rem;
             }
         }
 
@@ -263,7 +272,7 @@
         <!-- ============================================================
              HERO: PRESENTACIÓN PERSONAL Y PROPUESTA DE VALOR
              ============================================================ -->
-        <section class="section-wrapper" style="padding-top: 7rem;">
+        <section class="section-wrapper" style="padding-top: 5rem;">
             <div class="container">
                 <div class="about-hero-grid">
                     <!-- Columna de Texto -->
@@ -496,35 +505,62 @@
                         </div>
                     </div>
 
-                    <!-- Caso 3: Laboratorio de Simulaciones (F1 Sim & Guardian) -->
+                    <!-- Caso 3: Laboratorio de Simulación F1 -->
                     <div class="story-chapter-card reveal">
                         <div class="chapter-num-badge">
-                            <span>03</span> • <span data-i18n="about_proj3_type">Laboratorio & Algoritmos</span>
+                            <span>03</span> • <span data-i18n="about_proj3_type">Simulación & Algoritmos</span>
                         </div>
-                        <h3 class="section-title" style="font-size: 1.45rem;" data-i18n="about_proj3_title">Laboratorio de Simulación: F1 Sim Pro & GUARDIAN</h3>
+                        <h3 class="section-title" style="font-size: 1.45rem;" data-i18n="about_proj3_title">F1 Sim Pro — Simulación Numérica en Tiempo Real</h3>
                         <p data-i18n="about_proj3_text">
-                            Para demostrar capacidad técnica profunda más allá del desarrollo web convencional, creé estos simuladores como pruebas de ingeniería algorítmica y procesamiento en tiempo real.
+                            Para demostrar capacidad técnica profunda más allá del desarrollo web convencional, creé este simulador como una prueba de ingeniería algorítmica, renderizado continuo y procesamiento de física diferencial.
                         </p>
                         <div class="story-problem-solution">
                             <div>
                                 <div class="story-block-title problem">El Desafío Técnico</div>
                                 <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj3_prob">
-                                    Calcular física numérica compleja a 60 FPS estables con multithreading en Java 17 (F1 Sim) y procesar visión artificial on-device para telemetría de alerta al conductor (GUARDIAN).
+                                    Calcular física numérica diferencial a 60 FPS estables sin micro-stutters, gestionando memoria y multithreading con Java 17 y estructuras concurrentes libres de bloqueos.
                                 </p>
                             </div>
                             <div>
-                                <div class="story-block-title solution">Impacto y Validación Técnica</div>
+                                <div class="story-block-title solution">Impacto y Validación de Ingeniería</div>
                                 <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj3_sol">
-                                    Dominio de concurrencia, matemáticas computacionales, optimización de memoria y arquitecturas robustas aplicables a cualquier software empresarial.
+                                    Dominio de concurrencia, matemáticas computacionales y optimización de memoria a bajo nivel aplicables a cualquier software empresarial de alta carga.
                                 </p>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                            <a href="proyecto-formula1/index.html" class="btn-secondary" style="font-size: 0.9rem;">
-                                Probar Simulador F1 ↗
+                        <div style="margin-top: 0.5rem;">
+                            <a href="proyecto-formula1/index.html" class="btn-secondary" style="font-size: 0.9rem;" data-i18n="about_proj3_btn">
+                                Explorar Simulador F1 ↗
                             </a>
-                            <a href="proyecto-guardian/guardian.html" class="btn-secondary" style="font-size: 0.9rem;">
-                                Ver Demo GUARDIAN ↗
+                        </div>
+                    </div>
+
+                    <!-- Caso 4: Proyecto Insignia I+D GUARDIAN -->
+                    <div class="story-chapter-card reveal" style="border-color: rgba(99, 102, 241, 0.35); background: linear-gradient(145deg, rgba(30, 27, 75, 0.25) 0%, rgba(15, 23, 42, 0.6) 100%);">
+                        <div class="chapter-num-badge" style="background: rgba(99, 102, 241, 0.15); border-color: rgba(99, 102, 241, 0.4); color: #C7D2FE;">
+                            <span>04</span> • <span data-i18n="about_proj4_type">I+D · Visión Computacional & Edge AI</span>
+                        </div>
+                        <h3 class="section-title" style="font-size: 1.45rem;" data-i18n="about_proj4_title">GUARDIAN — Copiloto IA de Seguridad y Visión Artificial</h3>
+                        <p data-i18n="about_proj4_text">
+                            Desarrollado como proyecto insignia de investigación para el Hackathon Voxel51 2026. Un sistema de telemetría y seguridad predictiva vehicular que procesa flujos de video continuo en el borde (on-device) sin enviar datos sensibles a la nube.
+                        </p>
+                        <div class="story-problem-solution">
+                            <div>
+                                <div class="story-block-title problem">El Problema y Desafío</div>
+                                <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj4_prob">
+                                    Los microsueños y distracciones al volante causan el 20-30% de accidentes viales. Las soluciones en la nube fallan por latencia y privacidad. Se requería inferencia a +30 FPS local con latencia menor a 15ms.
+                                </p>
+                            </div>
+                            <div>
+                                <div class="story-block-title solution">Solución de Ingeniería</div>
+                                <p style="font-size: 0.9rem; color: #CBD5E1; margin: 0;" data-i18n="about_proj4_sol">
+                                    Pipeline local en Python con FastAPI y MediaPipe Edge calculando ratios EAR y MAR en tiempo real, respaldado por un copiloto cooperativo de 3 agentes con 100% de privacidad física.
+                                </p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 0.5rem;">
+                            <a href="proyecto-guardian/guardian.html" class="btn-island" style="font-size: 0.9rem; background: rgba(99, 102, 241, 0.25); border-color: #818CF8; color: #FFF;" data-i18n="about_proj4_btn">
+                                Ver Demo Interactiva GUARDIAN ↗
                             </a>
                         </div>
                     </div>
@@ -591,7 +627,63 @@
         </section>
 
         <!-- ============================================================
-             SECCIÓN 5: DESCARGA DE CV & CONTACTO DIRECTO
+             SECCIÓN 5: COMPROMISOS & GARANTÍA PROFESIONAL
+             ============================================================ -->
+        <section class="section-wrapper">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="hero-chip" data-i18n="about_sec_guar_tag">Estándar de Confianza</span>
+                    <h2 class="section-title" data-i18n="about_sec_guar_title">Mis Compromisos de Entrega</h2>
+                    <p class="section-description" data-i18n="about_sec_guar_desc">
+                        Cada proyecto se ejecuta con reglas claras, sin costos ocultos y con respaldo real después del lanzamiento.
+                    </p>
+                </div>
+
+                <div class="bento-grid">
+                    <div class="bento-col-4 bento-card reveal">
+                        <div class="bento-card-main">
+                            <div class="bento-card-header">
+                                <span class="hero-chip">Respaldo Real</span>
+                                <span class="bento-concept-badge">90 Días</span>
+                            </div>
+                            <h3 class="section-title" style="font-size: 1.25rem;" data-i18n="about_g1_t">Garantía por Escrito</h3>
+                            <p data-i18n="about_g1_p">
+                                Todo desarrollo incluye 90 días de soporte correctivo posterior al despliegue en producción sin ningún costo adicional.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bento-col-4 bento-card reveal">
+                        <div class="bento-card-main">
+                            <div class="bento-card-header">
+                                <span class="hero-chip">Transparencia</span>
+                                <span class="bento-concept-badge">Git & Cloud</span>
+                            </div>
+                            <h3 class="section-title" style="font-size: 1.25rem;" data-i18n="about_g2_t">Acceso Total al Código</h3>
+                            <p data-i18n="about_g2_p">
+                                Recibes el repositorio completo de GitHub, diagramas de arquitectura y credenciales de tus servidores bajo tu control.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bento-col-4 bento-card reveal">
+                        <div class="bento-card-main">
+                            <div class="bento-card-header">
+                                <span class="hero-chip">Metodología</span>
+                                <span class="bento-concept-badge">Semanal</span>
+                            </div>
+                            <h3 class="section-title" style="font-size: 1.25rem;" data-i18n="about_g3_t">Demos Cada 7 Días</h3>
+                            <p data-i18n="about_g3_p">
+                                No esperas meses para ver resultados. Cada semana pruebas avances funcionales en un entorno privado de pre-producción.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             SECCIÓN 6: DESCARGA DE CV & CONTACTO DIRECTO
              ============================================================ -->
         <section class="section-wrapper" id="contacto">
             <div class="container">
@@ -650,5 +742,33 @@
     <!-- Interactive Logic & i18n Modules -->
     <script src="js/i18n.js" defer></script>
     <script src="js/transition.js" defer></script>
+    <script>
+        // Guaranteed reveal activator for sobre-mi.html
+        (function() {
+            function activateReveals() {
+                var els = document.querySelectorAll('.reveal');
+                if ('IntersectionObserver' in window) {
+                    var observer = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('revealed');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+                    els.forEach(function(el) { observer.observe(el); });
+                } else {
+                    els.forEach(function(el) { el.classList.add('revealed'); });
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', activateReveals);
+            } else {
+                activateReveals();
+            }
+            // Additional safety timeout in case of layout paint delays
+            setTimeout(activateReveals, 350);
+        })();
+    </script>
 </body>
 </html>
