@@ -84,6 +84,7 @@
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="../css/transition.css">
+  <link rel="stylesheet" href="../css/case-narrative.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 
   <style>
@@ -213,6 +214,95 @@
       <div class="hero-visual reveal-on-scroll reveal-delay-2">
         <div class="hardware-frame">
           <img src="../img/projects/guardian/3-1200.png" alt="Guardian Cockpit Telemetry Preview" class="hardware-img">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CASO DE ESTUDIO NARRATIVO: PROBLEMA → TU ROL → RESULTADO ===== -->
+    <section class="case-narrative-section" id="caso-de-estudio">
+      <div class="case-narrative-container">
+        <div class="case-narrative-header">
+          <div class="narrative-kicker" data-i18n="cn_kicker">CASO DE ESTUDIO // PROBLEMA → SOLUCIÓN → RESULTADO</div>
+          <h2 class="narrative-title" data-i18n="cn_title">Del Problema al <span class="highlight">Resultado Medible</span></h2>
+          <p class="narrative-subtitle" data-i18n="cn_sub">Cómo transformo un cuello de botella costoso en software eficiente y rentable para tu negocio.</p>
+        </div>
+
+        <div class="narrative-grid">
+          <!-- 01. EL PROBLEMA -->
+          <div class="narrative-card step-problem">
+            <div class="card-header-row">
+              <span class="card-step-badge" data-i18n="cn_badge_prob">01 // EL CUELLO DE BOTELLA</span>
+              <div class="card-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+            </div>
+            <h3 class="card-title" data-i18n="cn_gd_prob_title">Accidentes por fatiga y cámaras que fallan sin internet</h3>
+            <p class="card-desc" data-i18n="cn_gd_prob_desc">Los microsueños al volante causan el 20-30% de los accidentes en flotas. Las soluciones tradicionales en la nube fallan en carreteras sin señal celular y violan la privacidad al transmitir video de cabina.</p>
+            <div class="card-highlight-pill" data-i18n="cn_gd_prob_pill">❌ Siniestros viales costosos · Soluciones inservibles sin señal</div>
+          </div>
+
+          <!-- CONNECTOR 1 -->
+          <div class="narrative-connector" aria-hidden="true">
+            <div class="connector-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+          </div>
+
+          <!-- 02. MI ROL & SOLUCIÓN -->
+          <div class="narrative-card step-solution">
+            <div class="card-header-row">
+              <span class="card-step-badge" data-i18n="cn_badge_role">02 // LO QUE CONSTRUÍ</span>
+              <div class="card-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+            </div>
+            <h3 class="card-title" data-i18n="cn_gd_role_title">Visión artificial 100% en el dispositivo con alertas preventivas</h3>
+            <p class="card-desc" data-i18n="cn_gd_role_desc">Desarrollé un motor de visión por computadora que corre en el hardware dentro del vehículo (Python/FastAPI/MediaPipe). Mide la apertura ocular (EAR) y bostezos (MAR) a +30 FPS sin enviar video a internet.</p>
+            <div class="card-highlight-pill" data-i18n="cn_gd_role_pill">🛡️ 100% Edge Offline · 0 bytes transmitidos · Alerta en cabina</div>
+          </div>
+
+          <!-- CONNECTOR 2 -->
+          <div class="narrative-connector" aria-hidden="true">
+            <div class="connector-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+          </div>
+
+          <!-- 03. RESULTADO MEDIBLE -->
+          <div class="narrative-card step-result">
+            <div class="card-header-row">
+              <span class="card-step-badge" data-i18n="cn_badge_res">03 // RESULTADO MEDIBLE</span>
+              <div class="card-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+            </div>
+            <h3 class="card-title" data-i18n="cn_gd_res_title">Alerta en milisegundos y cero riesgo de privacidad</h3>
+            <p class="card-desc" data-i18n="cn_gd_res_desc">Detección en tiempo real con latencia menor a 15ms, alertando antes del cierre ocular completo. Funciona en cualquier carretera remota y garantiza la privacidad total del chofer.</p>
+            <div class="metrics-pill-cluster">
+              <span class="metric-micro-chip">✓ <strong data-i18n="cn_gd_res_m1">&lt; 15ms de latencia</strong></span>
+              <span class="metric-micro-chip">✓ <strong data-i18n="cn_gd_res_m2">100% offline edge</strong></span>
+              <span class="metric-micro-chip">✓ <strong data-i18n="cn_gd_res_m3">0 bytes a la nube</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAKEAWAY DE VENTA PARA USUARIO POCO TÉCNICO -->
+        <div class="narrative-takeaway">
+          <div class="takeaway-left">
+            <div class="takeaway-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            </div>
+            <div>
+              <div class="takeaway-heading" data-i18n="cn_takeaway_lbl">¿QUÉ SIGNIFICA ESTO PARA TU NEGOCIO?</div>
+              <p class="takeaway-text" data-i18n="cn_gd_takeaway">Protección de vidas y activos de tu flota con tecnología que funciona en cualquier lugar del país, sin pagar planes de datos móviles pesados ni arriesgar la privacidad del personal.</p>
+            </div>
+          </div>
+          <div class="takeaway-cta">
+            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20el%20proyecto%20GUARDIAN%20en%20tu%20sitio%20y%20me%20gustar%C3%ADa%20consultar%20sobre%20visi%C3%B3n%20artificial" target="_blank" rel="noopener" class="btn-takeaway">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span data-i18n="cn_takeaway_btn">Hablar directamente con Andrés</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

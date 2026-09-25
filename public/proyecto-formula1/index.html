@@ -50,6 +50,7 @@
     
     <link rel="stylesheet" href="css/index.css?v=2026.4">
     <link rel="stylesheet" href="../css/transition.css">
+    <link rel="stylesheet" href="../css/case-narrative.css">
 
     <!-- Google tag (gtag.js) - Google Consent Mode v2 -->
     <script>
@@ -151,8 +152,8 @@
                     <span data-i18n="nav_about">SOBRE MÍ</span>
                 </a>
                 <div style="display: flex; gap: 2px;">
-                    <button type="button" class="lang-chip active">ES</button>
-                    <button type="button" class="lang-chip">EN</button>
+                    <button type="button" class="lang-chip active" id="langBtnES" data-lang="es">ES</button>
+                    <button type="button" class="lang-chip" id="langBtnEN" data-lang="en">EN</button>
                 </div>
             </div>
         </div>
@@ -237,6 +238,95 @@
 
                     <div style="font-family: var(--font-mono); font-size: 11px; color: var(--c-titanium-500); text-align: center;">
                         CLICK EN CUALQUIER PILOTO DE LA TORRE PARA SUBIR AL COCKPIT
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CASO DE ESTUDIO NARRATIVO: PROBLEMA → TU ROL → RESULTADO ===== -->
+        <section class="case-narrative-section" id="caso-de-estudio">
+            <div class="case-narrative-container">
+                <div class="case-narrative-header">
+                    <div class="narrative-kicker" data-i18n="cn_kicker">CASO DE ESTUDIO // PROBLEMA → SOLUCIÓN → RESULTADO</div>
+                    <h2 class="narrative-title" data-i18n="cn_title">Del Problema al <span class="highlight">Resultado Medible</span></h2>
+                    <p class="narrative-subtitle" data-i18n="cn_sub">Cómo transformo un cuello de botella costoso en software eficiente y rentable para tu negocio.</p>
+                </div>
+
+                <div class="narrative-grid">
+                    <!-- 01. EL PROBLEMA -->
+                    <div class="narrative-card step-problem">
+                        <div class="card-header-row">
+                            <span class="card-step-badge" data-i18n="cn_badge_prob">01 // EL CUELLO DE BOTELLA</span>
+                            <div class="card-icon-box" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            </div>
+                        </div>
+                        <h3 class="card-title" data-i18n="cn_f1_prob_title">Sistemas web lentos que colapsan ante cálculos continuos</h3>
+                        <p class="card-desc" data-i18n="cn_f1_prob_desc">Cuando una aplicación corporativa necesita procesar miles de variables simultáneas (finanzas de alta frecuencia, gemelos digitales o telemetría industrial), las webs comunes sufren caídas de frames y se congelan.</p>
+                        <div class="card-highlight-pill" data-i18n="cn_f1_prob_pill">❌ Interfaces congeladas · Retrasos críticos en datos</div>
+                    </div>
+
+                    <!-- CONNECTOR 1 -->
+                    <div class="narrative-connector" aria-hidden="true">
+                        <div class="connector-arrow">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </div>
+                    </div>
+
+                    <!-- 02. MI ROL & SOLUCIÓN -->
+                    <div class="narrative-card step-solution">
+                        <div class="card-header-row">
+                            <span class="card-step-badge" data-i18n="cn_badge_role">02 // LO QUE CONSTRUÍ</span>
+                            <div class="card-icon-box" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                            </div>
+                        </div>
+                        <h3 class="card-title" data-i18n="cn_f1_role_title">Motor físico desacoplado en Java 17 y Canvas 60 FPS</h3>
+                        <p class="card-desc" data-i18n="cn_f1_role_desc">Diseñé una arquitectura concurrente multihilo no bloqueante que resuelve ecuaciones diferenciales de aerodinámica activa, potencia híbrida (350 kW) y desgaste de neumáticos en tiempo real a 60 FPS estables.</p>
+                        <div class="card-highlight-pill" data-i18n="cn_f1_role_pill">🏎️ Multihilo no bloqueante · 60 FPS vectoriales · Cero lag</div>
+                    </div>
+
+                    <!-- CONNECTOR 2 -->
+                    <div class="narrative-connector" aria-hidden="true">
+                        <div class="connector-arrow">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </div>
+                    </div>
+
+                    <!-- 03. RESULTADO MEDIBLE -->
+                    <div class="narrative-card step-result">
+                        <div class="card-header-row">
+                            <span class="card-step-badge" data-i18n="cn_badge_res">03 // RESULTADO MEDIBLE</span>
+                            <div class="card-icon-box" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            </div>
+                        </div>
+                        <h3 class="card-title" data-i18n="cn_f1_res_title">Fluidez cinematográfica a 60 FPS con 1ms de latencia</h3>
+                        <p class="card-desc" data-i18n="cn_f1_res_desc">Simulación reactiva sin micro-stutters. Demuestra la capacidad de crear sistemas de ingeniería de máxima demanda computacional para empresas que no admiten demoras de respuesta.</p>
+                        <div class="metrics-pill-cluster">
+                            <span class="metric-micro-chip">✓ <strong data-i18n="cn_f1_res_m1">60 FPS estables</strong></span>
+                            <span class="metric-micro-chip">✓ <strong data-i18n="cn_f1_res_m2">1ms latencia</strong></span>
+                            <span class="metric-micro-chip">✓ <strong data-i18n="cn_f1_res_m3">0 bloqueos de hilo</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAKEAWAY DE VENTA PARA USUARIO POCO TÉCNICO -->
+                <div class="narrative-takeaway">
+                    <div class="takeaway-left">
+                        <div class="takeaway-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        </div>
+                        <div>
+                            <div class="takeaway-heading" data-i18n="cn_takeaway_lbl">¿QUÉ SIGNIFICA ESTO PARA TU NEGOCIO?</div>
+                            <p class="takeaway-text" data-i18n="cn_f1_takeaway">Si puedo desarrollar un simulador de física y telemetría de Fórmula 1 fluido a 60 FPS en un navegador, el software de tu empresa funcionará con máxima velocidad y estabilidad sin importar la carga de datos.</p>
+                        </div>
+                    </div>
+                    <div class="takeaway-cta">
+                        <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20el%20simulador%20F1%20en%20tu%20sitio%20y%20me%20gustar%C3%ADa%20consultar%20sobre%20desarrollo%20de%20alta%20concurrencia" target="_blank" rel="noopener" class="btn-takeaway">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                            <span data-i18n="cn_takeaway_btn">Hablar directamente con Andrés</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1252,5 +1342,7 @@
 
     <!-- Simulation Script -->
     <script src="js/main.js?v=2026.7"></script>
+    <!-- Translation Engine -->
+    <script src="../js/i18n.js" defer></script>
 </body>
 </html>

@@ -80,6 +80,7 @@
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="../css/transition.css">
+  <link rel="stylesheet" href="../css/case-narrative.css">
 </head>
 <body>
 
@@ -189,48 +190,90 @@
       </div>
     </section>
 
-    <!-- ===== PROBLEMA VS SOLUCIÓN (Split Architecture Contrast) ===== -->
-    <section class="contrast-section" id="problema-solucion">
-      <div class="container">
-        <div class="section-head center">
-          <span class="section-kicker" data-i18n="ws_case_tag">Diagnóstico vs Solución</span>
-          <h2 class="section-heading" data-i18n="ws_case_title">Tu Sistema Actual vs Lo Que Construimos</h2>
-          <p class="section-desc" data-i18n="ws_case_sub">Plantillas lentas y costosas frente a software hecho a la medida de tu negocio.</p>
+    <!-- ===== CASO DE ESTUDIO NARRATIVO: PROBLEMA → TU ROL → RESULTADO ===== -->
+    <section class="case-narrative-section" id="caso-de-estudio">
+      <div class="case-narrative-container">
+        <div class="case-narrative-header">
+          <div class="narrative-kicker" data-i18n="cn_kicker">CASO DE ESTUDIO // PROBLEMA → SOLUCIÓN → RESULTADO</div>
+          <h2 class="narrative-title" data-i18n="cn_title">Del Problema al <span class="highlight">Resultado Medible</span></h2>
+          <p class="narrative-subtitle" data-i18n="cn_sub">Cómo transformo un cuello de botella costoso en software eficiente y rentable para tu negocio.</p>
         </div>
 
-        <div class="contrast-grid">
-          <!-- The Challenge -->
-          <div class="contrast-panel problem">
-            <span class="panel-tag rose">
-              <span data-i18n="ws_prob_tag">El Problema</span>
-            </span>
-            <h3 class="panel-title" data-i18n="ws_prob_t">Plantillas Genéricas & Deuda Técnica</h3>
-            <p class="panel-text" data-i18n="ws_prob_d">
-              Carga lenta, vulnerabilidades en plugins, cobros perpetuos por usuario y rigidez técnica que frena la operación.
-            </p>
-            <ul class="check-list negative">
-              <li><span class="check-icon">✕</span> <span data-i18n="ws_prob_f1">Carga lenta y bloatware innecesario</span></li>
-              <li><span class="check-icon">✕</span> <span data-i18n="ws_prob_f2">Tarifas recurrentes y dependencia de terceros</span></li>
-              <li><span class="check-icon">✕</span> <span data-i18n="ws_prob_f3">Restricciones para personalizar la lógica de negocio</span></li>
-              <li><span class="check-icon">✕</span> <span data-i18n="ws_prob_f4">Riesgos de seguridad en plugins desactualizados</span></li>
-            </ul>
+        <div class="narrative-grid">
+          <!-- 01. EL PROBLEMA -->
+          <div class="narrative-card step-problem">
+            <div class="card-header-row">
+              <span class="card-step-badge" data-i18n="cn_badge_prob">01 // EL CUELLO DE BOTELLA</span>
+              <div class="card-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+            </div>
+            <h3 class="card-title" data-i18n="cn_ws_prob_title">El caos de Excel o pagar $50-$100/mes por cada empleado</h3>
+            <p class="card-desc" data-i18n="cn_ws_prob_desc">Hojas de cálculo compartidas que se dañan, inventarios desfasados y pérdida de datos. O contratar software comercial empaquetado que impone cobros perpetuos por cada usuario y no se adapta a tu flujo real.</p>
+            <div class="card-highlight-pill" data-i18n="cn_ws_prob_pill">❌ Fórmulas dañadas en Excel · Costos de licencias crecientes</div>
           </div>
 
-          <!-- The Solution -->
-          <div class="contrast-panel solution">
-            <span class="panel-tag azure">
-              <span data-i18n="ws_sol_tag">Nuestra Solución</span>
-            </span>
-            <h3 class="panel-title" data-i18n="ws_sol_t">Software Propietario & Alta Velocidad</h3>
-            <p class="panel-text" data-i18n="ws_sol_d">
-              Desarrollo Fullstack moderno, bases de datos ACID y despliegue serverless. Código 100% propiedad de tu empresa.
-            </p>
-            <ul class="check-list positive">
-              <li><span class="check-icon">✓</span> <span data-i18n="ws_sol_f1">Respuesta rápida: tu página carga en menos de un segundo</span></li>
-              <li><span class="check-icon">✓</span> <span data-i18n="ws_sol_f2">Propiedad intelectual total: sin tarifas por usuario</span></li>
-              <li><span class="check-icon">✓</span> <span data-i18n="ws_sol_f3">Integración nativa con APIs, ERPs y bases de datos</span></li>
-              <li><span class="check-icon">✓</span> <span data-i18n="ws_sol_f4"><abbr title="Serverless: el servidor se adapta automáticamente a la demanda sin intervención manual">Crece sin límites</abbr> según la demanda de tu negocio</span></li>
-            </ul>
+          <!-- CONNECTOR 1 -->
+          <div class="narrative-connector" aria-hidden="true">
+            <div class="connector-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+          </div>
+
+          <!-- 02. MI ROL & SOLUCIÓN -->
+          <div class="narrative-card step-solution">
+            <div class="card-header-row">
+              <span class="card-step-badge" data-i18n="cn_badge_role">02 // LO QUE CONSTRUÍ</span>
+              <div class="card-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+            </div>
+            <h3 class="card-title" data-i18n="cn_ws_role_title">Plataforma y panel a la medida exacta de tu operación</h3>
+            <p class="card-desc" data-i18n="cn_ws_role_desc">Diseñé e implementé una plataforma web con arquitectura full-stack moderna (Next.js / Node.js / PostgreSQL). Centraliza clientes, inventarios y permisos por roles en un panel limpio, intuitivo y veloz.</p>
+            <div class="card-highlight-pill" data-i18n="cn_ws_role_pill">🔒 100% Código Propietario · Sin intermediarios · Datos blindados</div>
+          </div>
+
+          <!-- CONNECTOR 2 -->
+          <div class="narrative-connector" aria-hidden="true">
+            <div class="connector-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+          </div>
+
+          <!-- 03. RESULTADO MEDIBLE -->
+          <div class="narrative-card step-result">
+            <div class="card-header-row">
+              <span class="card-step-badge" data-i18n="cn_badge_res">03 // RESULTADO MEDIBLE</span>
+              <div class="card-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+            </div>
+            <h3 class="card-title" data-i18n="cn_ws_res_title">Control total, 90% menos tiempo y $0 por usuario</h3>
+            <p class="card-desc" data-i18n="cn_ws_res_desc">Balances e inventarios generados en minutos en vez de días. Todo tu equipo puede ingresar sin pagar mensualidades extras, con código fuente y base de datos 100% de tu empresa.</p>
+            <div class="metrics-pill-cluster">
+              <span class="metric-micro-chip">✓ <strong data-i18n="cn_ws_res_m1">90% menos tiempo</strong></span>
+              <span class="metric-micro-chip">✓ <strong data-i18n="cn_ws_res_m2">$0 por usuario</strong></span>
+              <span class="metric-micro-chip">✓ <strong data-i18n="cn_ws_res_m3">100% código propio</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAKEAWAY DE VENTA PARA USUARIO POCO TÉCNICO -->
+        <div class="narrative-takeaway">
+          <div class="takeaway-left">
+            <div class="takeaway-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            </div>
+            <div>
+              <div class="takeaway-heading" data-i18n="cn_takeaway_lbl">¿QUÉ SIGNIFICA ESTO PARA TU NEGOCIO?</div>
+              <p class="takeaway-text" data-i18n="cn_ws_takeaway">No tienes que adaptar tu empresa al software de otros. Construimos un sistema propio que resuelve exactamente tus cuellos de botella y crece contigo sin costos por empleado.</p>
+            </div>
+          </div>
+          <div class="takeaway-cta">
+            <a href="https://wa.me/573185602203?text=Hola%20Andr%C3%A9s,%20vi%20tu%20caso%20de%20desarrollo%20SaaS%20a%20medida%20y%20quiero%20cotizar%20un%20sistema" target="_blank" rel="noopener" class="btn-takeaway">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span data-i18n="cn_takeaway_btn">Hablar directamente con Andrés</span>
+            </a>
           </div>
         </div>
       </div>

@@ -674,6 +674,86 @@
             about_g3_t: 'Demos Cada 7 Días',
             about_g3_p: 'No esperas meses para ver resultados. Cada semana pruebas avances funcionales en un entorno privado de pre-producción.',
 
+            // Case Narrative: Problem -> Role -> Measurable Result (Client focus)
+            cn_kicker: 'CASO DE ESTUDIO // PROBLEMA → SOLUCIÓN → RESULTADO',
+            cn_title: 'Del Problema al <span class="highlight">Resultado Medible</span>',
+            cn_sub: 'Cómo transformo un cuello de botella costoso en software eficiente y rentable para tu negocio.',
+            cn_badge_prob: '01 // EL CUELLO DE BOTELLA',
+            cn_badge_role: '02 // LO QUE CONSTRUÍ',
+            cn_badge_res: '03 // RESULTADO MEDIBLE',
+            cn_takeaway_lbl: '¿QUÉ SIGNIFICA ESTO PARA TU NEGOCIO?',
+            cn_takeaway_btn: 'Hablar directamente con Andrés',
+
+            // WhatsApp Bot
+            cn_wa_prob_title: 'Clientes perdidos por demoras de varias horas en responder',
+            cn_wa_prob_desc: 'Si un cliente escribe a las 9 PM o en fin de semana y nadie le contesta, busca a tu competencia. Tu equipo perdía horas respondiendo las mismas 10 preguntas repetitivas en vez de cerrar ventas.',
+            cn_wa_prob_pill: '❌ 40% prospectos perdidos fuera de horario · Mensajes repetitivos',
+            cn_wa_role_title: 'Asistente IA con agendamiento autónomo y transcripción de voz',
+            cn_wa_role_desc: 'Construí un asistente conectado a WhatsApp con IA que transcribe audios de voz, responde dudas frecuentes de inmediato, agenda citas en Google Calendar automáticamente y deriva casos complejos a asesores humanos.',
+            cn_wa_role_pill: '⚡ Trato directo · Código propio · Conexión a tu WhatsApp',
+            cn_wa_res_title: 'Atención instantánea 24/7 y 85% de citas automáticas',
+            cn_wa_res_desc: 'Cero segundos de espera para el usuario a cualquier hora. El 85% de las reservas se concretan solas sin intervención humana, aumentando las ventas y liberando a tu personal.',
+            cn_wa_res_m1: '0s tiempo de espera',
+            cn_wa_res_m2: '85% citas autónomas',
+            cn_wa_res_m3: '0% comisiones mensuales',
+            cn_wa_takeaway: 'Tu negocio atiende, cotiza y agenda mientras duermes, sin contratar más recepcionistas ni pagar suscripciones mensuales abusivas a plataformas de terceros.',
+
+            // DeliveryBot
+            cn_db_prob_title: 'Caos de pedidos por chat y comisiones abusivas del 20-30%',
+            cn_db_prob_desc: 'En horas pico, los restaurantes colapsan con mensajes desordenados, comandas equivocadas y perdiendo entre el 15% y el 25% de su margen neto en comisiones cobradas por apps de delivery.',
+            cn_db_prob_pill: '❌ Pérdida del 20% de margen en apps · Pedidos enredados',
+            cn_db_role_title: 'Terminal de pedidos automatizada directo a cocina',
+            cn_db_role_desc: 'Diseñé un flujo interactivo dentro de WhatsApp que valida stock y adicionales, calcula el costo de envío con dirección y envía la comanda formateada directamente a la cocina por webhooks.',
+            cn_db_role_pill: '🍕 Menú interactivo · Base de datos propia · Cero comisiones',
+            cn_db_res_title: 'Despacho 4x más rápido y 100% de la ganancia para el local',
+            cn_db_res_desc: 'Eliminamos errores de comandas a cero. El negocio retiene el 100% de cada venta sin pagar comisiones por plato y construye su propia base de clientes para fidelización recurrente.',
+            cn_db_res_m1: '4x más rápido',
+            cn_db_res_m2: '0% comisiones a apps',
+            cn_db_res_m3: '0 errores de comanda',
+            cn_db_takeaway: 'Conviertes el WhatsApp de tu restaurante en una máquina de pedidos propia: no regalas tu rentabilidad a apps intermediarias y tus clientes siempre son tuyos.',
+
+            // SaaS & Web
+            cn_ws_prob_title: 'El caos de Excel o pagar $50-$100/mes por cada empleado',
+            cn_ws_prob_desc: 'Hojas de cálculo compartidas que se dañan, inventarios desfasados y pérdida de datos. O contratar software comercial empaquetado que impone cobros perpetuos por cada usuario y no se adapta a tu flujo real.',
+            cn_ws_prob_pill: '❌ Fórmulas dañadas en Excel · Costos de licencias crecientes',
+            cn_ws_role_title: 'Plataforma y panel a la medida exacta de tu operación',
+            cn_ws_role_desc: 'Diseñé e implementé una plataforma web con arquitectura full-stack moderna (Next.js / Node.js / PostgreSQL). Centraliza clientes, inventarios y permisos por roles en un panel limpio, intuitivo y veloz.',
+            cn_ws_role_pill: '🔒 100% Código Propietario · Sin intermediarios · Datos blindados',
+            cn_ws_res_title: 'Control total, 90% menos tiempo y $0 por usuario',
+            cn_ws_res_desc: 'Balances e inventarios generados en minutos en vez de días. Todo tu equipo puede ingresar sin pagar mensualidades extras, con código fuente y base de datos 100% de tu empresa.',
+            cn_ws_res_m1: '90% menos tiempo',
+            cn_ws_res_m2: '$0 por usuario',
+            cn_ws_res_m3: '100% código propio',
+            cn_ws_takeaway: 'No tienes que adaptar tu empresa al software de otros. Construimos un sistema propio que resuelve exactamente tus cuellos de botella y crece contigo sin costos por empleado.',
+
+            // GUARDIAN
+            cn_gd_prob_title: 'Accidentes por fatiga y cámaras que fallan sin internet',
+            cn_gd_prob_desc: 'Los microsueños al volante causan el 20-30% de los accidentes en flotas. Las soluciones tradicionales en la nube fallan en carreteras sin señal celular y violan la privacidad al transmitir video de cabina.',
+            cn_gd_prob_pill: '❌ Siniestros viales costosos · Soluciones inservibles sin señal',
+            cn_gd_role_title: 'Visión artificial 100% en el dispositivo con alertas preventivas',
+            cn_gd_role_desc: 'Desarrollé un motor de visión por computadora que corre en el hardware dentro del vehículo (Python/FastAPI/MediaPipe). Mide la apertura ocular (EAR) y bostezos (MAR) a +30 FPS sin enviar video a internet.',
+            cn_gd_role_pill: '🛡️ 100% Edge Offline · 0 bytes transmitidos · Alerta en cabina',
+            cn_gd_res_title: 'Alerta en milisegundos y cero riesgo de privacidad',
+            cn_gd_res_desc: 'Detección en tiempo real con latencia menor a 15ms, alertando antes del cierre ocular completo. Funciona en cualquier carretera remota y garantiza la privacidad total del chofer.',
+            cn_gd_res_m1: '< 15ms de latencia',
+            cn_gd_res_m2: '100% offline edge',
+            cn_gd_res_m3: '0 bytes a la nube',
+            cn_gd_takeaway: 'Protección de vidas y activos de tu flota con tecnología que funciona en cualquier lugar del país, sin pagar planes de datos móviles pesados ni arriesgar la privacidad del personal.',
+
+            // F1 Sim Pro
+            cn_f1_prob_title: 'Sistemas web lentos que colapsan ante cálculos continuos',
+            cn_f1_prob_desc: 'Cuando una aplicación corporativa necesita procesar miles de variables simultáneas (finanzas de alta frecuencia, gemelos digitales o telemetría industrial), las webs comunes sufren caídas de frames y se congelan.',
+            cn_f1_prob_pill: '❌ Interfaces congeladas · Retrasos críticos en datos',
+            cn_f1_role_title: 'Motor físico desacoplado en Java 17 y Canvas 60 FPS',
+            cn_f1_role_desc: 'Diseñé una arquitectura concurrente multihilo no bloqueante que resuelve ecuaciones diferenciales de aerodinámica activa, potencia híbrida (350 kW) y desgaste de neumáticos en tiempo real a 60 FPS estables.',
+            cn_f1_role_pill: '🏎️ Multihilo no bloqueante · 60 FPS vectoriales · Cero lag',
+            cn_f1_res_title: 'Fluidez cinematográfica a 60 FPS con 1ms de latencia',
+            cn_f1_res_desc: 'Simulación reactiva sin micro-stutters. Demuestra la capacidad de crear sistemas de ingeniería de máxima demanda computacional para empresas que no admiten demoras de respuesta.',
+            cn_f1_res_m1: '60 FPS estables',
+            cn_f1_res_m2: '1ms latencia',
+            cn_f1_res_m3: '0 bloqueos de hilo',
+            cn_f1_takeaway: 'Si puedo desarrollar un simulador de física y telemetría de Fórmula 1 fluido a 60 FPS en un navegador, el software de tu empresa funcionará con máxima velocidad y estabilidad sin importar la carga de datos.',
+
             ws_footer_rights: '© 2026 Andrés Felipe Guerra — Ingeniería de Software & Sistemas Propietarios.',
             footer_rights: '© 2026 AG Engineering — Andrés Felipe Guerra. Todos los derechos reservados.'
         },
@@ -1345,6 +1425,86 @@
             about_g3_t: 'Weekly Demos',
             about_g3_p: 'You don\'t wait months for results. Every week you test functional increments in a private staging environment.',
 
+            // Case Narrative: Problem -> Role -> Measurable Result (Client focus)
+            cn_kicker: 'CASE STUDY // PROBLEM → SOLUTION → RESULT',
+            cn_title: 'From the Problem to <span class="highlight">Measurable Results</span>',
+            cn_sub: 'How I turn an expensive operational bottleneck into efficient, profitable software for your business.',
+            cn_badge_prob: '01 // THE BOTTLENECK',
+            cn_badge_role: '02 // WHAT I BUILT',
+            cn_badge_res: '03 // MEASURABLE RESULT',
+            cn_takeaway_lbl: 'WHAT DOES THIS MEAN FOR YOUR BUSINESS?',
+            cn_takeaway_btn: 'Speak directly with Andrés',
+
+            // WhatsApp Bot
+            cn_wa_prob_title: 'Lost customers from hours of delayed replies',
+            cn_wa_prob_desc: 'If a client messages at 9 PM or on weekends and nobody responds, they turn to your competitors. Furthermore, staff spent 70% of their time manually answering the same 10 repetitive questions.',
+            cn_wa_prob_pill: '❌ 40% leads lost outside business hours · Repetitive manual replies',
+            cn_wa_role_title: 'AI Assistant with autonomous scheduling & voice transcription',
+            cn_wa_role_desc: 'I built a WhatsApp-connected AI assistant that transcribes voice audios, responds to FAQs instantly, schedules appointments in Google Calendar, and routes complex cases to human advisors.',
+            cn_wa_role_pill: '⚡ Direct contact · Proprietary code · Connected to your WhatsApp',
+            cn_wa_res_title: 'Instant 24/7 attention & 85% automated appointments',
+            cn_wa_res_desc: 'Zero seconds waiting time for users 24/7. 85% of bookings are completed autonomously without human intervention, boosting sales and freeing your staff.',
+            cn_wa_res_m1: '0s wait time',
+            cn_wa_res_m2: '85% autonomous bookings',
+            cn_wa_res_m3: '0% monthly commissions',
+            cn_wa_takeaway: 'Your business attends, quotes, and schedules while you sleep, without hiring more receptionists or paying abusive monthly SaaS subscription fees.',
+
+            // DeliveryBot
+            cn_db_prob_title: 'Chat order chaos & 25% commissions paid to delivery apps',
+            cn_db_prob_desc: 'During peak hours, restaurants collapse with disorganized chats, order transcription errors, and losing 15% to 25% of net profit in commissions paid to third-party delivery apps.',
+            cn_db_prob_pill: '❌ 20% margin loss to delivery apps · Tangled order chats',
+            cn_db_role_title: 'Automated order terminal straight to kitchen',
+            cn_db_role_desc: 'I engineered an interactive WhatsApp order flow that validates stock and add-ons, calculates delivery fees with address validation, and dispatches formatted tickets straight to kitchen.',
+            cn_db_role_pill: '🍕 Interactive menu · Owned customer database · Zero commissions',
+            cn_db_res_title: '4x faster dispatch & 100% of profit stays in your business',
+            cn_db_res_desc: 'We eliminated order errors entirely. The business retains 100% of every sale without third-party fees and builds its own customer database for repeat marketing.',
+            cn_db_res_m1: '4x faster dispatch',
+            cn_db_res_m2: '0% delivery app fees',
+            cn_db_res_m3: '0 order errors',
+            cn_db_takeaway: 'Turn your restaurant WhatsApp into an owned sales machine: stop surrendering your profit margins to third-party delivery apps and keep 100% ownership of your clients.',
+
+            // SaaS & Web
+            cn_ws_prob_title: 'The chaos of Excel or paying $50-$100/mo per employee',
+            cn_ws_prob_desc: 'Shared spreadsheets that get corrupted, mismatched inventories, and data loss. Or purchasing off-the-shelf software with perpetual per-user monthly fees that forces you into rigid workflows.',
+            cn_ws_prob_pill: '❌ Corrupted Excel formulas · Ballooning per-user license fees',
+            cn_ws_role_title: 'Custom platform & dashboard tailored to your operation',
+            cn_ws_role_desc: 'I architected and developed a custom full-stack web platform (Next.js / Node.js / PostgreSQL). It centralizes clients, inventories, and role-based access in a clean, intuitive, high-speed dashboard.',
+            cn_ws_role_pill: '🔒 100% Proprietary Code · No intermediaries · Hardened data',
+            cn_ws_res_title: 'Total control, 90% time saved & $0 per user',
+            cn_ws_res_desc: 'Financial balances and inventory audits generated in minutes rather than days. Your entire team can log in without paying extra monthly fees, with 100% proprietary code and data.',
+            cn_ws_res_m1: '90% time saved',
+            cn_ws_res_m2: '$0 per user fees',
+            cn_ws_res_m3: '100% proprietary code',
+            cn_ws_takeaway: 'You do not have to adapt your business to rigid third-party software. We build a custom system solving your exact bottlenecks that scales with your growth without per-seat costs.',
+
+            // GUARDIAN
+            cn_gd_prob_title: 'Fatigue accidents & cameras that fail without internet',
+            cn_gd_prob_desc: 'Microsleeps cause 20-30% of commercial fleet accidents. Traditional cloud solutions fail on highways with no cellular reception and trigger legal privacy issues by streaming cabin video.',
+            cn_gd_prob_pill: '❌ Costly road accidents · Cloud solutions useless without signal',
+            cn_gd_role_title: '100% On-device computer vision with preventive alerts',
+            cn_gd_role_desc: 'I developed an on-device computer vision engine running directly inside the vehicle hardware (Python/FastAPI/MediaPipe). It evaluates Eye Aspect Ratio (EAR) and yawns (MAR) at +30 FPS without sending video online.',
+            cn_gd_role_pill: '🛡️ 100% Edge Offline · 0 bytes transmitted · In-cabin alert',
+            cn_gd_res_title: 'Millisecond alert & zero privacy compliance risk',
+            cn_gd_res_desc: 'Real-time detection with latency under 15ms, alerting before eyes close completely. Operates on any remote highway and guarantees total driver privacy.',
+            cn_gd_res_m1: '< 15ms latency',
+            cn_gd_res_m2: '100% offline edge',
+            cn_gd_res_m3: '0 bytes to cloud',
+            cn_gd_takeaway: 'Protection of lives and fleet assets with technology that works anywhere, without expensive mobile data plans or driver privacy liabilities.',
+
+            // F1 Sim Pro
+            cn_f1_prob_title: 'Sluggish web apps that crash under continuous calculations',
+            cn_f1_prob_desc: 'When an enterprise app needs to process thousands of continuous variables (high-frequency finance, digital twins, or industrial telemetry), standard web apps drop frames and freeze.',
+            cn_f1_prob_pill: '❌ Frozen interfaces · Critical latency lags',
+            cn_f1_role_title: 'Decoupled Java 17 physics engine & 60 FPS Canvas',
+            cn_f1_role_desc: 'I engineered a non-blocking multi-threaded concurrent architecture solving differential equations for active aerodynamics, hybrid power (350 kW), and tyre degradation in real-time at stable 60 FPS.',
+            cn_f1_role_pill: '🏎️ Non-blocking multi-threading · Vector 60 FPS · Zero lag',
+            cn_f1_res_title: 'Cinematic 60 FPS smoothness with 1ms engine latency',
+            cn_f1_res_desc: 'Zero-stutter reactive simulation. Proves the capacity to engineer high-throughput systems for businesses where zero-lag calculation is non-negotiable.',
+            cn_f1_res_m1: 'Stable 60 FPS',
+            cn_f1_res_m2: '1ms engine latency',
+            cn_f1_res_m3: '0 thread blocks',
+            cn_f1_takeaway: 'If I can engineer a real-time Formula 1 physics and telemetry simulator running at 60 FPS in a browser, your business software will operate with extreme speed and stability no matter the workload.',
+
             ws_footer_rights: '© 2026 AG Engineering — Andrés Felipe Guerra. All rights reserved.',
             footer_rights: '© 2026 AG Engineering — Andrés Felipe Guerra. All rights reserved.'
         }
@@ -1376,33 +1536,12 @@
             }
         });
 
-        // The price toggling logic is no longer used since we use "Quote/Cotizar" text, 
-        // but we keep it here to avoid breaking existing pages if they have standard prices.
-        const priceAmounts = document.querySelectorAll('.price-amount');
-        const priceOriginals = document.querySelectorAll('.price-original');
-        if (priceAmounts.length > 0) {
-            priceAmounts.forEach(el => {
-                const cop = el.getAttribute('data-cop');
-                const usd = el.getAttribute('data-usd');
-                // Instead of using numeric tags, try fetching from dictionary if they match the UI elements.
-                // However, since we rewrote the translations to 'Cotizar/Quote', this block just acts as a fallback.
-                if (cop && usd) el.textContent = lang === 'en' ? usd : cop;
-            });
-            priceOriginals.forEach(el => {
-                const cop = el.getAttribute('data-cop');
-                const usd = el.getAttribute('data-usd');
-                if (cop && usd) el.textContent = lang === 'en' ? usd : cop;
-            });
-        }
-
-        // Update active class on switcher buttons
-        const btnES = document.getElementById('langBtnES');
-        const btnEN = document.getElementById('langBtnEN');
-
-        if (btnES && btnEN) {
-            btnES.classList.toggle('active', lang === 'es');
-            btnEN.classList.toggle('active', lang === 'en');
-        }
+        // Update active class on all switcher buttons and chips
+        document.querySelectorAll('.lang-btn, .lang-chip').forEach(btn => {
+            const text = (btn.getAttribute('data-lang') || btn.textContent || '').trim().toLowerCase();
+            const isMatch = (lang === 'es' && text.includes('es')) || (lang === 'en' && text.includes('en'));
+            btn.classList.toggle('active', isMatch);
+        });
 
         // Trigger custom event for other components if needed
         window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
@@ -1420,37 +1559,29 @@
             modal.classList.remove('active');
         }
 
-        // Attach modal listeners
+        // Attach listeners to all language buttons and chips dynamically
+        document.querySelectorAll('.lang-btn, .lang-chip, [data-lang]').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                const targetLang = this.getAttribute('data-lang') || 
+                                  (this.textContent.trim().toLowerCase().includes('en') ? 'en' : 'es');
+                setLanguage(targetLang);
+                if (modal) modal.classList.remove('active');
+            });
+        });
+
+        // Attach modal listeners specifically if present
         const modalBtnES = document.getElementById('modalBtnES');
         const modalBtnEN = document.getElementById('modalBtnEN');
-
         if (modalBtnES) {
             modalBtnES.addEventListener('click', function () {
                 setLanguage('es');
                 if (modal) modal.classList.remove('active');
             });
         }
-
         if (modalBtnEN) {
             modalBtnEN.addEventListener('click', function () {
                 setLanguage('en');
                 if (modal) modal.classList.remove('active');
-            });
-        }
-
-        // Attach Navbar toggle listeners
-        const btnES = document.getElementById('langBtnES');
-        const btnEN = document.getElementById('langBtnEN');
-
-        if (btnES) {
-            btnES.addEventListener('click', function () {
-                setLanguage('es');
-            });
-        }
-
-        if (btnEN) {
-            btnEN.addEventListener('click', function () {
-                setLanguage('en');
             });
         }
     }

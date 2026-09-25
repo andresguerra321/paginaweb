@@ -1,0 +1,430 @@
+/**
+ * Case Study Narrative Strip Styles (Problem → My Role → Measurable Result)
+ * Designed for AG Engineering portfolio — Visual, crisp, non-technical client focus.
+ */
+
+.case-narrative-section {
+  padding: 4.5rem 0 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-narrative-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header */
+.case-narrative-header {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 3rem;
+}
+
+.narrative-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  color: #60A5FA;
+  margin-bottom: 1rem;
+}
+
+.narrative-title {
+  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #F8FAFC;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  margin: 0 0 1rem;
+}
+
+.narrative-title .highlight {
+  background: linear-gradient(135deg, #60A5FA 0%, #34D399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.narrative-subtitle {
+  font-size: 1.05rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 3-Step Narrative Grid */
+.narrative-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: 2.5rem;
+}
+
+/* Connectors */
+.narrative-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.85rem;
+  color: rgba(148, 163, 184, 0.4);
+}
+
+.connector-arrow {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  color: #64748B;
+  transition: all 0.3s ease;
+}
+
+.narrative-grid:hover .connector-arrow {
+  color: #60A5FA;
+  border-color: rgba(96, 165, 250, 0.35);
+  background: rgba(96, 165, 250, 0.08);
+}
+
+/* Card Styling */
+.narrative-card {
+  position: relative;
+  background: rgba(13, 17, 23, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, box-shadow 0.28s ease;
+  overflow: hidden;
+}
+
+.narrative-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.narrative-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+}
+
+/* Card Themes */
+/* 01. The Problem */
+.narrative-card.step-problem::before {
+  background: linear-gradient(90deg, transparent, #F43F5E, transparent);
+}
+.narrative-card.step-problem:hover {
+  border-color: rgba(244, 63, 94, 0.3);
+  box-shadow: 0 20px 40px -15px rgba(244, 63, 94, 0.15);
+}
+.step-problem .card-step-badge {
+  background: rgba(244, 63, 94, 0.1);
+  color: #FB7185;
+  border: 1px solid rgba(244, 63, 94, 0.25);
+}
+.step-problem .card-icon-box {
+  background: rgba(244, 63, 94, 0.12);
+  color: #F43F5E;
+  border: 1px solid rgba(244, 63, 94, 0.22);
+}
+
+/* 02. My Role / Solution */
+.narrative-card.step-solution::before {
+  background: linear-gradient(90deg, transparent, #3B82F6, transparent);
+}
+.narrative-card.step-solution:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.18);
+}
+.step-solution .card-step-badge {
+  background: rgba(59, 130, 246, 0.1);
+  color: #60A5FA;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+.step-solution .card-icon-box {
+  background: rgba(59, 130, 246, 0.12);
+  color: #60A5FA;
+  border: 1px solid rgba(59, 130, 246, 0.22);
+}
+
+/* 03. Measurable Result */
+.narrative-card.step-result::before {
+  background: linear-gradient(90deg, transparent, #10B981, transparent);
+}
+.narrative-card.step-result:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(16, 185, 129, 0.18);
+}
+.step-result .card-step-badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+.step-result .card-icon-box {
+  background: rgba(16, 185, 129, 0.12);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.22);
+}
+
+/* Card Inner Components */
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.card-step-badge {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.card-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-icon-box svg {
+  width: 22px;
+  height: 22px;
+}
+
+.card-title {
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.35;
+  margin: 0 0 0.85rem;
+}
+
+.card-desc {
+  font-size: 0.94rem;
+  color: #CBD5E1;
+  line-height: 1.65;
+  margin: 0 0 1.5rem;
+  flex-grow: 1;
+}
+
+/* Bottom Highlight Pill inside Card */
+.card-highlight-pill {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.step-problem .card-highlight-pill {
+  color: #FECDD3;
+  border-color: rgba(244, 63, 94, 0.18);
+  background: rgba(244, 63, 94, 0.05);
+}
+
+.step-solution .card-highlight-pill {
+  color: #BFDBFE;
+  border-color: rgba(59, 130, 246, 0.18);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.step-result .card-highlight-pill {
+  color: #A7F3D0;
+  border-color: rgba(16, 185, 129, 0.18);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+/* Metric Chips for Step 3 */
+.metrics-pill-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.metric-micro-chip {
+  padding: 6px 10px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #6EE7B7;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.metric-micro-chip strong {
+  color: #FFFFFF;
+}
+
+/* Takeaway Banner (Non-technical Sales Pitch) */
+.narrative-takeaway {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid #3B82F6;
+  border-radius: 14px;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.takeaway-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.takeaway-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60A5FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.takeaway-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.takeaway-heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #60A5FA;
+  margin-bottom: 0.25rem;
+}
+
+.takeaway-text {
+  font-size: 0.95rem;
+  color: #E2E8F0;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.takeaway-cta {
+  flex-shrink: 0;
+}
+
+.btn-takeaway {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.85rem 1.4rem;
+  border-radius: 10px;
+  background: #3B82F6;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.btn-takeaway:hover {
+  background: #2563EB;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
+}
+
+/* Responsive Rules */
+@media (max-width: 1024px) {
+  .narrative-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .narrative-connector {
+    padding: 0;
+    justify-content: center;
+  }
+
+  .connector-arrow {
+    transform: rotate(90deg);
+  }
+
+  .narrative-takeaway {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.5rem;
+  }
+
+  .takeaway-cta {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .case-narrative-section {
+    padding: 3rem 0 2.5rem;
+  }
+
+  .narrative-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+  }
+
+  .takeaway-left {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .btn-takeaway {
+    width: 100%;
+    justify-content: center;
+  }
+}
