@@ -328,7 +328,7 @@
             item_guardian_badge: 'I+D · Voxel51 Hackathon',
             item_guardian_title: 'GUARDIAN — Copiloto IA de Seguridad Vehicular & Visión Edge',
             item_guardian_desc: 'Sistema predictivo vehicular con visión artificial en el borde. Detección continua de fatiga y distracción (EAR/MAR) a +30 FPS, copiloto cooperativo de 3 agentes y procesamiento 100% on-device con cero latencia de nube.',
-            item_guardian_btn: 'Ver Demo GUARDIAN ↗',
+            item_guardian_btn: 'Ver Demo GUARDIAN',
 
             item3_date: 'Mar 2026',
             item3_badge: 'Sistemas Propietarios',
@@ -1128,7 +1128,7 @@
             item_guardian_badge: 'R&D · Voxel51 Hackathon',
             item_guardian_title: 'GUARDIAN — AI Vehicle Safety Copilot & Edge Vision',
             item_guardian_desc: 'Predictive automotive safety system with edge computer vision. Continuous fatigue/distraction tracking (EAR/MAR) at +30 FPS, cooperative 3-agent intelligence, and 100% on-device privacy with zero cloud latency.',
-            item_guardian_btn: 'View GUARDIAN Demo ↗',
+            item_guardian_btn: 'View GUARDIAN Demo',
 
             item3_date: 'Mar 2026',
             item3_badge: 'Proprietary Systems',
