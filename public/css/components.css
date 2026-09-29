@@ -2281,12 +2281,87 @@
    11. FOOTER — Split Obsidian Glass Architecture (Sobre Mí & Políticas)
    ============================================================ */
 footer {
-    padding-top: 4.5rem;
-    padding-bottom: 3rem;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
     border-top: 1px solid var(--border-subtle);
-    background: linear-gradient(180deg, rgba(7, 9, 14, 0.3) 0%, rgba(14, 19, 31, 0.6) 100%);
+    background: linear-gradient(180deg, rgba(7, 9, 14, 0.4) 0%, rgba(14, 19, 31, 0.75) 100%);
     position: relative;
     overflow: hidden;
+    text-align: center;
+    width: 100%;
+}
+
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.9rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+    text-align: center;
+    line-height: 1.5;
+    width: 100%;
+}
+
+.footer-legal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.footer-privacy-link {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    padding: 0.2rem 0.35rem;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: none;
+    transition: color var(--duration-fast) ease, text-decoration var(--duration-fast) ease;
+}
+
+.footer-privacy-link:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+.footer-legal-sep {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.82rem;
+    user-select: none;
+}
+
+@media (max-width: 640px) {
+    footer {
+        padding-top: 2.75rem;
+        padding-bottom: 2.75rem;
+    }
+
+    footer p {
+        font-size: 0.82rem;
+    }
+
+    .footer-legal {
+        gap: 0.35rem 0.55rem;
+    }
+
+    .footer-privacy-link {
+        font-size: 0.78rem;
+    }
 }
 
 .footer-split-grid {
