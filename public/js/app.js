@@ -118,11 +118,19 @@
                 }
             });
 
+            // Auto-center active tab in mobile scrollable tab bar
+            const activeNavTab = document.querySelector('.nav-links .nav-link.active');
+            const navLinksContainer = document.querySelector('.nav-links');
+            if (activeNavTab && navLinksContainer && navLinksContainer.scrollWidth > navLinksContainer.clientWidth) {
+                const scrollLeft = activeNavTab.offsetLeft - (navLinksContainer.clientWidth / 2) + (activeNavTab.clientWidth / 2);
+                navLinksContainer.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
+            }
+
             // Smooth scroll or reposition to top or specific target without layout jank
             if (scrollToSection && scrollToSection !== tabId && scrollToSection !== '#hero' && scrollToSection !== '#about') {
                 const targetEl = document.querySelector(scrollToSection);
                 if (targetEl) {
-                    const topPos = targetEl.getBoundingClientRect().top + window.pageYOffset - (isMobile ? 55 : 70);
+                    const topPos = targetEl.getBoundingClientRect().top + window.pageYOffset - (isMobile ? 95 : 70);
                     window.scrollTo({ top: topPos, behavior: isMobile ? 'auto' : 'smooth' });
                 }
             } else {
@@ -174,6 +182,13 @@
                 if (e.target === mobileOverlay) toggleMobileNav(false);
             });
         }
+
+        // Close mobile overlay on clicking any mobile nav link (including external/sobre-mi.html)
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMobileNav(false);
+            });
+        });
 
         // Bind clicks on internal hashtag links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
