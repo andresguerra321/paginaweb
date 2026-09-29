@@ -54,7 +54,7 @@
             if (targetId === '#timeline') {
                 return '#timeline';
             }
-            if (targetId === '#skills' || targetId === '#tech') {
+            if (targetId === '#skills' || targetId === '#tech' || targetId === '#how-i-work') {
                 return '#skills';
             }
             if (targetId === '#contact') {
@@ -84,7 +84,7 @@
                         shouldShow = true;
                     }
                 } else if (tabId === '#skills') {
-                    if (sectionId === '#skills') {
+                    if (sectionId === '#skills' || sectionId === '#how-i-work') {
                         shouldShow = true;
                     }
                 } else if (tabId === '#contact') {
