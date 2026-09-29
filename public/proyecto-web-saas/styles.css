@@ -68,6 +68,8 @@ html {
   font-size: 16px;
   background-color: var(--bg-base);
   color-scheme: dark;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -747,7 +749,7 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  color: var(--primary);
+  color: var(--accent-azure);
   font-weight: 600;
   font-size: 0.92rem;
   text-decoration: none;
@@ -755,7 +757,7 @@ section {
 }
 
 .evidence-link:hover {
-  color: var(--accent-azure);
+  color: #7dd3fc;
   transform: translateX(4px);
 }
 
@@ -975,6 +977,26 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .nav-container {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding: 0 0.5rem;
+  }
+  .nav-meta-group {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .status-pill {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  .cookie-consent-dock {
+    max-width: calc(100vw - 24px) !important;
+    left: 12px !important;
+    right: 12px !important;
+    transform: none !important;
+    width: auto !important;
+  }
   .contrast-grid, .evidence-deck {
     grid-template-columns: 1fr;
   }

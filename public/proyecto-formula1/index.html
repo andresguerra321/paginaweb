@@ -224,7 +224,7 @@
                     <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; border: 1px solid var(--c-titanium-border);" class="flex-col gap-1">
                         <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px;">
                             <span>VUELTA RÁPIDA:</span>
-                            <strong style="color: #BD00FF;">1:12.180 (C. LECLERC)</strong>
+                            <strong style="color: #D455FF;">1:12.180 (C. LECLERC)</strong>
                         </div>
                         <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px;">
                             <span>TEMPERATURA ASFALTO:</span>
@@ -494,7 +494,7 @@
                         </div>
                         <div class="pedal-box">
                             <div class="pedal-header">
-                                <span style="color: var(--c-ferrari-red);">FRENO</span>
+                                <span style="color: #FF5555;">FRENO</span>
                                 <span id="hudBrakeVal" style="color: #fff;">0%</span>
                             </div>
                             <div class="pedal-bar-track">
@@ -976,7 +976,7 @@
                 <!-- P2 -->
                 <div class="podium-spot p2">
                     <div class="podium-rank-badge">2</div>
-                    <span class="badge-tech" style="border-color: #1E41FF; color: #1E41FF;">RED BULL FORD</span>
+                    <span class="badge-tech" style="border-color: rgba(92, 130, 255, 0.4); color: #5C82FF;">RED BULL FORD</span>
                     <div class="podium-driver-name">Max Verstappen</div>
                     <div class="podium-time-delta">+1.482S // INTERVALO</div>
                     <span style="font-family: var(--font-mono); font-size: 11px; color: #8E95A5;">+18 PTS</span>
@@ -990,7 +990,7 @@
                     <div class="podium-time-delta" style="color: #FFD700; font-weight: 700;">TIEMPO TOTAL: 1:24:48.210</div>
                     <div class="flex-row gap-1" style="margin-top: 4px;">
                         <span class="badge-tech aston">+25 PTS</span>
-                        <span class="badge-tech" style="border-color: #BD00FF; color: #BD00FF;">DHL FASTEST LAP (+1 PT)</span>
+                        <span class="badge-tech" style="border-color: rgba(212, 85, 255, 0.4); color: #D455FF;">DHL FASTEST LAP (+1 PT)</span>
                     </div>
                 </div>
 
@@ -1020,8 +1020,8 @@
             <div class="comparator-panel">
                 <div class="comparator-selectors-bar">
                     <div class="driver-select-box">
-                        <label style="font-family: var(--font-mono); font-size: 10px; color: #8E95A5; display: block; margin-bottom: 4px;">PILOTO A</label>
-                        <select class="f1-select-input" id="compDriverA">
+                        <label for="compDriverA" style="font-family: var(--font-mono); font-size: 10px; color: #8E95A5; display: block; margin-bottom: 4px;">PILOTO A</label>
+                        <select class="f1-select-input" id="compDriverA" aria-label="Seleccionar Piloto A">
                             <!-- Populated via JS -->
                         </select>
                     </div>
@@ -1029,8 +1029,8 @@
                     <div class="vs-badge-center">VS</div>
 
                     <div class="driver-select-box">
-                        <label style="font-family: var(--font-mono); font-size: 10px; color: #8E95A5; display: block; margin-bottom: 4px;">PILOTO B</label>
-                        <select class="f1-select-input" id="compDriverB">
+                        <label for="compDriverB" style="font-family: var(--font-mono); font-size: 10px; color: #8E95A5; display: block; margin-bottom: 4px;">PILOTO B</label>
+                        <select class="f1-select-input" id="compDriverB" aria-label="Seleccionar Piloto B">
                             <!-- Populated via JS -->
                         </select>
                     </div>
@@ -1325,11 +1325,11 @@
         </div>
         <div class="container" style="text-align:center;padding-top:12px;">
             <div class="footer-legal">
-                <button type="button" class="footer-privacy-link" data-open-privacy style="color:#8E95A5;">Política de Privacidad</button>
-                <span class="footer-legal-sep" style="color:#8E95A5;">·</span>
-                <button type="button" class="footer-privacy-link" data-open-terms style="color:#8E95A5;">Términos y Condiciones</button>
-                <span class="footer-legal-sep" style="color:#8E95A5;">·</span>
-                <button type="button" class="footer-privacy-link" data-open-warranty style="color:#8E95A5;">Garantía</button>
+                <button type="button" class="footer-privacy-link" data-open-privacy style="color:#CBD5E1;">Política de Privacidad</button>
+                <span class="footer-legal-sep" style="color:#94A3B8;">·</span>
+                <button type="button" class="footer-privacy-link" data-open-terms style="color:#CBD5E1;">Términos y Condiciones</button>
+                <span class="footer-legal-sep" style="color:#94A3B8;">·</span>
+                <button type="button" class="footer-privacy-link" data-open-warranty style="color:#CBD5E1;">Garantía</button>
             </div>
         </div>
     </footer>

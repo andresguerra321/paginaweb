@@ -457,9 +457,9 @@
 .legal-footer{padding:16px 24px;border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}\
 .legal-footer p{font-size:.72rem;color:#475569;margin:0;text-align:center;line-height:1.5}\
 .footer-legal{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;margin-top:8px}\
-.footer-privacy-link{background:none;border:none;color:inherit;opacity:0.5;font-size:inherit;font-family:inherit;cursor:pointer;padding:2px 4px;transition:opacity .2s ease;text-decoration:none}\
-.footer-privacy-link:hover{opacity:0.85;text-decoration:underline}\
-.footer-legal-sep{opacity:0.3}\
+.footer-privacy-link{background:none;border:none;color:inherit;opacity:0.88;font-size:inherit;font-family:inherit;cursor:pointer;padding:2px 4px;transition:opacity .2s ease;text-decoration:none}\
+.footer-privacy-link:hover{opacity:1;text-decoration:underline}\
+.footer-legal-sep{opacity:0.6}\
 .cookie-consent-dock{position:fixed;bottom:24px;left:50%;transform:translate(-50%,0);width:min(720px,calc(100% - 32px));background:rgba(11,15,25,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(59,130,246,0.35);box-shadow:0 20px 60px rgba(0,0,0,0.9),0 0 35px rgba(37,99,235,0.25);border-radius:18px;padding:20px 24px;z-index:2147483647;font-family:"Inter",system-ui,-apple-system,sans-serif;color:#f8fafc;display:flex;flex-direction:column;gap:14px;box-sizing:border-box;animation:slideUpConsent .4s cubic-bezier(.16,1,.3,1) forwards}\
 @keyframes slideUpConsent{from{opacity:0;transform:translate(-50%,30px) scale(0.97)}to{opacity:1;transform:translate(-50%,0) scale(1)}}\
 .cookie-dock-header{display:flex;align-items:center;justify-content:space-between;gap:12px}\

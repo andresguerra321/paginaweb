@@ -1543,7 +1543,7 @@
             towerEl.querySelectorAll('.timing-row').forEach(row => {
                 const isTarget = row.getAttribute('data-driver') === driverId;
                 row.classList.toggle('active', isTarget);
-                row.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+                row.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
             });
         }
 
@@ -1585,7 +1585,7 @@
             const logoSrc = DRIVER_TEAM_LOGOS[car.id] || '';
 
             return `
-                <div class="timing-row ${isActive ? 'active' : ''}" data-driver="${car.id}" role="button" tabindex="0" aria-selected="${isActive ? 'true' : 'false'}" style="--row-team-color: ${car.color};">
+                <div class="timing-row ${isActive ? 'active' : ''}" data-driver="${car.id}" role="button" tabindex="0" aria-pressed="${isActive ? 'true' : 'false'}" aria-label="Seleccionar telemetría de ${car.team} #${car.num}" style="--row-team-color: ${car.color};">
                     <span class="timing-pos">${idx + 1}</span>
                     <span class="timing-team-stripe" style="background: ${car.color};"></span>
                     ${logoSrc ? `<img class="timing-team-logo" src="${logoSrc}" alt="${car.team}" loading="lazy" />` : ''}

@@ -191,6 +191,12 @@
         const initialHash = window.location.hash || '#hero';
         activateSection(initialHash, initialHash);
 
+        // Handle browser back/forward and external hash navigation
+        window.addEventListener('hashchange', function () {
+            const currentHash = window.location.hash || '#hero';
+            activateSection(currentHash, currentHash);
+        });
+
         /* ------------------------------------------------------------
            4. HARDWARE-ACCELERATED SCROLL REVEALS
            ------------------------------------------------------------ */
@@ -224,6 +230,13 @@
             const cta = document.getElementById('heroCta');
             const mobileVisual = document.getElementById('heroMobileVisual');
             const trustStrip = document.querySelector('.hero-trust-strip');
+
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                [status, title, subtitle, cta, mobileVisual, trustStrip].forEach(el => {
+                    if (el) { el.style.opacity = '1'; el.style.transform = 'none'; }
+                });
+                return;
+            }
 
             if (typeof anime !== 'undefined') {
                 anime.timeline({

@@ -211,7 +211,7 @@
                 return;
             }
 
-            if (href.endsWith('.html') || href.includes('.html?') || href === './' || href === '../' || href === 'index.html') {
+            if (href.endsWith('.html') || href.includes('.html?') || href.includes('.html#') || href === './' || href === '../' || href === 'index.html' || href.startsWith('index.html#') || href.startsWith('../index.html#')) {
                 e.preventDefault();
                 try {
                     sessionStorage.setItem('ag_transition_active', 'true');

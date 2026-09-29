@@ -15,7 +15,7 @@
   
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
-  --text-dim: #64748b;
+  --text-dim: #94a3b8;
   
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-heading: 'Plus Jakarta Sans', var(--font-sans);
@@ -1035,6 +1035,15 @@ body.dark-theme::before {
 
 .footer-links a:hover {
   color: var(--emerald-primary);
+}
+
+.footer-legal .footer-privacy-link {
+  color: #cbd5e1;
+  opacity: 1;
+}
+
+.footer-legal .footer-privacy-link:hover {
+  color: #ffffff;
 }
 
 /* ===== MOBILE PERFORMANCE: DEFERRED RENDERING ===== */

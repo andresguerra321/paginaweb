@@ -98,6 +98,8 @@ html {
     scroll-behavior: smooth;
     color-scheme: dark;
     font-size: 15px;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 section[id], div[id] {
@@ -194,7 +196,7 @@ body.f1-theme {
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--c-ferrari-red);
+    color: #FF5555;
     display: inline-flex;
     align-items: center;
     gap: var(--sp-1);
@@ -245,6 +247,8 @@ body.f1-theme {
     position: sticky;
     top: 0;
     z-index: 100;
+    width: 100%;
+    overflow: hidden;
 }
 .hud-ticker-content {
     display: flex;
@@ -252,9 +256,22 @@ body.f1-theme {
     justify-content: space-between;
     gap: var(--sp-3);
     overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     white-space: nowrap;
     padding-top: 2px;
     padding-bottom: 2px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+@media (max-width: 768px) {
+    .hud-ticker-content .hud-cell:nth-child(n+3) {
+        display: none;
+    }
+}
+.hud-ticker-content::-webkit-scrollbar {
+    display: none;
 }
 .hud-cell {
     display: inline-flex;
@@ -1678,7 +1695,7 @@ body.f1-theme {
     font-family: var(--font-mono);
     font-size: 14px;
     font-weight: 900;
-    color: var(--c-ferrari-red);
+    color: #FF5555;
     background: var(--c-ferrari-subtle);
     padding: 8px 14px;
     border-radius: var(--radius-pill);
@@ -1913,6 +1930,22 @@ body.f1-theme {
     align-items: center;
     flex-wrap: wrap;
     gap: var(--sp-2);
+}
+.f1-footer .footer-privacy-link {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+    color: #94A3B8 !important;
+    padding: 2px 6px;
+    transition: color var(--anim-fast);
+}
+.f1-footer .footer-privacy-link:hover {
+    color: #FFFFFF !important;
+}
+.f1-footer .footer-legal-sep {
+    color: #64748B;
 }
 
 /* ═══════════════════════════════════════════════════════════════

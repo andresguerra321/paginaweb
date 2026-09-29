@@ -9,3 +9,14 @@ graphify-out/
 .agents/
 .codex/
 .git/
+
+# Playwright & Local Testing Suite (Local Only)
+playwright.config.js
+tests/
+scripts/
+audit-results/
+test-results/
+playwright-report/
+playwright/
+.playwright/
+blob-report/

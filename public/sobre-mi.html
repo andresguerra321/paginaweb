@@ -10,7 +10,7 @@
 
     <!-- Open Graph / Social Media Preview -->
     <meta property="og:title" content="Sobre Mí & Trayectoria — Andrés Felipe Guerra (Pipe) | AG Engineering">
-    <meta property="og:description" content="Ingeniero de software en Colombia. Soluciones a medida, automatizaciones con IA y soberanía tecnológica sin intermediarios.">
+    <meta property="og:description" content="Desarrollador de software en Colombia. Soluciones a medida, automatizaciones con IA y soberanía tecnológica sin intermediarios.">
     <meta property="og:url" content="https://portfolio.agengineering.workers.dev/sobre-mi.html">
     <meta property="og:image" content="https://portfolio.agengineering.workers.dev/img/about/sobremi-1200.webp">
     <meta property="og:type" content="profile">
@@ -18,7 +18,7 @@
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Sobre Mí & Trayectoria — Andrés Felipe Guerra (Pipe)">
-    <meta name="twitter:description" content="Ingeniero de software en Colombia. Soluciones a medida, automatizaciones con IA y soberanía tecnológica.">
+    <meta name="twitter:description" content="Desarrollador de software en Colombia. Soluciones a medida, automatizaciones con IA y soberanía tecnológica.">
     <meta name="twitter:image" content="https://portfolio.agengineering.workers.dev/img/about/sobremi-1200.webp">
     <link rel="icon" type="image/svg+xml" href="img/icons/favicon.svg">
 
@@ -260,6 +260,18 @@
     <script src="js/consent-banner.js" defer></script>
 </head>
 <body>
+    <!-- Mobile Fullscreen Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <div class="mobile-nav-links">
+            <a href="index.html#hero" class="mobile-nav-link" data-i18n="nav_home">Inicio</a>
+            <a href="sobre-mi.html" class="mobile-nav-link active" data-i18n="nav_about">Sobre Mí</a>
+            <a href="index.html#services" class="mobile-nav-link" data-i18n="nav_projects">Servicios</a>
+            <a href="index.html#timeline" class="mobile-nav-link" data-i18n="nav_timeline">Proyectos</a>
+            <a href="index.html#skills" class="mobile-nav-link" data-i18n="nav_skills">Habilidades</a>
+            <a href="index.html#contact" class="mobile-nav-link" data-i18n="nav_contact">Contacto</a>
+        </div>
+    </div>
+
     <!-- ============================================================
          FLOATING ISLAND NAVBAR
          ============================================================ -->
@@ -267,7 +279,7 @@
         <div class="nav-container">
             <a href="index.html" class="nav-logo">AG<span>.</span></a>
             <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link" data-i18n="nav_home">Inicio</a>
+                <a href="index.html#hero" class="nav-link" data-i18n="nav_home">Inicio</a>
                 <a href="sobre-mi.html" class="nav-link active" data-i18n="nav_about">Sobre Mí</a>
                 <a href="index.html#services" class="nav-link" data-i18n="nav_projects">Servicios</a>
                 <a href="index.html#timeline" class="nav-link" data-i18n="nav_timeline">Proyectos</a>
@@ -279,6 +291,11 @@
                     <button type="button" class="lang-btn active" id="langBtnES" aria-label="Cambiar a Español">ES</button>
                     <button type="button" class="lang-btn" id="langBtnEN" aria-label="Switch to English">EN</button>
                 </div>
+                <button class="nav-toggle" id="navToggle" aria-label="Menú de navegación">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </nav>
@@ -293,7 +310,7 @@
                     <!-- Columna de Texto -->
                     <div>
                         <div class="bento-card-header" style="margin-bottom: 0.75rem;">
-                            <span class="hero-chip" data-i18n="about_role_chip">Ingeniero de Software</span>
+                            <span class="hero-chip" data-i18n="about_role_chip">Desarrollador de Software</span>
                             <span class="hero-chip" style="color: var(--accent-cyan);" data-i18n="about_loc_chip">📍 Colombia • Remoto & Presencial</span>
                         </div>
 
@@ -328,8 +345,8 @@
                             <a href="index.html#services" class="btn-island" data-i18n="about_btn_services">
                                 Ver Servicios & Soluciones ↗
                             </a>
-                            <a href="https://drive.google.com/file/d/1MTLyN0kOdrm_M_bnfcEZU73VKMPxPxrI/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-secondary" data-i18n="about_btn_cv">
-                                Descargar CV Oficial 📄
+                            <a href="https://docs.google.com/document/d/1WiE0tEhIQUzuYeRehhF18d30yOKwJlJtV4hlSA7cElg/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-secondary" data-i18n="about_btn_cv">
+                                Ver CV Oficial 📄
                             </a>
                             <a href="index.html#contact" class="btn-secondary" data-i18n="about_btn_contact">
                                 Ir a la pestaña de Contacto ↗
@@ -344,7 +361,7 @@
                                 <picture>
                                     <source srcset="img/about/sobremi-1200.avif" type="image/avif">
                                     <source srcset="img/about/sobremi-1200.webp" type="image/webp">
-                                    <img src="img/about/sobremi-1200.jpg" alt="Andrés Felipe Guerra — Ingeniero de Software" class="about-photo-img" loading="eager" width="600" height="750">
+                                    <img src="img/about/sobremi-1200.jpg" alt="Andrés Felipe Guerra — Desarrollador de Software" class="about-photo-img" loading="eager" width="600" height="750">
                                 </picture>
                                 <div class="about-status-pill">
                                     <div style="display: flex; align-items: center;">
@@ -712,6 +729,8 @@
                 <button type="button" class="footer-privacy-link" data-open-terms data-i18n="footer_terms">Términos y Condiciones</button>
                 <span class="footer-legal-sep">·</span>
                 <button type="button" class="footer-privacy-link" data-open-warranty data-i18n="footer_warranty">Garantía</button>
+                <span class="footer-legal-sep">·</span>
+                <button type="button" class="footer-privacy-link" data-open-sales data-i18n="footer_sales">Ventas y Licenciamiento</button>
             </div>
         </div>
     </footer>
@@ -720,8 +739,73 @@
     <script src="js/i18n.js" defer></script>
     <script src="js/transition.js" defer></script>
     <script>
-        // Guaranteed reveal activator for sobre-mi.html
         (function() {
+            'use strict';
+
+            /* 1. Mobile Navigation Drawer Toggle */
+            var navToggle = document.getElementById('navToggle');
+            var mobileOverlay = document.getElementById('mobileNavOverlay');
+
+            function toggleMobileNav(open) {
+                if (!navToggle || !mobileOverlay) return;
+                var isOpen = typeof open === 'boolean' ? open : !navToggle.classList.contains('open');
+                if (isOpen) {
+                    navToggle.classList.add('open');
+                    mobileOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    navToggle.classList.remove('open');
+                    mobileOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            if (navToggle) {
+                navToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleMobileNav();
+                });
+            }
+
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function(e) {
+                    if (e.target === mobileOverlay) {
+                        toggleMobileNav(false);
+                    }
+                });
+                var mobileLinks = mobileOverlay.querySelectorAll('.mobile-nav-link');
+                mobileLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        toggleMobileNav(false);
+                    });
+                });
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navToggle && navToggle.classList.contains('open')) {
+                    toggleMobileNav(false);
+                }
+            });
+
+            /* 2. Floating Navbar Scroll Elevation */
+            var mainNav = document.getElementById('mainNav');
+            var isTicking = false;
+            window.addEventListener('scroll', function() {
+                if (!isTicking) {
+                    window.requestAnimationFrame(function() {
+                        if (mainNav) {
+                            var isScrolled = window.scrollY > 30;
+                            if (mainNav.classList.contains('scrolled') !== isScrolled) {
+                                mainNav.classList.toggle('scrolled', isScrolled);
+                            }
+                        }
+                        isTicking = false;
+                    });
+                    isTicking = true;
+                }
+            }, { passive: true });
+
+            /* 3. Guaranteed Reveal Activator */
             function activateReveals() {
                 var els = document.querySelectorAll('.reveal');
                 if ('IntersectionObserver' in window) {
@@ -738,12 +822,12 @@
                     els.forEach(function(el) { el.classList.add('revealed'); });
                 }
             }
+
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', activateReveals);
             } else {
                 activateReveals();
             }
-            // Additional safety timeout in case of layout paint delays
             setTimeout(activateReveals, 350);
         })();
     </script>
