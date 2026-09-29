@@ -1677,6 +1677,14 @@
     margin-top: 0.85rem;
 }
 
+.capabilities-subtitle-desc {
+    margin-top: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: clamp(0.98rem, 1.8vw, 1.08rem);
+    line-height: 1.6;
+}
+
 .capabilities-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
